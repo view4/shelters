@@ -1,0 +1,61 @@
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { DedicatedTime, DedicatedTimeDocument } from "./schema/dedicated-time.schema";
+import { Model } from "mongoose";
+import { TrackedTime, TrackedTimeDocument } from "./schema/tracked-time.schema ";
+import { filter, upsert } from "src/common/utils/db";
+import { compactObject } from "src/common/utils/object";
+import { DedicatedTimeInput, TrackedTimeInput } from "./timetracker.resolver";
+import { ID } from "src/common/types";
+
+
+@Injectable()
+export class TimetrackerService {
+    constructor(
+        @InjectModel(DedicatedTime.name) private dedicatedTimeModel: Model<DedicatedTimeDocument>,
+        @InjectModel(TrackedTime.name) private trackedTimeModel: Model<TrackedTimeDocument>,
+    ) { }
+
+    async dedicatedTimes(
+        boothId?: ID,
+        parentId?: ID
+    ) {
+        return filter(
+            this.dedicatedTimeModel,
+            compactObject({ boothId, parentId }),
+        )
+    }
+
+    async trackedTimes(
+        dedicatedTimeId: ID
+    ) {
+        return filter(
+            this.trackedTimeModel,
+            { dedicatedTime: dedicatedTimeId },
+        )
+    }
+
+    async upsertDedicatedTime(input: DedicatedTimeInput, id?: string) {
+        return upsert(this.dedicatedTimeModel, {
+            booth: input.boothId,
+            parent: input.parentId,
+            mins: input.mins,
+            text: input.text,
+            name: input.name,
+        }, id);
+    }
+
+    async trackTime(input: TrackedTimeInput) {
+        return upsert(this.trackedTimeModel, {
+            dedicatedTime: input.dedicatedTimeId,
+            mins: input.mins,
+            text: input.text,
+        });
+    }
+
+    async getTimeFulfilled(dedicatedTimeId: ID) {
+        const trackedTimes = await this.trackedTimes(dedicatedTimeId);
+        const totalMins = trackedTimes.reduce((acc, trackedTime) => acc + trackedTime.mins, 0);
+        return totalMins;
+    }
+}

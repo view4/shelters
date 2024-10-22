@@ -1,0 +1,42 @@
+type Query {
+  currentCycle(boothId: String): Cycle
+  cycles(boothId: String): [Cycle]
+}
+
+type Mutation {
+  upsertCycle(input: CycleInput, id: String): Cycle
+  completeCycle(id: String): Cycle
+}
+
+type SabbaticalGateway {
+  gateway: Gateway
+}
+
+type Cycle {
+  id: String
+  name: String
+  text: String
+  createdAt: String
+  updatedAt: String
+  booth: String
+  completed: String
+  a: Gateway
+  b: Gateway
+  c: Gateway
+  d: Gateway
+  e: Gateway
+  f: Gateway
+  sabbatical: SabbaticalGateway
+}
+
+input CycleInput {
+  name: String
+  text: String
+  boothId: String
+  a: String
+  b: String
+  c: String
+  d: String
+  e: String
+  f: String
+}

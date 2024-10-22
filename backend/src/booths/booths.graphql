@@ -1,0 +1,21 @@
+type Query {
+  booths: [Booth]
+  booth(id: String!): Booth
+}
+
+type Mutation {
+    upsertBooth(input: BoothInput, id: String): Booth
+}
+
+
+type Booth {
+    id: String
+    name: String
+    text: String
+    createdAt: String
+}
+
+input BoothInput {
+    name: String
+    text: String
+}
