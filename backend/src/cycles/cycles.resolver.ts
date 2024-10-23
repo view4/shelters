@@ -1,17 +1,18 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { CyclesService } from "./cycles.service";
+import { ID } from "src/common/types";
 
 
 export type CycleInput = {
     name?: string;
     text?: string;
-    a?: string;
-    b?: string;
-    c?: string;
-    d?: string;
-    e?: string;
-    f?: string;
-    sabbatical?: string;
+    a?: ID;
+    b?: ID;
+    c?: ID;
+    d?: ID;
+    e?: ID;
+    f?: ID;
+    sabbatical?: ID;
 }
 
 @Resolver()

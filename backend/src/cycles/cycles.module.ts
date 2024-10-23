@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Cycle, CycleSchema } from './schema/cycle.schema';
 import { CyclesResolver } from './cycles.resolver';
@@ -10,11 +10,14 @@ import { SabbaticalsModule } from 'src/sabbaticals/sabbaticals.module';
         MongooseModule.forFeature([
             { name: Cycle.name, schema: CycleSchema }
         ]),
-        SabbaticalsModule
+        forwardRef(() => SabbaticalsModule)
 
     ],
     providers: [
         CyclesResolver,
+        CyclesService
+    ],
+    exports: [
         CyclesService
     ]
 })

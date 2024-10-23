@@ -5,6 +5,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { Booth } from 'src/booths/schema/booth.schema';
 import { Gateway } from 'src/roadmaps/schema/gateway.schema';
 import { SabbaticalGateway } from 'src/sabbaticals/schema/sabbatical-gateway.schema';
+import { Stamps, StampsSchema } from 'src/common/schemas/stamps.schema';
 
 export type CycleDocument = mongoose.HydratedDocument<Cycle>;
 
@@ -47,8 +48,8 @@ export class Cycle {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'SabbaticalGateway' })
   sabbatical: SabbaticalGateway
 
-  @Prop()
-  completed: Date
+  @Prop({ type: StampsSchema, })
+  stamps: Stamps
 }
 
 export const CycleSchema = SchemaFactory.createForClass(Cycle);

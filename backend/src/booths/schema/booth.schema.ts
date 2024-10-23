@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { User } from 'src/auth/schemas/user.schema';
 import { ObjectType } from '@nestjs/graphql';
+import { Stamps, StampsSchema } from 'src/common/schemas/stamps.schema';
 
 export type BoothDocument = mongoose.HydratedDocument<Booth>;
 
@@ -16,6 +17,9 @@ export class Booth {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
+
+  @Prop({ type: StampsSchema })
+  stamps: Stamps
 }
 
 export const BoothSchema = SchemaFactory.createForClass(Booth);

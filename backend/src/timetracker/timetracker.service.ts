@@ -53,9 +53,26 @@ export class TimetrackerService {
         });
     }
 
-    async getTimeFulfilled(dedicatedTimeId: ID) {
+    async getTrackedTime(dedicatedTimeId: ID) {
         const trackedTimes = await this.trackedTimes(dedicatedTimeId);
         const totalMins = trackedTimes.reduce((acc, trackedTime) => acc + trackedTime.mins, 0);
         return totalMins;
     }
+
+    async getTotalTime(dedicatedTimeId: ID) {
+        const children = await this.dedicatedTimes(dedicatedTimeId) ?? [];
+        const total = children.reduce((acc = 0, child: DedicatedTimeDocument) => {
+            return acc + child.mins;
+        });
+        return total;
+    }
+
+    async getTotalTrackedTime(dedicatedTimeId: ID) {
+        const trackedTimes = await this.trackedTimes(dedicatedTimeId) ?? [];
+        const total = trackedTimes.reduce((acc = 0, trackedTime: TrackedTimeDocument) => {
+            return acc + trackedTime.mins;
+        });
+        return total;
+    }
+
 }

@@ -1,21 +1,23 @@
 type Query {
   booths: [Booth]
   booth(id: String!): Booth
+  activeBooth: Booth
 }
 
 type Mutation {
-    upsertBooth(input: BoothInput, id: String): Booth
+  upsertBooth(input: BoothInput, id: String): Booth
+  stampBooth(id: String, key: String): Booth
 }
 
-
 type Booth {
-    id: String
-    name: String
-    text: String
-    createdAt: String
+  id: String
+  name: String
+  text: String
+  createdAt: String
+  stamps: Stamps
 }
 
 input BoothInput {
-    name: String
-    text: String
+  name: String
+  text: String
 }

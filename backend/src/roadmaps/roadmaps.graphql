@@ -1,13 +1,16 @@
 type Query {
-  roadmaps(boothId: String, parentId: String): [Gateway]
+  roadmaps(boothId: String, parentId: String): [Roadmap]
+  gateways(boothId: String): [Gateway]
 }
 
 type Mutation {
-  upsertRoadmap(input: RoadmapInput, id: String): Gateway
-  stampRoadmap(id: String, commenced: Boolean, completed: Boolean): Gateway
+  upsertRoadmap(input: RoadmapInput, id: String): Roadmap
+  upsertGateway(input: GatewayInput, id: String): Gateway
+  stampRoadmap(id: String, commenced: Boolean, completed: Boolean): Roadmap
+  stampGateway(id: String, commenced: Boolean, completed: Boolean): Gateway
 }
 
-type Stamp {
+type Stamps {
   commenced: String
   completed: String
 }
@@ -20,13 +23,31 @@ type Gateway {
   updatedAt: String
   gateways: [Gateway]
   booth: String
-  commenced: String
-  completed: String
+  stamps: Stamps
 }
 
+type Roadmap {
+  id: String
+  name: String
+  text: String
+  createdAt: String
+  updatedAt: String
+  gateways: [Gateway]
+  children: [Roadmap]
+  booth: String
+  stamps: Stamps
+}
 input RoadmapInput {
   name: String
   text: String
   parentId: String
   boothId: String
+}
+
+input GatewayInput {
+  name: String
+  text: String
+  boothId: String
+  parentId: String
+  roadmapId: String
 }

@@ -3,7 +3,7 @@ import { Cycle, CycleDocument } from "./schema/cycle.schema";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { ID } from "src/common/types";
-import { fetchOne, filter, upsert } from "src/common/utils/db";
+import { fetchOne, filter, filterOne, upsert } from "src/common/utils/db";
 import { SabbaticalsService } from "src/sabbaticals/sabbaticals.service";
 import { CycleInput } from "./cycles.resolver";
 
@@ -26,11 +26,22 @@ export class CyclesService {
         return upsert(this.cycleModel, { completed: new Date() }, id);
     }
 
+    async getCurrentCycle(boothId: ID) {
+        return filterOne(this.cycleModel, { booth: boothId, 'stamos.completed': null, 'stamps.commenced': { $ne: null } });
+    }
+
     async upsertCycle(input: CycleInput, id?: string) {
-        if(!id) {
-            input.sabbatical = await this.sabbaticalsService.initSabbaticalGateway();
+        if (!id) {
+            const sabbatical = await this.sabbaticalsService.initSabbaticalGateway();
+            input.sabbatical = sabbatical._id;
         }
         return upsert(this.cycleModel, input, id);
     }
 
+    async completeCurrentCycle() {
+        const cycle = await this.getCurrentCycle('boothId');
+        if (cycle) {
+            return this.completeCycle(cycle._id);
+        }
+    }
 }

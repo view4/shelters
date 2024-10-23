@@ -19,7 +19,7 @@ export class RoadmapsService {
         return filter(this.gatewayModel, compactObject(query));
     }
 
-    async upsertRoadmap(input: RoadmapInput, id?: ID) {
+    async upsertGateway(input: RoadmapInput, id?: ID) {
         return upsert(this.gatewayModel, {
             booth: input.boothId,
             parent: input.parentId,

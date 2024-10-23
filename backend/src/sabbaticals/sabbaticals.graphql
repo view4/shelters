@@ -1,8 +1,9 @@
-type Query {
+# type Query {
 
-}
+# }
 
 type Mutation {
     # add complete cycle here. 
     # Can add parameter for whether to begin new cycle or not. 
+    endSabbatical(startNewCycle: Boolean): Boolean
 }

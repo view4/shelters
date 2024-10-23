@@ -20,6 +20,11 @@ export class BoothsResolver {
         return this.boothsService.booths();
     }
 
+    @Query(() => [Booth])
+    async activeBooth(): Promise<Booth[]> {
+        return this.boothsService.activeBooth();
+    }
+
     @Query(() => Booth)
     async booth(id: string): Promise<Booth> {
         return this.boothsService.booth(id);
@@ -31,5 +36,13 @@ export class BoothsResolver {
         @Args('id', {type: () => String}) id?: string
     ): Promise<Booth> {
         return this.boothsService.upsertBooth(input, id);
+    }
+
+    @Mutation(() => Booth)
+    stampBooth(
+        @Args('id', {type: () => String}) id: string,
+        @Args('key', {type: () => String, nullable: true}) key,
+    ): Promise<Booth> {
+        return this.boothsService.stampBooth(id, key);
     }
 }

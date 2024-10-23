@@ -20,27 +20,27 @@ export type TrackedTimeInput = {
 export class TimetrackerResolver {
     constructor(
         private readonly service: TimetrackerService,
-    ) {}
+    ) { }
 
     @Query()
     async trackedTimes(
-        @Args('dedicatedTimeId', {type: () => String}) dedicatedTimeId?: string
+        @Args('dedicatedTimeId', { type: () => String }) dedicatedTimeId?: string
     ) {
         return this.service.trackedTimes(dedicatedTimeId);
     }
 
     @Query()
     async dedicatedTimes(
-        @Args('boothId', {type: () => String}) boothId?: string,
-        @Args('parentId', {type: () => String}) parentId?: string
+        @Args('boothId', { type: () => String }) boothId?: string,
+        @Args('parentId', { type: () => String }) parentId?: string
     ) {
         return this.service.dedicatedTimes(boothId, parentId);
     }
-    
+
     @Mutation()
     async upsertDedicatedTime(
         @Args('input') input: DedicatedTimeInput,
-        @Args('id', {type: () => String}) id?: string
+        @Args('id', { type: () => String }) id?: string
     ) {
         return this.service.upsertDedicatedTime(input, id);
     }
@@ -53,10 +53,10 @@ export class TimetrackerResolver {
     }
 
     @ResolveField()
-    async timeFulfilled(
+    async trackedTime(
         @Parent() parent: DedicatedTimeDocument
     ) {
-        return this.service.getTimeFulfilled(parent._id);
+        return this.service.getTrackedTime(parent._id);
     }
 
     @ResolveField()
@@ -65,5 +65,18 @@ export class TimetrackerResolver {
     ) {
         return this.service.dedicatedTimes(null, parent._id);
     }
-    
+
+    @ResolveField()
+    async totalTime(
+        @Parent() parent: DedicatedTimeDocument
+    ) {
+        return this.service.getTotalTime(parent._id);
+    }
+
+    @ResolveField()
+    async totalTrackedTime(
+        @Parent() parent: DedicatedTimeDocument
+    ) {
+        return this.service.getTotalTrackedTime(parent._id);
+    }
 }

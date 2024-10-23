@@ -4,14 +4,13 @@ import { User } from 'src/auth/schemas/user.schema';
 import { ObjectType } from '@nestjs/graphql';
 import { Booth } from 'src/booths/schema/booth.schema';
 import { Stamps, StampsSchema } from 'src/common/schemas/stamps.schema';
-import { Roadmap } from './roadmap.schema';
 
-export type GatewayDocument = mongoose.HydratedDocument<Gateway>;
+export type RoadmapDocument = mongoose.HydratedDocument<Roadmap>;
 
 
 @ObjectType()
 @Schema({ timestamps: true })
-export class Gateway {
+export class Roadmap {
     @Prop()
     name: string;
 
@@ -21,17 +20,14 @@ export class Gateway {
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
     user: User;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Gateway' })
-    parent: Gateway;
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Roadmap' })
+    parent: Roadmap;
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Booth' })
     booth: Booth
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Roadmap' })
-    roadmap: Roadmap
-
-    @Prop({ type: StampsSchema })
+    @Prop({type: StampsSchema})
     stamps: Stamps
 }
 
-export const GatewaySchema = SchemaFactory.createForClass(Gateway);
+export const RoadmapSchema = SchemaFactory.createForClass(Roadmap);

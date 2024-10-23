@@ -25,11 +25,11 @@ export class RoadmapsResolver {
     }
 
     @Mutation()
-    async upsertRoadmap(
+    async upsertGateway(
         @Args('input') input: RoadmapInput,
         @Args('id', { type: () => String }) id?: string
     ) {
-        return this.roadmapsService.upsertRoadmap(input, id);
+        return this.roadmapsService.upsertGateway(input, id);
     }
 
     @Mutation()

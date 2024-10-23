@@ -16,8 +16,10 @@ type DedicatedTime {
     updatedAt: String
     mins: Int
     children: [DedicatedTime]
-    timeFulfilled: Int
+    trackedTime: Int
     booth: String
+    totalTime: Int
+    totalTrackedTime: Int
 }
 
 type TrackedTime {
