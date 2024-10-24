@@ -7,11 +7,13 @@ import { filter, upsert } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { RoadmapInput } from "./roadmaps.resolver";
 import { ID } from "src/common/types";
+import { Roadmap, RoadmapDocument } from "./schema/roadmap.schema";
 
 @Injectable()
 export class RoadmapsService {
     constructor(
         @InjectModel(Gateway.name) private gatewayModel: Model<GatewayDocument>,
+        @InjectModel(Roadmap.name) private roadmapModel: Model<RoadmapDocument>
     ) { }
 
     async roadmaps(boothId?: ID, parentId?: ID) {
@@ -28,10 +30,24 @@ export class RoadmapsService {
         }, id);
     }
 
-    async stampRoadmap(id: ID, commenced: boolean, completed: boolean) {
+    async upsertRoadmap(input: RoadmapInput, id?: ID) {
+        return upsert(this.roadmapModel, {
+            booth: input.boothId,
+            text: input.text,
+            name: input.name,
+            parent: input.parentId,
+        }, id);
+    }
+
+    async stampGateway(id: ID, key: string) {
         return upsert(this.gatewayModel, compactObject({
-            'stamps.commenced': commenced && new Date(),
-            'stamps.completed': completed && new Date(),
+            [key]: new Date(),
+        }), id);
+    };
+
+    async stampRoadmap(id: ID, key: string) {
+        return upsert(this.roadmapModel, compactObject({
+            [key]: new Date(),
         }), id);
     }
 }

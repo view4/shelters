@@ -1,13 +1,13 @@
 type Query {
   roadmaps(boothId: String, parentId: String): [Roadmap]
-  gateways(boothId: String): [Gateway]
+  gateways(boothId: String, roadmapId: String, gatewayId: String): [Gateway]
 }
 
 type Mutation {
   upsertRoadmap(input: RoadmapInput, id: String): Roadmap
   upsertGateway(input: GatewayInput, id: String): Gateway
-  stampRoadmap(id: String, commenced: Boolean, completed: Boolean): Roadmap
-  stampGateway(id: String, commenced: Boolean, completed: Boolean): Gateway
+  stampRoadmap(id: String, key: String): Roadmap
+  stampGateway(id: String, key: String): Gateway
 }
 
 type Stamps {

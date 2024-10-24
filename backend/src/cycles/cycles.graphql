@@ -39,4 +39,5 @@ input CycleInput {
   d: String
   e: String
   f: String
+  activateCycle: Boolean
 }

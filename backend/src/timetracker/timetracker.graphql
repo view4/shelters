@@ -20,6 +20,7 @@ type DedicatedTime {
     booth: String
     totalTime: Int
     totalTrackedTime: Int
+    trackedTimes: [TrackedTime]
 }
 
 type TrackedTime {

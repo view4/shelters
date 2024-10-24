@@ -9,7 +9,6 @@ export type RoadmapInput = {
     name?: string;
 }
 
-
 @Resolver()
 export class RoadmapsResolver {
     constructor(
@@ -33,12 +32,27 @@ export class RoadmapsResolver {
     }
 
     @Mutation()
+    async upsertRoadmap(
+        @Args('input') input: RoadmapInput,
+        @Args('id', { type: () => String }) id?: string
+    ) {
+        return this.roadmapsService.upsertRoadmap(input, id);
+    }
+
+    @Mutation()
     async stampRoadmap(
         @Args('id', { type: () => String }) id: string,
-        @Args('commenced', { type: () => Boolean }) commenced: boolean,
-        @Args('completed', { type: () => Boolean }) completed: boolean
+        @Args('key', { type: () => String }) key: string,
     ) {
-        return this.roadmapsService.stampRoadmap(id, commenced, completed);
+        return this.roadmapsService.stampRoadmap(id, key);
+    }
+
+    @Mutation()
+    async stampGateway(
+        @Args('id', { type: () => String }) id: string,
+        @Args('key', { type: () => String }) key: string,
+    ) {
+        return this.roadmapsService.stampGateway(id, key);
     }
 
     @ResolveField()

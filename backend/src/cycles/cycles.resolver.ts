@@ -13,13 +13,15 @@ export type CycleInput = {
     e?: ID;
     f?: ID;
     sabbatical?: ID;
+    boothId?: ID;
+    activateCycle?: boolean;
 }
 
 @Resolver()
 export class CyclesResolver {
     constructor(
         private readonly cyclesService: CyclesService
-    ) {}
+    ) { }
 
     @Query()
     async cycles(@Args('boothId') boothId: string) {
@@ -39,7 +41,7 @@ export class CyclesResolver {
     @Mutation()
     async upsertCycle(
         @Args('input') input: CycleInput,
-        @Args('id', {type: () => String}) id?: string
+        @Args('id', { type: () => String }) id?: string
     ) {
         return this.cyclesService.upsertCycle(input, id);
     }

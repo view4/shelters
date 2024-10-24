@@ -27,7 +27,7 @@ export class CyclesService {
     }
 
     async getCurrentCycle(boothId: ID) {
-        return filterOne(this.cycleModel, { booth: boothId, 'stamos.completed': null, 'stamps.commenced': { $ne: null } });
+        return filterOne(this.cycleModel, { booth: boothId, 'stamps.completed': null, 'stamps.commenced': { $ne: null } });
     }
 
     async upsertCycle(input: CycleInput, id?: string) {
@@ -35,7 +35,13 @@ export class CyclesService {
             const sabbatical = await this.sabbaticalsService.initSabbaticalGateway();
             input.sabbatical = sabbatical._id;
         }
-        return upsert(this.cycleModel, input, id);
+        if (input.activateCycle) {
+            input['stamps.commenced'] = new Date();
+        }
+        return upsert(this.cycleModel, {
+            ...input,
+            booth: input.boothId,
+        }, id);
     }
 
     async completeCurrentCycle() {
