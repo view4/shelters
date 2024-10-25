@@ -6,7 +6,7 @@ type Query {
 
 type Mutation {
   upsertBooth(input: BoothInput, id: String): Booth
-  stampBooth(id: String, key: String): Booth
+  stampBooth(id: String!, key: String!): Booth
 }
 
 type BoothFeed {

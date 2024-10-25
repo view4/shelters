@@ -26,7 +26,9 @@ export class BoothsResolver {
     }
 
     @Query(() => Booth)
-    async booth(id: string): Promise<Booth> {
+    async booth(
+        @Args('id', {type: () => String}) id: string
+    ): Promise<Booth> {
         return this.boothsService.booth(id);
     }
 

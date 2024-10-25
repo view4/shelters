@@ -15,11 +15,14 @@ export class BoothsService {
             this.boothModel,
             {},
             []
-        )
+        );
     }
 
     async activeBooth() {
-        return filterOne(this.boothModel, { 'stamps.completed': false, 'stamps.commenced': { $ne: null } });
+        return filterOne(this.boothModel, {
+            'stamps.completed': { $eq: null },
+            'stamps.commenced': { $ne: null }
+        });
     }
 
     async booth(id: string) {
