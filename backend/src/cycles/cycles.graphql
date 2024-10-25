@@ -1,6 +1,6 @@
 type Query {
-  currentCycle(boothId: String): Cycle
-  cycles(boothId: String): [Cycle]
+  currentCycle(boothId: String, feedParams: FeedParams): CycleFeed
+  cycles(boothId: String): CycleFeed
 }
 
 type Mutation {
@@ -10,6 +10,11 @@ type Mutation {
 
 type SabbaticalGateway {
   gateway: Gateway
+}
+
+type CycleFeed {
+  entities: [Cycle]
+  info: FeedInfo
 }
 
 type Cycle {

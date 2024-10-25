@@ -9,6 +9,14 @@ export type RoadmapInput = {
     name?: string;
 }
 
+export type GatewayInput = {
+    boothId?: string;
+    parentId?: string;
+    text?: string;
+    name?: string;
+    roadmapId?: string;
+}
+
 @Resolver()
 export class RoadmapsResolver {
     constructor(
@@ -23,9 +31,18 @@ export class RoadmapsResolver {
         return this.roadmapsService.roadmaps(boothId, parentId);
     }
 
+    @Query()
+    async gateways (
+        @Args('boothId') boothId?: string,
+        @Args('parentId') parentId?: string,
+        @Args('gatewayId') gatewayId?: string
+    ) {
+        return this.roadmapsService.gateways(boothId, parentId, gatewayId);
+    }
+
     @Mutation()
     async upsertGateway(
-        @Args('input') input: RoadmapInput,
+        @Args('input') input: GatewayInput,
         @Args('id', { type: () => String }) id?: string
     ) {
         return this.roadmapsService.upsertGateway(input, id);
@@ -55,10 +72,10 @@ export class RoadmapsResolver {
         return this.roadmapsService.stampGateway(id, key);
     }
 
-    @ResolveField()
-    async gateways(
-        @Parent() parent: GatewayDocument
-    ) {
-        return this.roadmapsService.roadmaps(null, parent._id);
-    }
+    // @ResolveField()
+    // async gateways(
+    //     @Parent() parent: GatewayDocument
+    // ) {
+    //     return this.roadmapsService.roadmaps(null, parent._id);
+    // }
 }

@@ -1,9 +1,9 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { Cycle, CycleDocument } from "./schema/cycle.schema";
-import { Model } from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { ID } from "src/common/types";
-import { fetchOne, filter, filterOne, upsert } from "src/common/utils/db";
+import { aggregateFeed, fetchOne, filter, filterOne, upsert } from "src/common/utils/db";
 import { SabbaticalsService } from "src/sabbaticals/sabbaticals.service";
 import { CycleInput } from "./cycles.resolver";
 
@@ -19,7 +19,11 @@ export class CyclesService {
     }
 
     async cycles(boothId: ID) {
-        return filter(this.cycleModel, { booth: boothId });
+        return aggregateFeed(
+            this.cycleModel,
+            { match: { booth: new mongoose.Types.ObjectId(boothId) } },
+            []
+        )
     }
 
     async completeCycle(id: ID) {

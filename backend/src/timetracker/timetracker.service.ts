@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { DedicatedTime, DedicatedTimeDocument } from "./schema/dedicated-time.schema";
-import { Model } from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { TrackedTime, TrackedTimeDocument } from "./schema/tracked-time.schema ";
-import { filter, upsert } from "src/common/utils/db";
+import { aggregateFeed, filter, upsert } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { DedicatedTimeInput, TrackedTimeInput } from "./timetracker.resolver";
 import { ID } from "src/common/types";
@@ -20,18 +20,25 @@ export class TimetrackerService {
         boothId?: ID,
         parentId?: ID
     ) {
-        return filter(
+        return aggregateFeed(
             this.dedicatedTimeModel,
-            compactObject({ boothId, parentId }),
-        )
+            {
+                match: compactObject({ 
+                    booth: boothId && new mongoose.Types.ObjectId(boothId), 
+                    parent: parentId && new mongoose.Types.ObjectId(parentId)
+                }),
+            },
+        );
     }
 
     async trackedTimes(
         dedicatedTimeId: ID
     ) {
-        return filter(
+        return aggregateFeed(
             this.trackedTimeModel,
-            { dedicatedTime: dedicatedTimeId },
+            {
+                match: { dedicatedTime: new mongoose.Types.ObjectId(dedicatedTimeId) }
+            },
         )
     }
 

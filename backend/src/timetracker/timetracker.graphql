@@ -1,46 +1,56 @@
 type Query {
-    dedicatedTimes(boothId: String, parentId: String): [DedicatedTime]
-    trackedTimes(dedicatedTimeId: String): [TrackedTime]
+  dedicatedTimes(boothId: String, parentId: String): DedicatedTimeFeed
+  trackedTimes(dedicatedTimeId: String): TrackedTimeFeed
 }
 
 type Mutation {
-    trackTime(input: TrackedTimeInput): TrackedTime
-    upsertDedicatedTime(input: DedicatedTimeInput, id: String): DedicatedTime
+  trackTime(input: TrackedTimeInput): TrackedTime
+  upsertDedicatedTime(input: DedicatedTimeInput, id: String): DedicatedTime
+}
+
+type DedicatedTimeFeed {
+  entities: [DedicatedTime]
+  info: FeedInfo
+}
+
+type TrackedTimeFeed {
+  entities: [TrackedTime]
+  info: FeedInfo
 }
 
 type DedicatedTime {
-    id: String
-    name: String
-    text: String
-    createdAt: String
-    updatedAt: String
-    mins: Int
-    children: [DedicatedTime]
-    trackedTime: Int
-    booth: String
-    totalTime: Int
-    totalTrackedTime: Int
-    trackedTimes: [TrackedTime]
+  id: String
+  name: String
+  text: String
+  createdAt: String
+  updatedAt: String
+  mins: Int
+  children: [DedicatedTime]
+  trackedTime: Int
+  booth: String
+  totalTime: Int
+  totalTrackedTime: Int
+  trackedTimes: [TrackedTime]
 }
 
 type TrackedTime {
-    id: String
-    createdAt: String
-    updatedAt: String
-    mins: Int
-    dedicatedTimeId: String
+  id: String
+  createdAt: String
+  updatedAt: String
+  mins: Int
+  dedicatedTimeId: String
 }
 
 input TrackedTimeInput {
-    mins: Int
-    dedicatedTimeId: String
-    text: String
+  mins: Int
+  dedicatedTimeId: String
+  text: String
 }
 
 input DedicatedTimeInput {
-    name: String
-    text: String
-    parentId: String
-    mins: Int
-    boothId: String
+  name: String
+  text: String
+  parentId: String
+  mins: Int
+  boothId: String
 }

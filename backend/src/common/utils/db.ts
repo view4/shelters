@@ -1,5 +1,8 @@
 import * as _ from 'lodash';
 import { compactObject } from './object';
+import { FeedParams } from '../types';
+
+export const TOTAL_COUNT = 'totalCount';
 
 export const create = async (model, data) => {
   return model.create(data);
@@ -78,3 +81,86 @@ export const fetchOrCreate = async (model, filter, additionalParams = {}) => {
   if (Boolean(instance)) return instance;
   return create(model, { ...filter, ...additionalParams });
 }
+
+export const aggregateFeed = async (model, feedParams, pipeline = []) => {
+  const [result] = await aggregate(
+    model,
+    prepareFeedPipeline(feedParams, pipeline),
+  );
+  return {
+    ...result,
+    info: result.info[0] || { [TOTAL_COUNT]: null },
+  };
+};
+
+export const prepareFeedPipeline = (feedParams = {}, pipeline) => {
+  const facet = {
+    entities: [...prepareEntitiesPipeline(feedParams, pipeline)],
+    info: [...prepareFeedInfoPipeline(feedParams, pipeline)],
+  };
+  return [{ $facet: facet }];
+};
+
+export const prepareEntitiesPipeline = ({
+  sort,
+  skip,
+  limit,
+  match,
+  segment,
+  unwind,
+  lookup,
+  addFields,
+  connectStamps
+}: FeedParams, pipeline = []) => {
+  return _.compact([
+    match && { $match: match },
+    sort && { $sort: sort },
+    lookup && { $lookup: lookup },
+    unwind && { $unwind: unwind },
+    ...pipeline,
+    (skip || segment?.[0]) && {
+      $skip: segment?.[0] ?? skip,
+    },
+    (limit || segment?.[1]) && {
+      $limit: segment?.[1]
+        ? segment?.[1] - (segment?.[0] ?? skip)
+        : limit + (skip || 0),
+    },
+    {
+      $addFields: {
+        id: '$_id',
+        ...addFields,
+      },
+    },
+    connectStamps && {
+      $lookup: {
+        from: 'stamps',
+        localField: 'stamps',
+        foreignField: '_id',
+        as: 'stamps',
+      },
+    },
+    connectStamps && {
+      $addFields: {
+        stamps: {
+          $arrayElemAt: ['$stamps', 0],
+        }
+      }
+    }
+  ]);
+};
+
+
+export const prepareFeedInfoPipeline = ({
+  match,
+  lookup,
+  unwind,
+}: FeedParams, pipeline = []) => {
+  return _.compact([
+    match && { $match: match },
+    lookup && { $lookup: lookup },
+    unwind && { $unwind: unwind },
+    ...pipeline,
+    { $count: TOTAL_COUNT },
+  ]);
+};

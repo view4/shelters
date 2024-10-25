@@ -1,5 +1,5 @@
 type Query {
-  booths: [Booth]
+  booths(feedParams: FeedParams): BoothFeed
   booth(id: String!): Booth
   activeBooth: Booth
 }
@@ -7,6 +7,11 @@ type Query {
 type Mutation {
   upsertBooth(input: BoothInput, id: String): Booth
   stampBooth(id: String, key: String): Booth
+}
+
+type BoothFeed {
+  entities: [Booth]
+  info: FeedInfo
 }
 
 type Booth {

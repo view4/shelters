@@ -1,6 +1,15 @@
 type Query {
-  roadmaps(boothId: String, parentId: String): [Roadmap]
-  gateways(boothId: String, roadmapId: String, gatewayId: String): [Gateway]
+  roadmaps(
+    boothId: String
+    parentId: String
+    feedParams: FeedParams
+  ): RoadmapFeed
+  gateways(
+    boothId: String
+    roadmapId: String
+    gatewayId: String
+    feedParams: FeedParams
+  ): GatewayFeed
 }
 
 type Mutation {
@@ -15,13 +24,23 @@ type Stamps {
   completed: String
 }
 
+type GatewayFeed {
+  entities: [Gateway]
+  info: FeedInfo
+}
+
+type RoadmapFeed {
+  entities: [Roadmap]
+  info: FeedInfo
+}
+
 type Gateway {
   id: String
   name: String
   text: String
   createdAt: String
   updatedAt: String
-  gateways: [Gateway]
+  children: [Gateway]
   booth: String
   stamps: Stamps
 }

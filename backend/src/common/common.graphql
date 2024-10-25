@@ -1,0 +1,10 @@
+type FeedInfo {
+  totalCount: Int
+}
+
+input FeedParams {
+  skip: Int
+  limit: Int
+  search: String
+  segment: [Int]
+}
