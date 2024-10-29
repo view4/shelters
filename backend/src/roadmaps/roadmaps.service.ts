@@ -3,7 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 
 import { Gateway, GatewayDocument } from "./schema/gateway.schema";
 import mongoose, { Model } from "mongoose";
-import { aggregateFeed, filter, upsert } from "src/common/utils/db";
+import { aggregateFeed, connect, filter, upsert } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { GatewayInput, RoadmapInput } from "./roadmaps.resolver";
 import { ID } from "src/common/types";
@@ -22,9 +22,25 @@ export class RoadmapsService {
             {
                 match: compactObject({ 
                     booth: boothId && new mongoose.Types.ObjectId(boothId), 
-                    parent: parentId && new mongoose.Types.ObjectId(parentId) 
+                    parent: parentId ?  new mongoose.Types.ObjectId(parentId) : {
+                        $exists: false,
+                    },
                 }),
             },
+            [
+                connect(
+                    "gateways",
+                    "_id",
+                    "roadmap",
+                    "gateways",
+                    [
+                        {"$addFields": {
+                            id: "$_id",
+                        }}
+                    ]
+                )
+            ]
+
         );
     }
 

@@ -1,6 +1,6 @@
 type Query {
-  dedicatedTimes(boothId: String, parentId: String): DedicatedTimeFeed
-  trackedTimes(dedicatedTimeId: String): TrackedTimeFeed
+  dedicatedTimes(boothId: String, parentId: String, feedParams: FeedParams): DedicatedTimeFeed
+  trackedTimes(dedicatedTimeId: String, feedParams: FeedParams): TrackedTimeFeed
 }
 
 type Mutation {
@@ -28,8 +28,7 @@ type DedicatedTime {
   children: [DedicatedTime]
   trackedTime: Int
   booth: String
-  totalTime: Int
-  totalTrackedTime: Int
+  totalMins: Int
   trackedTimes: [TrackedTime]
 }
 

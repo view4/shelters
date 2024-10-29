@@ -1,6 +1,6 @@
 type Query {
-  currentCycle(boothId: String, feedParams: FeedParams): CycleFeed
-  cycles(boothId: String): CycleFeed
+  currentCycle(boothId: String): Cycle
+  cycles(boothId: String, feedParams: FeedParams): CycleFeed
 }
 
 type Mutation {
@@ -23,7 +23,7 @@ type Cycle {
   text: String
   createdAt: String
   updatedAt: String
-  booth: String
+  boothId: String
   completed: String
   a: Gateway
   b: Gateway

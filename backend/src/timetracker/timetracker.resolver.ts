@@ -1,6 +1,5 @@
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from "@nestjs/graphql";
+import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { TimetrackerService } from "./timetracker.service";
-import { DedicatedTimeDocument } from "./schema/dedicated-time.schema";
 
 export type DedicatedTimeInput = {
     boothId: string;
@@ -34,7 +33,10 @@ export class TimetrackerResolver {
         @Args('boothId', { type: () => String }) boothId?: string,
         @Args('parentId', { type: () => String }) parentId?: string
     ) {
-        return this.service.dedicatedTimes(boothId, parentId);
+        const result = await this.service.dedicatedTimes(boothId, parentId);
+        console.log("RESULT:")
+        console.log(JSON.stringify(result))
+        return result;
     }
 
     @Mutation()
@@ -52,31 +54,31 @@ export class TimetrackerResolver {
         return this.service.trackTime(input);
     }
 
-    @ResolveField()
-    async trackedTime(
-        @Parent() parent: DedicatedTimeDocument
-    ) {
-        return this.service.getTrackedTime(parent._id);
-    }
+    // @ResolveField()
+    // async trackedTime(
+    //     @Parent() parent: DedicatedTimeDocument
+    // ) {
+    //     return this.service.getTrackedTime(parent._id);
+    // }
 
-    @ResolveField()
-    async children(
-        @Parent() parent: DedicatedTimeDocument
-    ) {
-        return this.service.dedicatedTimes(null, parent._id);
-    }
+    // @ResolveField()
+    // async children(
+    //     @Parent() parent: DedicatedTimeDocument
+    // ) {
+    //     return this.service.dedicatedTimes(null, parent._id);
+    // }
 
-    @ResolveField()
-    async totalTime(
-        @Parent() parent: DedicatedTimeDocument
-    ) {
-        return this.service.getTotalTime(parent._id);
-    }
+    // @ResolveField()
+    // async totalTime(
+    //     @Parent() parent: DedicatedTimeDocument
+    // ) {
+    //     return this.service.getTotalTime(parent._id);
+    // }
 
-    @ResolveField()
-    async totalTrackedTime(
-        @Parent() parent: DedicatedTimeDocument
-    ) {
-        return this.service.getTotalTrackedTime(parent._id);
-    }
+    // @ResolveField()
+    // async totalTrackedTime(
+    //     @Parent() parent: DedicatedTimeDocument
+    // ) {
+    //     return this.service.getTotalTrackedTime(parent._id);
+    // }
 }

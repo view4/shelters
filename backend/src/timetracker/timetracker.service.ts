@@ -3,7 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { DedicatedTime, DedicatedTimeDocument } from "./schema/dedicated-time.schema";
 import mongoose, { Model } from "mongoose";
 import { TrackedTime, TrackedTimeDocument } from "./schema/tracked-time.schema ";
-import { aggregateFeed, filter, upsert } from "src/common/utils/db";
+import { aggregate, aggregateFeed, connect, filter, upsert, } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { DedicatedTimeInput, TrackedTimeInput } from "./timetracker.resolver";
 import { ID } from "src/common/types";
@@ -23,11 +23,48 @@ export class TimetrackerService {
         return aggregateFeed(
             this.dedicatedTimeModel,
             {
-                match: compactObject({ 
-                    booth: boothId && new mongoose.Types.ObjectId(boothId), 
-                    parent: parentId && new mongoose.Types.ObjectId(parentId)
+                match: compactObject({
+                    booth: boothId && new mongoose.Types.ObjectId(boothId),
+                    parent: parentId ? new mongoose.Types.ObjectId(parentId) : {
+                        $exists: false
+                    }
                 }),
             },
+            [
+                connect(
+                    "dedicatedtimes",
+                    "_id",
+                    "parent",
+                    "children",
+                    [
+                        connect(
+                            "trackedtimes",
+                            "_id",
+                            "dedicatedTime",
+                            "trackedTimes"
+
+                        ),
+                        {
+                            $addFields: {
+                                trackedTime: {
+                                    $sum: "$trackedTimes.mins"
+                                }
+                            }
+                        }
+                    ]
+                ),
+                {
+                    $addFields: {
+                        trackedTime: {
+                            $sum: "$children.trackedTime"
+                        },
+                        totalMins: {
+                            $sum: `$children.mins`
+                        }
+                    }
+                }
+            ]
+
         );
     }
 
@@ -75,7 +112,12 @@ export class TimetrackerService {
     }
 
     async getTotalTrackedTime(dedicatedTimeId: ID) {
-        const trackedTimes = await this.trackedTimes(dedicatedTimeId) ?? [];
+        // Requires some refactoring/ rethinking. 
+        const trackedTimes = aggregate(
+            this.trackedTimeModel,
+            {}
+        )
+        // await this.trackedTimes(dedicatedTimeId) ?? [];
         const total = trackedTimes.reduce((acc = 0, trackedTime: TrackedTimeDocument) => {
             return acc + trackedTime.mins;
         });

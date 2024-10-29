@@ -3,9 +3,17 @@ import { Cycle, CycleDocument } from "./schema/cycle.schema";
 import mongoose, { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { ID } from "src/common/types";
-import { aggregateFeed, fetchOne, filter, filterOne, upsert } from "src/common/utils/db";
+import { aggregate, aggregateFeed, connect, fetchOne, filter, filterOne, upsert } from "src/common/utils/db";
 import { SabbaticalsService } from "src/sabbaticals/sabbaticals.service";
 import { CycleInput } from "./cycles.resolver";
+import { CYCLE_GATEWAY_KEYS } from "./cycles.consts";
+
+const connectGateway = (key) => connect(
+    "gateways",
+    key,
+    "_id",
+    key,
+    [{ $addFields: { id: "$_id" } }])
 
 @Injectable()
 export class CyclesService {
@@ -15,7 +23,33 @@ export class CyclesService {
     ) { }
 
     async currentCycle(boothId: ID) {
-        return fetchOne(this.cycleModel, { booth: boothId, completed: null });
+        const result = await aggregate(
+            this.cycleModel,
+            [
+                {
+                    $match: {
+                        booth: new mongoose.Types.ObjectId(boothId),
+                        "stamps.completed": null,
+                        "stamps.commenced": { $ne: null },
+                    }
+                },
+                ...CYCLE_GATEWAY_KEYS.map(key => connectGateway(key)),
+                {
+                    $addFields: {
+                        id: "$_id",
+                        a: { $arrayElemAt: ["$a", 0] },
+                        b: { $arrayElemAt: ["$b", 0] },
+                        c: { $arrayElemAt: ["$c", 0] },
+                        d: { $arrayElemAt: ["$d", 0] },
+                        e: { $arrayElemAt: ["$e", 0] },
+                        f: { $arrayElemAt: ["$f", 0] },
+                        sabbatical: { $arrayElemAt: ["$sabbatical", 0] },
+                        boothId: "$booth",
+                    }
+                }
+            ]
+        )
+        return result[0];
     }
 
     async cycles(boothId: ID) {
