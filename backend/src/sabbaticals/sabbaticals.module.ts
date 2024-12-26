@@ -4,6 +4,8 @@ import { SabbaticalGateway, SabbaticalGatewaySchema } from './schema/sabbatical-
 import { SabbaticalsService } from './sabbaticals.service';
 import { RoadmapsModule } from 'src/roadmaps/roadmaps.module';
 import { CyclesModule } from 'src/cycles/cycles.module';
+import { BoothsModule } from 'src/booths/booths.module';
+import { SabbaticalsResolver } from './sabbaticals.resolver';
 
 @Module({
     imports: [
@@ -11,10 +13,12 @@ import { CyclesModule } from 'src/cycles/cycles.module';
             { name: SabbaticalGateway.name, schema: SabbaticalGatewaySchema }
         ]),
         RoadmapsModule,
-        forwardRef(() => CyclesModule)
+        forwardRef(() => CyclesModule),
+        BoothsModule
     ],
     providers: [
-        SabbaticalsService
+        SabbaticalsService,
+        SabbaticalsResolver
     ],
     exports: [
         SabbaticalsService

@@ -1,6 +1,5 @@
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from "@nestjs/graphql";
+import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { RoadmapsService } from "./roadmaps.service";
-import { GatewayDocument } from "./schema/gateway.schema";
 
 export type RoadmapInput = {
     boothId?: string;
@@ -30,9 +29,15 @@ export class RoadmapsResolver {
     ) {
         return this.roadmapsService.roadmaps(boothId, parentId);
     }
+    @Query()
+    async roadmap(
+        @Args('id') id?: string,
+    ) {
+        return this.roadmapsService.roadmap(id);
+    }
 
     @Query()
-    async gateways (
+    async gateways(
         @Args('boothId') boothId?: string,
         @Args('parentId') parentId?: string,
         @Args('gatewayId') gatewayId?: string

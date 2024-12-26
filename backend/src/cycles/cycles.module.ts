@@ -4,13 +4,15 @@ import { Cycle, CycleSchema } from './schema/cycle.schema';
 import { CyclesResolver } from './cycles.resolver';
 import { CyclesService } from './cycles.service';
 import { SabbaticalsModule } from 'src/sabbaticals/sabbaticals.module';
+import { BoothsModule } from 'src/booths/booths.module';
 
 @Module({
     imports: [
         MongooseModule.forFeature([
             { name: Cycle.name, schema: CycleSchema }
         ]),
-        forwardRef(() => SabbaticalsModule)
+        forwardRef(() => SabbaticalsModule),
+        BoothsModule
 
     ],
     providers: [

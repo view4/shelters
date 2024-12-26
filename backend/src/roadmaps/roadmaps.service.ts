@@ -6,7 +6,7 @@ import mongoose, { Model } from "mongoose";
 import { aggregateFeed, connect, filter, upsert } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { GatewayInput, RoadmapInput } from "./roadmaps.resolver";
-import { ID } from "src/common/types";
+import { FeedParams, ID } from "src/common/types";
 import { Roadmap, RoadmapDocument } from "./schema/roadmap.schema";
 
 @Injectable()
@@ -17,31 +17,55 @@ export class RoadmapsService {
     ) { }
 
     async roadmaps(boothId?: ID, parentId?: ID) {
-        return aggregateFeed(
-            this.roadmapModel,
+        return this.aggregateFeed(
             {
-                match: compactObject({ 
-                    booth: boothId && new mongoose.Types.ObjectId(boothId), 
-                    parent: parentId ?  new mongoose.Types.ObjectId(parentId) : {
+                match: compactObject({
+                    booth: boothId && new mongoose.Types.ObjectId(boothId),
+                    parent: parentId ? new mongoose.Types.ObjectId(parentId) : {
                         $exists: false,
                     },
-                }),
-            },
-            [
-                connect(
-                    "gateways",
-                    "_id",
-                    "roadmap",
-                    "gateways",
-                    [
-                        {"$addFields": {
-                            id: "$_id",
-                        }}
-                    ]
-                )
-            ]
+                })
+            }
+        )
 
-        );
+    };
+
+    async aggregateFeed(feedParams: FeedParams, pipeline = []) {
+        const p = [
+            connect(
+                "gateways",
+                "_id",
+                "roadmap",
+                "gateways",
+                [
+                    {
+                        "$addFields": {
+                            id: "$_id",
+                        }
+                    }
+                ]
+            ),
+            connect(
+                "roadmaps",
+                "_id",
+                "parent",
+                "children",
+                [
+                    {
+                        "$addFields": {
+                            id: "$_id",
+                        }
+                    }
+                ]
+            ),
+            ...pipeline
+        ]
+        return aggregateFeed(this.roadmapModel, feedParams, p);
+    }
+
+    async roadmap(id: ID) {
+        const result = await this.aggregateFeed({ limit: 1, match: { _id: new mongoose.Types.ObjectId(id) } });
+        return result.entities[0];
     }
 
     async gateways(boothId?: ID, parentId?: ID, gatewayId?: ID) {
@@ -78,13 +102,13 @@ export class RoadmapsService {
 
     async stampGateway(id: ID, key: string) {
         return upsert(this.gatewayModel, compactObject({
-            [key]: new Date(),
+            [`stamps.${key}`]: new Date(),
         }), id);
     };
 
     async stampRoadmap(id: ID, key: string) {
         return upsert(this.roadmapModel, compactObject({
-            [key]: new Date(),
+            [`stamps.${key}`]: new Date(),
         }), id);
     }
 }

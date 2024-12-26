@@ -6,9 +6,9 @@ export class SabbaticalsResolver {
   constructor(private readonly sabbaticalsService: SabbaticalsService) {}
 
   @Mutation(() => Boolean)
-  async endCycle(
+  async endSabbatical(
     @Args('startNewCycle') startNewCycle = true,   
   ) {
-    return this.sabbaticalsService.endCycle(startNewCycle);
+    return this.sabbaticalsService.completeCycle(startNewCycle);
   }
 }

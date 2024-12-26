@@ -30,7 +30,9 @@ export class CyclesResolver {
 
     @Query()
     async currentCycle(@Args('boothId') boothId: string) {
-        return this.cyclesService.currentCycle(boothId);
+        const res = await  this.cyclesService.currentCycle(boothId);
+        console.log(JSON.stringify(res))
+        return res
     }
 
     @Mutation()

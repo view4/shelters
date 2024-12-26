@@ -4,6 +4,7 @@ import { SabbaticalGateway, SabbaticalGatewayDocument } from "./schema/sabbatica
 import { Model } from "mongoose";
 import { RoadmapsService } from "src/roadmaps/roadmaps.service";
 import { CyclesService } from "src/cycles/cycles.service";
+import { BoothsService } from "src/booths/booths.service";
 
 @Injectable()
 export class SabbaticalsService {
@@ -11,7 +12,8 @@ export class SabbaticalsService {
         @InjectModel(SabbaticalGateway.name) private sabbaticalGatewayModel: Model<SabbaticalGatewayDocument>,
         private readonly gatewayService: RoadmapsService,
         @Inject(forwardRef(() => CyclesService))
-        private readonly cyclesService: CyclesService
+        private readonly cyclesService: CyclesService,
+        private readonly boothsService: BoothsService
     ) { }
 
     async upsertSabbaticalGateway(input: any, id?: string) {
@@ -23,10 +25,12 @@ export class SabbaticalsService {
         return await this.sabbaticalGatewayModel.create({ gateway: gateway._id });
     }
 
-    async endCycle(shouldStartNewCycle: boolean) {
+    async completeCycle(shouldStartNewCycle: boolean) {
+        console.log("being called....", shouldStartNewCycle)
         await this.cyclesService.completeCurrentCycle();
         if (shouldStartNewCycle) {
-            await this.cyclesService.upsertCycle({});
+            const booth = await this.boothsService.activeBooth();
+            await this.cyclesService.upsertCycle({ activateCycle: true, boothId: booth._id });
         }
         return true
     }
