@@ -1,0 +1,17 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/mixins.scss";
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow-y: hidden;
+}
+
+.header {
+  @include mobile {
+    box-shadow: unset;
+    padding: unset;
+  }
+}
+

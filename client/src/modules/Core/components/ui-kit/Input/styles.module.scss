@@ -1,0 +1,27 @@
+@import "src/modules/Core/styles/variables.scss";
+
+p.label {
+  font-weight: 600;
+  color: $grey90;
+  margin-top: 0.5rem;
+  margin-left: 0.25rem;
+  position: relative;
+}
+
+.num {
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+button.btn {
+  float: right;
+  margin-left: 1rem;
+}

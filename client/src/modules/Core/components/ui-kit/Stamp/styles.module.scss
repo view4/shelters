@@ -1,0 +1,51 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/mixins.scss";
+
+@mixin bordered-text($color) {
+    color: $color;
+    border-width: 3px;
+    border-color: $color;
+    border-radius: 10%;
+    border-style: dotted;
+    transition: all 0.5s ease-in-out;
+    opacity: 0.9;
+    cursor: pointer;
+    &:hover {
+        opacity: 1;
+        border-radius: 36%;
+        font-weight: 700;
+    }
+  }
+  
+.container {
+    padding: 0.36rem 0.72rem;
+    
+    @include mobile {
+        padding: 0.18rem 0.36rem;
+        & p {
+            font-size: 0.72rem;
+            
+        }
+    }
+    & p {
+        text-transform: capitalize;
+        line-height: 0.72rem;
+        font-size: 0.72rem;
+    }
+}
+.ocean_blue {
+    @include bordered-text($ocean_blue);
+}
+
+.pond_green {
+    @include bordered-text($pond_green);
+}
+
+.grey72 {
+    @include bordered-text($grey72);
+}
+
+.success_street {
+    @include bordered-text($success_street);
+}
+

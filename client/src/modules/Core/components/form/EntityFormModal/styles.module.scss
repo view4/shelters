@@ -1,0 +1,23 @@
+@import "src/modules/Core/styles/mixins.scss";
+.container {
+  border-radius: 1rem;
+  overflow: hidden;
+  & > div > div {
+    textarea {
+      resize: none;
+      border-radius: unset;
+    }
+  }
+
+  @include mobile {
+    width: 90vw;
+    min-height: 54vh;
+    & > div > div {
+      textarea {
+        height: -webkit-fill-available;
+        min-height: 36vh;
+        
+      }
+    }
+  }
+}

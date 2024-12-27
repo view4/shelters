@@ -1,0 +1,21 @@
+
+.backContainer {
+  margin-left: 0.5rem;
+  & span {
+    margin: 0rem 0.5rem;
+  }
+}
+.forwardContainer {
+  margin-right: 0.5rem;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  & button {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  & span {
+    margin: 0rem 0.75rem;
+  }
+}

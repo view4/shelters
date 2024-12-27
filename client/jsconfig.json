@@ -1,0 +1,11 @@
+{
+    "checkjs": true,
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "paths": {
+            "common": [
+                "src/modules/Core"
+            ]
+        }
+    }
+}

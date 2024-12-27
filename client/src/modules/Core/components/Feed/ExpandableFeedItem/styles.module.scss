@@ -1,0 +1,19 @@
+@import "src/modules/Core/styles/classes.scss";
+
+.internalContainer {
+    min-height: 10rem;
+    padding: 0.5rem 1rem;
+    overflow-y: scroll;
+    @extend .height-fill-available;
+    
+     & p {
+         white-space: inherit;
+     }
+}
+
+.open {
+    .cardButton {
+        display: none;
+    }
+}
+

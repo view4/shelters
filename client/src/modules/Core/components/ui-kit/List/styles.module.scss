@@ -1,0 +1,11 @@
+.list {
+    list-style-type: lower-alpha;
+    li::marker {
+        // font-size: 5rem;
+        font-style: italic;
+        font-weight: 100;
+    }
+    li {
+        font-weight: 200;
+    }
+}

@@ -1,0 +1,40 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+  width: 7rem;
+  height: 7rem;
+  overflow: hidden;
+  border-radius: 100%;
+  border: 1px solid $grey72 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  & * {
+    cursor: pointer;
+  }
+  cursor: pointer;
+  input {
+    display: none;
+  }
+  & > div {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  &::before {
+    content: "+";
+    font-size: 3rem;
+    top: 0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $grey72;
+    border-radius: 100%;
+  }
+
+  fieldset {
+    cursor: pointer;
+  }
+}

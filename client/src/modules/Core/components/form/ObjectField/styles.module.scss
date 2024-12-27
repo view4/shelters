@@ -1,0 +1,14 @@
+.container {
+  padding: unset;
+  & > div {
+    padding: 1rem 3rem;
+    & div p {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.fieldsContainer > div{
+  margin-top: 1rem;
+}

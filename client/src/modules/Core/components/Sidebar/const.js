@@ -1,0 +1,1 @@
+export const SIDEBAR_HEADER = "People for Progress";

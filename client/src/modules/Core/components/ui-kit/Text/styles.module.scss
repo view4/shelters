@@ -1,0 +1,19 @@
+@import "src/modules/Core/styles/mixins.scss";
+
+.text {
+  @include respond-to(1700px) {
+    font-size: 1.5rem;
+  }
+
+  @include respond-to(1500px) {
+    font-size: 1.25rem;
+  }
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.break {
+  white-space: pre;
+}

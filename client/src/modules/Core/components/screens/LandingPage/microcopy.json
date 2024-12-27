@@ -1,0 +1,104 @@
+{
+  "title": "Pleas for Peace.",
+  "typewriter": ["Campaigns", "Innovation", "Infrastructure", "People"],
+  "_typewriter": [
+    "Protests", 
+    "Pursuits", 
+    "Projects", 
+    "People"
+  ],
+  "nodes": [
+    {
+      "title": "Albert Camus",
+      "content": "Peace is the only battle worth waging.",
+      "kind": "quote",
+      "size": "small"
+    },
+    {
+      "title": "Dietrich Bonhoeffer",
+      "content": "Silence in the face of evil is itself evil: God will not hold us guiltless. Not to speak is to speak. Not to act is to act.",
+      "kind": "quote"
+    },
+
+    {
+      "title": "Howard Zinn",
+      "content": "If you join a fight for social justice you may win or lose, but just by being part of the struggle, you win, and your life will be better for it.",
+      "kind": "quote"
+
+    },
+    {
+      "title": "Martin Luther King Jr.",
+      "content": "Peace is not merely a distant goal that we seek, but a means by which we arrive at that goal.",
+      "kind": "quote"
+    },
+    {
+      "title": "Vijaya Lakshmi Pandit",
+      "content": "The more we sweat in peace, the less we bleed in war.",
+      "kind": "quote"
+    },
+    {
+      "title": "Blanche Prichard McCrum",
+      "content": "Peace, like war, must be waged",
+      "kind": "quote",
+      "size": "small"
+    },
+    {
+      "title": "Aziz Abu Sarah",
+      "content": "I believe that if you're not doing something, then you accept reality, and if you accept reality, then you agree with the fact that the only solution is for us to keep killing each other... One should do whatever he or she can to change the situation.",
+      "kind": "quote",
+      "size": "large"
+    },
+    {
+      "title": "Spinoza",
+      "content": "Peace is not the absence of war; it is a virtue; a state of mind; a disposition for benevolence; confidence; and justice.",
+      "kind": "quote"
+    },
+    {
+      "title": "August 28th, 1963",
+      "content": "More than 200,000 people of all races congregate in Washington D.C. (USA) for the peaceful march that promoted civil rights legislation. Martin Luther King Jr. delivered his famous 'I Have a Dream' speech.",
+      "kind": "event",
+      "size": "large"
+    },
+
+    {
+      "title": "International Day of Peace (21 September)",
+      "content": "Proclaimed in 1981 by the UN General Assembly to be observed as a day of global ceasefire and non-violence, an invitation to all nations and people to honour a cessation of hostilities throughout the day.",
+      "kind": "event",
+      "size": "large"
+    },
+    {
+      "title": "International Day of United Nations Peacekeepers (29 May)",
+      "content": "Designated in 2002 by the UN to pay tribute to all the men and women who have served in UN peacekeeping operations for their high level of professionalism, dedication and courage, and to honour the memory of those who have lost their lives in the cause of peace.",
+      "kind": "event",
+      "size": "large"
+    },
+    {
+      "title": "World Day for Cultural Diversity for Dialogue and Development (21 May)",
+      "content": "Proclaimed in 2002 by the UN to protect cultural diversity as a means of achieving prosperity, sustainable development and global peaceful coexistence.",
+      "kind": "event",
+      "size": "large"
+    },
+    {
+      "title": "22nd July, 1833",
+      "content": "Slavery Abolition Act is passed in unopposed in the House of Commons (UK).",
+      "kind": "event",
+      "size": "medium"
+    }
+  ],
+  "values": {
+    "left": [
+      {"text":  "Peace is the only battle worth waging.", "source": "Albert Camus"},
+      {"text": "Silence in the face of evil is itself evil: God will not hold us guiltless. Not to speak is to speak. Not to act is to act.", "source": "Dietrich Bonhoeffer"},
+      {"text": "If you join a fight for social justice you may win or lose, but just by being part of the struggle, you win, and your life will be better for it.", "source": "Howard Zinn"},
+      {"text": "Peace is not merely a distant goal that we seek, but a means by which we arrive at that goal.", "source": "Martin Luther King Jr."}
+    ],
+    "right": [
+      {"text": "The more we sweat in peace, the less we bleed in war.", "source": "Vijaya Lakshmi Pandit"},
+      {"text": "Peace, like war, must be waged", "source": "Blanche Prichard McCrum"},
+      {"text": "I believe that if you're not doing something, then you accept reality, and if you accept reality, then you agree with the fact that the only solution is for us to keep killing each other. It's hard for me to understand how you can accept something like that. One should do whatever he or she can to change the situation. Even if there is a tiny bit of hope, I think it is better to try to do something than sit there and do nothing.", "source": "Aziz Abu Sarah"},
+      {"text": "Peace is not the absence of war; it is a virtue; a state of mind; a disposition for benevolence; confidence; and justice.", "source": "Spinoza"}
+    ]
+  },
+  "statement": "In times of war, sadness and distress brew and simmer. In the hands of few, the many suffer.\n  \nOvercoming helplessness in the face of war, oppression and injustice is key to providing avenues towards overcoming the conflict. \n\nThis is our world, in our hands; unified and together, let’s heal it.",
+  "footer": "p4p"
+}

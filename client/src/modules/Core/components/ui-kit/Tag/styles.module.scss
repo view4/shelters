@@ -1,0 +1,41 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+  border-radius: 2rem;
+  padding: 0.2rem 0.72rem;
+  margin: 0rem 0.1rem;
+  width: fit-content;
+  &.purple {
+    background-color: $purple72;
+    color: #fff;
+  }
+  &.bordered-ocean-blue {
+    border: 1px solid $ocean_blue;
+    color: $ocean_blue;
+    font-weight: 700;
+  }
+
+  &.sm-md {
+    font-size: 0.9rem;
+    padding: 0.1rem 0.54rem;
+
+  }
+  &.sm {
+    font-size: 0.75rem;
+  }
+
+  & .x {
+    margin-left: 0.36rem;
+    cursor: pointer;
+    opacity: 0.54;
+    transition: 0.36s opacity;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &.grey {
+    background-color: $grey36;
+    color: #001080;
+  }
+}

@@ -1,0 +1,1 @@
+export default (Component, shouldRenderKey = "shouldRender") => ({ ...props }) => (props[shouldRenderKey] ?? true) && <Component {...props} />

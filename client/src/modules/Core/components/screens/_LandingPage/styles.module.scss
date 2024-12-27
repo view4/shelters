@@ -1,0 +1,267 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/classes.scss";
+@import "src/modules/Core/styles/mixins.scss";
+
+.page {
+  position: relative;
+  max-width: 100vw;
+  overflow: hidden;
+}
+
+.sectionTitle {
+  color: $grey;
+  font-size: 2.5rem;
+  margin-left: 5%;
+  @include mobile {
+    font-size: 1.5rem;
+  }
+}
+
+.link {
+  color: $grey;
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: $grey;
+  cursor: pointer;
+  transition: 0.5s all;
+  &:hover {
+    color: $ocean_blue;
+    opacity: 1;
+  }
+}
+
+.header {
+  width: 100vw;
+  height: 7rem;
+  justify-content: center;
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+  & p {
+    @extend .link;
+    margin: 1.8rem 3.6rem;
+  }
+}
+
+.title {
+  font-weight: 700;
+  font-size: 3.6rem;
+  justify-content: center;
+  min-width: 50%;
+  flex-wrap: wrap;
+  & > div {
+    min-width: 10rem;
+    text-align: left;
+  }
+  p {
+    margin-right: 0.9rem;
+    font-size: 3.6rem;
+  }
+  & > p {
+    font-size: 5.4rem;
+    font-family: cursive;
+  }
+}
+
+.container {
+  height: 100vh;
+  max-width: 100vw;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.involvementContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  h2 {
+    @extend .sectionTitle;
+  }
+
+  & > div {
+    margin-top: 7.2rem;
+    align-self: center;
+    @extend .width-fill-available;
+    display: flex;
+    justify-content: center;
+    & p {
+      @extend .link;
+      text-transform: unset;
+      font-size: 3.6rem;
+      min-width: 25vw;
+      max-width: 72vw;
+      text-align: center;
+    }
+    @include mobile {
+      flex-direction: column;
+      & button {
+        margin-top: 1.5rem;
+      }
+    }
+    & input {
+      width: 36rem;
+      max-width: 72vw;
+    }
+  }
+}
+
+.statementContainer {
+  flex-direction: column;
+  align-items: flex-start;
+
+  h2 {
+    @extend .sectionTitle;
+  }
+
+  & > div {
+    border: 3px solid $grey50;
+    width: 90%;
+    height: 90%;
+    align-self: center;
+
+    & > div:first-child {
+      align-self: flex-start;
+      padding-left: 7rem;
+      padding-right: 3em;
+    }
+
+    & > div:last-child {
+      padding-top: 0rem;
+      white-space: pre-wrap;
+
+      & > p {
+        font-weight: 700;
+        font-size: 1.8rem;
+        white-space: pre-wrap;
+        margin: 0rem 7rem;
+      }
+    }
+  }
+}
+
+.valuesContainer {
+  & > div {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 72%;
+    opacity: 0.9;
+    &:first-child {
+      & > div:nth-child(odd) {
+        background-color: $grey;
+        color: #fff;
+      }
+      & > div:nth-child(even) {
+        border: 1px solid $grey;
+        background-color: #fff;
+        color: $grey;
+      }
+    }
+    &:last-child {
+      & > div:nth-child(even) {
+        background-color: #808080;
+        color: #fff;
+      }
+      & > div:nth-child(odd) {
+        border: 1px solid $grey;
+        color: $grey;
+        background-color: #fff;
+      }
+    }
+
+    & > div {
+      background-color: #ffffff80;
+      z-index: 10;
+      width: 50%;
+      flex: 1 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem;
+      overflow: hidden;
+      margin: 0.36rem;
+      transition: transform 0.9s ease-in-out;
+      cursor: pointer;
+      &:hover {
+        transform: scale3d(1.1, 1.1, 1.1);
+      }
+
+      & h4 {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+
+      & > p {
+        text-align: center;
+        white-space: pre-wrap;
+      }
+    }
+  }
+}
+
+.footer {
+  width: 100vw;
+  max-width: 100vw;
+  height: 10vh;
+  max-height: 10vh;
+  border-top: 1px solid $grey50;
+  position: absolute;
+  bottom: 0rem;
+  justify-content: flex-end;
+  align-items: center;
+
+  & > div {
+    width: fit-content;
+    margin: 1.8rem;
+    & > p {
+      font-size: 1.8rem;
+      letter-spacing: -7px;
+    }
+  }
+}
+
+@include mobile {
+  .statementContainer {
+    & h2 {
+      font-size: 1.5rem;
+    }
+    & > div > div:first-child {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    & > div > div:last-child > p {
+      font-size: 1.2rem;
+      margin: 0rem 0.9rem;
+    }
+  }
+  .valuesContainer {
+    flex-direction: column;
+    padding-bottom: 15%;
+    height: unset;
+    & > div {
+      width: 100%;
+      & > div {
+        width: 72%;
+        margin: 0.9rem 0rem;
+        padding: 0.9rem;
+      }
+    }
+  }
+
+  .involvementContainer {
+    & > div {
+      align-self: center;
+      justify-content: center;
+      align-items: center;
+      & > input {
+        width: 100%;
+      }
+    }
+  }
+}

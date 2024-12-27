@@ -1,0 +1,34 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+    & > div {
+        background-color: #fff;
+        border: 1px solid $grey50;
+        border-radius: 0.5rem;
+        color: $grey90;
+    }
+
+}
+.error {
+    & > div {
+        border: 2px solid $deep_purple;
+        color: $deep_purple;
+        font-weight: bold;
+        & p {
+            color: $deep_purple;
+            font-weight: bold;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: underline;
+            width: fit-content;
+        }
+    }
+}
+
+.success {
+    & > div {
+        border: 2px solid $ocean_blue;
+        color: $ocean_blue;
+        font-weight: bold;
+    }
+}

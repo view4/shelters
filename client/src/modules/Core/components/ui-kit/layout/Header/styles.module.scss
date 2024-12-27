@@ -1,0 +1,28 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/mixins.scss";
+
+$height: 3rem;
+.fixedContainer {
+  height: $height;
+}
+
+.header {
+  height: $height;
+  padding: 0rem 0.5rem;
+  box-shadow:
+    0px 7px 5px $grey18,
+    0px -3px 5px #8888885c;
+  width: -web-kit-fill-available;
+  width: 100%;
+  background-color: #fff;
+  z-index: 3;
+  h2 {
+    margin: unset;
+    font-size: 18px;
+    margin-left: 0.9rem;
+  }
+
+  .title {
+    @include multilineText(2);
+  }
+}

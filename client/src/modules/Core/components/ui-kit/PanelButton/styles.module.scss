@@ -1,0 +1,32 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/classes.scss";
+
+button.btn {
+  @extend .width-fill-available;
+  border: 1px solid $grey36;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  min-height: 5rem;
+  margin: 1rem;
+  & p {
+    font-size: 1rem;
+  }
+  &.disabled > span:nth-child(2) {
+    display: none;
+  }
+  & .noChevron {
+    display: none;
+  }
+}
+
+button.guideButton {
+  position: absolute;
+  top: 0.25rem;
+  right: 1.5rem;
+  background: #fff;
+  padding: 1rem;
+  min-width: 2rem;
+  min-height: 2rem;
+}

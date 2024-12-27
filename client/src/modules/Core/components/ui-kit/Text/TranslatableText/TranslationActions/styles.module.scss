@@ -1,0 +1,14 @@
+.container {
+  & > button {
+    font-size: 0.9rem;
+    padding: 0.18rem;
+    margin: unset;
+    min-width: unset;
+    & svg {
+      height: 0.72rem;
+      width: 0.72rem;
+      margin-bottom: 0.18rem;
+      margin-left: -0.36rem;
+    }
+  }
+}

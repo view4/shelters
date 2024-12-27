@@ -1,0 +1,28 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+    width: 100%;
+    max-width: 97%;
+    height: 6rem;
+    overflow: hidden;
+    border-bottom: 1px solid $grey18;
+    cursor: pointer;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.headingContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    & > span {
+        margin-top: 0.5rem;
+    }
+}
+
+.textContainer {
+    max-height: 3rem;
+    margin-bottom: 0.36rem;
+    overflow: hidden;
+}

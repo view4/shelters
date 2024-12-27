@@ -1,0 +1,8 @@
+.chevron {
+  &.right {
+    margin-right: 0.5rem;
+    &::after {
+      font-size: 1.2rem;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+    border-width: 1px;
+    &.dashed {
+        border-style: dashed;
+    }
+    &.grey50 {
+        border-color: $grey50;
+    }
+}

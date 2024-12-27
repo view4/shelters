@@ -1,0 +1,84 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/classes.scss";
+@import "src/modules/Core/styles/mixins.scss";
+
+
+.screen {
+
+}
+.container {
+  top: 0rem;
+  max-width: 100vw;
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  @extend .height-fill-available;
+
+  cursor: none;
+  .title {
+    font-weight: 700;
+    font-size: 3.6rem;
+    justify-content: center;
+    min-width: 50%;
+    flex-wrap: wrap;
+    margin-bottom: 7rem;
+
+    & > div {
+      min-width: 12rem;
+      text-align: left;
+    }
+    p {
+      margin-right: 0.9rem;
+      font-size: 3.6rem;
+    }
+    & > p {
+      font-size: 7.2rem;
+      font-family: cursive;
+    }
+    @include mobile {
+      margin-bottom: 3rem;
+      font-size: 1.5rem;
+      & > div {
+        min-width: unset;
+      }
+      & > p, p {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+.values {
+  position: absolute;
+  top: 3rem;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  & > div {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+    opacity: 0.9;
+    z-index: 7777;
+    & > div {
+      width: 80%;
+      opacity: 0;
+      transition: 1.2s all ease-in;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      z-index: 10;
+      &:hover{
+        opacity: 1;
+      }
+      background-color: #fff;
+      border-radius: 50%;
+      color: $grey;
+    }
+  }
+}

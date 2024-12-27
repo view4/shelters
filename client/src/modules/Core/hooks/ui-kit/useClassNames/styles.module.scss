@@ -1,0 +1,217 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+}
+
+.maxWidth {
+    width: -webkit-fill-available;
+}
+
+.flex {
+    display: flex;
+    &.reverse {
+        flex-direction: row-reverse;
+    }
+}
+.column {
+    flex-direction: column;
+    &.reverse {
+        flex-direction: column-reverse;
+    }
+}
+
+.center {
+    justify-content: center;
+    align-items: center;
+}
+
+.spaceBetween {
+    justify-content: space-between;
+}
+
+.spaceAround {
+    justify-content: space-around;
+}
+
+.span {
+    flex: 1 1;
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+}
+
+.fitContent {
+    width: fit-content;
+    height: fit-content;
+}
+
+.flexEnd {
+    justify-content: flex-end;
+}
+
+.flexStart {
+    justify-content: flex-start;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.bottom {
+    bottom: 0;
+}
+
+.mt1 {
+    margin-top: 1rem
+}
+
+.mt3 {
+    margin-top: 3rem;
+}
+
+.pb3 {
+    padding-bottom: 3rem;
+}
+
+.b1grey {
+    border: 1px solid $grey72;
+}
+
+.br1 {
+    border-radius: 1rem;
+}
+
+.pHalf {
+    padding: 0.5rem;
+}
+
+.p1 {
+    padding: 1rem;
+}
+
+.p3 {
+    padding: 3rem;
+}
+
+.pr3 {
+    padding-right: 3rem;
+}
+
+.scrollY {
+    overflow-y: scroll;
+}
+
+.bt1grey {
+    border-top: 1px solid grey;
+}
+
+.bl1 {
+    border-left: 1;
+}
+
+.alignEnd {
+    align-items: flex-end;
+}
+
+.maxHeight {
+    height: -webkit-fill-available;
+}
+
+.maxWidth {
+    width: -webkit-fill-available;
+}
+
+.fso72 {
+    font-size: 0.72rem;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.shadow {
+    box-shadow: 1rem 1rem 2rem $grey36;
+}
+
+.justifyCenter {
+    justify-content: center;
+}
+
+.lightShadow {
+    box-shadow: 0.5rem 0.5rem 1rem $grey10;
+}
+
+.mb1 {
+    margin-bottom: 1rem;
+}
+
+.mb3 {
+    margin-bottom: 3rem;
+}
+
+.fs75 {
+    font-size: 0.75rem;
+}
+
+.fs90 {
+    font-size: 0.9rem;
+}
+
+.fs150 {
+    font-size: 1.5rem;
+}
+
+.fs120 {
+    font-size: 1.2rem;
+}
+
+.italic {
+    font-style: italic;
+
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.borderless {
+    border: none !important;
+    border-color: transparent;
+    border-width: 0rem;
+}
+
+.ml1 {
+    margin-left: 1rem;
+}
+
+.ml3 {
+    margin-left: 3rem;
+}
+
+.grey {
+    color: $grey;
+}
+
+.grey50 {
+    color: $grey50;
+}
+
+.grey90 {
+    color: $grey90;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+
+h2.center {
+    text-align: center;
+}

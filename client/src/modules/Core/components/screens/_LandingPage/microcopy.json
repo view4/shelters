@@ -1,0 +1,21 @@
+{
+  "title": "Pleas for Peace.",
+  "typewriter": [
+    "Protests", 
+    "Pursuits", 
+    "Projects", 
+    "People"
+  ],
+  "values": {
+    "left": [
+      {"text":  "Peace is the only battle worth waging.", "source": "Albert Camus"},
+      {"text": "Silence in the face of evil is itself evil: God will not hold us guiltless. Not to speak is to speak. Not to act is to act.", "source": "Dietrich Bonhoeffer"}
+    ],
+    "right": [
+      {"text": "The more we sweat in peace, the less we bleed in war.", "source": "Vijaya Lakshmi Pandit"},
+      {"text": "Peace, like war, must be waged", "source": "Blanche Prichard McCrum"}
+    ]
+  },
+  "statement": "In times of war, sadness and distress brew and simmer. In the hands of few, the many suffer.\n  \nOvercoming helplessness in the face of war, oppression and injustice is key to providing avenues towards overcoming the conflict. \n\nThis is our world, in our hands; unified and together, let’s heal it.",
+  "footer": "p4p"
+}

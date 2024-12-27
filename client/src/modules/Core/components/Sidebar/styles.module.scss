@@ -1,0 +1,56 @@
+@import "src/modules/Core/styles/mixins.scss";
+@import "src/modules/Core/styles/classes.scss";
+
+div.drawer {
+  transition: 1s width;
+  max-width: 25vw;
+  box-shadow: unset;
+
+  & > div {
+    max-width: 25vw;
+    padding-bottom: 18%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    background-color: white;
+    z-index: 100;
+    & > div:first-child {
+      height: 5rem;
+      h2 {
+        line-height: 4rem;
+      }
+    }
+  }
+}
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+  @extend .width-fill-available;
+  justify-content: center;
+  align-items: center;
+  button:last-child {
+    margin-bottom: 10%;
+    width: 90%;
+    border-radius: 0.9rem;
+  }
+  & p {
+    margin: 0.5rem 0.25rem;
+    text-align: center;
+  }
+}
+
+.logoContainer{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  .logo {
+    height: 90%;
+    min-height: 3.6rem;
+  }
+}
+

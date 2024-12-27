@@ -1,0 +1,20 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.progress {
+    svg {
+        circle{
+            color: $ocean_blue;
+
+        }
+    }
+}
+
+.total {
+    position: absolute;
+    svg {
+        circle{
+            color: $ocean_blue36;
+
+        }
+    }
+}

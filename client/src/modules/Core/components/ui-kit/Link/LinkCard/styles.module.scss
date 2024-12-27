@@ -1,0 +1,37 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+  border: 1px solid $grey90;
+  padding: 0rem 0.5rem;
+  width: -webkit-fill-available;
+  cursor: pointer;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  border-left: 0.5rem solid $ocean_blue36;
+  padding: 0rem 0.25rem;
+  &:hover {
+    box-shadow: 1px 1px 5px $ocean_blue;
+    border-color: $ocean_blue10;
+  }
+  & > div:first-child {
+    margin-bottom: unset;
+    padding: 0.5rem 0rem;
+    width: -webkit-fill-available;
+    box-shadow: unset;
+  }
+}
+
+.small {
+  max-height: 4rem;
+}
+
+.medium {
+  min-height: 4rem;
+  max-height: 6rem;
+}
+
+.large {
+  min-height: 6rem;
+  max-height: 10rem;
+}

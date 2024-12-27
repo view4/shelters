@@ -1,0 +1,35 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+  flex-direction: column;
+  display: flex;
+  background-color: $white90;
+  & div {
+    & > div {
+      & textarea {
+        min-height: -webkit-fill-available;
+        overflow: auto;
+        max-height: 54vh;
+        border-radius: 1rem;
+      }
+      & input {
+        font-weight: 700;
+        font-size: 36;
+        border-radius: 1rem;
+      }
+    }
+  }
+}
+
+.submitContainer {
+  width: -webkit-fill-available;
+  height: 3rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.submitContainer > button {
+  margin-right: 3rem;
+  font-weight: 600;
+}

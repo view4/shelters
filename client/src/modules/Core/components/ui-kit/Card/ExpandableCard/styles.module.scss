@@ -1,0 +1,88 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/mixins.scss";
+
+button.chevronBtn {
+  transition: 0.75s all;
+  height: 1.2rem;
+  &::after {
+    transition: 0.75s all;
+    font-size: 1.8rem;
+    color: $grey90;
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+    rotate: 45deg;
+    border-radius: 2px;
+  }
+}
+
+.container {
+  overflow: hidden;
+  height: 3rem;
+
+  .header {
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+    max-height: 3rem;
+    box-shadow: none;
+    display: flex;
+    justify-content: space-between;
+    z-index: unset;
+    & h4 {
+      margin: 0rem 0.72rem;
+    }
+  }
+
+  .contentContainer {
+    max-height: calc(100% - 4rem);
+    overflow-y: scroll;
+    & > p {
+      white-space: pre-line;
+      height: -webkit-fill-available;
+      overflow: scroll;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &.open {
+    .header {
+      height: fit-content;
+      & button {
+        &::after {
+          rotate: 225deg;
+        }
+      }
+    }
+  }
+
+  &.open {
+    &.sm {
+      height: 7rem;
+      @include respond-to(1720px) {
+        height: 10rem;
+      }
+    }
+    &.md {
+      height: 12rem;
+      @include respond-to(1720px) {
+        height: 18rem;
+      }
+    }
+    &.lg {
+      height: 18rem;
+      @include respond-to(1720px) {
+        height: 24rem;
+      }
+    }
+    &.xlg {
+      height: 27rem;
+      @include respond-to(1720px) {
+        height: 36rem;
+      }
+    }
+  }
+}

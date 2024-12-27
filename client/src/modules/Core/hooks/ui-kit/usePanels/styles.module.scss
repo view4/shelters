@@ -1,0 +1,43 @@
+@import "src/modules/Core/styles/mixins.scss";
+@import "src/modules/Core/styles/variables.scss";
+
+.panelsContainer {
+  height: calc(100vh - 6rem);
+  .panel {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 0%;
+    transition: all 0.5s ease-in-out;
+    max-height: 100%;
+    & > * {
+      height: 100%;
+    }
+    @include mobile {
+      min-width: 100vw;
+      height: 100%;
+      &.minimized {
+        min-width: 0rem;
+        width: 0rem;
+      }
+    }
+  }
+}
+
+.titleSection {
+  & > .chevron {
+    display: none;
+    margin-right: 2rem;
+  }
+  @include mobile {
+    min-width: 100vw;
+    border-bottom: 0.25rem solid $grey10;
+    &.minimized {
+      min-width: 0rem;
+      width: 0rem;
+    }
+
+    & > .chevron {
+      display: block;
+    }
+  }
+}

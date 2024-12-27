@@ -1,0 +1,30 @@
+@import "src/modules/Core/styles/variables.scss";
+
+
+.countryCode {
+    margin-right: 0.5rem;
+    & > div:global(.MuiSelect-select) {
+        height: unset;
+        height: 1.54rem;
+
+    }
+}
+.label {
+    font-size: 0.9rem;
+    color: $grey72;
+}
+
+.flagContainer {
+    height: 100%;
+    width: 1.5rem;
+    & img {
+        height: 90%;
+        width: 90%;
+    }
+}
+
+div:has( > .flagContainer) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,32 @@
+.horizontalOptions {
+    height: 3rem;
+    & > button {
+      transition: 1s all;
+      transform: rotate(90deg);
+      padding: unset;
+    }
+    & > div {
+      display: flex;
+      flex-direction: row-reverse;
+      width: 0rem;
+      overflow: hidden;
+      transition: 1s all;
+      align-items: center;
+    }
+    display: flex;
+    flex-direction: row-reverse;
+    &.open {
+      & > button {
+        transform: rotate(0deg);
+      }
+      & > div {
+        width: 36rem;
+        overflow-x: scroll;
+  
+        & button {
+          padding: 0rem 1rem;
+          max-height: 90%;
+        }
+      }
+    }
+  }

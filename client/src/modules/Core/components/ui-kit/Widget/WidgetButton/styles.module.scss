@@ -1,0 +1,44 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/classes.scss";
+
+button.widget {
+  background-color: #fff;
+  @extend .width-fill-available;
+  border-radius: 1.5rem;
+  min-height: 5.125rem;
+  border: 1px solid $grey10;
+  padding: 0.5rem;
+  box-shadow: 0.75rem 0.75rem 0.75rem $grey36;
+  & h4 {
+    font-size: 1.5rem;
+    color: #3C3B3B;
+    margin: 0rem 0.75rem;
+  }
+
+  & span {
+    width: 4rem;
+    display: flex;
+    justify-content: center;
+    &::after {
+      scale: 2;
+    }
+  }
+  & span::after {
+    vertical-align: middle;
+  }
+
+  & .disabled {
+    &.chevronContainer {
+      display: none !important;
+    }
+  }
+
+  &button {
+    @extend .width-fill-available;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    color: #3C3B3B;
+    align-items: center;
+  }
+}

@@ -1,0 +1,68 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/mixins.scss";
+
+button.btn_base {
+  text-transform: unset;
+  cursor: pointer;
+  transition: 0.5s all;
+  font-weight: 600;
+  font-size: 1.125rem;
+  border-radius: 0.5rem;
+  @include respond-to(1700px) {
+    font-size: 1.5rem;
+  }
+
+  @include respond-to(1500px) {
+    font-size: 1.25rem;
+  }
+}
+
+button.grey {
+  color: $grey;
+  opacity: 0.9;
+  color: $grey;
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+button.grey-bg {
+  color: #fff;
+  opacity: 0.9;
+  background-color: $grey72;
+  &:hover {
+    opacity: 0.9;
+    color: #3c3b3b;
+  }
+}
+
+button.ocean-blue {
+  color: $ui_blue72;
+  opacity: 0.9;
+  &.hover {
+    &:hover {
+      color: $ui_blue90;
+    }
+  }
+}
+
+button.grey-blue {
+  @extend .grey;
+  &.hover {
+    &:hover {
+      color: $ocean_blue;
+      opacity: 1;
+      background-color: $ocean_blue10;
+    }
+  }
+}
+button.none {
+  color: unset;
+  &.hover {
+    &:hover {
+      color: unset;
+      opacity: 1;
+      background-color: none;
+    }
+  }
+}

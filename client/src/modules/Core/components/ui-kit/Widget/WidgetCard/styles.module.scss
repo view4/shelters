@@ -1,0 +1,18 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+  & > div {
+    box-shadow: unset;
+    &:first-child:not(:last-child) {
+      border-bottom: 1px solid $grey36;
+    }
+    &:nth-child(2),
+    &:first-child {
+      border-top: none;
+    }
+  }
+  h2 {
+    margin-left: unset;
+    font-size: 1.5rem;
+  }
+}

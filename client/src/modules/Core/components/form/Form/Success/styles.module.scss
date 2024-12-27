@@ -1,0 +1,26 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+  & > div {
+    max-width: 72%;
+    & > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    & svg {
+      font-size: 3rem;
+      color: $ui_blue72;
+    }
+    & > h4 {
+      text-align: center;
+      font-size: 2rem;
+      margin: 0.5rem;
+      max-width: 72%;
+    }
+    & > button {
+      font-size: 1.5rem;
+    }
+  }
+}

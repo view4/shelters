@@ -1,0 +1,115 @@
+@import "src/modules/Core/styles/mixins.scss";
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/classes.scss";
+
+.backdrop {
+  position: fixed;
+  top: 0rem;
+  left: 0rem;
+  width: 0vw;
+  height: 0vh;
+  background-color: rgba(0, 0, 0, 0);
+  transition: 3.6s background-color;
+  &.open {
+    z-index: 35;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0rem;
+    left: 0rem;
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+.container {
+  position: fixed;
+  transition: 1s all;
+  background-color: transparent;
+  box-shadow:
+    3rem 18rem 18rem $grey36,
+    3rem 18rem 18rem $grey50;
+  &.open {
+    background-color: #fff;
+    z-index: 36;
+    & > div {
+      max-height: 100vh;
+    }
+  }
+
+  &.bottom {
+    bottom: 0rem;
+    height: 0rem;
+    right: 0rem;
+    width: 100vw;
+    &.open {
+      height: 90vh;
+    }
+  }
+
+  &.right {
+    bottom: 0rem;
+    height: 100vh;
+    right: 0rem;
+    width: 0vw;
+    &.open {
+      width: 90vw;
+      @include mobile {
+        width: 100vw;
+      }
+      &.md {
+        width: 54vw;
+        @include mobile {
+          width: 72vw;
+        }
+      }
+    }
+  }
+
+  &.left {
+    bottom: 0rem;
+    height: 100vh;
+    left: 0rem;
+    width: 0vw;
+    &.open {
+      width: 90vw;
+      @include mobile {
+        width: 100vw;
+      }
+      &.sm {
+        width: 18vw;
+        @include mobile {
+          width: 72vw;
+        }
+      }
+      &.md {
+        width: 36vw;
+        @include mobile {
+          width: 72vw;
+        }
+      }
+    }
+  }
+
+  & .header {
+    width: 100%;
+    padding: unset;
+    overflow-x: scroll;
+    @extend .hide-scrollbar;
+    & h2 {
+      @extend .singleLineText;
+      max-width: 90%;
+      @include mobile {
+        min-width: 50%;
+        font-size: 0.72rem;
+      }
+    }
+    & .chevron {
+      margin: 0rem 1rem;
+    }
+  }
+
+  & .footer {
+    width: -webkit-fill-available;
+    max-width: 100%;
+    position: absolute;
+  }
+}

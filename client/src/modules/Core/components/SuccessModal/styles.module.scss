@@ -1,0 +1,14 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/classes.scss";
+
+.container {
+    height: 10rem;
+    @extend .centered-col;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $green50;
+    font-size: 24px;
+    letter-spacing: 0.1rem;
+    font-weight: 700;
+}

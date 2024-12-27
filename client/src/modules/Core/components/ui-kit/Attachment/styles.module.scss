@@ -1,0 +1,46 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+  border: 1px solid $grey10;
+  border-radius: 0.5rem;
+  max-width: 5.4rem;
+  overflow: hidden;
+  margin: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  box-shadow:
+    0px 10px 5px $grey10,
+    0px -3px 5px $grey10;
+  & a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 100%;
+    & svg {
+      color: $grey90;
+      fill: $grey90;
+      cursor: pointer;
+      transition: 0.5s ease-in-out;
+      width: 3.6rem;
+      height: 3.6rem;
+      &:hover {
+        color: $ocean_blue;
+        fill: $ocean_blue;
+      }
+    }
+  }
+  & p {
+    text-overflow: ellipsis;
+    max-width: 100%;
+    font-size: 0.9rem;
+    color: $grey90;
+    text-decoration: none;
+    overflow: hidden;
+    max-width: 90%;
+    &:hover {
+      color: $ocean_blue;
+    }
+  }
+}

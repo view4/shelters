@@ -1,0 +1,26 @@
+.container {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    img {
+      border-radius: 50%;
+      height: 3.6rem;
+      width: 3.6rem;
+    }
+    .profileIconContainer {
+      border-radius: 50%;
+      height: 5.4rem;
+      width: 5.4rem;
+      max-height: 100%;
+      max-width: 100%;
+      border: 1px solid #3C3B3B80;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      & .profileIcon {
+        height: 72%;
+        width: 72%;
+      }
+    }
+  }
+  

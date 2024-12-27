@@ -1,0 +1,6 @@
+@import "src/modules/Core/styles/variables.scss";
+.card {
+  border: 2px solid $grey10;
+  box-shadow: 0.25rem 0.25rem 0.5rem $grey36;
+  margin: 0.5rem 0.9rem;
+}

@@ -1,0 +1,24 @@
+@import "src/modules/Core/styles/mixins.scss";
+.container {
+    padding: 3rem;
+    @include mobile {
+        padding: 0.5rem;
+        min-width: 90vw;
+    }
+
+    & h2 {
+        font-size: 1rem;
+        margin: 0.5rem;
+    }
+    .inputContainer {
+        width: -webkit-fill-available;
+        display: flex;
+        justify-content: center;
+        & > div {
+            width: -webkit-fill-available;
+            @include mobile {
+                max-width: 90%;
+            }
+        }
+    }
+}

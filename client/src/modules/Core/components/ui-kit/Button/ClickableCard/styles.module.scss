@@ -1,0 +1,17 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+  padding: unset;
+  margin: 0.5rem 1rem;
+  border-color: $grey10;
+  & > div {
+    height: 100%;
+    width: 100%;
+
+    & > button {
+      height: 100%;
+      width: 100%;
+      padding: 1rem;
+    }
+  }
+}

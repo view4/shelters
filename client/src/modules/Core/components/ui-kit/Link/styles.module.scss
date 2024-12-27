@@ -1,0 +1,20 @@
+@import "src/modules/Core/styles/variables.scss";
+
+p.link {
+  color: $grey;
+  font-weight: 700;
+  font-size: 1.125rem;
+  opacity: 0.9;
+  color: $grey;
+  cursor: pointer;
+  transition: 0.5s all;
+  height: fit-content;
+  border-bottom: 2px solid $grey;
+  border-bottom-color: transparent;
+  &.hover{
+    &:hover {
+      color: $ocean_blue;
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@import "src/modules/Core/styles/mixins.scss";
+.container {
+    & > div {
+        margin: 0rem 0.5rem;
+        @include mobile {
+            margin: 0rem 0.18rem;
+        }
+        
+    }
+}

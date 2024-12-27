@@ -1,0 +1,27 @@
+@import "src/modules/Core/styles/mixins.scss";
+
+.container {
+  display: grid;
+  grid-template-rows: repeat(8, 1fr);
+  grid-template-columns: 1fr;
+  position: relative;
+  padding: 0rem 1rem;
+  background: #ffffff8a;
+  justify-items:center;
+  align-items: center;
+  & > * {
+    margin: 1rem 2rem;
+    @include respond-to(1700px) {
+      margin: 1rem 0.25rem;
+      max-width: 90%;
+    }
+  }
+  .navContainer {
+    position: absolute;
+    height: 3rem;
+    width: 100%;
+    top: 0rem;
+    left: 0rem;
+    margin: 0rem;
+  }
+}

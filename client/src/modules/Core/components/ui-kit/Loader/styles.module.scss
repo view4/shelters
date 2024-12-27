@@ -1,0 +1,32 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/classes.scss";
+
+.container {
+  @extend .width-fill-available;
+  @extend .height-fill-available;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & svg {
+    color: $pond_green72;
+  }
+  &.overlayContainer {
+    background-color: $white50;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: block;
+
+    & > span {
+      position: sticky;
+      top: 3rem;
+      justify-content: flex-start;
+      align-items: unset;
+      left: calc(50% - 1.5rem);
+      top: calc(50% - 1.5rem);
+
+
+    }
+  }
+}

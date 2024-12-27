@@ -1,0 +1,16 @@
+@import "src/modules/Core/styles/mixins.scss";
+.body {
+    border: 1px solid white;
+    width: 50%;
+    height: fit-content;
+    background-color: #fff;
+    border-radius: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    @include mobile {
+        width:  unset;
+    }
+}

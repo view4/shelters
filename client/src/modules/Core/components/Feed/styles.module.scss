@@ -1,0 +1,6 @@
+@import "src/modules/Core/styles/classes.scss";
+
+.overlayLoader {
+  @extend .width-fill-available;
+  @extend .height-fill-available;
+}

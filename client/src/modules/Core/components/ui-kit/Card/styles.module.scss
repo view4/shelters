@@ -1,0 +1,31 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.card {
+  border: 1px solid $grey90;
+  border-radius: 1rem;
+  width: -webkit-fill-available;
+  margin: 0.5rem 0rem;
+  transition: 0.5s all;
+  overflow-x: hidden;
+  .header {
+    width: 100%;
+    border: none;
+    position: sticky;
+    background-color: #fff;
+    margin-bottom: 0.5rem;
+    z-index: unset;
+    padding: 0rem 0.5rem;
+  }
+  .content {
+    overflow-x: scroll;
+    padding: 0rem 0.5rem;
+  }
+
+  .guideButton {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 10;
+    border-radius: 100% ;
+  }
+}

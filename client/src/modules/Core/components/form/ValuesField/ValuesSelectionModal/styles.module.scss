@@ -1,0 +1,25 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.modalContent {
+  max-height: 54vh;
+  min-height: 36vh;
+  h4 {
+    color: $grey90;
+    margin-left: 1.5rem;
+  }
+}
+
+.feedItem {
+  box-shadow: 0.1rem 0.1rem 0.1rem $grey5;
+
+  cursor: pointer;
+  &.selected {
+    border: 0.15rem solid $ocean_blue72;
+    box-shadow: 0.25rem 0.25rem 0.25rem $grey10;
+  }
+}
+
+.feedContainer {
+  max-height: 36vh;
+  overflow: scroll;
+}

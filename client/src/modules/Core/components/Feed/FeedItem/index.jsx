@@ -1,0 +1,33 @@
+import React, { useMemo } from "react";
+import cx from "classnames";
+import { noop } from "lodash";
+import Container from "modules/Core/components/ui-kit/Container";
+import Title from "modules/Core/components/ui-kit/Title";
+import Text from "../../ui-kit/Text";
+import { formatDate } from "modules/Core/utils/date";
+import styles from "./styles.module.scss";
+import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
+import ConditionalContainer from "../../ui-kit/ConditionalContainer";
+
+const FeedItem = ({ name, text, createdAt, onClick = noop, className, header = true, textProps, children, shouldRenderText, ...props }) => {
+   const date = useMemo(() => formatDate(createdAt), [createdAt]);
+   return (
+      <Container className={cx(styles.container, className)} onClick={onClick} {...props}>
+         <FeedItem.Header name={name} date={date} shouldRender={!!header} />
+         <ConditionalContainer className={styles.textContainer} shouldRender={shouldRenderText} >
+            <Text text={text}  {...textProps} />
+         </ConditionalContainer>
+         {children}
+      </Container>
+   )
+};
+
+FeedItem.Header = withShouldRender(({ name, date }) => (
+   <Container className={styles.headingContainer}>
+      <Title text={name} />
+      <span> {date}</span>
+   </Container>
+))
+
+export default FeedItem
+

@@ -1,0 +1,16 @@
+@import "src/modules/Core/styles/variables.scss";
+
+button.button {
+    border: 1px solid $grey50;
+    float: right;
+    border-radius: 100%;
+    background-color: #fff;
+    padding: unset;
+    height: 2rem;
+    width: 2rem;
+    min-width: unset;
+    font-size: 1rem;
+    span {
+        width: unset;
+    }
+}

@@ -1,0 +1,60 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/classes.scss";
+@import "src/modules/Core/styles/mixins.scss";
+
+.screen {
+  .header {
+    width: 100vw;
+    justify-content: center;
+    position: absolute;
+    padding-right: 1.2rem;
+    align-items: center;
+    background-color: #fff;
+  }
+  & > div:first-child,
+  & > div:last-child {
+    background-color: #ffffff72;
+    box-shadow: 3px 3px 3px $grey10;
+    border: none;
+    & & * {
+      background-color: #ffffff72;
+    }
+  }
+
+  .headerContent {
+    margin-left: 1.5rem;
+    & > div:first-child {
+      border: 1px solid $grey10;
+      border-radius: 100%;
+      padding: 0.25rem;
+      align-items: center;
+      justify-content: center;
+      transition: 1s all;
+
+      path {
+        fill: $grey72;
+        transition: 1s all;
+      }
+      &:hover {
+        cursor: pointer;
+        border-color: $grey90;
+        & path {
+          fill: $grey90;
+        }
+      }
+    }
+  }
+
+  .footer {
+    background-color: #fff;
+    @include mobile {
+      height: 2rem;
+    }
+  }
+
+  .privacy {
+    font-size: 0.9rem;
+    margin: 0rem 1.2rem;
+    color: $grey90;
+  }
+}

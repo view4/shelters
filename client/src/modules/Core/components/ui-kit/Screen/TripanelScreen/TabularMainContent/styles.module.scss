@@ -1,0 +1,33 @@
+@import "src/modules/Core/styles/variables.scss";
+@import "src/modules/Core/styles/classes.scss";
+
+.container {
+  height: 100%;
+  border: 1px solid $grey3;
+  & .headerContainer {
+    height: 25%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 17rem;
+    background-color: #fff;
+    & > div:last-child {
+      bottom: 0;
+      & > div {
+        flex: 1 1;
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid $grey10;
+        @extend .singleLineText;
+        button {
+          white-space: normal;
+        }
+      }
+    }
+  }
+  & .contentContainer {
+    height: 75%;
+    overflow-y: scroll;
+  }
+}

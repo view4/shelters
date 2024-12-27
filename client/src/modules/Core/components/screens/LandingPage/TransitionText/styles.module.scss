@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    align-items: center;
+    overflow: visible;
+
+    & > p {
+        transition: letter-spacing 1s, margin-left 1s linear, max-width 1s linear;
+        font-size: 1.8rem;
+        letter-spacing: -4rem;
+        max-width: 1.2rem;
+        min-width: 1.8rem;
+        overflow: hidden;
+        margin: 0rem;
+        margin-left: -1.2rem;
+        &:first-child {
+            margin-left: 0rem;
+        }
+    }
+
+    &.headerTransitionActive { 
+        & > p {
+            margin-left: 0rem;
+            letter-spacing: 3px;
+        }
+    }
+
+    &.phase2 {
+        & > p {
+            max-width: 10rem; 
+            &:nth-child(2){
+                margin: 0rem 0.5rem;
+            }
+        }
+
+    }
+}

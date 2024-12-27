@@ -1,0 +1,32 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.wrapper {
+  margin: 2rem 0rem;
+}
+
+.emptyCard {
+  border-style: dashed;
+  padding: 0rem 2rem;
+}
+
+.reorder > * {
+  margin: 0.25rem;
+  cursor: pointer;
+  &:hover {
+    background-color: $ocean_blue10;
+  }
+
+  &.opaque {
+    opacity: 0.1;
+  }
+}
+
+.container {
+  overflow: hidden;
+}
+
+.options {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}

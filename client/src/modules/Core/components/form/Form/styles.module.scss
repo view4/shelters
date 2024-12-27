@@ -1,0 +1,16 @@
+
+.container {
+    width: -web-kit-fill-available;
+    &.fullScreen {
+        height: 100vh;
+        overflow: scroll;
+    }
+
+
+    .footer {
+         & button {
+            margin-right: 3rem;
+         }
+         max-width: 100%;
+    }
+}

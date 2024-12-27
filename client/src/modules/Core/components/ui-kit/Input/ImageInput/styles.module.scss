@@ -1,0 +1,37 @@
+@import "src/modules/Core/styles/variables.scss";
+.container {
+  width: 7rem;
+  height: 7rem;
+  overflow: hidden;
+  border-radius: 100%;
+  border: 1px solid $grey72;
+  position: relative;
+  & img {
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+  }
+
+  & > div {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    background-color: $grey72;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0rem;
+    left: 0rem;
+    transition: 0.5s all;
+    & svg {
+      color: white;
+      font-size: 2rem;
+    }
+  }
+  &:hover {
+    & > div {
+      opacity: 0.9;
+    }
+  }
+}

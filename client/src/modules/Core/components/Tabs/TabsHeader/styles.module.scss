@@ -1,0 +1,7 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.activeTab {
+    & > button {
+        color: $ocean_blue72;
+    }
+}

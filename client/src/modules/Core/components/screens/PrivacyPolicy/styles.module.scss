@@ -1,0 +1,6 @@
+@import "src/modules/Core/styles/classes.scss";
+
+.container {
+    overflow: scroll;
+    @extend .height-fill-available;
+}
