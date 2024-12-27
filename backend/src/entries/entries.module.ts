@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Entry, EntrySchema } from './schema/entry.schema';
-// import { Gateway, GatewaySchema } from './schema/gateway.schema';
-// import { RoadmapsResolver } from './roadmaps.resolver';
-// import { RoadmapsService } from './roadmaps.service';
-// import { Roadmap, RoadmapSchema } from './schema/roadmap.schema';
+import { EntriesResolver } from './entries.resolver';
+import { EntriesService } from './entries.service';
 
 @Module({
     imports: [
@@ -13,11 +11,11 @@ import { Entry, EntrySchema } from './schema/entry.schema';
         ]),
     ],
     providers: [
-        RoadmapsResolver,
-        RoadmapsService
+        EntriesResolver,
+        EntriesService
     ],
     exports: [
-        RoadmapsService
+        EntriesService
     ]
 })
 export class EntriesModule { }
