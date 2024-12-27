@@ -8,7 +8,7 @@ export default withFocusedBoothId(strappedConnected(
     {},
     { create: feed.cells.createEntity.action },
     ({ create, boothId, callback }) => ({
-        text: "Activate New Cycle",
+        text: "Activate New Iteration",
         onClick: () => create({ input: { boothId, activateCycle: true }, callback })
     })
 ))
