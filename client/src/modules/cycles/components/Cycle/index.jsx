@@ -33,6 +33,5 @@ export default withFocusedBoothId(strappedConnected(
             Boolean(boothId),
             [boothId]
         )
-
     }
 ));

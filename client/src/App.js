@@ -9,6 +9,7 @@ import cycles from "modules/cycles";
 import roadmaps from "modules/roadmaps";
 import Dialog from "modules/Core/sub-modules/Dialog";
 import sabbaticals from "modules/sabbaticals";
+import entries from "modules/entries";
 
 const { store, rootRender, routes } = init([
   booths,
@@ -17,6 +18,7 @@ const { store, rootRender, routes } = init([
   roadmaps,
   Dialog,
   sabbaticals,
+  entries
 ]);
 
 const RootWrapper = () => {

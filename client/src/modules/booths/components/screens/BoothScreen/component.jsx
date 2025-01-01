@@ -8,6 +8,7 @@ import ActivateBoothButton from "../../ActivateBoothButton";
 import RoadmapsFeed from "modules/roadmaps/components/RoadmapsFeed";
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
 import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
+import BoothEntriesTab from "../../BoothEntriesTab";
 
 const tabs = [
     {
@@ -17,6 +18,10 @@ const tabs = [
     {
         title: 'Info',
         Component: () => <BoothInfo />
+    },
+    {
+        title: 'Entries',
+        Component: () => <BoothEntriesTab />
     }
 ];
 
