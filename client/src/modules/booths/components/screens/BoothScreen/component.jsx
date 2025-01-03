@@ -9,6 +9,8 @@ import RoadmapsFeed from "modules/roadmaps/components/RoadmapsFeed";
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
 import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
 import BoothEntriesTab from "../../BoothEntriesTab";
+import CompleteBoothButton from "../../CompleteBoothButton";
+import EditBoothButton from "../../EditBoothButton";
 
 const tabs = [
     {
@@ -38,6 +40,8 @@ const RightPanel = () => {
     return (
         <Container flex column alignCenter maxWidth>
             <ActivateBoothButton />
+            <CompleteBoothButton />
+            <EditBoothButton />
         </Container>
     )
 };
@@ -47,7 +51,6 @@ export default () => (
         contentHeader={
             <Container flex maxHeight alignCenter >
                 <DedicatedTimeFeed />
-                <TrackTimeButton />
             </Container>
         }
         tripanel

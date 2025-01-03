@@ -6,6 +6,7 @@ type Query {
 type Mutation {
   trackTime(input: TrackedTimeInput): TrackedTime
   upsertDedicatedTime(input: DedicatedTimeInput, id: String): DedicatedTime
+  removeTrackedTime(id: String): Boolean
 }
 
 type DedicatedTimeFeed {
@@ -37,6 +38,7 @@ type TrackedTime {
   createdAt: String
   updatedAt: String
   mins: Int
+  text: String
   dedicatedTimeId: String
 }
 

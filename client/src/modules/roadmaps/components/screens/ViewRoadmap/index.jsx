@@ -78,7 +78,7 @@ export default strappedConnected(
     },
     ({ roadmap, id, fetchEntity }) => {
         useOnLoad(
-            () => fetchEntity({id}),
+            () => fetchEntity({ id }),
             !Boolean(roadmap?.id),
             [id]
         )

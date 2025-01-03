@@ -10,6 +10,7 @@ import roadmaps from "modules/roadmaps";
 import Dialog from "modules/Core/sub-modules/Dialog";
 import sabbaticals from "modules/sabbaticals";
 import entries from "modules/entries";
+import trackedTime from "modules/timetracker/submodules/trackedTime";
 
 const { store, rootRender, routes } = init([
   booths,
@@ -18,7 +19,8 @@ const { store, rootRender, routes } = init([
   roadmaps,
   Dialog,
   sabbaticals,
-  entries
+  entries,
+  trackedTime,
 ]);
 
 const RootWrapper = () => {

@@ -1,0 +1,1 @@
+export const TRACKED_TIME = 'trackedTime';

@@ -3,7 +3,7 @@ import feed from "modules/booths/state/feed";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import component from "./component";
 
-const schema = {
+export const BOOTH_SCHEMA = {
     title: "Create Booth",
     fields: {
         name: {
@@ -31,7 +31,7 @@ export default strappedConnected(
             onSubmit: useCallback(({ name, text }) => {
                 create({ input: { name, text } })
             }, []),
-            schema
+            schema: BOOTH_SCHEMA
         }
     }
 );
