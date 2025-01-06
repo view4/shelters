@@ -12,7 +12,7 @@ const AddGatewayButton = ({roadmapId, onSuccess}) => {
             </Button>
             <GatewayForm 
                 onSuccess={onSuccess} 
-                roadmapId={roadmapId} 
+                parentId={roadmapId} 
                 isOpen={isOpen} 
                 close={close} 
             />

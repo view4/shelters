@@ -20,6 +20,6 @@ export default strappedConnected(
     {
     },
     ({ boothId }) => ({
-        filters: useMemo(() => ({ boothId }), [boothId]),
+        filters: useMemo(() => ({ boothId, parentId: null }), [boothId]),
     })
 )

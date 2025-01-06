@@ -6,6 +6,7 @@ import { compactObject } from 'modules/Core/utils/obj';
 import useOnSuccess from 'modules/Core/sub-modules/Dialog/hooks/useOnSuccess';
 import useOnError from 'modules/Core/sub-modules/Dialog/hooks/useOnError';
 import component from './component';
+import feed from 'modules/roadmaps/state/feed';
 
 const schema = {
     fields: {
@@ -16,6 +17,7 @@ const schema = {
             disabled: true,
         },
         parent: {
+            // TODO: Display Parent Gateway here
             label: "Parent Gateway",
             type: "text",
             disabled: true,
@@ -38,8 +40,8 @@ const schema = {
 export default strappedConnected(
     component,
     {},
-    { create: (input, id, callback) => state.createGatewayEntity.action({ input, callback, id }) },
-    ({ create, roadmapId, close, parentId = '671a61f5ca2d69e6571b2331', onSuccess, gatewayId }) => {
+    { create: (input, id, callback) => feed.cells.create.action({ input, callback, id }) },
+    ({ create,  close, parentId, onSuccess, gatewayId }) => {
         const success = useOnSuccess();
         const error = useOnError();
         const callback = useCallback((res) => {
@@ -52,9 +54,9 @@ export default strappedConnected(
             onSubmit: useCallback(({ name, text }) => create(compactObject({
                 name,
                 text,
-                roadmapId,
+                // roadmapId,
                 parentId,
-            }), gatewayId, callback), [create, roadmapId, parentId, gatewayId]),
+            }), gatewayId, callback), [create, parentId, gatewayId]),
             schema
         }
     }

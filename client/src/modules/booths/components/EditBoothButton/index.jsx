@@ -1,5 +1,6 @@
 import Button from 'modules/Core/components/ui-kit/Button';
 import { useIsOpen } from 'modules/Core/hooks/useIsOpen';
+import feed from 'modules/booths/state/feed';
 import styles from "./styles.module.scss";
 import Modal from 'modules/Core/components/ui-kit/Modal';
 import SchemaForm from 'modules/Core/components/form/Form/SchemaForm';

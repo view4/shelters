@@ -3,22 +3,22 @@ import Screen from "modules/Core/components/ui-kit/Screen"
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/roadmaps/state/feed";
 import Feed from "modules/Core/components/Feed";
-import RoadmapFeedItem, { GatewayFeedItem } from "../../RoadmapFeedItem";
+import RoadmapFeedItem from "../../RoadmapFeedItem";
 import Card from "modules/Core/components/ui-kit/Card";
 import Title from "modules/Core/components/ui-kit/Title";
 import Text from "modules/Core/components/ui-kit/Text";
 import ExpandableOptions from "modules/Core/components/ui-kit/ExpandableOptions";
 import AddGatewayButton from "../../AddGatewayButton";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
-import EditRoadmapButton from "../../EditRoadmapButton";
+import EditGatewayButton from "../../EditGatewayButton";
 import styles from "./styles.module.scss";
 
 
-const RoadmapOptions = ({ id }) => (
+const Options = ({ id }) => (
     <ExpandableOptions
         horizontal
         options={[
-            { Component: EditRoadmapButton, props: { roadmapId: id } },
+            { Component: EditGatewayButton, props: { gatewayId: id } },
             { Component: AddGatewayButton, props: { roadmapId: id } },
         ]}
     />
@@ -35,7 +35,7 @@ const Commponent = ({ name, text, gateways, children, id }) => (
                     <Text>{text}</Text>
                 </Container>
                 <Container className={styles.optionsContainer}>
-                    <RoadmapOptions id={id} />
+                    <Options id={id} />
                 </Container>
             </Card>
         }
@@ -46,24 +46,24 @@ const Commponent = ({ name, text, gateways, children, id }) => (
             {
                 title: 'Active Cycle',
                 Component: () => <Container>
-                    <Title>Roadmaps</Title>
+                    <Title>Gateways</Title>
                     <Feed.Component
                         feed={children}
                         ItemComponent={RoadmapFeedItem}
                     />
 
-                    <Title>Gateways</Title>
+                    {/* <Title>Gateways</Title>
                     <Feed.Component
                         feed={gateways}
                         ItemComponent={GatewayFeedItem}
-                    />
+                    /> */}
 
                 </Container>
             },
-            {
-                title: 'Info',
-                Component: () => "gst"
-            }
+            // {
+            //     title: 'Info',
+            //     Component: () => "gst"
+            // }
         ]}
     >
 

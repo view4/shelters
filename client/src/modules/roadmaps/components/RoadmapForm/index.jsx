@@ -22,13 +22,13 @@ const schema = {
             required: true,
         },
     }
-}
+};
 
 export default strappedConnected(
     component,
     {},
     { create: (input, id, callback) => feed.cells.createEntity.action({ input, callback, id }) },
-    ({ create, parentId = "671a49a1cc2eb26191d601b2", onSuccess, roadmapId, boothId, close }) => {
+    ({ create, parentId, onSuccess, roadmapId, boothId, close }) => {
         const success = useOnSuccess();
         const error = useOnError();
         const callback = useCallback((res) => {

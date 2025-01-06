@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import strappedConnected from 'modules/Core/higher-order-components/strappedConnected';
-import component from '../RoadmapForm/component';
+import component from './component';
 import { compactObject } from 'modules/Core/utils/obj';
 import useOnSuccess from 'modules/Core/sub-modules/Dialog/hooks/useOnSuccess';
 import useOnError from 'modules/Core/sub-modules/Dialog/hooks/useOnError';
