@@ -13,7 +13,7 @@ export class BoothsService {
     async booths() {
         return aggregateFeed(
             this.boothModel,
-            {},
+            { sort: { createdAt: -1 } },
             []
         );
     }
@@ -40,7 +40,8 @@ export class BoothsService {
         return upsert(
             this.boothModel,
             data,
-            id);
+            id
+        );
     }
 
 }

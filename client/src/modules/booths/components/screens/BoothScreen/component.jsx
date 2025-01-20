@@ -8,8 +8,11 @@ import RoadmapsFeed from "modules/roadmaps/components/RoadmapsFeed";
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
 import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
 import BoothEntriesTab from "../../BoothEntriesTab";
-import CompleteBoothButton from "../../CompleteBoothButton";
-import EditBoothButton from "../../EditBoothButton";
+import styles from "./styles.module.scss";
+import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
+import Title from "modules/Core/components/ui-kit/Title";
+import feed from "modules/booths/state/feed";
+import BoothPastCyclesTab from "../../BoothPastCyclesTab";
 
 const tabs = [
     {
@@ -23,14 +26,18 @@ const tabs = [
     {
         title: 'Entries',
         Component: () => <BoothEntriesTab />
-    }
+    },
+    {
+        title: 'Past Cycles',
+        Component: () => <BoothPastCyclesTab />
+    },
 ];
 
 const LeftPanel = withFocusedBoothId(({ boothId }) => {
     return (
         <Container flex column alignCenter>
-            <RoadmapsFeed boothId={boothId} />
             <AddRoadmapButton boothId={boothId} />
+            <RoadmapsFeed boothId={boothId} />
         </Container>
     )
 })
@@ -39,24 +46,30 @@ const RightPanel = () => {
     return (
         <Container flex column alignCenter maxWidth>
             <ActivateBoothButton />
-            <CompleteBoothButton />
-            <EditBoothButton />
         </Container>
     )
 };
 
-export default () => (
+const BoothName = strappedConnected(
+    Title,
+    {
+        text: (state, { id }) => feed.cells.fetchEntity.selectField(id, "name")(state)
+    },
+    {},
+    ({ text }) => ({})
+)
+
+export default ({ activeBoothId, id }) => (
     <Screen
         contentHeader={
-            <Container flex maxHeight alignCenter >
-                <DedicatedTimeFeed />
+            <Container className={styles.headerContent} flex maxHeight alignCenter >
+                <DedicatedTimeFeed className={styles.feed} />
             </Container>
         }
         tripanel
+        header={<BoothName id={id ?? activeBoothId} />}
         tabs={tabs}
         LeftPanelComponent={LeftPanel}
         RightPanelComponent={RightPanel}
-    >
-        Booth Screen
-    </Screen>
+    />
 )

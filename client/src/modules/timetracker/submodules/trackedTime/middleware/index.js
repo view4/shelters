@@ -19,14 +19,13 @@ export default new MiddlewareModule({
                         mins
                         text
                         createdAt
-                        }
                     }
                 }    
             }
         `,
     create: `
-            mutation trackTime($input: TrackedTimeInput){
-                entity: trackTime(input: $input) {
+            mutation trackTime($input: TrackedTimeInput, $id: String) {
+                entity: trackTime(input: $input, id: $id) {
                     id
                 }
             }

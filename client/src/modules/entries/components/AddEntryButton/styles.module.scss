@@ -1,11 +1,10 @@
-@import "src/modules/Core/styles/variables.scss";
-
 button.button {
-    // height: 12rem;
-    // width: 18rem;
+    height: 100%;
+    width: 100%;
     display: flex;
-    border: 1px dashed $kermit_green;
+    border: 1px dashed grey;
     justify-content: center;
     align-items: center;
-    margin: 1rem 1rem;
+    margin: 1rem 0rem;
+    padding: 1.5rem;
 }

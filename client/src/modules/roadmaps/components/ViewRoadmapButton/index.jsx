@@ -7,7 +7,7 @@ export default strapped(
     ({id}) => {
         const navigate = useNavigate();
         return {
-            text: "View Roadmap",
+            text: "View",
             onClick: () => navigate(`/view-roadmap/${id}`)
         }
     }

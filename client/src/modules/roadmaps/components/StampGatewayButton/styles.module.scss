@@ -1,0 +1,5 @@
+@import "src/modules/Core/components/ui-kit/Stamp/styles.module.scss";
+
+button.container {
+    @include bordered-text($ocean_blue);
+}

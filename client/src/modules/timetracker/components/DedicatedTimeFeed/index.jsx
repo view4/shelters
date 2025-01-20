@@ -1,3 +1,4 @@
+import cx from "classnames";
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
 import Container from "modules/Core/components/ui-kit/Container";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
@@ -10,43 +11,116 @@ import ExpandableOptions from "modules/Core/components/ui-kit/ExpandableOptions"
 import Feed from "modules/Core/components/Feed";
 import Feature from "modules/Core/components/ui-kit/Feature";
 import RedirectButton from "modules/Core/components/ui-kit/RedirectButton";
+import ProgressBar from "modules/Core/components/ui-kit/ProgressBar";
+import TrackTimeButton from "modules/timetracker/submodules/trackedTime/components/TrackTimeButton";
+import styles from "./styles.module.scss";
+import strapped from "modules/Core/higher-order-components/strapped";
 
 const Component = feed.FeedComponent;
 
-const ChildFeedItem = ({ name, mins, trackedTime, id, parentId }) => (
-    <Feature
-        name="Child Feed Item"
-        renderContent={() => (
-            <Container maxWidth flex row spaceBetween>
-                <Container>
-                    mins: {mins}
-                </Container>
-                <Container>
-                    <ExpandableOptions
-                        options={[
-                            {
-                                Component: RedirectButton,
-                                props: {
-                                    text: 'View Tracked Times',
-                                    to: `./tracked-times/${id}`
-                                }
-                            },
-                            {
-                                Component: AllocateTimeButton,
-                                props: {
-                                    parentId,
-                                    id,
-                                    text: "Edit"
-                                }
-                            }
-                        ]}
-                    />
-                </Container>
+export const DedicatedTimeOptions = strapped(
+    ExpandableOptions,
+    ({ onTrackTimeSuccess, id, parentId, name, text, mins }) => ({
+        onTrackTimeSuccess,
+        horizontal: true,
+        options: useMemo(() => [
+            {
+                Component: TrackTimeButton,
+                props: {
+                    dedicatedTimeId: id,
+                    onSuccess: onTrackTimeSuccess,
+                    dedicatedTimeName: name,
+                    text: "Track"
+                }
+            },
+            {
+                Component: RedirectButton,
+                props: {
+                    text: 'View',
+                    to: `./tracked-times/${id}`
+                }
+            },
+            {
+                Component: AllocateTimeButton,
+                props: {
+                    parentId,
+                    id,
+                    text: "Edit",
+                    initialState: {
+                        name,
+                        text,
+                        hours: mins / 60
+                    }
+                }
+            }
+        ], [
+            id,
+            parentId,
+            name,
+            text,
+            mins
+        ])
+    })
+);
 
+const ChildFeedItemOptions = strappedConnected(
+    DedicatedTimeOptions,
+    {},
+    {
+        onTrackTimeSuccess: () => feed.cells.fetchFeed.action({ renewStream: true })
+    },
+    ({ }) => ({})
+)
+
+
+
+const ChildFeedItem = ({ name, mins, text, trackedTime, id, parentId }) => (
+    <Feature
+        name={name}
+        className={styles.childItem}
+        row
+        renderContent={() => (
+            <Container maxWidth flex row flexEnd>
+                <Container>
+                    <ChildFeedItemOptions
+                        id={id}
+                        parentId={parentId}
+                        mins={mins}
+                        text={text}
+                        name={name}
+                        openClassName={styles.openChildOptions}
+                    />
+
+                </Container>
+                <Container>
+                    {trackedTime} / {mins} mins
+                </Container>
             </Container>
         )}
     />
 )
+
+export const TrackedTimeFeatures = ({ trackedTime, totalMins, }) =>
+    <Features
+        features={[
+            { name: "Total Fulfilled Time", content: `${(trackedTime / 60).toFixed(2)}hrs` },
+            { name: "Total Time", content: `${(totalMins / 60).toFixed(2)}hrs` },
+
+            {
+                jsx: <Container className={styles.progressContainer} flex row fullWidth>
+                    <ProgressBar min={trackedTime} max={totalMins} />
+                </Container>
+            }
+
+        ]}
+
+        className={styles.features}
+        featureProps={{
+            flex: true,
+            spaceBetween: true,
+            alignCenter: true
+        }}
+    />
 
 const FeedItemComponent = ({
     name,
@@ -56,35 +130,32 @@ const FeedItemComponent = ({
     children,
     id
 }) => (
-    <Card header={name}>
-        <ExpandableOptions
-            options={[
-                {
-                    Component: AllocateTimeButton, props: { parentId: id }
-                }
-            ]}
+    <Card
+        className={styles.container}
+        header={name}
+        headerProps={{
+            children:
+                <ExpandableOptions
+                    options={[
+                        {
+                            Component: AllocateTimeButton, props: { parentId: id }
+                        }
+                    ]}
+                    horizontal
+                />,
+            className: styles.header
+        }}
+    >
+        <Feed.Component
+            feed={children}
+            ItemComponent={ChildFeedItem}
         />
-        <Feed.Component feed={children} ItemComponent={ChildFeedItem} />
-        <Features
-            features={[
-                { name: "Total Time", content: `${totalMins / 60}hrs` },
-                { name: "Total Fulfilled Time", content: `${trackedTime / 60}hrs` },
-
-                { name: "", content: "Progress Bar here" }
-
-            ]}
-            featureProps={{
-                flex: true,
-                spaceBetween: true,
-                alignCenter: true
-            }}
-        />
-
+        <TrackedTimeFeatures trackedTime={trackedTime} totalMins={totalMins} />
     </Card>
 )
 
-const DedicatedTimeFeed = ({ boothId, filters }) => (
-    <Container flex alignCenter>
+const DedicatedTimeFeed = ({ boothId, filters, className }) => (
+    <Container className={cx(className, styles.feedContainer)} flex alignCenter maxHeight>
         <Component
             filters={filters}
             ItemComponent={FeedItemComponent}
@@ -101,6 +172,6 @@ export default withFocusedBoothId(strappedConnected(
         filters: useMemo(() => ({
             boothId,
             parentId: null,
-        }), [boothId])
+        }), [boothId]),
     })
 ))

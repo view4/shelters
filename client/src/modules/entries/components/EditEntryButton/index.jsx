@@ -6,7 +6,7 @@ import strappedConnected from 'modules/Core/higher-order-components/strappedConn
 import feed from 'modules/entries/state/feed';
 import styles from "./styles.module.scss";
 
-const EditEntryButton = ({ onSuccess, values, entryId }) => {
+const EditEntryButton = ({ onSuccess, values, entryId, initialState }) => {
     const { open, close, isOpen } = useIsOpen();
     return (
         <>
@@ -15,9 +15,9 @@ const EditEntryButton = ({ onSuccess, values, entryId }) => {
             </Button>
             <EntryForm
                 title="Edit Entry"
-                initialState={values}
                 entryId={entryId}
                 onSuccess={onSuccess}
+                initialState={initialState}
                 isOpen={isOpen}
                 close={close}
             />
@@ -34,7 +34,7 @@ export default strappedConnected(
         refetch: feed.cells.fetchEntity.action
     },
     ({ entryId, refetch, entry }) => ({
-        values: useMemo(() => ({
+        initialState: useMemo(() => ({
             name: entry?.name,
             text: entry?.text,
         }), [entry?.id]),

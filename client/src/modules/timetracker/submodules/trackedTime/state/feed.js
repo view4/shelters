@@ -11,6 +11,8 @@ export default new FeedModule({
     fetchFeedCell: {
       requestHandler: middleware.ops.fetchFeed,
     },
-    removeEntityCell: middleware.ops.remove
+    removeEntityCell: { 
+      requestHandler: middleware.ops.remove
+     },
   },
 });

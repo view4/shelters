@@ -1,10 +1,11 @@
 type Query {
   dedicatedTimes(boothId: String, parentId: String, feedParams: FeedParams): DedicatedTimeFeed
   trackedTimes(dedicatedTimeId: String, feedParams: FeedParams): TrackedTimeFeed
+  dedicatedTime(id: String): DedicatedTime
 }
 
 type Mutation {
-  trackTime(input: TrackedTimeInput): TrackedTime
+  trackTime(input: TrackedTimeInput, id: String): TrackedTime
   upsertDedicatedTime(input: DedicatedTimeInput, id: String): DedicatedTime
   removeTrackedTime(id: String): Boolean
 }

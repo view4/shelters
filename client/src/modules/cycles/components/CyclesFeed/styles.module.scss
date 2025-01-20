@@ -1,0 +1,18 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+    border: 1px solid $grey72;
+    border-radius: 1rem;
+    margin: 1em auto;
+    & > div {
+        
+    }
+
+    & .item {
+        height: 3rem;
+        margin: 0.25rem auto;
+        & > div:first-child {
+            height: 3rem;   
+        }
+    } 
+}

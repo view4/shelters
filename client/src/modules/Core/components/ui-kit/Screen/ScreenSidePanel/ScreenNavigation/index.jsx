@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 
 export const BackNavigation = ({ back, className }) => {
     const navigate = useNavigate();
-    const onWrapperClick = useMemo(() => back?.navigate && (() => navigate(back?.navigate)), [back?.navigate, navigate])
+    const onWrapperClick = useMemo(() => back?.onClick ? back?.onClick : back?.navigate && (() => navigate(back?.navigate)), [back?.navigate, navigate])
     return (
         <ScreenNavigation
             className={cx(styles.backContainer, className)}

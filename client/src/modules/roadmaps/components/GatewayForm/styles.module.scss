@@ -1,0 +1,10 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.parent {
+    input {
+        color: $ocean_blue72;
+        -webkit-text-fill-color: unset !important;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+}

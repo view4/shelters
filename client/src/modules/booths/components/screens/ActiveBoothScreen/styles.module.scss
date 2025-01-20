@@ -1,0 +1,9 @@
+.placeholder {
+    width: 54vw;
+    height: 18vh;
+    & > div:last-child {
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+}

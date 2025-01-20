@@ -10,7 +10,11 @@ const AddRoadmapButton = ({ boothId }) => {
             <Button className={styles.button} onClick={open}>
                 +
             </Button>
-            <AddRoadmapForm boothId={boothId} isOpen={isOpen} close={close} />
+            <AddRoadmapForm 
+                boothId={boothId}
+                isOpen={isOpen}
+                close={close}
+            />
         </>
     )
 }

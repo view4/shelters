@@ -1,8 +1,9 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import strappedConnected from 'modules/Core/higher-order-components/strappedConnected';
 import component from './component';
 import cells from 'modules/timetracker/state/cells';
 import { toInteger } from 'lodash';
+import { onError, onSuccess } from 'modules/Core/sub-modules/Dialog/state/cells';
 
 const schema = {
     fields: {
@@ -10,10 +11,7 @@ const schema = {
             type: "text",
             label: "Name",
             placeholder: "Dedicated Time Name",
-            required: true,
             disabled: true,
-            value: 'Dedicated Time Name',
-
         },
         text: {
             type: "text",
@@ -34,14 +32,42 @@ const schema = {
 export default strappedConnected(
     component,
     {},
-    { create: (input, callback) => cells.trackTime.action({ input, callback }) },
-    ({ create, dedicatedTimeId = "671a7fc3437b0a9d2c2b0b09" }) => {
+    {
+        create: (input, callback, id) => cells.trackTime.action({ input, callback, id }),
+        dialogSuccess: onSuccess,
+        dialogError: onError
+    },
+    ({
+        create,
+        dedicatedTimeId,
+        close,
+        dialogSuccess,
+        onSuccess,
+        initialState,
+        dedicatedTimeName,
+        dialogError,
+        id,
+
+    }) => {
         const callback = useCallback((res) => {
+            if (!res?.id) return dialogError("Faiiled")
             console.log(res)
-        },[])
+            dialogSuccess("Success")
+            onSuccess?.()
+            close()
+        }, []);
+        const refinedInitialState = useMemo(() => ({
+            name: dedicatedTimeName,
+            ...initialState
+        }), [dedicatedTimeName, dedicatedTimeId])
         return {
-            onSubmit: useCallback(({ text, mins }) => create({ text, mins: toInteger(mins), dedicatedTimeId }, callback), [create, dedicatedTimeId, callback]),
-            schema
+            onSubmit: useCallback(({ text, mins }) => create({
+                text,
+                mins: toInteger(mins),
+                dedicatedTimeId
+            }, callback, id), [create, dedicatedTimeId, callback, id]),
+            schema,
+            initialState: refinedInitialState
         }
     }
 );

@@ -7,7 +7,7 @@ import styles from "./styles.module.scss";
 const ProgressBar = ({ children, className, percentage, ...props }) => (
     <LinearProgress
         value={percentage}
-
+        variant='determinate'
     />
 );
 

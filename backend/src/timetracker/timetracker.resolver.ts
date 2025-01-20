@@ -34,9 +34,14 @@ export class TimetrackerResolver {
         @Args('parentId', { type: () => String }) parentId?: string
     ) {
         const result = await this.service.dedicatedTimes(boothId, parentId);
-        console.log("RESULT:")
-        console.log(JSON.stringify(result))
         return result;
+    }
+
+    @Query()
+    async dedicatedTime(
+        @Args('id', { type: () => String }) id: string
+    ) {
+        return this.service.dedicatedTime(id);
     }
 
     @Mutation()
@@ -50,8 +55,17 @@ export class TimetrackerResolver {
     @Mutation()
     async trackTime(
         @Args('input') input: TrackedTimeInput,
+        @Args('id', { type: () => String }) id?: string
     ) {
-        return this.service.trackTime(input);
+        return this.service.trackTime(input, id);
+    }
+
+    @Mutation()
+    async removeTrackedTime(
+        @Args('id', { type: () => String }) id: string
+    ) {
+        await this.service.removeTrackedTime(id);
+        return true;
     }
 
     // @ResolveField()

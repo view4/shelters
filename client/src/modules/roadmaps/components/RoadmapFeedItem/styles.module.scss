@@ -1,11 +1,39 @@
+@import "src/modules/Core/styles/variables.scss";
+
 .container {
-    width: 90%;
-    margin-top: 2rem;  
-    margin: 1rem auto; 
+  width: 90%;
+  margin-top: 2rem;
+  & > div:first-child {
+    margin-bottom: unset;
+    cursor: pointer;
+  }
+  &:not(.childFeedItem) {
+    height: 5.4rem;
+    margin: 1rem auto;
+
+    & > div:first-child {
+      height: 5.4rem;
+      max-height: unset;
+      h4 {
+        font-size: 1.5rem;
+      }
+    }
+  }
+  & > div:not(:first-child) {
+    padding: unset;
+  }
+
+  .textContainer {
+    border: 1px solid $grey72;
+    border-radius: 0.9rem;
+  }
 }
 
 .options {
-    & > div button {
-        font-size: 0.9rem;
-    }
+  width: 100%;
+  & > div button {
+    font-size: 0.72rem;
+    padding: 0rem 0.5rem !important;
+    margin: 0.25rem;
+  }
 }

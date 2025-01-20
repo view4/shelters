@@ -21,20 +21,20 @@ export default new MiddlewareModule({
     //                     name
     //                     text
     //                     gateways {
-    //                         id 
-    //                         name 
-    //                         text 
+    //                         id
+    //                         name
+    //                         text
     //                         ${STAMPS_FRAGMENT}
     //                     }
     //                     children {
-    //                         id 
+    //                         id
     //                         name
     //                         text
     //                         ${STAMPS_FRAGMENT}
     //                     }
     //                     ${STAMPS_FRAGMENT}
     //                 }
-    //             }    
+    //             }
     //         }
     //     `,
     fetchEntity: `
@@ -43,11 +43,25 @@ export default new MiddlewareModule({
                 id
                 name
                 text
+                parent {
+                    id
+                    name
+                }
                 children {
                     id 
                     name
                     text
                     ${STAMPS_FRAGMENT}
+                    children {
+                        id 
+                        name
+                        text
+                        parent {
+                            id
+                            name
+                        }
+                        ${STAMPS_FRAGMENT}
+                    }
                 }
                 ${STAMPS_FRAGMENT}
             }
@@ -72,7 +86,21 @@ export default new MiddlewareModule({
                             id
                             name
                             text
+                            parent {
+                                id
+                                name
+                            }
                             ${STAMPS_FRAGMENT}
+                            children {
+                                id 
+                                name
+                                text
+                                ${STAMPS_FRAGMENT}
+                                parent {
+                                    id
+                                    name
+                                }
+                            }
                         }
                     }
                 }    

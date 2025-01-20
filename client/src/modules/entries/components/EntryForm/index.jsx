@@ -11,14 +11,10 @@ const schema = {
         name: {
             label: "Entry Title",
             type: "text",
-            value: "Entry title here",
-            disabled: true,
         },
         text: {
             label: "Entry Text",
             type: "textarea",
-            disabled: true,
-            value: "Entry Text Here "
         },
     }
 };
@@ -27,12 +23,12 @@ export default strappedConnected(
     component,
     {},
     { create: (input, id, callback) => feed.cells.createEntity.action({ input, callback, id }) },
-    ({ create, close, onSuccess, entryId, }) => {
+    ({ create, close, onSuccess, entryId, boothId, }) => {
         const success = useOnSuccess();
         const error = useOnError();
         const callback = useCallback((res) => {
             if (!Boolean(res?.upsertEntry?.id)) return error('Creating Entity Failed')
-            success("Successful");
+            success("entry created");
             close()
             onSuccess?.(res.upsertEntry.id);
         }, [onSuccess]);
@@ -40,7 +36,8 @@ export default strappedConnected(
             onSubmit: useCallback(({ name, text }) => create(compactObject({
                 name,
                 text,
-            }), entryId, callback), [create, entryId, callback]),
+                boothId
+            }), entryId, callback), [create, entryId, callback, boothId]),
             schema
         }
     }

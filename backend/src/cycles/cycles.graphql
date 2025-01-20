@@ -6,6 +6,7 @@ type Query {
 type Mutation {
   upsertCycle(input: CycleInput, id: String): Cycle
   completeCycle(id: String): Cycle
+  addGatewayToCycle(cycleId: String, gatewayId: String): Cycle
 }
 
 type SabbaticalGateway {
@@ -32,6 +33,7 @@ type Cycle {
   e: Gateway
   f: Gateway
   sabbatical: SabbaticalGateway
+  stamps: Stamps
 }
 
 input CycleInput {

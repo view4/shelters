@@ -15,6 +15,7 @@ export default new CoreModule({
     addGatewayToActiveCycle: cells.addGatewayToActiveCycle,
     reorderCycleGateway: cells.reorderCycleGateway,
     removeGatewayFromActiveCycle: cells.removeGatewayFromActiveCycle,
+    setFilters: feed.cells?.setFilters,
   },
   routes: {},
 });

@@ -1,32 +1,24 @@
-import { useCallback } from 'react';
-import state from 'modules/roadmaps/state';
+import { useCallback, useMemo } from 'react';
+import feed from 'modules/roadmaps/state/feed';
 import strappedConnected from 'modules/Core/higher-order-components/strappedConnected';
-// import component from '../AddRoadmapForm/component';
 import { compactObject } from 'modules/Core/utils/obj';
 import useOnSuccess from 'modules/Core/sub-modules/Dialog/hooks/useOnSuccess';
 import useOnError from 'modules/Core/sub-modules/Dialog/hooks/useOnError';
 import component from './component';
-import feed from 'modules/roadmaps/state/feed';
+import styles from './styles.module.scss';
 
 const schema = {
     fields: {
-        roadmap: {
-            label: "Roadmap",
-            type: "text",
-            value: "Roadmap Name here",
-            disabled: true,
-        },
         parent: {
-            // TODO: Display Parent Gateway here
             label: "Parent Gateway",
             type: "text",
             disabled: true,
-            value: "Parent Gateway Here (optional)"
+            className: styles.parent
         },
         name: {
             type: "text",
             label: "Name",
-            placeholder: "Dedicated Time Name",
+            placeholder: "Gateway Name",
             required: true,
         },
         text: {
@@ -36,28 +28,39 @@ const schema = {
             required: true,
         },
     }
-}
+};
+
 export default strappedConnected(
     component,
     {},
-    { create: (input, id, callback) => feed.cells.create.action({ input, callback, id }) },
-    ({ create,  close, parentId, onSuccess, gatewayId }) => {
+    {
+        create: (input, id, callback) => feed.cells.createEntity.action({ input, callback, id }),
+        refetch: (id) => feed.cells.fetchEntity.action({ id })
+    },
+    ({ create, close, parentId, onSuccess, gatewayId, refetchId, parentName, initialState, refetch }) => {
         const success = useOnSuccess();
         const error = useOnError();
+        console.log({initialState, parentName   })
         const callback = useCallback((res) => {
-            if (!Boolean(res?.upsertGateway?.id)) return error('Creating Gateway Failed')
+            const id = res?.upsertGateway?.id
+            if (!Boolean(id)) return error('Creating Gateway Failed')
             success("Successful");
             close()
             onSuccess?.(res.upsertGateway);
-        }, [onSuccess]);
+            console.log({refetchId, id})
+            refetch(refetchId ?? id)
+        }, [onSuccess, refetchId]);
         return {
             onSubmit: useCallback(({ name, text }) => create(compactObject({
                 name,
                 text,
-                // roadmapId,
                 parentId,
             }), gatewayId, callback), [create, parentId, gatewayId]),
-            schema
+            schema,
+            initialState: useMemo(() => compactObject({
+                ...initialState,
+                parent: parentName,
+            }), [parentName, parentId, initialState])
         }
     }
 );

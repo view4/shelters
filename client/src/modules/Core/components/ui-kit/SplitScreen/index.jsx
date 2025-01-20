@@ -33,6 +33,7 @@ const SplitScreen = ({
             {...props}
             footerProps={{children: footer, className: cx(footerClassName, styles.footer)}}
         >
+            {console.log("props...", headerProps)}
             {jsx}
             {appendages}
         </Screen>

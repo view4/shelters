@@ -56,6 +56,7 @@ class MiddlewareModule {
     }
 
     processResult = (name, result) => {
+        console.log('result', result, name)
         const postParser = this.getOperationConfigField(name, 'postParser')
         return postParser ? postParser(result) : result;
     }

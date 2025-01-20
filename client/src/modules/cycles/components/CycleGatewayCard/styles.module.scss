@@ -1,7 +1,14 @@
 @import "src/modules/Core/styles/variables.scss";
 
 .wrapper {
-  margin: 2rem 0rem;
+  margin: 1.5rem 0rem;
+  & > div {
+    height: 3.6rem;
+  }
+  & > div > div {
+    margin-bottom: unset !important;
+    max-height: unset !important;
+  }
 }
 
 .emptyCard {
@@ -26,7 +33,23 @@
 }
 
 .options {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  // position: absolute;
+  // top: 1rem;
+  // right: 1rem;
+}
+
+.sabbaticalGateway {
+  border: 1px solid $success_street;
+  width: calc(100% - 2rem);
+  & h4 {
+    text-decoration: underline;
+    text-decoration-color: $success_street;
+    font-weight: 700;
+  }
+}
+
+.gateway { 
+  & > div:not(:first-child) {
+    position: relative;
+  }
 }

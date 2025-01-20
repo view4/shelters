@@ -7,11 +7,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BoothsModule } from './booths/booths.module';
 import { AuthModule } from './auth/auth.module';
-import { join } from 'path';
 import { TimetrackerModule } from './timetracker/timetracker.module';
 import { RoadmapsModule } from './roadmaps/roadmaps.module';
 import { CyclesModule } from './cycles/cycles.module';
 import { SabbaticalsModule } from './sabbaticals/sabbaticals.module';
+import { EntriesModule } from './entries/entries.module';
 
 @Module({
   imports: [
@@ -28,23 +28,7 @@ import { SabbaticalsModule } from './sabbaticals/sabbaticals.module';
       driver: YogaDriver,
       typePaths: ['./**/*.graphql'],
       useGlobalPrefix: true,
-
-      // typePaths: ['./**/*.graphql'],
-      // useGlobalPrefix: true,
-      // autoSchemaFile: true,
-      // "compilerOptions": {
-      //   "plugins": ["@nestjs/graphql"]
-      // },
-      // autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      // autoSchemaFile: 'schema.gql',
-      // autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-
-
-      // installSubscriptionHandlers: true,
       sortSchema: true,
-      // playground: true,
-      // debug: configService.get<boolean>("DEBUG"),
-      // uploads: false,
     }),
     BoothsModule,
     AuthModule,
@@ -52,6 +36,7 @@ import { SabbaticalsModule } from './sabbaticals/sabbaticals.module';
     RoadmapsModule,
     CyclesModule,
     SabbaticalsModule,
+    EntriesModule
   ],
   controllers: [AppController],
   providers: [AppService],

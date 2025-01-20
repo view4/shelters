@@ -1,8 +1,25 @@
 import MiddlewareModule from "modules/Core/core-modules/MiddlewareModule";
 import { BOOTHS } from "../consts";
+import { STAMPS_FRAGMENT } from "modules/Core/consts/graphql";
 
 export default new MiddlewareModule({
   name: BOOTHS,
+  operationsConfig: {
+    fetchFeed: {
+      postParser: (result) => ({
+        ...result,
+        feed: {
+          entities: result?.feed?.entities?.map((entity) => ({
+            ...entity,
+            stamps: {
+              ...entity?.stamps,
+              created: entity.createdAt,
+            },
+          })),
+        },
+      }),
+    },
+  },
   operations: {
     create: `
             mutation upsertBooth($input: BoothInput, $id: String) {
@@ -18,10 +35,8 @@ export default new MiddlewareModule({
                 id
                 name
                 text
-                stamps {
-                  commenced
-                  completed
-                }
+                ${STAMPS_FRAGMENT}
+                createdAt
               }
             }
           }
@@ -43,10 +58,8 @@ export default new MiddlewareModule({
               id
               name
               text
-              stamps {
-                commenced
-                completed
-              }
+              ${STAMPS_FRAGMENT}
+
             }
           }
     `,
@@ -56,10 +69,8 @@ export default new MiddlewareModule({
           id
           name
           text
-          stamps {
-            commenced
-            completed
-          }
+          ${STAMPS_FRAGMENT}
+
         }
       }
     `,

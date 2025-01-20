@@ -5,20 +5,20 @@ type Query {
     feedParams: FeedParams
   ): EntryFeed
   entry(id: String): Entry
-  gateway(id: String): Gateway
-  gateways(
-    boothId: String
-    entryId: String
-    gatewayId: String
-    feedParams: FeedParams
-  ): GatewayFeed
+  # gateway(id: String): Gateway
+  # gateways(
+  #   boothId: String
+  #   entryId: String
+  #   gatewayId: String
+  #   feedParams: FeedParams
+  # ): GatewayFeed
 }
 
 type Mutation {
   upsertEntry(input: EntryInput, id: String): Entry
-  upsertGateway(input: GatewayInput, id: String): Gateway
+  # upsertGateway(input: GatewayInput, id: String): Gateway
   stampEntry(id: String, key: String): Entry
-  stampGateway(id: String, key: String): Gateway
+  # stampGateway(id: String, key: String): Gateway
 }
 
 type Stamps {
@@ -26,26 +26,12 @@ type Stamps {
   completed: String
 }
 
-type GatewayFeed {
-  entities: [Gateway]
-  info: FeedInfo
-}
 
 type EntryFeed {
   entities: [Entry]
   info: FeedInfo
 }
 
-type Gateway {
-  id: String
-  name: String
-  text: String
-  createdAt: String
-  updatedAt: String
-  children: [Gateway]
-  booth: String
-  stamps: Stamps
-}
 
 type Entry {
   id: String

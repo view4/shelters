@@ -4,15 +4,27 @@ import Button from "modules/Core/components/ui-kit/Button";
 import { STAMPS } from "modules/Core/consts";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
+import { onError, onSuccess } from "modules/Core/sub-modules/Dialog/state/cells";
 
 export default withFocusedBoothId(strappedConnected(
     withShouldRender(Button),
     { stamps: (state, { boothId }) => feed.cells.stampEntity.selector(boothId)(state) },
-    { stamp: (id, callback) => feed.cells.stampEntity.action({ key: STAMPS.COMMENCED, id, callback }) },
-    ({ boothId: id, stamp, stamps }) => ({
-        onConfirm: (close) => stamp(id, ({ id }) => Boolean(id) && close()),
+    {
+        stamp: (id, callback) => feed.cells.stampEntity.action({ key: STAMPS.COMMENCED, id, callback }),
+        refetch: (id) => feed.cells.fetchEntity.action({id}),
+        onSuccess: onSuccess,
+        onError
+    },
+    ({ boothId: id, stamp, stamps, refetch, onError, onSuccess }) => ({
+        onConfirm: (close) => stamp(id, ({ id }) => {
+            if (!Boolean(id)) return onError("Failed to activate this booth")
+            onSuccess("Booth activated!")
+            refetch(id)
+            close()
+        }),
         panel: true,
-        text: "Activate Booth?",
+        noChevron: true,
+        text: "Activate Booth",
         copy: {
             title: "Activate Booth",
             description: "Are you sure you want to activate this booth?"

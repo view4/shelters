@@ -4,10 +4,12 @@ import feed from "modules/booths/state/feed";
 import component from "./component";
 
 export default strappedConnected(
-    component, 
+    component,
     {},
-    {fetch: (id) =>  feed.cells?.fetchEntity.action({id})},
-    ({id, fetch}) => {
+    { 
+        fetch: (id) => feed.cells?.fetchEntity.action({ id }) 
+    },
+    ({ id, fetch }) => {
         useOnLoad(
             () => fetch(id),
             Boolean(id)

@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import cx from "classnames";
 import Container from "modules/Core/components/ui-kit/Container";
 import Text from "modules/Core/components/ui-kit/Text";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
@@ -7,9 +8,19 @@ import feed from "modules/entries/state/feed";
 import ExpandableOptions from "modules/Core/components/ui-kit/ExpandableOptions";
 import EditEntryButton from "../EditEntryButton";
 import styles from "./styles.module.scss";
+import Stamp from "modules/Core/components/ui-kit/Stamp";
 
-const FeedItem = ({ name, text, id, stamps }) => (
-    <ExpandableFeedItem name={name} className={styles.itemContainer}>
+const FeedItem = ({ name, text, id, createdAt }) => (
+    <ExpandableFeedItem
+        name={name ?? "titleless"}
+        className={cx(styles.itemContainer, { [styles.titleless]: !name })}
+        headerProps={{
+            children:
+                <Container flex flexEnd>
+                    <Stamp timestamp={createdAt} />
+                </Container>,
+        }}
+    >
         <ExpandableOptions
             horizontal
             options={[
@@ -18,10 +29,6 @@ const FeedItem = ({ name, text, id, stamps }) => (
         <Text>
             {text}
         </Text>
-        <Text>
-            Stamps: {JSON.stringify(stamps)}... handle display time here
-        </Text>
-
     </ExpandableFeedItem>
 )
 

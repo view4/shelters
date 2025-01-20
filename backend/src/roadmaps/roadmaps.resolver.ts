@@ -30,10 +30,10 @@ export class RoadmapsResolver {
         return this.roadmapsService.roadmaps(boothId, parentId);
     }
     @Query()
-    async roadmap(
+    async gateway(
         @Args('id') id?: string,
     ) {
-        return this.roadmapsService.roadmap(id);
+        return this.roadmapsService.gateway(id);
     }
 
     @Query()
@@ -42,7 +42,7 @@ export class RoadmapsResolver {
         @Args('parentId') parentId?: string,
         @Args('gatewayId') gatewayId?: string
     ) {
-        return this.roadmapsService.gateways(boothId, parentId, gatewayId);
+        return this.roadmapsService.gateways(boothId, parentId);
     }
 
     @Mutation()

@@ -1,6 +1,7 @@
 import MiddlewareModule from "modules/Core/core-modules/MiddlewareModule";
 import { ENTRIES } from "../consts";
 import { STAMPS_FRAGMENT } from "modules/Core/consts/graphql";
+import { FEED_INFO_FRAGMENT } from "modules/Core/middleware/const";
 
 export default new MiddlewareModule({
   name: ENTRIES,
@@ -19,8 +20,10 @@ export default new MiddlewareModule({
                         id
                         name
                         text
+                        createdAt
                         ${STAMPS_FRAGMENT}
                     }
+                        ${FEED_INFO_FRAGMENT}
                 }    
             }
         `,

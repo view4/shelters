@@ -14,18 +14,15 @@ export class EntriesService {
         @InjectModel(Entry.name) private entryModel: Model<EntryDocument>
     ) { }
 
-    async entries(boothId?: ID, parentId?: ID) {
+    async entries(boothId?: ID, feedParams?: FeedParams) {
         return this.aggregateFeed(
             {
                 match: compactObject({
                     booth: boothId && new mongoose.Types.ObjectId(boothId),
-                    parent: parentId ? new mongoose.Types.ObjectId(parentId) : {
-                        $exists: false,
-                    },
-                })
+                }),
+                ...feedParams
             }
         )
-
     };
 
     async aggregateFeed(feedParams: FeedParams, pipeline = []) {
@@ -58,6 +55,7 @@ export class EntriesService {
             ),
             ...pipeline
         ]
+        feedParams.sort = {createdAt: -1}
         return aggregateFeed(this.entryModel, feedParams, p);
     }
 

@@ -1,5 +1,6 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { EntriesService } from "./entries.service";
+import { FeedParams } from "src/common/types";
 
 export type EntryInput = {
     boothId?: string;
@@ -24,10 +25,11 @@ export class EntriesResolver {
 
     @Query()
     async entries(
+        @Args('feedParams') feedParams?: FeedParams,
         @Args('boothId') boothId?: string,
         // @Args('parentId') parentId?: string
     ) {
-        return this.entrysService.entries(boothId);
+        return this.entrysService.entries(boothId, feedParams);
     }
     @Query()
     async entry(

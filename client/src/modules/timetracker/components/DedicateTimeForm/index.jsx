@@ -1,7 +1,9 @@
 import strappedConnected from 'modules/Core/higher-order-components/strappedConnected';
 import component from './component';
 import feed from 'modules/timetracker/state/feed';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
+import { compactObject } from 'modules/Core/utils/obj';
+import { onError, onSuccess } from 'modules/Core/sub-modules/Dialog/state/cells';
 
 const schema = {
     fields: {
@@ -28,19 +30,38 @@ const schema = {
 }
 
 
-export default  strappedConnected(
-    component, 
-    {}, 
-    {create: (input, callback) =>  feed.cells.createEntity.action({input, callback})},
-    ({create, close, parentId, boothId, }) => {
+export default strappedConnected(
+    component,
+    {},
+    {
+        create: (input, callback, id) => feed.cells.createEntity.action({ input, callback, id }),
+        refetch: () => feed.cells.fetchFeed.action({ renewStream: true }),
+        onSuccess,
+        onError
+    },
+    ({ create, close, parentId, boothId, refetch, onError, onSuccess, id,  }) => {
         const callback = useCallback((res) => {
-            console.log(res)
+            if (!res?.id) return onError('Failed')
+            onSuccess("Success")
             close()
+            refetch()
+        }, [refetch, onSuccess, onError]);
+        const refinedSchema = useMemo(() => compactObject({
+            fields: {
+                ...schema.fields,
+                hours: (!parentId && !id) ? false : schema.fields.hours,
+            }
 
-        }, [])
+        }), [parentId])
         return {
-            onSubmit: useCallback(({text, hours, name}) => create({name, mins: hours * 60, text, boothId, parentId}, callback), [create, boothId, parentId, callback]),
-            schema
+            onSubmit: useCallback(({ text, hours, name }) => create({
+                name,
+                mins: hours * 60,
+                text,
+                boothId,
+                parentId
+            }, callback, id), [create, boothId, parentId, callback, id]),
+            schema: refinedSchema
         }
     }
 );
