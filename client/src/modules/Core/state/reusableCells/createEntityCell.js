@@ -17,12 +17,6 @@ export default (moduleName, { requestHandler, parseRes = defaultParseRes, onErro
         },
         sagas: {
             latest: function* ({ payload: { callback, id, ...payload } }) {
-                console.log(
-                    'payload....',
-                    payload,
-                    'id....',
-                    id
-                )
                 let res = yield call(requestHandler, {...payload, id})
                 res = parseRes?.(res) ?? res;
                 yield putSuccess(moduleName, name, res)

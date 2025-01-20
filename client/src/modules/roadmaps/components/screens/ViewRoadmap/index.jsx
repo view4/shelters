@@ -91,19 +91,18 @@ export default strappedConnected(
             !Boolean(roadmap?.id),
             [id]
         )
-        const itemProps = useMemo(() => ({ parentId: id }), [id])
         const feed = useMemo(() => roadmap?.children?.map(child => ({
             ...child,
             parentId: id,
             parent: { id, name: roadmap?.name }
-        })), [roadmap?.children?.length])
+        })), [roadmap?.children?.length]);
+        
         return {
             name: roadmap?.name,
             text: roadmap?.text,
             gateways: roadmap?.gateways,
             children: roadmap?.children,
             parent: roadmap?.parent,
-            // itemProps: useMemo(() => ({ parentId: id, parentName: roadmap?.name, parent: {id, name: roadmap?.name} }), [id, roadmap?.name]),
             stamps: roadmap?.stamps,
             tabs: useMemo(() => [
                 {
@@ -112,7 +111,6 @@ export default strappedConnected(
                         <Feed.Component
                             feed={feed}
                             ItemComponent={RoadmapFeedItem}
-                            // itemProps={itemProps}
                         />
                     </Container>
                 },

@@ -40,14 +40,12 @@ export default strappedConnected(
     ({ create, close, parentId, onSuccess, gatewayId, refetchId, parentName, initialState, refetch }) => {
         const success = useOnSuccess();
         const error = useOnError();
-        console.log({initialState, parentName   })
         const callback = useCallback((res) => {
             const id = res?.upsertGateway?.id
             if (!Boolean(id)) return error('Creating Gateway Failed')
             success("Successful");
             close()
             onSuccess?.(res.upsertGateway);
-            console.log({refetchId, id})
             refetch(refetchId ?? id)
         }, [onSuccess, refetchId]);
         return {

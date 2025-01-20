@@ -2,10 +2,10 @@ import Container from "modules/Core/components/ui-kit/Container";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/cycles/state/feed";
 import { useMemo } from "react";
-import { CycleComponent } from "../Cycle";
 import RoadmapFeedItem from "modules/roadmaps/components/RoadmapFeedItem";
-import CycleGatewayCard, { SabbaticalGatewayCard } from "../CycleGatewayCard";
+import { SabbaticalGatewayCard } from "../CycleGatewayCard";
 import styles from "./styles.module.scss";
+
 export default strappedConnected(
     feed.FeedComponent,
     {},
@@ -23,7 +23,6 @@ export default strappedConnected(
                 <RoadmapFeedItem className={styles.item} {...item.e}/>
                 <RoadmapFeedItem className={styles.item} {...item.f}/>
                 <SabbaticalGatewayCard gateway={item.sabbatical} />
-                {/* <CycleComponent cycle={item} boothId={boothId} /> */}
             </Container>
         )
     })

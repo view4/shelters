@@ -26,7 +26,6 @@ export class SabbaticalsService {
     }
 
     async completeCycle(shouldStartNewCycle: boolean) {
-        console.log("being called....", shouldStartNewCycle)
         await this.cyclesService.completeCurrentCycle();
         if (shouldStartNewCycle) {
             const booth = await this.boothsService.activeBooth();

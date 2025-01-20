@@ -51,7 +51,6 @@ export default strappedConnected(
     }) => {
         const callback = useCallback((res) => {
             if (!res?.id) return dialogError("Faiiled")
-            console.log(res)
             dialogSuccess("Success")
             onSuccess?.()
             close()

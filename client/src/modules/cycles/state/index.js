@@ -41,7 +41,6 @@ export default {
           feed.cells.createEntity.action({ input: payload, id: cycle.id })
         );
         yield put(feed.cells.fetchEntity.action({ boothId: cycle?.boothId }));
-        console.log({ payload });
       },
     },
   }),
@@ -57,7 +56,6 @@ export default {
           feed.cells.createEntity.action({ input: payload, id: cycle.id })
         );
         yield put(feed.cells.fetchEntity.action({ boothId: cycle?.boothId }));
-        console.log({ payload });
       },
     },
   }),

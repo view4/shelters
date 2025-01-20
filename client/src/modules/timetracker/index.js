@@ -2,7 +2,7 @@ import CoreModule from "modules/Core/core-modules/CoreModule";
 import { TIMETRACKER } from "./consts";
 import feed from "./state/feed";
 import cells from "./state/cells";
-console.log({s: feed.cells?.removeEntity})
+
 export default new CoreModule({
   name: TIMETRACKER,
   initialState: {

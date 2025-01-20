@@ -34,9 +34,7 @@ export default  strappedConnected(
     {create: (input, callback) =>  feed.cells.createEntity.action({input, callback})},
     ({create, close, parentId, boothId, }) => {
         const callback = useCallback((res) => {
-            console.log(res)
             close()
-
         }, [])
         return {
             onSubmit: useCallback(({text, hours, name}) => create({name, mins: hours * 60, text, boothId, parentId}, callback), [create, boothId, parentId, callback]),

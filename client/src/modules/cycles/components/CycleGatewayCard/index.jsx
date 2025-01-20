@@ -67,22 +67,6 @@ const Component = ({ gateway, children, refetch, remove, className, ...props }) 
                     {gateway?.text}
                     {children}
                     <Container flex flexEnd mt3 >
-                        {/* <Container>
-                            <StampGatewayButton
-                                text={"Stamp Commenced"}
-                                stampKey={STAMPS.COMMENCED}
-                                gatewayId={gateway?.id}
-                                callback={refetch}
-                                shouldRender={!gateway?.stamps?.[STAMPS.COMMENCED]}
-                            />
-                            <StampGatewayButton
-                                text={"Stamp Completed"}
-                                stampKey={STAMPS.COMPLETED}
-                                gatewayId={gateway?.id}
-                                callback={refetch}
-                                shouldRender={!gateway?.stamps?.[STAMPS.COMPLETED] && Boolean(gateway?.stamps?.[STAMPS.COMMENCED])}
-                            />
-                        </Container> */}
                         <Container>
                             <Stamps stamps={stamps} />
                         </Container>

@@ -10,7 +10,6 @@ export default (moduleName, { onErrorMessage }) =>
     },
     reducer: (state, { payload }) => {
       const { reset, shouldRefetch, ...filters } = payload;
-      console.log("being called...", filters, reset)
       state.filters = {
         ...(!reset && state.filters),
         ...filters,
