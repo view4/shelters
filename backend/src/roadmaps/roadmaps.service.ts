@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Gateway, GatewayDocument } from "./schema/gateway.schema";
 import mongoose, { Model } from "mongoose";
-import { aggregateFeed, connect, upsert } from "src/common/utils/db";
+import { aggregateFeed, connect, fetchOne, upsert } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { GatewayInput, RoadmapInput } from "./roadmaps.resolver";
 import { FeedParams, ID } from "src/common/types";
@@ -62,8 +62,7 @@ export class RoadmapsService {
     }
 
     async gateway(id: ID) {
-        const result = await this.gateways(null, null, { limit: 1, match: { _id: new mongoose.Types.ObjectId(id) } });
-        return result.entities[0];
+        return fetchOne(this.gatewayModel, id);
     }
 
     async gateways(boothId?: ID, parentId?: ID, feedParams?: FeedParams) {
@@ -74,116 +73,11 @@ export class RoadmapsService {
                     booth: boothId && new mongoose.Types.ObjectId(boothId),
                     parent: parentId && new mongoose.Types.ObjectId(parentId),
                 }),
-                ...feedParams
-            },
-            [
-                connect(
-                    "gateways",
-                    "parent",
-                    "_id",
-                    "parent",
-                    [
-                        {
-                            "$addFields": {
-                                id: "$_id",
-                            }
-                        },
-
-                    ]
-                ),
-                {
-                    "$addFields": {
-                        parent: {
-                            $arrayElemAt: ["$parent", 0]
-                        }
-
-                    }
-
+                sort: {
+                    createdAt: -1
                 },
-                connect(
-                    "gateways",
-                    "_id",
-                    "parent",
-                    "children",
-                    [
-                        {
-                            "$addFields": {
-                                id: "$_id",
-                            }
-                        },
-                        {
-                            $sort: {
-                                createdAt: -1
-                            }
-                        },
-                        connect(
-                            "gateways",
-                            "parent",
-                            "_id",
-                            "parent",
-                            [
-                                {
-                                    "$addFields": {
-                                        id: "$_id",
-                                    }
-                                },
-
-                            ]
-                        ),
-                        {
-                            "$addFields": {
-                                parent: {
-                                    $arrayElemAt: ["$parent", 0]
-                                }
-
-                            }
-
-                        },
-                        connect(
-                            "gateways",
-                            "_id",
-                            "parent",
-                            "children",
-                            [
-                                connect(
-                                    "gateways",
-                                    "parent",
-                                    "_id",
-                                    "parent",
-                                    [
-                                        {
-                                            "$addFields": {
-                                                id: "$_id",
-                                            }
-                                        },
-
-                                    ]
-                                ),
-                                {
-                                    "$addFields": {
-                                        parent: {
-                                            $arrayElemAt: ["$parent", 0]
-                                        }
-
-                                    }
-
-                                },
-                                {
-                                    "$addFields": {
-                                        id: "$_id",
-                                    }
-                                },
-                                {
-                                    $sort: {
-                                        createdAt: -1
-                                    }
-                                }
-                            ]
-
-                        )
-                    ],
-                )
-            ]
+                ...feedParams
+            }
         );
     }
 
