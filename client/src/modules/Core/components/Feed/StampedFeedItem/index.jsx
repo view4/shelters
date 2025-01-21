@@ -2,7 +2,7 @@ import Stamps from "../../ui-kit/Stamps";
 import FeedItem from "../FeedItem";
 import Container from "modules/Core/components/ui-kit/Container";;
 
-const formatter = (stamps={}) => Object.entries(stamps)?.map(([key, value]) => ({
+const formatter = (stamps={}) => Object.entries(stamps)?.map(([key, value]) => value && ({
    text: key,
    timestamp: value
 }));

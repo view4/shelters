@@ -14,7 +14,7 @@ const schema = {
             required: true,
         },
         text: {
-            type: "text",
+            type: "textarea",
             label: "Text",
             placeholder: "Text",
             required: true,
