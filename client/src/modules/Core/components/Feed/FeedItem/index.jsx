@@ -9,11 +9,11 @@ import styles from "./styles.module.scss";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
 import ConditionalContainer from "../../ui-kit/ConditionalContainer";
 
-const FeedItem = ({ name, text, createdAt, onClick = noop, className, header = true, textProps, children, shouldRenderText, ...props }) => {
+const FeedItem = ({ name, text, createdAt, onClick = noop, className, header = true, textProps, children, headerChildren = null, shouldRenderText, ...props }) => {
    const date = useMemo(() => formatDate(createdAt), [createdAt]);
    return (
       <Container className={cx(styles.container, className)} onClick={onClick} {...props}>
-         <FeedItem.Header name={name} date={date} shouldRender={!!header} />
+         <FeedItem.Header name={name} shouldRender={!!header} headerChildren={headerChildren ?? date} />
          <ConditionalContainer className={styles.textContainer} shouldRender={shouldRenderText} >
             <Text text={text}  {...textProps} />
          </ConditionalContainer>
@@ -22,10 +22,10 @@ const FeedItem = ({ name, text, createdAt, onClick = noop, className, header = t
    )
 };
 
-FeedItem.Header = withShouldRender(({ name, date }) => (
+FeedItem.Header = withShouldRender(({ name, date, headerChildren }) => (
    <Container className={styles.headingContainer}>
       <Title text={name} />
-      <span> {date}</span>
+      <span> {headerChildren}</span>
    </Container>
 ))
 

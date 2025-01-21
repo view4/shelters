@@ -8,6 +8,10 @@ const GATEWAY_FRAGMENT = `
         text
         id 
         ${STAMPS_FRAGMENT}
+        parent {
+            name
+            id
+        }
     }
 `;
 
@@ -25,6 +29,8 @@ const CYCLE_FRAGMENT = `
                     sabbatical {
                         gateway ${GATEWAY_FRAGMENT}
                     } 
+                    createdAt
+                    ${STAMPS_FRAGMENT}
 `;
 
 export default new MiddlewareModule({
@@ -48,9 +54,7 @@ export default new MiddlewareModule({
             query cycles($feedParams: FeedParams, $boothId: String) {
                 feed: cycles(feedParams: $feedParams, boothId: $boothId) {
                     entities {
-                        id
-                        name
-                        text
+                        ${CYCLE_FRAGMENT}
                     }
                 }    
             }
@@ -62,10 +66,17 @@ export default new MiddlewareModule({
                 }
             }
         `,
+    addGatewayToCycle: `
+            mutation addGatewayToCycle($cycleId: String, $gatewayId: String) {
+                addGatewayToCycle(cycleId: $cycleId, gatewayId: $gatewayId) {
+                    id
+                }
+            }
+        `,
   },
   operationsConfig: {
     fetchEntity: {
       paramsParser: ({ id = null }) => ({ boothId: id }),
     },
-  },
+  }
 });

@@ -1,5 +1,6 @@
-import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { Args, Mutation, Parent, Query, ResolveField, Resolver } from "@nestjs/graphql";
 import { RoadmapsService } from "./roadmaps.service";
+import { Gateway, GatewayDocument } from "./schema/gateway.schema";
 
 export type RoadmapInput = {
     boothId?: string;
@@ -16,7 +17,7 @@ export type GatewayInput = {
     roadmapId?: string;
 }
 
-@Resolver()
+@Resolver('Gateway')
 export class RoadmapsResolver {
     constructor(
         private readonly roadmapsService: RoadmapsService
@@ -30,10 +31,10 @@ export class RoadmapsResolver {
         return this.roadmapsService.roadmaps(boothId, parentId);
     }
     @Query()
-    async roadmap(
+    async gateway(
         @Args('id') id?: string,
     ) {
-        return this.roadmapsService.roadmap(id);
+        return this.roadmapsService.gateway(id);
     }
 
     @Query()
@@ -42,7 +43,7 @@ export class RoadmapsResolver {
         @Args('parentId') parentId?: string,
         @Args('gatewayId') gatewayId?: string
     ) {
-        return this.roadmapsService.gateways(boothId, parentId, gatewayId);
+        return this.roadmapsService.gateways(boothId, parentId);
     }
 
     @Mutation()
@@ -77,10 +78,19 @@ export class RoadmapsResolver {
         return this.roadmapsService.stampGateway(id, key);
     }
 
-    // @ResolveField()
-    // async gateways(
-    //     @Parent() parent: GatewayDocument
-    // ) {
-    //     return this.roadmapsService.roadmaps(null, parent._id);
-    // }
+    @ResolveField('parent')
+    async parent(
+        @Parent() parent: Omit<GatewayDocument, 'parent'> & { parent: string }
+    ) {
+        return this.roadmapsService.gateway(parent.parent);
+    }
+
+    @ResolveField('children')
+    async children(
+        @Parent() parent: GatewayDocument
+    ) {
+        const {entities} = await (this.roadmapsService.gateways(undefined, parent.id) ?? {});
+        return entities ?? [];
+    }
+
 }

@@ -14,7 +14,7 @@ export default {
     name: "fetchGatewaysFeed",
   }),
   stampGateway: stampEntityCell(ROADMAPS, {
-    requestHandler: middleware.ops.stampGatewayEntity,
+    requestHandler: middleware.ops.stampEntity,
     name: "stampGateway"
   })
 };

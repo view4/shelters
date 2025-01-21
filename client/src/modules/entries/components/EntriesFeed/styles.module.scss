@@ -1,0 +1,15 @@
+
+.options {
+    & > div button {
+        font-size: 0.9rem;
+    }
+}
+
+.itemContainer {
+    &.titleless h4 {
+        font-style: italic;
+    }
+    & >div:first-child {
+        margin-bottom: unset;
+    }
+}

@@ -9,7 +9,7 @@ import { CYCLE_GATEWAY_KEYS } from "modules/cycles/consts";
 import CycleGatewayCard from "../CycleGatewayCard";
 import styles from "./styles.module.scss";
 
-const Cycle = ({ cycle, boothId, fetch }) => {
+export const CycleComponent = ({ cycle, boothId, fetch }) => {
     const gateways = useMemo(() => (CYCLE_GATEWAY_KEYS.map(key => <CycleGatewayCard boothId={boothId} cycleId={cycle?.id} orderKey={key} />)), [cycle?.id, boothId])
 
     if (!cycle) return <ActivateNewCycleButton callback={() => fetch({ boothId })} />;
@@ -21,7 +21,7 @@ const Cycle = ({ cycle, boothId, fetch }) => {
 };
 
 export default withFocusedBoothId(strappedConnected(
-    Cycle,
+    CycleComponent,
     {
         cycle: feed.cells.fetchEntity.selector,
         isLoading: feed.cells.fetchEntity.selectors.getIsLoading
@@ -33,6 +33,5 @@ export default withFocusedBoothId(strappedConnected(
             Boolean(boothId),
             [boothId]
         )
-
     }
 ));

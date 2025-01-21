@@ -35,11 +35,9 @@ export default strappedConnected(
     component,
     {},
     { create: (input, callback) => cells.trackTime.action({ input, callback }) },
-    ({ create, dedicatedTimeId = "671a7fc3437b0a9d2c2b0b09" }) => {
+    ({ create, dedicatedTimeId  }) => {
         const callback = useCallback((res) => {
-            console.log(res)
-        }
-            , [])
+        },[])
         return {
             onSubmit: useCallback(({ text, mins }) => create({ text, mins: toInteger(mins), dedicatedTimeId }, callback), [create, dedicatedTimeId, callback]),
             schema

@@ -30,9 +30,7 @@ export class CyclesResolver {
 
     @Query()
     async currentCycle(@Args('boothId') boothId: string) {
-        const res = await  this.cyclesService.currentCycle(boothId);
-        console.log(JSON.stringify(res))
-        return res
+        return this.cyclesService.currentCycle(boothId);
     }
 
     @Mutation()
@@ -46,5 +44,12 @@ export class CyclesResolver {
         @Args('id', { type: () => String }) id?: string
     ) {
         return this.cyclesService.upsertCycle(input, id);
+    }
+
+    @Mutation()
+    async addGatewayToCycle(
+        @Args('gatewayId') gatewayId: string
+    ) {
+        return this.cyclesService.addGatewayToCycle(gatewayId);
     }
 }

@@ -16,7 +16,7 @@ export default (
       latest: function* ({ payload }) {
         const id = payload?.[idKey];
         if (!id) return null;
-        let res = yield call(requestHandler, id);
+        let res = yield call(requestHandler, {id});
         return parseRes?.(res) ?? res;
       },
       onCellSuccess: true,

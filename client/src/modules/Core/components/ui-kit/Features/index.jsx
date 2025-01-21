@@ -7,8 +7,8 @@ import Feature from "../Feature";
 import Title from '../Title';
 import styles from './styles.module.scss';
 
-const renderFeature = (feature, index, {card, contentRequired, ...featureProps}) => {
-    if (Boolean(contentRequired) && (!feature.content && !feature.renderContent)) return null;
+const renderFeature = (feature, index, { card, contentRequired, ...featureProps }) => {
+    if (Boolean(contentRequired) && (!feature.content && !feature.renderContent) && !feature.jsx) return null;
     return <Feature key={index} card={card} {...feature} {...featureProps} />
 }
 
@@ -23,11 +23,9 @@ const Features = ({ features, card, title, row, className, grid, featureProps, c
                 [className]: Boolean(className)
             })
         }
-
     >
-        {console.log("features", features) && null}
         {title && <Title className={styles.title}>{title}</Title>}
-        {features?.map((feature, i) => renderFeature(feature, i, {contentRequired, card, ...featureProps, }))}
+        {features?.map((feature, i) => renderFeature(feature, i, { contentRequired, card, ...featureProps, }))}
     </Container>
 )
 

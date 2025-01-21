@@ -10,7 +10,8 @@ type Query {
     boothId: String
     roadmapId: String
     gatewayId: String
-    feedParams: FeedParams
+    feedParams: FeedParams,
+    parentId: String
   ): GatewayFeed
 }
 
@@ -45,6 +46,7 @@ type Gateway {
   children: [Gateway]
   booth: String
   stamps: Stamps
+  parent: Gateway
 }
 
 type Roadmap {

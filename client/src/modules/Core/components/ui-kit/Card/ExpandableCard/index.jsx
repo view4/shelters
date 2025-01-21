@@ -22,6 +22,7 @@ export const ExpandableCardComponent = ({
     toggleButtonClassName,
     HeaderComponent,
     headerProps,
+    openOnHeaderClick = true,
     ...props
 }) => (
     <Card
@@ -38,7 +39,13 @@ export const ExpandableCardComponent = ({
         header={label ?? title}
         HeaderComponent={HeaderComponent}
         headerProps={{
-            children: children && <Button className={c(styles.chevronBtn, toggleButtonClassName)} onClick={toggle} hover={false} />,
+            onClick: openOnHeaderClick ? toggle : undefined,
+            children: children && (
+                <Container flex row alignCenter>
+                    {headerProps?.appendage}
+                    <Button className={c(styles.chevronBtn, toggleButtonClassName)} onClick={toggle} hover={false} />,
+                </Container>
+            ),
             Element: "h4",
             className: styles.header,
             ...headerProps

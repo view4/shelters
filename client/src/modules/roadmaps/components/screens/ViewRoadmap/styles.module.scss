@@ -2,5 +2,16 @@
     position: absolute;
     bottom: 0rem;
     right: 0rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     padding: 1rem 0.5rem;
+    & > div:first-child {
+        margin: 0rem 1rem;
+    }
+}
+
+
+.parentBtn {
+    border: 2px solid red;
 }

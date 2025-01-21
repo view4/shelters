@@ -54,7 +54,7 @@ export default ({
     grey,
     grey90,
     grey50,
-    underline
+    underline,
 }) => useMemo(() => classnames({
     [styles.relative]: relative,
     [styles.flex]: flex,

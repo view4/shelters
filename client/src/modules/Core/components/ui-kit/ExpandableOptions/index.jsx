@@ -6,6 +6,7 @@ import withRecursiveRender from 'modules/Core/higher-order-components/withRecurs
 import HorizontalOptions from './HorizontalOptions';
 import styles from './styles.module.scss';
 import { useIsOpen } from 'modules/Core/hooks/useIsOpen';
+import { compact } from 'lodash';
 
 
 const ExpandableOptions = ({ options, className, label, optionsContainerClassName, openClassName }) => {
@@ -19,7 +20,7 @@ const ExpandableOptions = ({ options, className, label, optionsContainerClassNam
             </Button>
 
             <Container className={cx(styles.optionsContainer, optionsContainerClassName)}>
-                {options.map(({ text, onClick, Component = Button, props }) => (
+                {compact(options).map(({ text, onClick, Component = Button, props }) => (
                     <Component key={text} onClick={onClick} {...props}>{text}</Component>
                 ))
                 }

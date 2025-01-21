@@ -1,0 +1,10 @@
+
+.container { 
+    & > div {
+        width: 90%;
+    }
+}
+
+.card {
+    border: none;
+}

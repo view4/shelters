@@ -18,12 +18,11 @@ const schema = {
             label: "Parent Gateway",
             type: "text",
             disabled: true,
-            value: "Parent Gateway Here (optional)"
         },
         name: {
             type: "text",
             label: "Name",
-            placeholder: "Dedicated Time Name",
+            placeholder: "Name",
             required: true,
         },
         text: {

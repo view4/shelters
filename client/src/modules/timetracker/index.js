@@ -12,6 +12,8 @@ export default new CoreModule({
     createEntity: feed.cells?.createEntity,
     fetchFeed: feed.cells?.fetchFeed,
     setFilters: feed.cells?.setFilters,
+    fetchEntity: feed.cells.fetchEntity, 
+    removeEntity: feed.cells?.removeEntity,
     ...cells
   },
   routes: {

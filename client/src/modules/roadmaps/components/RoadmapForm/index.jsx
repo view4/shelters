@@ -1,7 +1,6 @@
-
+import { useCallback } from 'react';
 import strappedConnected from 'modules/Core/higher-order-components/strappedConnected';
 import feed from 'modules/roadmaps/state/feed';
-import { useCallback } from 'react';
 import component from './component';
 import { compactObject } from 'modules/Core/utils/obj';
 import useOnSuccess from 'modules/Core/sub-modules/Dialog/hooks/useOnSuccess';
@@ -12,7 +11,7 @@ const schema = {
         name: {
             type: "text",
             label: "Name",
-            placeholder: "Dedicated Time Name",
+            placeholder: " Name",
             required: true,
         },
         text: {
@@ -22,18 +21,30 @@ const schema = {
             required: true,
         },
     }
-}
+};
 
 export default strappedConnected(
     component,
     {},
-    { create: (input, id, callback) => feed.cells.createEntity.action({ input, callback, id }) },
-    ({ create, parentId = "671a49a1cc2eb26191d601b2", onSuccess, roadmapId, boothId, close }) => {
+    {
+        create: (input, id, callback) => feed.cells.createEntity.action({ input, callback, id }),
+        refetch: () => feed.cells.fetchFeed.action({ renewStream: true })
+    },
+    ({
+        create,
+        parentId,
+        onSuccess,
+        roadmapId,
+        boothId,
+        close,
+        refetch
+    }) => {
         const success = useOnSuccess();
         const error = useOnError();
         const callback = useCallback((res) => {
-            if (!Boolean(res?.upsertRoadmap?.id)) return error('Creating Roadmap Failed')
+            if (!Boolean(res?.upsertGateway?.id)) return error('Creating Roadmap Failed')
             success("Successful");
+            refetch()
             close()
             onSuccess?.(res.upsertRoadmap);
         }, []);

@@ -11,6 +11,18 @@ export default new MiddlewareModule({
                 }
             }
         `,
+        fetchEntity: `
+            query dedicatedTime($id: String) {
+                entity: dedicatedTime(id: $id) {
+                    id
+                    name
+                    text
+                    mins
+                    trackedTime
+                    totalMins
+                }
+            }
+        `,
         fetchFeed: `
             query dedicatedTimes($feedParams: FeedParams, $boothId: String, $parentId: String) {
                 feed: dedicatedTimes(feedParams: $feedParams, boothId: $boothId, parentId: $parentId) {
@@ -33,12 +45,13 @@ export default new MiddlewareModule({
             }
         `,
         trackTime: `
-            mutation trackTime($input: TrackedTimeInput){
-                entity: trackTime(input: $input) {
+            mutation trackTime($input: TrackedTimeInput, $id: String) {
+                entity: trackTime(input: $input, id: $id) {
                     id
                 }
             }
         `,
+        
         fetchTrackedTimeFeed: ``
     }
 })

@@ -38,9 +38,9 @@ const cycle = {
     }
 };
 
-const _GatewayCard = ({ gateway, children }) => {
+const _GatewayCard = ({ gateway, children, ...props }) => {
     return (
-        <ExpandableCard className={styles.gateway} title={gateway.name}>
+        <ExpandableCard {...props} className={styles.gateway} title={gateway.name}>
             {gateway.text}
             {children}
         </ExpandableCard>
@@ -50,7 +50,7 @@ const _GatewayCard = ({ gateway, children }) => {
 
 
 const SabbaticalGatewayCard = ({ gateway }) => (
-    <GatewayCard gateway={gateway}>
+    <GatewayCard gateway={gateway} headerProps={{children: "hey hey hey"}}>
         <Container maxWidth flex flexEnd alignCenter p1>
             <Button>
                 Complete cycle, and start a new one.
