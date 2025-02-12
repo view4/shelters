@@ -4,12 +4,14 @@ import Title from '../../Title';
 import withShouldRender from 'modules/Core/higher-order-components/withShouldRender';
 import ConditionalContainer from '../../ConditionalContainer';
 import styles from './styles.module.scss'
+import { isString } from 'lodash';
 // import UserGuideButton from 'modules/Core/sub-modules/Dialog/components/UserGuideButton';
 
 const Header = ({ header, title = header, className, children, appendages, Element, userGuideKey, ...props }) => (
     <>
         <Container className={cx(styles.header, className)} relative flex alignCenter {...props}>
-            {title && <Title className={styles.title} Element={Element}>{title}</Title>}
+            {isString(title) ? <Title className={styles.title} Element={Element}>{title}</Title>: title}
+            
             {children}
             {/* <UserGuideButton userGuideKey={userGuideKey} /> */}
         </Container>

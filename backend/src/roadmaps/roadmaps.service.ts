@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Gateway, GatewayDocument } from "./schema/gateway.schema";
-import mongoose, { Model } from "mongoose";
+import mongoose, { Model, Mongoose } from "mongoose";
 import { aggregateFeed, connect, fetchOne, upsert } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { GatewayInput, RoadmapInput } from "./roadmaps.resolver";
@@ -65,19 +65,89 @@ export class RoadmapsService {
         return fetchOne(this.gatewayModel, id);
     }
 
-    async gateways(boothId?: ID, parentId?: ID, feedParams?: FeedParams) {
+    async gateways(boothId?: ID, parentId?: ID, isCycleless?: Boolean, feedParams?: FeedParams) {
+        const params = {
+            ...feedParams,
+            match: compactObject({
+                booth: boothId && new mongoose.Types.ObjectId(boothId),
+                parent: parentId && new mongoose.Types.ObjectId(parentId),
+            }),
+            sort: {
+                createdAt: -1
+            },
+        }
+        const pipeline = [];
+        if (isCycleless) {
+            delete params['match']
+            pipeline.push({
+                $graphLookup: {
+                    from: "gateways",
+                    startWith: "$_id",
+                    connectToField: "_id",
+                    connectFromField: "parent",
+                    as: "heritage",
+                    maxDepth: 36,
+                    depthField: "depth",
+                }
+            })
+            pipeline.push({
+                $addFields: {
+                    boothMatch: {
+                        $gt: [
+                            {
+                                $size: {
+                                    $filter: {
+                                        input: "$heritage",
+                                        as: "h",
+                                        cond: { $eq: ["$$h.booth", new mongoose.Types.ObjectId(boothId)] }
+                                    }
+
+                                }
+                            }, 0
+                        ]
+                    }
+                }
+            })
+            pipeline.push({
+                $match: {
+                    boothMatch: true
+                }
+            })
+            pipeline.push({
+                $lookup: {
+                    from: "cycles",
+                    let: { gatewayId: "$_id" },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $or: [
+                                        { $eq: ["$a", "$$gatewayId"] },
+                                        { $eq: ["$b", "$$gatewayId"] },
+                                        { $eq: ["$c", "$$gatewayId"] },
+                                        { $eq: ["$d", "$$gatewayId"] },
+                                        { $eq: ["$e", "$$gatewayId"] },
+                                        { $eq: ["$f", "$$gatewayId"] }
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    as: 'cycles'
+                }
+            })
+
+            pipeline.push({
+                $match: {
+                    cycles: { $size: 0 }
+                }
+            })
+
+        }
         return aggregateFeed(
             this.gatewayModel,
-            {
-                match: compactObject({
-                    booth: boothId && new mongoose.Types.ObjectId(boothId),
-                    parent: parentId && new mongoose.Types.ObjectId(parentId),
-                }),
-                sort: {
-                    createdAt: -1
-                },
-                ...feedParams
-            }
+            params,
+            pipeline
         );
     }
 

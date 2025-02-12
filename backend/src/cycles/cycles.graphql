@@ -1,6 +1,11 @@
 type Query {
   currentCycle(boothId: String): Cycle
-  cycles(boothId: String, feedParams: FeedParams): CycleFeed
+  cycles(
+    boothId: String
+    isCompleted: Boolean
+    isForthcoming: Boolean
+    feedParams: FeedParams
+  ): CycleFeed
 }
 
 type Mutation {

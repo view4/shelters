@@ -51,8 +51,8 @@ export default new MiddlewareModule({
             } 
         `,
     fetchFeed: `
-            query cycles($feedParams: FeedParams, $boothId: String) {
-                feed: cycles(feedParams: $feedParams, boothId: $boothId) {
+            query cycles($feedParams: FeedParams, $boothId: String, $isCompleted: Boolean, $isForthcoming: Boolean ) {
+                feed: cycles(feedParams: $feedParams, boothId: $boothId, isCompleted: $isCompleted, isForthcoming: $isForthcoming) {
                     entities {
                         ${CYCLE_FRAGMENT}
                     }
@@ -78,5 +78,5 @@ export default new MiddlewareModule({
     fetchEntity: {
       paramsParser: ({ id = null }) => ({ boothId: id }),
     },
-  }
+  },
 });

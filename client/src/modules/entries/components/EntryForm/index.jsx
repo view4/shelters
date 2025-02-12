@@ -15,6 +15,10 @@ const schema = {
         text: {
             label: "Entry Text",
             type: "textarea",
+            lines: 12,
+            style: {
+                height: "10rem"
+            }
         },
     }
 };

@@ -11,7 +11,8 @@ type Query {
     roadmapId: String
     gatewayId: String
     feedParams: FeedParams,
-    parentId: String
+    parentId: String,
+    isCycleless: Boolean
   ): GatewayFeed
 }
 

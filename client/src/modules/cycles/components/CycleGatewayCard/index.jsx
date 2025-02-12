@@ -18,50 +18,53 @@ import Stamps from "modules/Core/components/ui-kit/Stamps";
 import CompleteSabbaticalButton from "modules/sabbaticals/components/CompleteSabbaticalButton";
 import EditGatewayButton from "modules/roadmaps/components/EditGatewayButton";
 import ExpandableOptions from "modules/Core/components/ui-kit/ExpandableOptions";
-import styles from "./styles.module.scss";
 import Stamp from "modules/Core/components/ui-kit/Stamp";
+import RoadmapFeedItem, { TitleWithStamps } from "modules/roadmaps/components/RoadmapFeedItem";
+import styles from "./styles.module.scss";
 
 
 const Component = ({ gateway, children, refetch, remove, className, ...props }) => {
     const stamps = useMemo(() => Object.entries(gateway?.stamps ?? {})?.map(([key, value]) => (value && { text: key?.toLowerCase(), timestamp: value })), [gateway?.stamps]);
-
     return (
-        <ExpandableCard className={cx(styles.gateway, className)} title={gateway?.name} size={"lg"} {...props}>
-          <ExpandableOptions
-                        className={styles.options}
-                        horizontal
-                        options={[
-                            { text: "Remove", onClick: remove },
-                            {
-                                Component: EditGatewayButton, props: {
-                                    gatewayId: gateway?.id,
-                                    onSuccess: refetch,
-                                    name: gateway?.name,
-                                    text: gateway?.text,
-                                    parentName: gateway?.parent?.name
-                                }
-                            },
-                            {
-                                Component: StampGatewayButton, props: {
-                                    stampKey: STAMPS.COMMENCED,
-                                    gatewayId: gateway?.id,
-                                    shouldRender: !gateway?.stamps?.[STAMPS.COMMENCED],
-                                    text: "Stamp Commenced",
-                                    callback: refetch
-                                }
-                            },
-                            {
-                                Component: StampGatewayButton, props: {
-                                    stampKey: STAMPS.COMPLETED,
-                                    gatewayId: gateway?.id,
-                                    shouldRender: !gateway?.stamps?.[STAMPS.COMPLETED] && Boolean(gateway?.stamps?.[STAMPS.COMMENCED]),
-                                    text: "Stamp Completed",
-                                    callback: refetch
-                            }
+        <ExpandableCard
+            className={cx(styles.gateway, className)}
+            title={<TitleWithStamps title={gateway.name} stamps={gateway.stamps} />}
+            size={"lg"} {...props}>
+            <ExpandableOptions
+                className={styles.options}
+                horizontal
+                options={[
+                    { text: "Remove", onClick: remove },
+                    {
+                        Component: EditGatewayButton, props: {
+                            gatewayId: gateway?.id,
+                            onSuccess: refetch,
+                            name: gateway?.name,
+                            text: gateway?.text,
+                            parentName: gateway?.parent?.name
                         }
-                            
-                        ]}
-                    />
+                    },
+                    {
+                        Component: StampGatewayButton, props: {
+                            stampKey: STAMPS.COMMENCED,
+                            gatewayId: gateway?.id,
+                            shouldRender: !gateway?.stamps?.[STAMPS.COMMENCED],
+                            text: "Stamp Commenced",
+                            callback: refetch
+                        }
+                    },
+                    {
+                        Component: StampGatewayButton, props: {
+                            stampKey: STAMPS.COMPLETED,
+                            gatewayId: gateway?.id,
+                            shouldRender: !gateway?.stamps?.[STAMPS.COMPLETED] && Boolean(gateway?.stamps?.[STAMPS.COMMENCED]),
+                            text: "Stamp Completed",
+                            callback: refetch
+                        }
+                    }
+
+                ]}
+            />
             <Container relative maxHeight maxWidth>
                 <Container mt1>
                     {gateway?.text}
@@ -73,17 +76,15 @@ const Component = ({ gateway, children, refetch, remove, className, ...props }) 
                     </Container>
                 </Container>
             </Container>
-
-
         </ExpandableCard>
     )
 };
 
-const EmptyGatewayCard = ({ cycleId, orderKey }) => {
+const EmptyGatewayCard = ({ cycleId, orderKey, onCreateSuccess }) => {
     const dispatch = useDispatch();
     const onSuccess = useCallback((result) => {
-        dispatch(cells.addGatewayToActiveCycle.action({ gatewayId: result.id, orderKey }))
-    }, []);
+        dispatch(cells.addGatewayToCycle.action({ gatewayId: result.id, orderKey, cycleId, callback: () => onCreateSuccess() }))
+    }, [cycleId, orderKey, onCreateSuccess]);
     return (
         <Card className={styles.emptyCard}>
             <Container flex spaceBetween alignCenter >
@@ -91,6 +92,7 @@ const EmptyGatewayCard = ({ cycleId, orderKey }) => {
                 <AddGatewayButton
                     cycleId={cycleId}
                     onSuccess={onSuccess}
+                    onSelectGateway={onSuccess}
                 />
             </Container>
         </Card>
@@ -127,7 +129,16 @@ const withWrapper = (C) => ({ reorder, hideUp, hideDown, ...props }) => (
 
 const C = withRecursiveRender({
     sabbatical: SabbaticalGatewayCard,
-    empty: withWrapper(EmptyGatewayCard)
+    empty: withWrapper(EmptyGatewayCard),
+    feedItem: ({ name, id, orderKey, onCreateSuccess, ...props }) => (
+        <>
+            {
+                Boolean(id) ? <RoadmapFeedItem id={id} name={name} {...props} /> : <EmptyGatewayCard onCreateSuccess={onCreateSuccess} cycleId={props.cycleId} orderKey={orderKey} empty />
+            }
+        </>
+    )
+
+
 }, withWrapper(Component));
 
 export default strappedConnected(
@@ -140,8 +151,8 @@ export default strappedConnected(
         refetch: feed.cells.fetchEntity?.action,
         remove: cells.removeGatewayFromActiveCycle.action
     },
-    ({ orderKey, gateway, reorder, refetch, boothId, remove }) => ({
-        empty: !gateway,
+    ({ orderKey, gateway, reorder, refetch, boothId, remove, feedItem }) => ({
+        empty: !feedItem && !gateway,
         sabbatical: orderKey === "sabbatical",
         reorder: (moveUp) => reorder({ orderKey, newOrderKey: moveUp ? CYCLE_GATEWAY_KEYS[CYCLE_GATEWAY_KEYS.indexOf(orderKey) - 1] : CYCLE_GATEWAY_KEYS[CYCLE_GATEWAY_KEYS.indexOf(orderKey) + 1] }),
         hideUp: useMemo(() => orderKey === CYCLE_GATEWAY_KEYS[0], [orderKey]),

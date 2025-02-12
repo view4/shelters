@@ -43,8 +43,8 @@ export default new MiddlewareModule({
             }
         `,
     fetchFeed: `
-            query gateways($feedParams: FeedParams, $boothId: String, $parentId: String) {
-                feed: gateways(feedParams: $feedParams, boothId: $boothId, parentId: $parentId) {
+            query gateways($feedParams: FeedParams, $boothId: String, $parentId: String, $isCycleless: Boolean ) {
+                feed: gateways(feedParams: $feedParams, boothId: $boothId, parentId: $parentId, isCycleless: $isCycleless) {
                     entities {
                         id
                         name

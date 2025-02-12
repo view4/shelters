@@ -14,7 +14,9 @@ import { STAMPS } from "modules/Core/consts";
 import Stamps from "modules/Core/components/ui-kit/Stamps";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/roadmaps/state/feed";
+import Title from "modules/Core/components/ui-kit/Title";
 import styles from "./styles.module.scss";
+import Button from "modules/Core/components/ui-kit/Button";
 
 
 export const GatewayExpandableOptions = ({ name, id, text, stamps, refetchGateway, refetchId, parentName, view = true }) => (
@@ -32,10 +34,31 @@ export const GatewayExpandableOptions = ({ name, id, text, stamps, refetchGatewa
     />
 )
 
-const RoadmapFeedItem = ({ text, name, stamps, children, id, parentId, refetchGateway, className, parent, parentName, }) => (
+export const TitleWithStamps = ({ title, stamps }) => (
+
+    <Container flex spaceBetween maxWidth>
+        <Title className={styles.title} Element="h4">{title}</Title>
+        <Stamps stamps={[
+            stamps?.[STAMPS.COMMENCED] && { stamp: "Commenced", timestamp: null },
+            stamps?.[STAMPS.COMPLETED] && { stamp: "Completed", timestamp: null }
+        ]} />
+
+    </Container>
+)
+
+const RoadmapFeedItem = ({ text, name, stamps, children, id, parentId, refetchGateway, className, parent, parentName, headerChildren }) => (
     <ExpandableFeedItem
-        className={cx(styles.container, className)}
-        name={name}
+        className={cx(
+            styles.container,
+            className,
+            {
+                [styles.commenced]: Boolean(stamps?.[STAMPS.COMMENCED]),
+                [styles.completed]: Boolean(stamps?.[STAMPS.COMPLETED])
+            })}
+        headerProps={{
+            children: headerChildren
+        }}
+        label={<TitleWithStamps title={name} stamps={stamps} />}
         size={"xlg"}
     >
         <Container flex flexEnd>
@@ -71,6 +94,19 @@ const RoadmapFeedItem = ({ text, name, stamps, children, id, parentId, refetchGa
         </Container>
     </ExpandableFeedItem>
 );
+
+export const SelectableGatewayFeedItem = ({ onSelect, ...props }) => (
+    <RoadmapFeedItem
+        {...props}
+        headerChildren={
+            <Container>
+                <Button onClick={() => onSelect(props)}>
+                    Select
+                </Button>
+            </Container>
+        }
+    />
+)
 
 export default strappedConnected(
     RoadmapFeedItem,

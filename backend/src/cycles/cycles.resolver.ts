@@ -24,8 +24,15 @@ export class CyclesResolver {
     ) { }
 
     @Query()
-    async cycles(@Args('boothId') boothId: string) {
-        return this.cyclesService.cycles(boothId);
+    async cycles(
+        @Args('boothId') boothId: string, 
+        @Args('isCompleted') isCompleted?: boolean,
+        @Args('isForthcoming') isForthcoming?: boolean
+) {
+        return this.cyclesService.cycles({boothId,
+            isCompleted,
+            isForthcoming
+        });
     }
 
     @Query()

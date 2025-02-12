@@ -20,6 +20,7 @@ const FeedItem = ({ name, text, id, createdAt }) => (
                     <Stamp timestamp={createdAt} />
                 </Container>,
         }}
+        size={text?.length > 360 ? "xlg" : text?.length < 180 ?"md" : "lg"}
     >
         <ExpandableOptions
             horizontal

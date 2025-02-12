@@ -7,7 +7,7 @@ const formatter = (stamps={}) => Object.entries(stamps)?.map(([key, value]) => v
    timestamp: value
 }));
 
-const FeedItemStamps = ({ createdAt, stamps, ...props }) => (
+export const FeedItemStamps = ({ createdAt, stamps, ...props }) => (
    <Container>
        <Stamps stamps={stamps ?? {}} formatter={formatter} />
    </Container>

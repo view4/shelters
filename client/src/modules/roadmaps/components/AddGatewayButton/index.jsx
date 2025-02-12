@@ -3,7 +3,7 @@ import { useIsOpen } from 'modules/Core/hooks/useIsOpen';
 import GatewayForm from '../GatewayForm';
 import styles from "./styles.module.scss";
 
-const AddGatewayButton = ({parentId, onSuccess, parentName, refetchId}) => {
+const AddGatewayButton = ({parentId, onSuccess, parentName, onSelectGateway, refetchId}) => {
     const { open, close, isOpen } = useIsOpen();
     return (
         <>
@@ -17,6 +17,7 @@ const AddGatewayButton = ({parentId, onSuccess, parentName, refetchId}) => {
                 isOpen={isOpen} 
                 close={close} 
                 refetchId={refetchId}
+                onSelectGateway={onSelectGateway}
             />
         </>
     )

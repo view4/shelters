@@ -2,6 +2,7 @@ import CoreModule from "modules/Core/core-modules/CoreModule";
 import { CYCLES } from "./consts";
 import feed from "./state/feed";
 import cells from "./state/index";
+import { add } from "lodash";
 
 export default new CoreModule({
   name: CYCLES,
@@ -16,6 +17,7 @@ export default new CoreModule({
     reorderCycleGateway: cells.reorderCycleGateway,
     removeGatewayFromActiveCycle: cells.removeGatewayFromActiveCycle,
     setFilters: feed.cells?.setFilters,
+    addGatewayToCycle: cells.addGatewayToCycle,
   },
   routes: {},
 });
