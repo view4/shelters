@@ -1,6 +1,5 @@
 import Container from "modules/Core/components/ui-kit/Container"
 import Screen from "modules/Core/components/ui-kit/Screen"
-import Cycle from "modules/cycles/components/Cycle";
 import AddRoadmapButton from "modules/roadmaps/components/AddRoadmapButton";
 import BoothInfo from "../../BoothInfo";
 import ActivateBoothButton from "../../ActivateBoothButton";
@@ -13,11 +12,13 @@ import strappedConnected from "modules/Core/higher-order-components/strappedConn
 import Title from "modules/Core/components/ui-kit/Title";
 import feed from "modules/booths/state/feed";
 import BoothPastCyclesTab from "../../BoothPastCyclesTab";
+import BoothActiveCycleTab from "../../BoothActiveCycletab";
+
 
 const tabs = [
     {
         title: 'Active Cycle',
-        Component: () => <Cycle />
+        Component: BoothActiveCycleTab
     },
     {
         title: 'Info',
@@ -40,7 +41,8 @@ const LeftPanel = withFocusedBoothId(({ boothId }) => {
             <RoadmapsFeed boothId={boothId} />
         </Container>
     )
-})
+});
+
 
 const RightPanel = () => {
     return (

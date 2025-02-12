@@ -41,9 +41,10 @@ export class RoadmapsResolver {
     async gateways(
         @Args('boothId') boothId?: string,
         @Args('parentId') parentId?: string,
+        @Args('isCycleless') isCycleless?: boolean,
         @Args('gatewayId') gatewayId?: string
     ) {
-        return this.roadmapsService.gateways(boothId, parentId);
+        return this.roadmapsService.gateways(boothId, parentId, isCycleless);
     }
 
     @Mutation()

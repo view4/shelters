@@ -37,7 +37,7 @@ export default strappedConnected(
         initialState: useMemo(() => ({
             name: entry?.name,
             text: entry?.text,
-        }), [entry?.id]),
+        }), [entry?.id, entry?.name, entry?.text]),
         onSuccess: useCallback(() => refetch({ id: entryId }), [refetch, entryId])
     })
 );

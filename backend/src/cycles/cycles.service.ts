@@ -3,7 +3,7 @@ import { Cycle, CycleDocument } from "./schema/cycle.schema";
 import mongoose, { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { ID } from "src/common/types";
-import { aggregate, aggregateFeed, connect, fetchOne, filter, filterOne, upsert } from "src/common/utils/db";
+import { aggregate, aggregateFeed, connect, filter, filterOne, upsert } from "src/common/utils/db";
 import { SabbaticalsService } from "src/sabbaticals/sabbaticals.service";
 import { CycleInput } from "./cycles.resolver";
 import { CYCLE_GATEWAY_KEYS } from "./cycles.consts";
@@ -39,7 +39,6 @@ const connectGateway = (key) => connect(
             }
 
         },
-
     ]
 )
 
@@ -68,17 +67,41 @@ export class CyclesService {
         return result[0];
     }
 
-    async cycles(boothId: ID) {
-        return aggregateFeed(
+    async forthcomingCycle(boothId: ID) {
+        const result = await aggregate(
             this.cycleModel,
-            { match: { booth: new mongoose.Types.ObjectId(boothId) } },
             [
                 {
                     $match: {
                         booth: new mongoose.Types.ObjectId(boothId),
-                        "stamps.completed": { $ne: null }, //default to returning completed cycles
-                        "stamps.commenced": { $ne: null },
+                        "stamps.completed": null,
+                        "stamps.commenced": null,
                     }
+                },
+                {
+                    $sort: { 'createdAt': 1 }
+                }
+            ]
+        )
+        return result[0];
+    }
+
+    async cycles({ boothId, isForthcoming, isCompleted }) {
+        const match = { booth: new mongoose.Types.ObjectId(boothId) };
+        if (isForthcoming) {
+            match['stamps.completed'] = null;
+            match['stamps.commenced'] = null;
+        }
+        if (isCompleted) {
+            match['stamps.completed'] = { $ne: null };
+            match['stamps.commenced'] = { $ne: null };
+        }
+        return aggregateFeed(
+            this.cycleModel,
+            {},
+            [
+                {
+                    $match: match
                 },
                 ...this.buildPipeline(boothId),
                 { $sort: { 'stamps.commenced': -1 } }
@@ -137,13 +160,20 @@ export class CyclesService {
     }
 
     async upsertCycle(input: CycleInput, id?: string) {
+        if (!id && input.activateCycle) {
+            const forthcomingCycle = await this.forthcomingCycle(input.boothId);
+            id = forthcomingCycle?._id;
+        }
+
+        if (input.activateCycle) {
+            input['stamps.commenced'] = new Date();
+        }
+
         if (!id) {
             const sabbatical = await this.sabbaticalsService.initSabbaticalGateway();
             input.sabbatical = sabbatical._id;
         }
-        if (input.activateCycle) {
-            input['stamps.commenced'] = new Date();
-        }
+
         return upsert(this.cycleModel, {
             ...input,
             booth: input.boothId,

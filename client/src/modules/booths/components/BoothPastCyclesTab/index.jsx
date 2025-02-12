@@ -6,7 +6,7 @@ import CyclesFeed from "modules/cycles/components/CyclesFeed";
 const BoothPastCyclesTab = ({ boothId, }) => {
     return (
         <Container className={styles.container} flex col>
-            <CyclesFeed boothId={boothId} />
+            <CyclesFeed boothId={boothId} isCompleted={true} />
         </Container>
     )
 };

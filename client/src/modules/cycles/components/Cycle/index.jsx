@@ -10,7 +10,7 @@ import CycleGatewayCard from "../CycleGatewayCard";
 import styles from "./styles.module.scss";
 
 export const CycleComponent = ({ cycle, boothId, fetch }) => {
-    const gateways = useMemo(() => (CYCLE_GATEWAY_KEYS.map(key => <CycleGatewayCard boothId={boothId} cycleId={cycle?.id} orderKey={key} />)), [cycle?.id, boothId])
+    const gateways = useMemo(() => (CYCLE_GATEWAY_KEYS.map(key => <CycleGatewayCard boothId={boothId} onCreateSuccess={() => fetch({boothId})} cycleId={cycle?.id} orderKey={key} />)), [cycle?.id, boothId])
 
     if (!cycle) return <ActivateNewCycleButton callback={() => fetch({ boothId })} />;
     return (

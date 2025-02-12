@@ -15,7 +15,6 @@ export default ({ ...props }) => (
                 <RedirectButton text="Create Booth" to="/create" />
             </Container>
         }
-        
     >
         <Feed {...props}  ItemComponent={StampedFeedItem} />
     </Screen>
