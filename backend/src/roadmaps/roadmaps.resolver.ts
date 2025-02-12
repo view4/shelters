@@ -44,11 +44,7 @@ export class RoadmapsResolver {
         @Args('isCycleless') isCycleless?: boolean,
         @Args('gatewayId') gatewayId?: string
     ) {
-        const res = await this.roadmapsService.gateways(boothId, parentId, isCycleless);
-        console.log(
-            JSON.stringify(res)
-        )
-        return res;
+        return this.roadmapsService.gateways(boothId, parentId, isCycleless);
     }
 
     @Mutation()

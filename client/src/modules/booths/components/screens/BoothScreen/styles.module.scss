@@ -9,38 +9,3 @@
         margin: 0rem 0.5rem;
     }
 }
-
-.container { 
-    height: 100%;
-    & > div {
-        width: 100%;
-    }
-    & > button {
-        position: absolute;
-        bottom: 1rem;
-    }
-}
-
-
-.cyclesFeed {
-    & > div {
-        width: 90%;
-        padding: unset;
-    }
-}
-
-.drawerContainer {
-    max-height: 72vh;
-    overflow-y: scroll;
-}
-
-button.addCycleButton {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    border: 1px dashed grey;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem 0rem;
-    padding: 1.5rem;
-}

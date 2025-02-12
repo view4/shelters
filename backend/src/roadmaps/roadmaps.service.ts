@@ -79,70 +79,9 @@ export class RoadmapsService {
         const pipeline = [];
         if (isCycleless) {
             delete params['match']
-            pipeline.push({
-                $graphLookup: {
-                    from: "gateways",
-                    startWith: "$_id",
-                    connectToField: "_id",
-                    connectFromField: "parent",
-                    as: "heritage",
-                    maxDepth: 36,
-                    depthField: "depth",
-                }
-            })
-            pipeline.push({
-                $addFields: {
-                    boothMatch: {
-                        $gt: [
-                            {
-                                $size: {
-                                    $filter: {
-                                        input: "$heritage",
-                                        as: "h",
-                                        cond: { $eq: ["$$h.booth", new mongoose.Types.ObjectId(boothId)] }
-                                    }
-
-                                }
-                            }, 0
-                        ]
-                    }
-                }
-            })
-            pipeline.push({
-                $match: {
-                    boothMatch: true
-                }
-            })
-            pipeline.push({
-                $lookup: {
-                    from: "cycles",
-                    let: { gatewayId: "$_id" },
-                    pipeline: [
-                        {
-                            $match: {
-                                $expr: {
-                                    $or: [
-                                        { $eq: ["$a", "$$gatewayId"] },
-                                        { $eq: ["$b", "$$gatewayId"] },
-                                        { $eq: ["$c", "$$gatewayId"] },
-                                        { $eq: ["$d", "$$gatewayId"] },
-                                        { $eq: ["$e", "$$gatewayId"] },
-                                        { $eq: ["$f", "$$gatewayId"] }
-                                    ]
-                                }
-                            }
-                        }
-                    ],
-                    as: 'cycles'
-                }
-            })
-
-            pipeline.push({
-                $match: {
-                    cycles: { $size: 0 }
-                }
-            })
-
+            pipeline.concat(
+                lookupCycless(boothId)
+            )
         }
         return aggregateFeed(
             this.gatewayModel,
@@ -181,4 +120,71 @@ export class RoadmapsService {
             [`stamps.${key}`]: new Date(),
         }), id);
     }
+}
+
+const lookupCycless = (boothId: ID) => {
+    return [
+        {
+            $graphLookup: {
+                from: "gateways",
+                startWith: "$_id",
+                connectToField: "_id",
+                connectFromField: "parent",
+                as: "heritage",
+                maxDepth: 36,
+                depthField: "depth",
+            }
+        },
+        {
+            $addFields: {
+                boothMatch: {
+                    $gt: [
+                        {
+                            $size: {
+                                $filter: {
+                                    input: "$heritage",
+                                    as: "h",
+                                    cond: { $eq: ["$$h.booth", new mongoose.Types.ObjectId(boothId)] }
+                                }
+
+                            }
+                        }, 0
+                    ]
+                }
+            }
+        },
+        {
+            $match: {
+                boothMatch: true
+            }
+        },
+        {
+            $lookup: {
+                from: "cycles",
+                let: { gatewayId: "$_id" },
+                pipeline: [
+                    {
+                        $match: {
+                            $expr: {
+                                $or: [
+                                    { $eq: ["$a", "$$gatewayId"] },
+                                    { $eq: ["$b", "$$gatewayId"] },
+                                    { $eq: ["$c", "$$gatewayId"] },
+                                    { $eq: ["$d", "$$gatewayId"] },
+                                    { $eq: ["$e", "$$gatewayId"] },
+                                    { $eq: ["$f", "$$gatewayId"] }
+                                ]
+                            }
+                        }
+                    }
+                ],
+                as: 'cycles'
+            }
+        },
+        {
+            $match: {
+                cycles: { $size: 0 }
+            }
+        }
+    ]
 }

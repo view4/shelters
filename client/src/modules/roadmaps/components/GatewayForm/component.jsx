@@ -4,7 +4,7 @@ import Title from 'modules/Core/components/ui-kit/Title';
 import Container from 'modules/Core/components/ui-kit/Container';
 import useTabs from 'modules/Core/hooks/useTabs';
 import { useMemo } from 'react';
-import { CyclelessGatewaysFeed } from 'modules/booths/components/screens/BoothScreen/component';
+import CyclelessGatewaysFeed from '../CyclelessGatewaysFeed';
 import styles from "./styles.module.scss";
 
 
