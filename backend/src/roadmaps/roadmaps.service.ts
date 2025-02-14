@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Gateway, GatewayDocument } from "./schema/gateway.schema";
-import mongoose, { Model, Mongoose } from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { aggregateFeed, connect, fetchOne, upsert } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { GatewayInput, RoadmapInput } from "./roadmaps.resolver";
@@ -79,9 +79,10 @@ export class RoadmapsService {
         const pipeline = [];
         if (isCycleless) {
             delete params['match']
-            pipeline.concat(
-                lookupCycless(boothId)
+            pipeline.push(
+                ...lookupCycless(boothId)
             )
+            
         }
         return aggregateFeed(
             this.gatewayModel,
@@ -123,68 +124,69 @@ export class RoadmapsService {
 }
 
 const lookupCycless = (boothId: ID) => {
-    return [
-        {
-            $graphLookup: {
-                from: "gateways",
-                startWith: "$_id",
-                connectToField: "_id",
-                connectFromField: "parent",
-                as: "heritage",
-                maxDepth: 36,
-                depthField: "depth",
-            }
-        },
-        {
-            $addFields: {
-                boothMatch: {
-                    $gt: [
-                        {
-                            $size: {
-                                $filter: {
-                                    input: "$heritage",
-                                    as: "h",
-                                    cond: { $eq: ["$$h.booth", new mongoose.Types.ObjectId(boothId)] }
-                                }
-
-                            }
-                        }, 0
-                    ]
-                }
-            }
-        },
-        {
-            $match: {
-                boothMatch: true
-            }
-        },
-        {
-            $lookup: {
-                from: "cycles",
-                let: { gatewayId: "$_id" },
-                pipeline: [
+    const pipeline = [];
+    pipeline.push({
+        $graphLookup: {
+            from: "gateways",
+            startWith: "$_id",
+            connectToField: "_id",
+            connectFromField: "parent",
+            as: "heritage",
+            maxDepth: 36,
+            depthField: "depth",
+        }
+    })
+    pipeline.push({
+        $addFields: {
+            boothMatch: {
+                $gt: [
                     {
-                        $match: {
-                            $expr: {
-                                $or: [
-                                    { $eq: ["$a", "$$gatewayId"] },
-                                    { $eq: ["$b", "$$gatewayId"] },
-                                    { $eq: ["$c", "$$gatewayId"] },
-                                    { $eq: ["$d", "$$gatewayId"] },
-                                    { $eq: ["$e", "$$gatewayId"] },
-                                    { $eq: ["$f", "$$gatewayId"] }
-                                ]
+                        $size: {
+                            $filter: {
+                                input: "$heritage",
+                                as: "h",
+                                cond: { $eq: ["$$h.booth", new mongoose.Types.ObjectId(boothId)] }
                             }
+
                         }
-                    }
-                ],
-                as: 'cycles'
-            }
-        },
-        {
-            $match: {
-                cycles: { $size: 0 }
+                    }, 0
+                ]
             }
         }
-    ]
+    })
+    pipeline.push({
+        $match: {
+            boothMatch: true
+        }
+    })
+    pipeline.push({
+        $lookup: {
+            from: "cycles",
+            let: { gatewayId: "$_id" },
+            pipeline: [
+                {
+                    $match: {
+                        $expr: {
+                            $or: [
+                                { $eq: ["$a", "$$gatewayId"] },
+                                { $eq: ["$b", "$$gatewayId"] },
+                                { $eq: ["$c", "$$gatewayId"] },
+                                { $eq: ["$d", "$$gatewayId"] },
+                                { $eq: ["$e", "$$gatewayId"] },
+                                { $eq: ["$f", "$$gatewayId"] }
+                            ]
+                        }
+                    }
+                }
+            ],
+            as: 'cycles'
+        }
+    })
+
+    pipeline.push({
+        $match: {
+            cycles: { $size: 0 }
+        }
+    })
+    return pipeline;
 }

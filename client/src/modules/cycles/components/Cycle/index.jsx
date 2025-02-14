@@ -8,14 +8,14 @@ import { useOnLoad } from "modules/Core/hooks/useOnLoad";
 import { CYCLE_GATEWAY_KEYS } from "modules/cycles/consts";
 import CycleGatewayCard from "../CycleGatewayCard";
 import styles from "./styles.module.scss";
+import Card from "modules/Core/components/ui-kit/Card";
 
 export const CycleComponent = ({ cycle, boothId, fetch }) => {
-    const gateways = useMemo(() => (CYCLE_GATEWAY_KEYS.map(key => <CycleGatewayCard boothId={boothId} onCreateSuccess={() => fetch({boothId})} cycleId={cycle?.id} orderKey={key} />)), [cycle?.id, boothId])
+    const children = useMemo(() => !cycle ? (<Card className={styles.initCard} borderless>  <ActivateNewCycleButton callback={() => fetch({ boothId })} /></Card>) : (CYCLE_GATEWAY_KEYS.map(key => <CycleGatewayCard boothId={boothId} onCreateSuccess={() => fetch({ boothId })} cycleId={cycle?.id} orderKey={key} />)), [cycle?.id, boothId])
 
-    if (!cycle) return <ActivateNewCycleButton callback={() => fetch({ boothId })} />;
     return (
         <Container className={styles.container}>
-            {gateways}
+            {children}
         </Container>
     )
 };

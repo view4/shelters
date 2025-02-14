@@ -3,9 +3,26 @@ import SchemaForm from "modules/Core/components/form/Form/SchemaForm";
 import Title from 'modules/Core/components/ui-kit/Title';
 import Container from 'modules/Core/components/ui-kit/Container';
 import useTabs from 'modules/Core/hooks/useTabs';
-import { useMemo } from 'react';
-import CyclelessGatewaysFeed from '../CyclelessGatewaysFeed';
+import { useCallback, useMemo, useState } from 'react';
 import styles from "./styles.module.scss";
+import { SelectableGatewayFeedItem } from "../RoadmapFeedItem"
+
+import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId"
+import middleware from 'modules/roadmaps/middleware';
+import { useOnLoad } from 'modules/Core/hooks/useOnLoad';
+import Feed from 'modules/Core/components/Feed';
+
+const CyclelessFeed = ({onSelect, boothId}) => {
+    const [feedItems, setFeedItems] = useState([]) 
+    const onLoad = useCallback(async () => {
+        const res = await middleware.ops.fetchFeed({ boothId, isCycleless: true })
+        setFeedItems(res?.feed?.entities)
+    })
+    useOnLoad(onLoad, [boothId])
+    const itemProps = useMemo(() => ({ onSelect }), [onSelect])
+    return <Feed.Component feed={feedItems} ItemComponent={SelectableGatewayFeedItem} itemProps={itemProps} />
+}
+
 
 
 export default ({ isOpen, close, schema, title = "Add Gateway", onSelectGateway, onSubmit, initialState }) => {
@@ -15,7 +32,7 @@ export default ({ isOpen, close, schema, title = "Add Gateway", onSelectGateway,
         Component: () => <SchemaForm schema={schema} initialState={initialState} onSubmit={onSubmit} />
     }, {
         title: "Gateways",
-        Component: () => <CyclelessGatewaysFeed onSelect={onSelectGateway} />
+        Component: () =>  withFocusedBoothId(CyclelessFeed)({ onSelect: onSelectGateway })
     }]), []);
 
     const { header, content } = useTabs(tabs)

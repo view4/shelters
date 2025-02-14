@@ -102,6 +102,7 @@ export const SelectableGatewayFeedItem = ({ onSelect, ...props }) => (
             <Container>
                 <Button onClick={() => onSelect(props)}>
                     Select
+                    {console.log(onSelect)}
                 </Button>
             </Container>
         }

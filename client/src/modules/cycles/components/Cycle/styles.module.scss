@@ -1,8 +1,21 @@
 .gateway {
-    margin: 2rem 0rem;
+  margin: 2rem 0rem;
 }
 
 .emptyCard {
-    border-style: dashed;
-    padding: 0rem 2rem;
+  border-style: dashed;
+  padding: 0rem 2rem;
+}
+
+.container {
+  .initCard button {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    border: 1px dashed grey;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0rem;
+    padding: 1.5rem;
+  }
 }
