@@ -1,0 +1,19 @@
+type Mutation {
+    initMembership(): PaymentIntent
+    cancelMembership(): Boolean
+}
+
+type User {
+    id: ID!
+    phoneNumber: String
+    isValidated: Boolean
+    createdAt: Date
+    updatedAt: Date
+}
+
+type PaymentIntent {
+    clientSecret: String
+    amount: Float
+    currency: String
+    id: String
+}
