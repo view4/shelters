@@ -12,6 +12,7 @@ import { RoadmapsModule } from './roadmaps/roadmaps.module';
 import { CyclesModule } from './cycles/cycles.module';
 import { SabbaticalsModule } from './sabbaticals/sabbaticals.module';
 import { EntriesModule } from './entries/entries.module';
+import { FirebaseModule } from './auth/submodules/firebase/firebase.module';
 
 @Module({
   imports: [
@@ -36,7 +37,8 @@ import { EntriesModule } from './entries/entries.module';
     RoadmapsModule,
     CyclesModule,
     SabbaticalsModule,
-    EntriesModule
+    EntriesModule,
+    FirebaseModule
   ],
   controllers: [AppController],
   providers: [AppService],

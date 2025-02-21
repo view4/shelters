@@ -11,9 +11,9 @@ export const OptionalSessionUser = createParamDecorator((data, context) => {
   return ctx?.user;
 });
 
-export type SessionUserT = {
-  phoneId: string;
-  isValidated: boolean;
-  _id: string;
-  id: string;
-};
+// export type SessionUserT = {
+//   phoneId: string;
+//   isValidated: boolean;
+//   _id: string;
+//   id: string;
+// };
