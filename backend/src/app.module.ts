@@ -13,6 +13,8 @@ import { CyclesModule } from './cycles/cycles.module';
 import { SabbaticalsModule } from './sabbaticals/sabbaticals.module';
 import { EntriesModule } from './entries/entries.module';
 import { FirebaseModule } from './auth/submodules/firebase/firebase.module';
+import { TransactionModule } from './transactions/transaction.module';
+import { StripeModule } from './transactions/submodules/stripe/stripe.module';
 
 @Module({
   imports: [
@@ -38,7 +40,9 @@ import { FirebaseModule } from './auth/submodules/firebase/firebase.module';
     CyclesModule,
     SabbaticalsModule,
     EntriesModule,
-    FirebaseModule
+    FirebaseModule,
+    TransactionModule,
+    StripeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
