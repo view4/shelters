@@ -1,8 +1,9 @@
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
 import { SessionUser } from './decorators/session-user.decorator';
+import { SessionUserT } from './types/SessionUserType';
 
 @Resolver('User')
 export class AuthResolver {
@@ -12,8 +13,8 @@ export class AuthResolver {
 
   @Query()
   @UseGuards(AuthGuard)
-  async me(
-    @SessionUser() user
+  async user(
+    @SessionUser() user: SessionUserT
   ){
     return user
   }

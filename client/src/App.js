@@ -11,6 +11,7 @@ import Dialog from "modules/Core/sub-modules/Dialog";
 import sabbaticals from "modules/sabbaticals";
 import entries from "modules/entries";
 import trackedTime from "modules/timetracker/submodules/trackedTime";
+import auth from "modules/auth";
 
 const { store, rootRender, routes } = init([
   booths,
@@ -21,6 +22,7 @@ const { store, rootRender, routes } = init([
   sabbaticals,
   entries,
   trackedTime,
+  auth
 ]);
 
 const RootWrapper = () => {

@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
 import { ConfigService } from '@nestjs/config';
 import { FirebaseService } from './submodules/firebase/firebase.service';
-import { upsertOne } from 'src/common/utils/db';
+import { filterOne, upsertOne } from 'src/common/utils/db';
 
 @Injectable()
 export class AuthService {
@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   async getUserByAuthenticatorId(authenticatorId) {
-    return this.userModel.findOne({
+    return filterOne(this.userModel, {
       authenticatorId,
     });
   }
