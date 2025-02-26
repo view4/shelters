@@ -26,7 +26,7 @@ export class MembershipService {
       this.membershipModel,
       {
         userId,
-        "stamos.commmenced": { $ne: null },
+        "stamps.commmenced": { $ne: null },
         "stamps.completed": { $eq: null }
       }
     )

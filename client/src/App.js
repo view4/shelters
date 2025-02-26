@@ -12,6 +12,8 @@ import sabbaticals from "modules/sabbaticals";
 import entries from "modules/entries";
 import trackedTime from "modules/timetracker/submodules/trackedTime";
 import auth from "modules/auth";
+import payments from "modules/payments";
+import membership from "modules/membership";
 
 const { store, rootRender, routes } = init([
   booths,
@@ -22,7 +24,9 @@ const { store, rootRender, routes } = init([
   sabbaticals,
   entries,
   trackedTime,
-  auth
+  auth,
+  payments,
+  membership,
 ]);
 
 const RootWrapper = () => {
