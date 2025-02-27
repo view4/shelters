@@ -2,6 +2,7 @@ import { initCell } from "modules/Core/core-modules/CoreModuleState/utils/cells"
 import { call } from "redux-saga/effects";
 import middleware from "../middleware";
 import { login, getToken, logout, register } from "../utils";
+import { deleteToken, saveToken } from "modules/Core/utils/auth";
 
 export default {
   login: initCell("login", {
@@ -36,9 +37,11 @@ export default {
     sagas: {
       latest: function* ({ payload: { user } }) {
         const token = call(getToken, user);
+        // maybe get token
         if (!token) {
           throw new Error("Invalid token");
         }
+        saveToken(token);
         const res = yield call(middleware.ops.validateToken);
         if (!res.user) return false;
         return user;
@@ -59,6 +62,7 @@ export default {
     sagas: {
       latest: function* () {
         yield call(logout);
+        deleteToken();
       },
       onCellSuccess: true,
     },
