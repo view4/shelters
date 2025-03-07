@@ -33,6 +33,6 @@ import { BoothsModule } from 'src/booths/booths.module';
   ],
   controllers: [],
   providers: [AuthService, AuthResolver, MembershipService],
-  exports: [MembershipService],
+  exports: [MembershipService, AuthService],
 })
 export class AuthModule { }

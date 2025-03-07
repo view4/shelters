@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { FirebaseService } from './firebase.service';
+import { FirebaseAdmin } from './config';
 
 @Module({
   imports: [
   ],
   controllers: [],
-  providers: [FirebaseService ],
+  providers: [FirebaseService, FirebaseAdmin ],
   exports: [FirebaseService],
 })
 export class FirebaseModule {}

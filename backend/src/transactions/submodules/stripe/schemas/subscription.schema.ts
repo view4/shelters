@@ -15,7 +15,12 @@ export class Subscription {
   @Prop({})
   subscriptionId: string;
 
-  @Prop({})
+  @Prop({
+    type: {
+      activatedDate: Date,
+      deactivatedDate: Date
+    }
+  })
   stamps: {
     activatedDate: Date;
     deactivatedDate: Date;

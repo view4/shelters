@@ -3,9 +3,11 @@ import { call } from "redux-saga/effects";
 import middleware from "../middleware";
 import { login, getToken, logout, register } from "../utils";
 import { deleteToken, saveToken } from "modules/Core/utils/auth";
+import { AUTH } from "../consts";
 
 export default {
-  login: initCell("login", {
+  login: initCell(AUTH, {
+    name: "login",
     sagas: {
       latest: function* ({ payload: { email, password } }) {
         const res = yield call(login, email, password);
@@ -17,7 +19,8 @@ export default {
       onCellSuccess: true,
     },
   }),
-  register: initCell("register", {
+  register: initCell(AUTH, {
+    name: "register",
     sagas: {
       latest: function* ({ payload: { email, password } }) {
         const res = yield call(register, email, password);
@@ -29,10 +32,15 @@ export default {
       onCellSuccess: true,
     },
   }),
-  validateToken: initCell("validateToken", {
+  validateToken: initCell(AUTH, {
+    name: "validateToken",
     selector: (state) => state.user,
     selectors: {
       isAuthed: (state) => state.isAuthed,
+      membership: (state) =>
+        state.user?.membership || state.user?.membership || {},
+      hasActiveMembership: (state) => state.user?.membership?.isActive || false,
+      boothCount: (state) => state.user?.boothCount || 0,
     },
     sagas: {
       latest: function* ({ payload: { user } }) {
@@ -44,18 +52,19 @@ export default {
         saveToken(token);
         const res = yield call(middleware.ops.validateToken);
         if (!res.user) return false;
-        return user;
+        return res.user;
       },
       onCellSuccess: true,
     },
     successCell: {
       reducer: (state, { payload }) => {
         state.user = payload;
-        isAuthenticated = Boolean(user?.id);
+        state.isAuthenticated = Boolean(payload?.id);
       },
     },
   }),
-  logout: initCell("logout", {
+  logout: initCell(AUTH, {
+    name: "logout",
     reducer: (state) => {
       state.user = null;
     },

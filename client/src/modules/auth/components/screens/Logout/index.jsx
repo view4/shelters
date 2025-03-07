@@ -1,5 +1,5 @@
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
-import cells from "../../state";
+import cells from "modules/auth/state";
 import { Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

@@ -1,11 +1,122 @@
-.welcomeSection {
-    .textContainer {
-        color: #5B7043;
+@import "src/modules/Core/styles/variables.scss";
 
+.welcomeSection {
+  justify-content: center;
+  align-items: center;
+  & > div {
+    width: 100%;
+  }
+  .textContainer {
+    color: #5b7043;
+    max-width: 50%;
+    text-align: center;
+    h2 {
+      font-size: 2.5rem;
     }
-    .graphic {
-        background-color: #7866A7;
-        opacity: 0.75;
-        transform: rotate(-5deg);
+  }
+  .graphic {
+    background-color: #7866a7;
+    opacity: 0.75;
+    transform: rotate(-5deg);
+  }
+}
+
+.container {
+  overflow-y: scroll;
+  & > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    .headerChildren {
+      margin: 0rem 2rem;
+      button {
+        margin: 0rem 1rem;
+      }
     }
+  }
+}
+
+.featureCard {
+  box-shadow: 0px 0.5rem 0.5rem $grey10, 0px 0.25rem 0.5rem $grey10;
+  border-color: $grey10;
+}
+
+.section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+}
+
+.featuresSection {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  .featuresCard {
+    height: 27rem;
+    width: 18rem;
+  }
+}
+
+.essentialsSection {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 1rem;
+  & > div {
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .essentialsCard {
+    height: 25rem;
+    width: 17rem;
+  }
+}
+
+.narrativeSection {
+    & > div {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        & > div {
+            width: 50%;
+            padding: 10%;
+            &:first-child {
+                margin-bottom: 10%;
+            }
+            &:last-child {
+                margin-top: 10%;
+            }
+
+        }
+    }
+}
+
+.connectionSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    & > div {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+        &.connectionsContainer {
+            // justify-content: space-evenly;
+        }
+        & button {
+            margin: 0rem 2rem;
+        }
+        // padding: 10%;
+    }
+}
+
+.connectionsContainer {
+    display: flex;
+    justify-content: space-evenly;
 }

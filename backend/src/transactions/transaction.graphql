@@ -1,14 +1,6 @@
 type Mutation {
-    initMembership(): PaymentIntent
-    cancelMembership(): Boolean
-}
-
-type User {
-    id: ID!
-    phoneNumber: String
-    isValidated: Boolean
-    createdAt: Date
-    updatedAt: Date
+    initMembership: PaymentIntent
+    cancelMembership: Boolean
 }
 
 type PaymentIntent {

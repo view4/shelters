@@ -50,7 +50,7 @@ export class CyclesService {
         private readonly boothsService: BoothsService
     ) { }
 
-    async currentCycle(boothId: ID) {
+    async currentCycle(userId: ID, boothId: ID) {
         const result = await aggregate(
             this.cycleModel,
             [
@@ -59,6 +59,8 @@ export class CyclesService {
                         booth: new mongoose.Types.ObjectId(boothId),
                         "stamps.completed": null,
                         "stamps.commenced": { $ne: null },
+                        user: new mongoose.Types.ObjectId(userId)
+
                     }
                 },
                 ...this.buildPipeline(boothId)
@@ -113,10 +115,10 @@ export class CyclesService {
         return upsert(this.cycleModel, { 'stamps.completed': new Date() }, id);
     }
 
-    async getCurrentCycle(boothId: ID) {
+    async getCurrentCycle(userId: ID, boothId: ID) {
         const filter = { booth: boothId, 'stamps.completed': null, 'stamps.commenced': { $ne: null } };
         if (!boothId) {
-            const booth = await this.boothsService.activeBooth();
+            const booth = await this.boothsService.activeBooth(userId);
             filter.booth = booth._id;
         }
         return filterOne(this.cycleModel, filter);
@@ -138,10 +140,10 @@ export class CyclesService {
             throw new Error('Gateway already exists in a cycle');
         }
     }
-    async addGatewayToCurrentCycle(gatewayId: ID) {
+    async addGatewayToCurrentCycle(userId: ID, gatewayId: ID) {
         await this.validateAddGatewayToCycle(gatewayId);
-        const booth = await this.boothsService.activeBooth();
-        const cycle = await this.getCurrentCycle(booth?._id);
+        const booth = await this.boothsService.activeBooth(userId);
+        const cycle = await this.getCurrentCycle(userId, booth?._id);
         if (!cycle) throw new Error('Active cycle not found');
         const isFull = CYCLE_GATEWAY_KEYS?.slice(0, -1).every(key => Boolean(cycle[key]));
         if (isFull) throw new Error('Cycle is full');
@@ -155,8 +157,8 @@ export class CyclesService {
         return cycle;
     }
 
-    async addGatewayToCycle(gatewayId: ID, cycleId?: ID) {
-        if (!cycleId) return this.addGatewayToCurrentCycle(gatewayId);
+    async addGatewayToCycle(userId: ID, gatewayId: ID, cycleId?: ID) {
+        if (!cycleId) return this.addGatewayToCurrentCycle(userId, gatewayId);
     }
 
     async upsertCycle(input: CycleInput, id?: string) {
@@ -180,9 +182,9 @@ export class CyclesService {
         }, id);
     }
 
-    async completeCurrentCycle() {
-        const booth = await this.boothsService.activeBooth();
-        const cycle = await this.getCurrentCycle(booth?._id);
+    async completeCurrentCycle(userId: ID, ) {
+        const booth = await this.boothsService.activeBooth(userId);
+        const cycle = await this.getCurrentCycle(userId, booth?._id);
         if (cycle) {
             return await this.completeCycle(cycle._id);
         }

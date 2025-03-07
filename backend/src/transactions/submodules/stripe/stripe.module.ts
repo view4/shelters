@@ -5,14 +5,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Subscription, SubscriptionSchema } from './schemas/subscription.schema';
 
 @Module({
-  imports: [,
-        MongooseModule.forFeature([
-          { name: Subscription.name, schema: SubscriptionSchema },
-        ]),
+  imports: [
+    MongooseModule.forFeature([
+      { name: Subscription.name, schema: SubscriptionSchema },
+    ]),
     AuthModule
   ],
   controllers: [],
-  providers: [StripeService ],
+  providers: [StripeService],
   exports: [StripeService],
 })
-export class StripeModule {}
+export class StripeModule { }

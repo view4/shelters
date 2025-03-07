@@ -5,6 +5,7 @@ import cells from "./state";
 import Login from "./components/screens/Login";
 import Register from "./components/screens/Register";
 import Logout from "./components/screens/Logout";
+import OnLoad from "./components/OnLoad";
 
 export default new CoreModule({
   name: AUTH,

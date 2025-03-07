@@ -2,18 +2,23 @@ import Container from "modules/Core/components/ui-kit/Container"
 import Input from "modules/Core/components/ui-kit/Input"
 import Screen from "modules/Core/components/ui-kit/Screen"
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
-import cells from "../../state";
+import cells from "modules/auth/state";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "modules/Core/components/ui-kit/Card";
 import Button from "modules/Core/components/ui-kit/Button";
+import styles from "./styles.module.scss";
 
 const Register = ({ email, password, onSubmit, setEmail, setPassword }) => {
     return (
-        <Screen header="Register">
-            <Card>
+        <Screen header="Register" className={styles.container}>
+            <Card className={styles.card}>
                 <Input label="Email" value={email} onChange={setEmail} />
                 <Input label="Password"
+                    value={password}
+                    onChange={setPassword}
+                    type="password" />
+                <Input label="Confirm Password"
                     value={password}
                     onChange={setPassword}
                     type="password" />

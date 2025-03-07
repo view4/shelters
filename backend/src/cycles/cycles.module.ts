@@ -5,6 +5,7 @@ import { CyclesResolver } from './cycles.resolver';
 import { CyclesService } from './cycles.service';
 import { SabbaticalsModule } from 'src/sabbaticals/sabbaticals.module';
 import { BoothsModule } from 'src/booths/booths.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
     imports: [
@@ -12,7 +13,8 @@ import { BoothsModule } from 'src/booths/booths.module';
             { name: Cycle.name, schema: CycleSchema }
         ]),
         forwardRef(() => SabbaticalsModule),
-        BoothsModule
+        BoothsModule,
+        AuthModule
 
     ],
     providers: [

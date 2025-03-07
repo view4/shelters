@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    max-height: 36vh;
+    width: 54vw;
+    padding: 1rem;
+    button {
+        margin-top: 1rem;
+    }
+}

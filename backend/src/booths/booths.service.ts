@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Inject, forwardRef } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Booth, BoothDocument } from "./schema/booth.schema";
 import mongoose, { Model } from "mongoose";
-import { aggregateFeed, filterOne, upsert, upsertOne } from "src/common/utils/db";
+import { aggregateFeed, count, filterOne, upsert, upsertOne } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { ID } from "src/common/types";
 import { MembershipService } from "src/auth/membership.service";
@@ -11,7 +11,8 @@ import { MembershipService } from "src/auth/membership.service";
 export class BoothsService {
     constructor(
         @InjectModel(Booth.name) private boothModel: Model<BoothDocument>,
-        private membershipService: MembershipService
+        // private membershipService: MembershipService
+        @Inject(forwardRef(() => MembershipService)) private membershipService: MembershipService
     ) { }
     FREE_TIER_BOOTH_COUNT = 1;
 
@@ -64,6 +65,10 @@ export class BoothsService {
             data,
             id
         );
+    }
+
+    async boothCount(filter) {
+        return count(this.boothModel, filter);
     }
 
 }

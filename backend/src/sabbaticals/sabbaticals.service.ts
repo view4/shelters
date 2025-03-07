@@ -5,6 +5,7 @@ import { Model } from "mongoose";
 import { RoadmapsService } from "src/roadmaps/roadmaps.service";
 import { CyclesService } from "src/cycles/cycles.service";
 import { BoothsService } from "src/booths/booths.service";
+import { ID } from "src/common/types";
 
 @Injectable()
 export class SabbaticalsService {
@@ -25,10 +26,10 @@ export class SabbaticalsService {
         return await this.sabbaticalGatewayModel.create({ gateway: gateway._id });
     }
 
-    async completeCycle(shouldStartNewCycle: boolean) {
-        await this.cyclesService.completeCurrentCycle();
+    async completeCycle(userId: ID, shouldStartNewCycle: boolean) {
+        await this.cyclesService.completeCurrentCycle(userId);
         if (shouldStartNewCycle) {
-            const booth = await this.boothsService.activeBooth();
+            const booth = await this.boothsService.activeBooth(userId);
             await this.cyclesService.upsertCycle({ activateCycle: true, boothId: booth._id });
         }
         return true

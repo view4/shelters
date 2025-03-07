@@ -6,6 +6,7 @@ import { RoadmapsModule } from 'src/roadmaps/roadmaps.module';
 import { CyclesModule } from 'src/cycles/cycles.module';
 import { BoothsModule } from 'src/booths/booths.module';
 import { SabbaticalsResolver } from './sabbaticals.resolver';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
     imports: [
@@ -14,7 +15,8 @@ import { SabbaticalsResolver } from './sabbaticals.resolver';
         ]),
         RoadmapsModule,
         forwardRef(() => CyclesModule),
-        BoothsModule
+        BoothsModule,
+        AuthModule
     ],
     providers: [
         SabbaticalsService,

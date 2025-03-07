@@ -7,35 +7,39 @@ import Title from "modules/Core/components/ui-kit/Title";
 import Card from "modules/Core/components/ui-kit/Card";
 import Text from "modules/Core/components/ui-kit/Text";
 import { ESSENTIALS, FEATURES } from "./consts";
+import Button from "modules/Core/components/ui-kit/Button";
 
 
-const FeatureCard = ({ name, description }) => (
-    <Card className={styles.featureCard} header={name}>
+const FeatureCard = ({ name, description, className }) => (
+    <Card className={c(styles.featureCard, className)} header={name}>
         <Text>
             {description}
         </Text>
     </Card>
 );
 
-const LandingPage = () => {
+const LandingPage = ({ isAuthed = true }) => {
     return (
-        <Screen 
+        <Screen
             header="Shelters App"
             headerChildren={
-                <Container>
+                <Container className={styles.headerChildren} flexEnd flex p1>
                     {/* if authed then display link to app */}
-                    <Button to="/register">
-                        Register Now
-                    </Button>
-                    <Button to="/login">
-                        Login
-                    </Button>
+                    {!isAuthed ? (<>
+                        <Button to="/register">
+                            Register Now
+                        </Button>
+                        <Button to="/login">
+                            Login
+                        </Button>
+                    </>) : <Button to="/booths">Booths →  </Button>}
                 </Container>
             }
+            className={styles.container}
         >
             <Container className={c(styles.section, styles.welcomeSection)}>
                 {/* Welcome Section */}
-                <Container flex maxHeight maxWidth>
+                <Container flex center maxHeight maxWidth fullWidth>
                     <Container flex col center className={styles.textContainer}>
                         <Title>
                             Start your journey today!
@@ -48,21 +52,23 @@ const LandingPage = () => {
                     </Container>
                 </Container>
             </Container>
-            <Container className={c(styles.section)}>
+            <Container className={c(styles.section, styles.featuresSection)}>
                 {/* Features Section */}
                 {FEATURES.map((feature, index) => (
-                    <FeatureCard key={index} {...feature} />
+                    <FeatureCard key={index} className={styles.featuresCard} {...feature} />
                 ))}
             </Container>
 
-            <Container className={c(styles.section)}>
+            <Container className={c(styles.section, styles.essentialsSection)}>
                 {/* Essence Section */}
                 {ESSENTIALS.map((essential, index) => (
-                    <FeatureCard key={index} {...essential} />
+                    <Container>
+                        <FeatureCard key={index} className={styles.essentialsCard}  {...essential} />
+                    </Container>
                 ))}
 
             </Container>
-            <Container className={c(styles.section)}>
+            <Container className={c(styles.section, styles.narrativeSection)}>
                 {/* Narrative Section */}
                 <Container>
                     <Container>
@@ -89,14 +95,14 @@ const LandingPage = () => {
                     </Container>
                 </Container>
             </Container>
-            <Container className={c(styles.section)}>
+            <Container className={c(styles.section, styles.connectionSection)}>
                 {/* Connect Section */}
                 <Container>
                     <Text>
-                        You are welcome to check out this project, and to start your journey today.
+                        You are welcome to check out this project and start your journey today.
                     </Text>
                 </Container>
-                <Container>
+                <Container className={styles.connectionsContainer}>
                     <Button to="/register">
                         Register Now
                     </Button>

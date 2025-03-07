@@ -8,6 +8,7 @@ class Client extends GraphQLClient {
     constructor(...args){
         super(...args)
         const token = getToken();
+        console.log({token})
         if (token) this.setAuthToken(token)
     }
 
@@ -16,7 +17,7 @@ class Client extends GraphQLClient {
     }
 
     get hasToken(){
-        return Boolean(this.requestConfig.headers?.['authorization'])
+        return Boolean(this.requestConfig?.headers?.['authorization'])
     }
 }
 

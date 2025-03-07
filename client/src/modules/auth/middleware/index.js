@@ -31,6 +31,11 @@ export default new MiddlewareModule({
         query user {
             user {
                 id
+                membership {
+                    id
+                    ${STAMPS_FRAGMENT}
+                }
+                boothCount
             }
         }
     `,

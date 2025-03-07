@@ -6,6 +6,15 @@ type User {
     id: ID!
     phoneNumber: String
     isValidated: Boolean
-    createdAt: Date
-    updatedAt: Date
+    createdAt: String
+    updatedAt: String
+    membership: Membership
+    boothCount: Int
+}
+
+type Membership {
+    id: ID!
+    stamps: Stamps
+    isActive: Boolean
+    createdAt: String
 }

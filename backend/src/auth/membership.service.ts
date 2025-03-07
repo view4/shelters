@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
 import { ConfigService } from '@nestjs/config';
@@ -15,7 +15,7 @@ export class MembershipService {
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Membership.name) private membershipModel: Model<Membership>,
     private configService: ConfigService,
-    private  boothService: BoothsService
+    @Inject(forwardRef(() => BoothsService))private boothService: BoothsService
   ) {
     const env = this.configService.get<string>('ENV');
     this.isDevelopment = env === 'development' || env === 'local';
@@ -32,10 +32,23 @@ export class MembershipService {
     )
   }
 
-async setMembership(userId: ID, data) {
-  return upsertOne(this.membershipModel, data, { userId });
-}
+  async setMembership(userId: ID, data) {
+    return upsertOne(this.membershipModel, data, { userId });
+  }
 
+  async membership(userId: ID, { includeIsActive = false } = {}) {
+    const membership = await filterOne(this.membershipModel, { userId });
+    if (includeIsActive) {
+      return ({
+        isActive: membership.stamps.commmenced !== null && membership.stamps.completed === null,
+        ...membership
+      })
+    }
+    return membership;
+  }
+
+  async boothCount(userId: ID) {
+    return this.boothService.boothCount({ userId });
+  }
   
-
 }
