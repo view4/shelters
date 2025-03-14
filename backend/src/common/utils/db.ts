@@ -22,11 +22,12 @@ export const exists = (model, filter) => {
 
 export const count = (model, filter) => {
   return model
-    .count
-    .Documents(filter)
+    .countDocuments(filter)
+    // .Documents(filter)
 }
 
 export const upsertOne = async (model, data, filter, options = {}) => {
+  console.log(data, filter)
   return model.findOneAndUpdate(
     filter,
     data,

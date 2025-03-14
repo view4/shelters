@@ -7,7 +7,7 @@ import { MembershipService } from 'src/auth/membership.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Subscription } from './schemas/subscription.schema';
 import { create, filterOne, upsertOne } from 'src/common/utils/db';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 
 @Injectable()
 export class StripeService {
@@ -26,6 +26,9 @@ export class StripeService {
 
 
   async handleEvent(event: Record<string, string>) {
+    console.log("************************")
+    console.log("event", event)
+    console.log("************************")
 
     const handler =
       this.EVENT_TREE[event.type] ||
@@ -35,25 +38,25 @@ export class StripeService {
 
   async createStripeCustomer(userId) {
     const user = await this.authService.getUser(userId);
+    console.log(user)
     const customer = await this.stripe.customers.create({
       email: user.email,
       name: "User Name Here",
       metadata: {
         userId: `${userId}`,
       },
-
     }, {
       idempotencyKey: `${userId}-customer`,
     });
+    console.log("stripe customer")
+    console.log(customer)
     return customer
-
   }
-
-
 
   async initMembership(userId) {
     const stripeCustomer = await this.createStripeCustomer(userId);
-
+    console.log("price....", this.configService.get<string>('STRIPE_PRICE_ID'))
+    console.log(userId)
     const subscription = await this.stripe.subscriptions.create({
       customer: stripeCustomer.id,
       items: [
@@ -64,12 +67,17 @@ export class StripeService {
       payment_settings: {
         save_default_payment_method: 'on_subscription',
       },
+      metadata: {
+        userId: `${userId}`,
+      }
     }, {
       idempotencyKey: `${userId}-subscription`,
     });
 
+    console.log("subscription....", subscription)
+
     await create(this.subscriptionModel, {
-      userId,
+      user: userId,
       customerId: stripeCustomer.id,
       subscriptionId: subscription.id,
     });
@@ -88,6 +96,9 @@ export class StripeService {
 
 
   async activateSubscription(subscription) {
+    console.log("activating subscriptions.... and ")
+    console.log(subscription);
+
     await this.membershipService.setMembership(
       subscription.metadata.userId, {
       "stamps.commenced": new Date(),
@@ -95,7 +106,7 @@ export class StripeService {
 
     await upsertOne(this.subscriptionModel, {
       "stamps.activatedDate": new Date(),
-    }, { userId: subscription.metadata.userId });
+    }, { user: new mongoose.Types.ObjectId(subscription.metadata.userId) });
   }
 
   async deActivateSubscription(subscription) {

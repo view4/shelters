@@ -13,7 +13,8 @@ export default () => {
                 elements,
                 redirect: "if_required"
             });
-            if (paymentIntent.status === "succeeded") return { success: true }
+            if (paymentIntent?.status === "succeeded") return { success: true }
+            return { success: false, error };
 
         } catch (error) {
             console.error(error);

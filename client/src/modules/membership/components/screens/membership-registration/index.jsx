@@ -44,7 +44,7 @@ const MembershipRegistration = () => {
                     </Button>
                 </Card>
             </Container>
-            <Drawer origin="right" isOpen={isOpen} onClose={close}>
+            <Drawer origin="right" isOpen={isOpen} close={close}>
                 <PaymentsSection clientSecret={clientSecret} />
             </Drawer>
         </Screen>

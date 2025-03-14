@@ -11,7 +11,7 @@ export default new CoreModule({
     cancelMembership: cells.cancelMembership,
   },
   routes: {
-    "/membership": MembershipRegistration,
+    "/subscribe": MembershipRegistration,
     "/membership/settings": MembershipSettings,
   },
 });

@@ -59,7 +59,7 @@ export class CyclesService {
                         booth: new mongoose.Types.ObjectId(boothId),
                         "stamps.completed": null,
                         "stamps.commenced": { $ne: null },
-                        user: new mongoose.Types.ObjectId(userId)
+                        // user: new mongoose.Types.ObjectId(userId)
 
                     }
                 },

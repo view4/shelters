@@ -13,7 +13,7 @@ type User {
 }
 
 type Membership {
-    id: ID!
+    id: ID
     stamps: Stamps
     isActive: Boolean
     createdAt: String

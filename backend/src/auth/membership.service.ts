@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
@@ -15,7 +15,7 @@ export class MembershipService {
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Membership.name) private membershipModel: Model<Membership>,
     private configService: ConfigService,
-    @Inject(forwardRef(() => BoothsService))private boothService: BoothsService
+    @Inject(forwardRef(() => BoothsService)) private boothService: BoothsService
   ) {
     const env = this.configService.get<string>('ENV');
     this.isDevelopment = env === 'development' || env === 'local';
@@ -25,22 +25,22 @@ export class MembershipService {
     return filterOne(
       this.membershipModel,
       {
-        userId,
-        "stamps.commmenced": { $ne: null },
+        user: new mongoose.Types.ObjectId(userId),
+        "stamps.commenced": { $ne: null },
         "stamps.completed": { $eq: null }
       }
     )
   }
 
   async setMembership(userId: ID, data) {
-    return upsertOne(this.membershipModel, data, { userId });
+    return upsertOne(this.membershipModel, data, { user: new mongoose.Types.ObjectId(userId) });
   }
 
   async membership(userId: ID, { includeIsActive = false } = {}) {
     const membership = await filterOne(this.membershipModel, { userId });
     if (includeIsActive) {
       return ({
-        isActive: membership.stamps.commmenced !== null && membership.stamps.completed === null,
+        isActive: membership?.stamps?.commmenced !== null && membership?.stamps?.completed === null,
         ...membership
       })
     }
@@ -50,5 +50,5 @@ export class MembershipService {
   async boothCount(userId: ID) {
     return this.boothService.boothCount({ userId });
   }
-  
+
 }

@@ -5,17 +5,17 @@ export default new MiddlewareModule({
   name: MEMBERSHIP,
   operations: {
     create: `
-            mutation initMembership(){
-                initMembership() {
+            mutation initMembership{
+                initMembership {
                     amount
                     currency
                     clientSecret
                 }
             }
         `,
-        cancel: `
-            mutation cancelMembership(){
-                cancelMembership()
+    cancel: `
+            mutation cancelMembership{
+                cancelMembership
             }
         `,
   },

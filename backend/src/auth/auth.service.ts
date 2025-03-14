@@ -19,7 +19,8 @@ export class AuthService {
   }
 
   async getUser(id) {
-    return await this.firebaseService.getUser(id);
+    return filterOne(this.userModel, { _id: id });
+    // return await this.firebaseService.getUser(id);
   }
 
   async setUser(authenticatorId, data) {
@@ -38,12 +39,11 @@ export class AuthService {
     // if no user then could register user with the setUser field...
     if (!user) (user = await this.setUser(authenticatorUser.uid, { authenticatorId: authenticatorUser.uid, email: authenticatorUser.email }));
     return {
-      ...authenticatorUser,
-      ...user,
+      email: authenticatorUser.email,
+      authenticatorId: authenticatorUser.uid,
       id: user._id,
+      authTime: authenticatorUser.auth_time,
+      roles: user.roles,
     }
   }
-
-
-
 }

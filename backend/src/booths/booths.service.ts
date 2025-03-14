@@ -2,7 +2,7 @@ import { Injectable, Inject, forwardRef } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Booth, BoothDocument } from "./schema/booth.schema";
 import mongoose, { Model } from "mongoose";
-import { aggregateFeed, count, filterOne, upsert, upsertOne } from "src/common/utils/db";
+import { aggregateFeed, count, create, filterOne, upsert, upsertOne } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { ID } from "src/common/types";
 import { MembershipService } from "src/auth/membership.service";
@@ -20,7 +20,7 @@ export class BoothsService {
         await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);
         return aggregateFeed(
             this.boothModel,
-            { sort: { createdAt: -1 }, match: { userId: new mongoose.Types.ObjectId(userId) } },
+            { sort: { createdAt: -1 }, match: { user: new mongoose.Types.ObjectId(userId) } },
             []
         );
     }
@@ -29,7 +29,7 @@ export class BoothsService {
         return filterOne(this.boothModel, {
             'stamps.completed': { $eq: null },
             'stamps.commenced': { $ne: null },
-            userId: new mongoose.Types.ObjectId(userId)
+            user: new mongoose.Types.ObjectId(userId)
         });
     }
 
@@ -37,14 +37,14 @@ export class BoothsService {
         await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);
         return filterOne(this.boothModel, {
             _id: new mongoose.Types.ObjectId(id),
-            userId: new mongoose.Types.ObjectId(userId)
+            user: new mongoose.Types.ObjectId(userId)
         });
     }
 
     async validateMembership(userId: ID, count = this.FREE_TIER_BOOTH_COUNT) {
         const hasValidMembership = await this.membershipService.hasValidMembership(userId);
         if (!hasValidMembership) {
-            const boothCount = await this.boothModel.countDocuments({ userId: new mongoose.Types.ObjectId(userId) });
+            const boothCount = await this.boothModel.countDocuments({ user: new mongoose.Types.ObjectId(userId) });
             if (boothCount >= count) {
                 throw new Error("Create Membership to access more booths");
             }
@@ -53,7 +53,9 @@ export class BoothsService {
 
     async upsertBooth(userId, input: any, id?: string) {
         if (!id) await this.validateMembership(userId);
-        return upsertOne(this.boothModel, input, compactObject({ _id: id, userId }));
+        input.user = userId;
+        if (!id) return create(this.boothModel, input);
+        return upsertOne(this.boothModel, input, compactObject({ _id: id, user: id && userId }));
     }
 
     async stampBooth(id: string, key: string) {

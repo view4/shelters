@@ -106,17 +106,8 @@
         display: flex;
         justify-content: center;
         margin-top: 1rem;
-        &.connectionsContainer {
-            // justify-content: space-evenly;
-        }
         & button {
             margin: 0rem 2rem;
         }
-        // padding: 10%;
     }
-}
-
-.connectionsContainer {
-    display: flex;
-    justify-content: space-evenly;
 }

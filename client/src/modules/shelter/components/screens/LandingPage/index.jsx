@@ -18,7 +18,7 @@ const FeatureCard = ({ name, description, className }) => (
     </Card>
 );
 
-const LandingPage = ({ isAuthed = true }) => {
+const LandingPage = ({ isAuthed }) => {
     return (
         <Screen
             header="Shelters App"

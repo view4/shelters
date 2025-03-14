@@ -36,14 +36,14 @@ export default strappedConnected(
     ({ login }) => {
         const [email, setEmail] = useState("");
         const [password, setPassword] = useState("");
-        const nav = useNavigate()
-        const callback = () => nav("/")
+        const nav = useNavigate();
+        const callback = () => nav("/");
         return {
             email,
             password,
             setEmail,
             setPassword,
-            onSubmit: () => login({ email, password }, callback)
+            onSubmit: () => login({ email, password, callback })
         }
 
     }

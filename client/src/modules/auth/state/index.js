@@ -11,6 +11,7 @@ export default {
     sagas: {
       latest: function* ({ payload: { email, password } }) {
         const res = yield call(login, email, password);
+        console.log(res)
         if (!res.user) {
           throw new Error("Invalid credentials");
         }
@@ -18,6 +19,16 @@ export default {
       },
       onCellSuccess: true,
     },
+    successCell: {
+      reducer: (state, { payload }) => {
+        state.user = payload;
+        state.isAuthenticated = Boolean(payload?.uid);
+      },
+    }
+    // reducer: (state, { payload }) => {
+    //   state.user = payload;
+    //   state.isAuthenticated = Boolean(payload?.uid);
+    // },
   }),
   register: initCell(AUTH, {
     name: "register",
@@ -30,6 +41,10 @@ export default {
         return res.user;
       },
       onCellSuccess: true,
+    },
+    reducer: (state, { payload }) => {
+      state.user = payload;
+      state.isAuthenticated = Boolean(payload?.uid);
     },
   }),
   validateToken: initCell(AUTH, {
@@ -44,12 +59,11 @@ export default {
     },
     sagas: {
       latest: function* ({ payload: { user } }) {
-        const token = call(getToken, user);
         // maybe get token
-        if (!token) {
+        if (!user?.accessToken) {
           throw new Error("Invalid token");
         }
-        saveToken(token);
+        saveToken(user?.accessToken);
         const res = yield call(middleware.ops.validateToken);
         if (!res.user) return false;
         return res.user;

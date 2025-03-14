@@ -14,7 +14,8 @@ export class TransactionResolver {
   @UseGuards(AuthGuard)
   async initMembership(
     @SessionUser() user
-  ){
+  ) {
+    console.log('initMembership', user);
     return this.service.initMembership(user.id);
   }
 
@@ -22,7 +23,7 @@ export class TransactionResolver {
   @UseGuards(AuthGuard)
   async cancelMembership(
     @SessionUser() user
-  ){
+  ) {
     return this.service.cancelMembership(user.id);
   }
 
