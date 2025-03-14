@@ -11,7 +11,6 @@ import { MembershipService } from "src/auth/membership.service";
 export class BoothsService {
     constructor(
         @InjectModel(Booth.name) private boothModel: Model<BoothDocument>,
-        // private membershipService: MembershipService
         @Inject(forwardRef(() => MembershipService)) private membershipService: MembershipService
     ) { }
     FREE_TIER_BOOTH_COUNT = 1;

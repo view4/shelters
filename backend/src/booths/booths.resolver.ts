@@ -22,8 +22,6 @@ export class BoothsResolver {
     @UseGuards(AuthGuard)
     @Query(() => [Booth])
     async booths(@SessionUser() user: SessionUserT): Promise<Booth[]> {
-        console.log("booothss....")
-        console.log(user)
         return this.boothsService.booths(user?.id);
     }
 

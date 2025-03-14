@@ -26,9 +26,6 @@ export class StripeService {
 
 
   async handleEvent(event: Record<string, string>) {
-    console.log("************************")
-    console.log("event", event)
-    console.log("************************")
 
     const handler =
       this.EVENT_TREE[event.type] ||
@@ -38,7 +35,6 @@ export class StripeService {
 
   async createStripeCustomer(userId) {
     const user = await this.authService.getUser(userId);
-    console.log(user)
     const customer = await this.stripe.customers.create({
       email: user.email,
       name: "User Name Here",
@@ -48,15 +44,11 @@ export class StripeService {
     }, {
       idempotencyKey: `${userId}-customer`,
     });
-    console.log("stripe customer")
-    console.log(customer)
     return customer
   }
 
   async initMembership(userId) {
     const stripeCustomer = await this.createStripeCustomer(userId);
-    console.log("price....", this.configService.get<string>('STRIPE_PRICE_ID'))
-    console.log(userId)
     const subscription = await this.stripe.subscriptions.create({
       customer: stripeCustomer.id,
       items: [
@@ -74,7 +66,6 @@ export class StripeService {
       idempotencyKey: `${userId}-subscription`,
     });
 
-    console.log("subscription....", subscription)
 
     await create(this.subscriptionModel, {
       user: userId,
@@ -96,9 +87,6 @@ export class StripeService {
 
 
   async activateSubscription(subscription) {
-    console.log("activating subscriptions.... and ")
-    console.log(subscription);
-
     await this.membershipService.setMembership(
       subscription.metadata.userId, {
       "stamps.commenced": new Date(),

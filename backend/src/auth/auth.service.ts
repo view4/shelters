@@ -20,7 +20,6 @@ export class AuthService {
 
   async getUser(id) {
     return filterOne(this.userModel, { _id: id });
-    // return await this.firebaseService.getUser(id);
   }
 
   async setUser(authenticatorId, data) {

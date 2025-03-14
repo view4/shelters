@@ -11,7 +11,6 @@ export default {
     sagas: {
       latest: function* ({ payload: { email, password } }) {
         const res = yield call(login, email, password);
-        console.log(res)
         if (!res.user) {
           throw new Error("Invalid credentials");
         }
@@ -25,10 +24,6 @@ export default {
         state.isAuthenticated = Boolean(payload?.uid);
       },
     }
-    // reducer: (state, { payload }) => {
-    //   state.user = payload;
-    //   state.isAuthenticated = Boolean(payload?.uid);
-    // },
   }),
   register: initCell(AUTH, {
     name: "register",

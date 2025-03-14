@@ -15,7 +15,6 @@ export class TransactionResolver {
   async initMembership(
     @SessionUser() user
   ) {
-    console.log('initMembership', user);
     return this.service.initMembership(user.id);
   }
 
