@@ -66,12 +66,6 @@ export class StripeService {
       idempotencyKey: `${userId}-subscription`,
     });
 
-
-    // await create(this.subscriptionModel, {
-    //   user: userId,
-    //   customerId: stripeCustomer.id,
-    //   subscriptionId: subscription.id,
-    // });
     await upsertOne(this.subscriptionModel, {
       user: userId,
       customerId: stripeCustomer.id,
