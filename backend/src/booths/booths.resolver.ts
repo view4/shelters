@@ -58,4 +58,12 @@ export class BoothsResolver {
     ): Promise<Booth> {
         return this.boothsService.stampBooth(id, key);
     }
+
+    @Mutation(() => Booth)
+    assignBoothToUser(
+        @Args('boothId', {type: () => String}) boothId: string,
+        @Args('userId', {type: () => String}) userId: string
+    ): Promise<Booth> {
+        return this.boothsService.assignBoothToUser(boothId, userId);
+    }
 }

@@ -27,9 +27,10 @@ export class EntriesResolver {
     async entries(
         @Args('feedParams') feedParams?: FeedParams,
         @Args('boothId') boothId?: string,
+        @Args('search') search?: string,
         // @Args('parentId') parentId?: string
     ) {
-        return this.entrysService.entries(boothId, feedParams);
+        return this.entrysService.entries(boothId, search,feedParams);
     }
     @Query()
     async entry(

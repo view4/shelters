@@ -67,11 +67,16 @@ export class StripeService {
     });
 
 
-    await create(this.subscriptionModel, {
+    // await create(this.subscriptionModel, {
+    //   user: userId,
+    //   customerId: stripeCustomer.id,
+    //   subscriptionId: subscription.id,
+    // });
+    await upsertOne(this.subscriptionModel, {
       user: userId,
       customerId: stripeCustomer.id,
       subscriptionId: subscription.id,
-    });
+    }, { user: userId });
 
     const { client_secret, amount, currency, id } = (
       subscription.latest_invoice as Stripe.Invoice
@@ -105,16 +110,16 @@ export class StripeService {
 
     await upsertOne(this.subscriptionModel, {
       "stamps.deactivatedDate": new Date(),
-    }, { userId: subscription.metadata.userId });
+    }, { user: subscription.metadata.userId });
 
   }
 
   async cancelSubscription(userId) {
-    const subscription = await filterOne(this.subscriptionModel, { userId });
-    await this.stripe.subscriptions.cancel(subscription._id, {
+    const subscription = await filterOne(this.subscriptionModel, { user: userId });
+    await this.stripe.subscriptions.cancel(subscription.subscriptionId, {
       idempotencyKey: `${userId}-cancel-subscription`,
     });
-
+    return true;
   }
   async handleSubscriptionChange(subscription) {
     if (subscription.status == 'active') return this.activateSubscription(subscription);

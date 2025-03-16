@@ -5,6 +5,7 @@ type Query {
 type User {
     id: ID!
     phoneNumber: String
+    email: String
     isValidated: Boolean
     createdAt: String
     updatedAt: String

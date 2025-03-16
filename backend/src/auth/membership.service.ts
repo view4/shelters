@@ -37,18 +37,22 @@ export class MembershipService {
   }
 
   async membership(userId: ID, { includeIsActive = false } = {}) {
-    const membership = await filterOne(this.membershipModel, { userId });
+    const membership = await filterOne(this.membershipModel, { user: userId });
     if (includeIsActive) {
       return ({
-        isActive: membership?.stamps?.commmenced !== null && membership?.stamps?.completed === null,
-        ...membership
+        isActive: Boolean(membership?.stamps?.commenced ) && !membership?.stamps?.completed,
+        user: membership?.user,
+        stamps: membership?.stamps,
+        createdAt: membership?.createdAt,
+        updatedAt: membership?.updatedAt,
+        id: membership?.id
       })
     }
     return membership;
   }
 
   async boothCount(userId: ID) {
-    return this.boothService.boothCount({ userId });
+    return this.boothService.boothCount({ user: userId });
   }
 
 }

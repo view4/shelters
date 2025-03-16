@@ -14,11 +14,26 @@ export class EntriesService {
         @InjectModel(Entry.name) private entryModel: Model<EntryDocument>
     ) { }
 
-    async entries(boothId?: ID, feedParams?: FeedParams) {
+    async entries(boothId?: ID, search?: string, feedParams?: FeedParams) {
+        console.log(
+            compactObject({
+                booth: boothId && new mongoose.Types.ObjectId(boothId),
+                $or: Boolean(search) ? [
+                    { name: { $regex: search, $options: "i" } },
+                    { text: { $regex: search, $options: "i" } }
+                ] : null
+
+            }), search
+        )
         return this.aggregateFeed(
             {
                 match: compactObject({
                     booth: boothId && new mongoose.Types.ObjectId(boothId),
+                    $or: Boolean(search) ? [
+                        { name: { $regex: search, $options: "i" } },
+                        { text: { $regex: search, $options: "i" } }
+                    ] : null
+
                 }),
                 ...feedParams
             }
@@ -55,7 +70,7 @@ export class EntriesService {
             ),
             ...pipeline
         ]
-        feedParams.sort = {createdAt: -1}
+        feedParams.sort = { createdAt: -1 }
         return aggregateFeed(this.entryModel, feedParams, p);
     }
 

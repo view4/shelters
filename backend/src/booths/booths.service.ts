@@ -16,7 +16,7 @@ export class BoothsService {
     FREE_TIER_BOOTH_COUNT = 1;
 
     async booths(userId: ID) {
-        await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);
+        // await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);
         return aggregateFeed(
             this.boothModel,
             { sort: { createdAt: -1 }, match: { user: new mongoose.Types.ObjectId(userId) } },
@@ -70,6 +70,10 @@ export class BoothsService {
 
     async boothCount(filter) {
         return count(this.boothModel, filter);
+    }
+
+    async assignBoothToUser(boothId: string, userId: string) {
+        return upsert(this.boothModel, { user: userId }, boothId);
     }
 
 }

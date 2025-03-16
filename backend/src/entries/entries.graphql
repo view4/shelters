@@ -2,7 +2,8 @@ type Query {
   entries(
     boothId: String
     parentId: String
-    feedParams: FeedParams
+    feedParams: FeedParams,
+    search: String
   ): EntryFeed
   entry(id: String): Entry
 }
