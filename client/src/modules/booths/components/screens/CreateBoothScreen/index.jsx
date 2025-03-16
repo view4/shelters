@@ -46,10 +46,10 @@ export default strappedConnected(
 
         useOnLoad(() => {
             if (boothCount >= 1 && !hasActiveMembership) {
-                onError("You have reached the limit of booths you can create - please create a membership to create more")
+                onError("You have reached the limit of booths you can create - please create a membership to have access to more booths")
                 nav("/booths")
             }
-        }, [boothCount, hasActiveMembership, onError, nav])
+        }, true, [boothCount, hasActiveMembership, onError, nav])
 
         return {
             onSubmit: useCallback(({ name, text }) => {

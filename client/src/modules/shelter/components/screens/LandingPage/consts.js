@@ -1,7 +1,7 @@
 export const FEATURES = [
     {
         name: "Booth Management",
-        description: "Compartmnetalised growth, contained within individual booths to support focus and effective organisation"
+        description: "Compartmentalised growth, contained within individual booths to support focus and effective organisation"
     },
     {
         name: "Time Tracking", 

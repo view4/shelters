@@ -6,11 +6,12 @@ import Login from "./components/screens/Login";
 import Register from "./components/screens/Register";
 import Logout from "./components/screens/Logout";
 import OnLoad from "./components/OnLoad";
+import { getToken } from "modules/Core/utils/auth";
 
 export default new CoreModule({
   name: AUTH,
   initialState: {
-    isAuthenticated: null
+    isAuthenticated: getToken() ? null : false,
   },
   cells: {
 

@@ -11,7 +11,7 @@ import styles from "./styles.module.scss";
 
 const Login = ({ email, password, onSubmit, setEmail, setPassword }) => {
     return (
-        <Screen className={styles.container}>
+        <Screen header="Login" className={styles.container}>
             <Card className={styles.card}>
                 <Input label="Email" value={email} onChange={setEmail} />
                 <Input label="Password"
@@ -37,7 +37,7 @@ export default strappedConnected(
         const [email, setEmail] = useState("");
         const [password, setPassword] = useState("");
         const nav = useNavigate();
-        const callback = () => nav("/");
+        const callback = (res) => res && nav("/");
         return {
             email,
             password,

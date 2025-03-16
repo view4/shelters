@@ -31,8 +31,10 @@ export default new MiddlewareModule({
         query user {
             user {
                 id
+                email
                 membership {
                     id
+                    isActive
                     ${STAMPS_FRAGMENT}
                 }
                 boothCount

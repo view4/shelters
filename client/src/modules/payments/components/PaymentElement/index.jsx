@@ -12,10 +12,15 @@ const PaymentElement = ({ clientSecret, options }) => {
     const onSuccess = useOnSuccess();
     const onError = useOnError();
 
+    const handleSuccess = useCallback(() => {    
+        onSuccess("Payment successful");
+        options?.onSuccess?.();
+    }, [options.onSuccess])
+
     const onSubmit = useCallback(async () => {
         if (isLoading) return;
         const { success } = await submit();
-        if (success) return onSuccess("Payment successful");
+        if (success) return handleSuccess();
         return onError("Payment failed");
     }, [isLoading, submit]);
 

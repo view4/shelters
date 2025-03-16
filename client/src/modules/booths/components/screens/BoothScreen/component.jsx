@@ -1,5 +1,4 @@
 import Container from "modules/Core/components/ui-kit/Container"
-import Screen from "modules/Core/components/ui-kit/Screen"
 import AddRoadmapButton from "modules/roadmaps/components/AddRoadmapButton";
 import BoothInfo from "../../BoothInfo";
 import ActivateBoothButton from "../../ActivateBoothButton";
@@ -13,6 +12,7 @@ import Title from "modules/Core/components/ui-kit/Title";
 import feed from "modules/booths/state/feed";
 import BoothPastCyclesTab from "../../BoothPastCyclesTab";
 import BoothActiveCycleTab from "../../BoothActiveCycletab";
+import Screen from "modules/shelter/components/Screen";
 
 
 const tabs = [

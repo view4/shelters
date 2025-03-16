@@ -11,6 +11,7 @@ export default (moduleName, { onErrorMessage }) =>
     reducer: (state, { payload }) => {
       const { reset, shouldRefetch, ...filters } = payload;
       state.filters = {
+        feedIsLoading: Boolean(shouldRefetch),
         ...(!reset && state.filters),
         ...filters,
       };

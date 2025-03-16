@@ -1,14 +1,16 @@
 import c from "classnames";
 import Screen from "modules/Core/components/ui-kit/Screen";
 import Container from "modules/Core/components/ui-kit/Container";
-import styles from "./styles.module.scss";
 import Footer from "modules/Core/components/ui-kit/layout/Footer";
 import Title from "modules/Core/components/ui-kit/Title";
 import Card from "modules/Core/components/ui-kit/Card";
 import Text from "modules/Core/components/ui-kit/Text";
-import { ESSENTIALS, FEATURES } from "./consts";
 import Button from "modules/Core/components/ui-kit/Button";
-
+import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
+import cells from "modules/auth/state";
+import {ReactComponent as WelcomeBg} from "../../../assets/welcome_bg_cleaned.svg";
+import { ESSENTIALS, FEATURES } from "./consts";
+import styles from "./styles.module.scss";
 
 const FeatureCard = ({ name, description, className }) => (
     <Card className={c(styles.featureCard, className)} header={name}>
@@ -32,7 +34,7 @@ const LandingPage = ({ isAuthed }) => {
                         <Button to="/login">
                             Login
                         </Button>
-                    </>) : <Button to="/booths">Booths →  </Button>}
+                    </>) : <Button to="/booths">Booths → </Button>}
                 </Container>
             }
             className={styles.container}
@@ -49,6 +51,7 @@ const LandingPage = ({ isAuthed }) => {
                         </Title>
                     </Container>
                     <Container maxHeight className={styles.graphic} >
+                        <WelcomeBg />
                     </Container>
                 </Container>
             </Container>
@@ -71,7 +74,7 @@ const LandingPage = ({ isAuthed }) => {
             <Container className={c(styles.section, styles.narrativeSection)}>
                 {/* Narrative Section */}
                 <Container>
-                    <Container>
+                    <Card className={styles.narrativeCard}>
                         <Text>
                             The vast tech world is saturated with so much;
                             yet it's hard to sometimes find the meaning shining through the products out there
@@ -82,8 +85,8 @@ const LandingPage = ({ isAuthed }) => {
                             I didn't find an existing app which was meeting my practical organisational needs,
                             nor one which was intentioned towards personal and individual growth.
                         </Text>
-                    </Container>
-                    <Container>
+                    </Card>
+                    <Card className={styles.narrativeCard}>
                         <Text>
                             Not intended to be coorperately inclined,
                             the primary intention is to facilitate and support the personal journey
@@ -92,7 +95,7 @@ const LandingPage = ({ isAuthed }) => {
                             this carries meaning to people as well,
                             and I want to exist in a world where we nurture and support each other's growth as one.
                         </Text>
-                    </Container>
+                    </Card>
                 </Container>
             </Container>
             <Container className={c(styles.section, styles.connectionSection)}>
@@ -103,12 +106,13 @@ const LandingPage = ({ isAuthed }) => {
                     </Text>
                 </Container>
                 <Container className={styles.connectionsContainer}>
-                    <Button to="/register">
+                    <Button to="/register" nature="ocean-blue">
                         Register Now
                     </Button>
                     <Button to="/login">
                         Login
                     </Button>
+                    <Container span />
                     <Button to="/subscribe">
                         Subscribe
                     </Button>
@@ -121,4 +125,9 @@ const LandingPage = ({ isAuthed }) => {
     )
 }
 
-export default LandingPage;
+export default strappedConnected(
+    LandingPage, 
+    {isAuthed: cells.validateToken.selectors.isAuthed},
+    {},
+    () => ({})
+);
