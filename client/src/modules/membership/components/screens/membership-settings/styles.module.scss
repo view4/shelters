@@ -1,0 +1,20 @@
+.container {
+    & > div:first-child {
+        position: absolute;
+        top: 0rem;
+    }
+}
+
+.contentContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    height: 90%;
+    width: 90%;
+    padding: 1rem;
+}

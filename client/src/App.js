@@ -11,6 +11,10 @@ import Dialog from "modules/Core/sub-modules/Dialog";
 import sabbaticals from "modules/sabbaticals";
 import entries from "modules/entries";
 import trackedTime from "modules/timetracker/submodules/trackedTime";
+import auth from "modules/auth";
+import payments from "modules/payments";
+import membership from "modules/membership";
+import shelter from "modules/shelter";
 
 const { store, rootRender, routes } = init([
   booths,
@@ -21,6 +25,10 @@ const { store, rootRender, routes } = init([
   sabbaticals,
   entries,
   trackedTime,
+  auth,
+  payments,
+  membership,
+  shelter
 ]);
 
 const RootWrapper = () => {

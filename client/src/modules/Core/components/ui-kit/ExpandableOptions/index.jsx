@@ -13,7 +13,13 @@ const ExpandableOptions = ({ options, className, label, optionsContainerClassNam
     const { isOpen, open, close, toggle } = useIsOpen();
 
     return (
-        <Container className={cx(styles.container, className, { [openClassName]: Boolean(isOpen) })}>
+        <Container 
+            className={cx(
+                styles.container, 
+                className, 
+                { [openClassName]: Boolean(isOpen) }
+            )}
+        >
             <Button onClick={toggle}>
                 {label}
                 {isOpen ? <RemoveCircle /> : <DownArrow />}

@@ -20,6 +20,11 @@ export const exists = (model, filter) => {
   return model.exists(filter)
 }
 
+export const count = (model, filter) => {
+  return model
+    .countDocuments(filter)
+}
+
 export const upsertOne = async (model, data, filter, options = {}) => {
   return model.findOneAndUpdate(
     filter,

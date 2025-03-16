@@ -16,7 +16,7 @@ class Client extends GraphQLClient {
     }
 
     get hasToken(){
-        return Boolean(this.requestConfig.headers?.['authorization'])
+        return Boolean(this.requestConfig?.headers?.['authorization'])
     }
 }
 

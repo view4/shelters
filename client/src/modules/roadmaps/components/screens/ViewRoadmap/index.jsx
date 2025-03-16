@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import Container from "modules/Core/components/ui-kit/Container";
-import Screen from "modules/Core/components/ui-kit/Screen"
+// import Screen from "modules/Core/components/ui-kit/Screen"
 import Button from "modules/Core/components/ui-kit/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/roadmaps/state/feed";
@@ -16,6 +16,7 @@ import EditGatewayButton from "../../EditGatewayButton";
 import styles from "./styles.module.scss";
 import { STAMPS } from "modules/Core/consts";
 import Stamps from "modules/Core/components/ui-kit/Stamps";
+import Screen from "modules/shelter/components/Screen";
 
 
 const leftAppendages = [

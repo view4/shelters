@@ -7,6 +7,7 @@ import BoothsScreen from "./components/screens/BoothsScreen";
 import BoothScreen from "./components/screens/BoothScreen";
 import withParams from "modules/Core/higher-order-components/withParams";
 import cells from "./state/index";
+import withSecureRoute from "modules/auth/hoc/withSecureRoute";
 
 export default new CoreModule({
   name: BOOTHS,
@@ -22,9 +23,9 @@ export default new CoreModule({
     setFilters: feed.cells?.setFilters,
   },
   routes: {
-    "/create": CreateBoothScreen,
-    "/": ActiveBoothScreen,
-    "/booths": BoothsScreen,
+    "/create": withSecureRoute(CreateBoothScreen),
+    "/": withSecureRoute(ActiveBoothScreen),
+    "/booths": withSecureRoute(BoothsScreen),
     "/booths/:id": withParams(BoothScreen),
   },
 });

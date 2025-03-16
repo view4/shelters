@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .card {
+    max-width: 54rem;
+    height: 18rem;
+    & > div:last-child {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      & p {
+        margin-top: 2rem;
+        max-width: 75%;
+        text-align: center;
+      }
+      & button {
+        margin-top: 1rem;
+      }
+    }
+  }
+}
+
+.paymentsContainer {
+  max-width: 75%;
+  margin: 3rem auto;
+  .paymentsCard {
+    padding: 5%;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+}

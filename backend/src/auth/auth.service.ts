@@ -1,40 +1,48 @@
 import { Model } from 'mongoose';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { JwtService } from '@nestjs/jwt';
 import { User } from './schemas/user.schema';
 import { ConfigService } from '@nestjs/config';
-import { ROLES } from './schemas/const';
+import { FirebaseService } from './submodules/firebase/firebase.service';
+import { filterOne, upsertOne } from 'src/common/utils/db';
 
 @Injectable()
 export class AuthService {
   isDevelopment: boolean;
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
-    private jwtService: JwtService,
     private configService: ConfigService,
+    private firebaseService: FirebaseService
   ) {
     const env = this.configService.get<string>('ENV');
     this.isDevelopment = env === 'development' || env === 'local';
   }
 
-  async login(phoneNumber) {
-    // const hashed = handleHash(phoneNumber);
-    // let user = await this.userModel.findOne({ phoneId: hashed });
-    // if (!user) {
-    //   user = await this.userModel.create({
-    //     phoneId: hashed,
-    //     isValidated: false,
-    //   });
-    // }
-    // const validationCode = await this.generateValidationCode(hashed);
-    // this.smsService.sendSms(phoneNumber, `Your validation code for p4p is: ${validationCode}`);
-    // return { validationCode: this.isDevelopment && validationCode  };
+  async getUser(id) {
+    return filterOne(this.userModel, { _id: id });
   }
-  FIVE_MINUTES = 60 * 5 * 1000;
-  CODE_LENGTH = 7
 
+  async setUser(authenticatorId, data) {
+    return upsertOne(this.userModel, data, { authenticatorId },);
+  }
 
-  async fetchUser(phoneNumber: string) {
+  async getUserByAuthenticatorId(authenticatorId) {
+    return filterOne(this.userModel, {
+      authenticatorId,
+    });
+  }
+
+  async verifyToken(token: string) {
+    const authenticatorUser = await this.firebaseService.verifyToken(token);
+    let user = await this.getUserByAuthenticatorId(authenticatorUser.uid);
+    // if no user then could register user with the setUser field...
+    if (!user) (user = await this.setUser(authenticatorUser.uid, { authenticatorId: authenticatorUser.uid, email: authenticatorUser.email }));
+    return {
+      email: authenticatorUser.email,
+      authenticatorId: authenticatorUser.uid,
+      id: user._id,
+      authTime: authenticatorUser.auth_time,
+      roles: user.roles,
+    }
   }
 }

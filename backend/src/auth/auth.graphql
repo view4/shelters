@@ -1,0 +1,21 @@
+type Query {
+    user: User
+}
+
+type User {
+    id: ID!
+    phoneNumber: String
+    email: String
+    isValidated: Boolean
+    createdAt: String
+    updatedAt: String
+    membership: Membership
+    boothCount: Int
+}
+
+type Membership {
+    id: ID
+    stamps: Stamps
+    isActive: Boolean
+    createdAt: String
+}

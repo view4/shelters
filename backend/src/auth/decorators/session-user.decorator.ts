@@ -10,10 +10,3 @@ export const OptionalSessionUser = createParamDecorator((data, context) => {
   const ctx = context.getArgByIndex(2);
   return ctx?.user;
 });
-
-export type SessionUserT = {
-  phoneId: string;
-  isValidated: boolean;
-  _id: string;
-  id: string;
-};
