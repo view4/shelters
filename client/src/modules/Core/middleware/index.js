@@ -8,7 +8,6 @@ class Client extends GraphQLClient {
     constructor(...args){
         super(...args)
         const token = getToken();
-        console.log({token})
         if (token) this.setAuthToken(token)
     }
 

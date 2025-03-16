@@ -9,8 +9,6 @@ const OnLoad = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         const unSub = onAuthStateChange(async (user) => {
-            console.log("on auth change....", user)
-            console.log(user?.accessToken)
             if(!user) return null
             dispatch(validateToken.action({user}))
         })

@@ -9,7 +9,6 @@ export default (Component) => (props) => {
     const isAuthed = useSelector(validateToken.selectors.isAuthed)
     const nav = useNavigate()
     useEffect(() => {
-        console.log({isAuthed})
         if(isAuthed === false) {
             nav("/login")
         }

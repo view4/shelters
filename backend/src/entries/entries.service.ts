@@ -15,16 +15,6 @@ export class EntriesService {
     ) { }
 
     async entries(boothId?: ID, search?: string, feedParams?: FeedParams) {
-        console.log(
-            compactObject({
-                booth: boothId && new mongoose.Types.ObjectId(boothId),
-                $or: Boolean(search) ? [
-                    { name: { $regex: search, $options: "i" } },
-                    { text: { $regex: search, $options: "i" } }
-                ] : null
-
-            }), search
-        )
         return this.aggregateFeed(
             {
                 match: compactObject({

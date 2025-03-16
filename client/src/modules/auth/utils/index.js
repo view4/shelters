@@ -9,16 +9,6 @@ import {
   } from "firebase/auth";
   
 
-  console.log({
-
-    apiKey: process.env.REACT_APP_AUTHENTICATION_API_KEY,
-    authDomain: process.env.REACT_APP_AUTHENTICATION_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_AUTHENTICATION_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_AUTHENTICATION_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_AUTHENTICATION_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_AUTHENTICATION_APP_ID,
-    measurementId: process.env.REACT_APP_AUTHENTICATION_MEASUREMENT_ID
-  })
 const app = initializeApp({
     apiKey: process.env.REACT_APP_AUTHENTICATION_API_KEY,
     authDomain: process.env.REACT_APP_AUTHENTICATION_AUTH_DOMAIN,
@@ -30,12 +20,7 @@ const app = initializeApp({
 
 });
 
-console.log(
-  app
-)
 export const auth = getAuth(app);
-
-console.log(auth)
 
 export const getToken = (user) => user ? getIdToken(user) : null;
 export const onAuthStateChange = (callback) => onAuthStateChanged(auth, callback);
