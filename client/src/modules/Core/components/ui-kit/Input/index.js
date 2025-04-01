@@ -12,8 +12,8 @@ import ImageInput from "./ImageInput";
 import FileInput from "./FileInput";
 import styles from "./styles.module.scss";
 import SearchableSelect from "./SearchableSelect";
+import CalendarDatePicker from "./DatePicker";
 // import UserGuideButton from "modules/Core/sub-modules/Dialog/components/UserGuideButton";
-
 
 const InputComponent = ({ onChange = noop, ...props }) => (
   <TextField onChange={(e) => onChange(e.target.value)} {...props} />
@@ -68,6 +68,7 @@ const Input = ({ ...props }) => {
   if (props?.checkbox) return <Checkbox {...props} />;
   if (props.switch) return <SwitchInput {...props} />;
   if (props?.number) return <NumberInput {...props} />;
+  if (props?.date) return <CalendarDatePicker {...props} />;
 
   return <InputComponent {...props} />;
 };

@@ -15,6 +15,7 @@ import auth from "modules/auth";
 import payments from "modules/payments";
 import membership from "modules/membership";
 import shelter from "modules/shelter";
+import timemapper from "modules/timemapper";
 
 const { store, rootRender, routes } = init([
   booths,
@@ -28,7 +29,8 @@ const { store, rootRender, routes } = init([
   auth,
   payments,
   membership,
-  shelter
+  shelter,
+  timemapper
 ]);
 
 const RootWrapper = () => {
