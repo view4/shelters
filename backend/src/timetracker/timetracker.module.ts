@@ -4,17 +4,23 @@ import { DedicatedTime, DedicatedTimeSchema } from './schema/dedicated-time.sche
 import { TrackedTime, TrackedTimeSchema } from './schema/tracked-time.schema ';
 import { TimetrackerResolver } from './timetracker.resolver';
 import { TimetrackerService } from './timetracker.service';
+import { ScheduledTime, ScheduledTimeSchema } from './schema/scheduled-time.schema';
+import { ScheduledTimeService } from './scheduled-time.service';
+import { ScheduledTimeResolver } from './scheduled-time.resolver';
 
 @Module({
     imports: [
         MongooseModule.forFeature([
             { name: DedicatedTime.name, schema: DedicatedTimeSchema },
-            { name: TrackedTime.name, schema: TrackedTimeSchema }
+            { name: TrackedTime.name, schema: TrackedTimeSchema },
+            { name: ScheduledTime.name, schema: ScheduledTimeSchema },
         ]),
     ],
     providers: [
         TimetrackerResolver,
-        TimetrackerService
+        TimetrackerService,
+        ScheduledTimeService,
+        ScheduledTimeResolver
     ]
 })
 export class TimetrackerModule { }
