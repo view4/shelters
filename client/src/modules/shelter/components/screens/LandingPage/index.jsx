@@ -106,7 +106,7 @@ const LandingPage = ({ isAuthed }) => {
                     </Text>
                 </Container>
                 <Container className={styles.connectionsContainer}>
-                    <Button to="/register" nature="ocean-blue">
+                    <Button to="/register">
                         Register Now
                     </Button>
                     <Button to="/login">
