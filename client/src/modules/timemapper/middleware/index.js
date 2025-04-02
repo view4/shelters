@@ -12,7 +12,7 @@ export default new MiddlewareModule({
             }
         `,
         fetchFeed: `
-            query scheduledTimes($feedParams: FeedParams, $boothId: String, $start: Date, $end: Date) {
+            query scheduledTimes($feedParams: FeedParams, $boothId: String, $start: String, $end: String) {
                 feed: scheduledTimes(feedParams: $feedParams, boothId: $boothId, start: $start, end: $end) {
                     entities {
                         id

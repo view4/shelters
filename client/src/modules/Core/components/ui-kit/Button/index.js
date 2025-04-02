@@ -13,10 +13,10 @@ import styles from './styles.module.scss';
 import ModalButton from './ModalButton';
 
 
-const _Button = ({ onClick, children, nature = "grey-blue", className, text, rightIndicator, loading, hover=true, ...props }) => (
+const _Button = ({ onClick, children, active, nature = "grey-blue", className, text, rightIndicator, loading, hover=true, ...props }) => (
     <__Button
         onClick={onClick}
-        className={c(styles.btn_base, className, styles[nature], {[styles.hover]: hover})}
+        className={c(styles.btn_base, className, styles[nature], {[styles.hover]: hover, [styles.active]: active})}
         disabled={loading}
         endIcon={rightIndicator}
         {...props}

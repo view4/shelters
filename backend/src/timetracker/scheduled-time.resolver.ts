@@ -24,7 +24,7 @@ export class ScheduledTimeResolver {
         @Args('end', { type: () => Date, nullable: true }) end?: Date
 
     ) {
-        return this.service.scheduledTimes(boothId);
+        return this.service.scheduledTimes(boothId, start, end, feedParams);
     }
 
     @Mutation()

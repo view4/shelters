@@ -1,8 +1,17 @@
 type Query {
-  dedicatedTimes(boothId: String, parentId: String, feedParams: FeedParams): DedicatedTimeFeed
+  dedicatedTimes(
+    boothId: String
+    parentId: String
+    feedParams: FeedParams
+  ): DedicatedTimeFeed
   trackedTimes(dedicatedTimeId: String, feedParams: FeedParams): TrackedTimeFeed
   dedicatedTime(id: String): DedicatedTime
-  scheduledTimes(boothId: String, start: Date, end:Date, feedParams: FeedParams): [ScheduledTimeFeed]
+  scheduledTimes(
+    boothId: String
+    start: String
+    end: String
+    feedParams: FeedParams
+  ): [ScheduledTimeFeed]
 }
 
 type Mutation {
@@ -54,8 +63,6 @@ type ScheduledTime {
   boothId: String
 }
 
-
-
 type TrackedTime {
   id: String
   createdAt: String
@@ -82,7 +89,7 @@ input DedicatedTimeInput {
 input ScheduledTimeInput {
   name: String
   text: String
-  start: Date
-  end: Date
+  start: String
+  end: String
   boothId: String
 }
