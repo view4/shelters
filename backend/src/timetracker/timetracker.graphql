@@ -11,7 +11,7 @@ type Query {
     start: String
     end: String
     feedParams: FeedParams
-  ): [ScheduledTimeFeed]
+  ): ScheduledTimeFeed
 }
 
 type Mutation {

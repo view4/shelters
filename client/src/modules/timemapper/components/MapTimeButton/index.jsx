@@ -3,7 +3,7 @@ import { useIsOpen } from 'modules/Core/hooks/useIsOpen';
 import styles from "./styles.module.scss";
 import ScheduleTimeForm from '../ScheduleTimeForm';
 
-const ScheduleTimeButton = ({ boothId, text = "+", id }) => {
+const ScheduleTimeButton = ({ boothId, text = "+", id, initialState }) => {
     const { open, close, isOpen } = useIsOpen();
     return (
         <>
@@ -15,6 +15,7 @@ const ScheduleTimeButton = ({ boothId, text = "+", id }) => {
                 boothId={boothId}
                 isOpen={isOpen}
                 close={close}
+                initialState={initialState}
             />
         </>
     )

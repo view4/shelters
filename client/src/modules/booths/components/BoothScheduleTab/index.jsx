@@ -5,12 +5,13 @@ import Container from "modules/Core/components/ui-kit/Container";
 import Timemap from "modules/timemapper/components/Timemap";
 import ScheduleTimeButton from "modules/timemapper/components/MapTimeButton";
 import Button from "modules/Core/components/ui-kit/Button";
-import styles from "./styles.module.scss";
 import Card from "modules/Core/components/ui-kit/Card";
+import styles from "./styles.module.scss";
 
 
 const BoothScheduleTab = ({ boothId, }) => {
     const [view, setView] = useState('month');
+    const [presetValues, setPresetValues] = useState(null);
     return (
         <Container className={styles.container} flex center>
 
@@ -43,11 +44,22 @@ const BoothScheduleTab = ({ boothId, }) => {
                         <ScheduleTimeButton
                             boothId={boothId}
                             text="+"
+                            initialState={presetValues}
                         />
                     </Container>
                 }
             } className={styles.card}>
-                <Timemap className={styles.timemap} boothId={boothId} view={view} />
+                <Timemap 
+                    className={styles.timemap} 
+                    boothId={boothId} 
+                    view={view}
+                    onSelectDates={(start, end) => setPresetValues({ 
+                        startDate: start,
+                        endDate: end,
+                        startTime: start,
+                        endTime: end, 
+                    })}
+                />
 
             </Card>
         </Container>

@@ -20,7 +20,7 @@ export class ScheduledTimeService {
         end?: Date,
         feedParams?: any
     ) {
-        return aggregateFeed(
+        const res = await aggregateFeed(
             this.scheduledTimeModel,
             {
                 match: compactObject({
@@ -33,6 +33,8 @@ export class ScheduledTimeService {
             },
             this.pipeline
         );
+        console.log(res);
+        return res
     }
 
     pipeline = []
