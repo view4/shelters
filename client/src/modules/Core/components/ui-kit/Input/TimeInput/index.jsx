@@ -1,13 +1,13 @@
 import * as React from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TimePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import { InputLabel } from "../index";
 import Container from "../../Container";
 import styles from "./styles.module.scss";
 
-export default function CalendarDatePicker({
+export default function TimeInput({
   onChange,
   value,
   label,
@@ -18,7 +18,7 @@ export default function CalendarDatePicker({
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Container className={styles.container}>
         <InputLabel label={label} />
-        <DatePicker
+        <TimePicker
           value={value}
           onChange={onChange}
           {...props}

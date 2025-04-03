@@ -1,13 +1,25 @@
 type Query {
-  dedicatedTimes(boothId: String, parentId: String, feedParams: FeedParams): DedicatedTimeFeed
+  dedicatedTimes(
+    boothId: String
+    parentId: String
+    feedParams: FeedParams
+  ): DedicatedTimeFeed
   trackedTimes(dedicatedTimeId: String, feedParams: FeedParams): TrackedTimeFeed
   dedicatedTime(id: String): DedicatedTime
+  scheduledTimes(
+    boothId: String
+    start: String
+    end: String
+    feedParams: FeedParams
+  ): ScheduledTimeFeed
 }
 
 type Mutation {
   trackTime(input: TrackedTimeInput, id: String): TrackedTime
   upsertDedicatedTime(input: DedicatedTimeInput, id: String): DedicatedTime
+  upsertScheduledTime(input: ScheduledTimeInput, id: String): ScheduledTime
   removeTrackedTime(id: String): Boolean
+  removeScheduledTime(id: String): Boolean
 }
 
 type DedicatedTimeFeed {
@@ -17,6 +29,11 @@ type DedicatedTimeFeed {
 
 type TrackedTimeFeed {
   entities: [TrackedTime]
+  info: FeedInfo
+}
+
+type ScheduledTimeFeed {
+  entities: [ScheduledTime]
   info: FeedInfo
 }
 
@@ -32,6 +49,18 @@ type DedicatedTime {
   booth: String
   totalMins: Int
   trackedTimes: [TrackedTime]
+}
+
+type ScheduledTime {
+  id: String
+  name: String
+  text: String
+  createdAt: String
+  updatedAt: String
+  start: String
+  end: String
+  mins: Int
+  boothId: String
 }
 
 type TrackedTime {
@@ -54,5 +83,13 @@ input DedicatedTimeInput {
   text: String
   parentId: String
   mins: Int
+  boothId: String
+}
+
+input ScheduledTimeInput {
+  name: String
+  text: String
+  start: String
+  end: String
   boothId: String
 }

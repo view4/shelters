@@ -13,6 +13,7 @@ import feed from "modules/booths/state/feed";
 import BoothPastCyclesTab from "../../BoothPastCyclesTab";
 import BoothActiveCycleTab from "../../BoothActiveCycletab";
 import Screen from "modules/shelter/components/Screen";
+import BoothScheduleTab from "../../BoothScheduleTab";
 
 
 const tabs = [
@@ -23,6 +24,10 @@ const tabs = [
     {
         title: 'Info',
         Component: () => <BoothInfo />
+    },
+    {
+        title: 'Schedule',
+        Component: () => <BoothScheduleTab />
     },
     {
         title: 'Entries',
