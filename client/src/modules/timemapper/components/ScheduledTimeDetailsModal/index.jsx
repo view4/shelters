@@ -18,10 +18,7 @@ const _ScheduledTimeDetailsModal = ({ isOpen, onClose, entity }) => {
     const [start, end] = useMemo(() => {
         if (!entity) return [null, null];
         const start = new Date(Number(entity.start));
-        const end = new Date(Number(entity.end));
-        console.log("start", start);
-        console.log("end", end);
-        
+        const end = new Date(Number(entity.end));    
         return [start, end];
     }, [entity]);
 
@@ -42,11 +39,9 @@ const _ScheduledTimeDetailsModal = ({ isOpen, onClose, entity }) => {
                             },
                             {
                                 content: <DateComponent date={start} formatter={formatDateTime} />
-                                // <Title>{start}</Title>
                             },
 
                             {
-                                // content: <Title>{end}</Title>
                                 content: <DateComponent date={end} formatter={formatDateTime} />
                             },
                             {

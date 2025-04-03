@@ -14,9 +14,6 @@ export default function TimeInput({
   minDate,
   ...props
 }) {
-  console.log(value)
-
-  console.log(typeof value, value?.getHours(), value?.getMinutes())
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Container className={styles.container}>
