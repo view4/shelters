@@ -31,6 +31,7 @@ const Component = ({
             className={c(styles.content, contentClassName)}
             {...contentContainerProps}
             maxHeight
+            maxWidth
         >
             {children}
         </ConditionalContainer>

@@ -1,17 +1,17 @@
-import Screen from "modules/Core/components/ui-kit/Screen"
+import Card from "modules/Core/components/ui-kit/Card"
+import BoothScreen from "modules/shelter/components/BoothScreen"
 import Button from "modules/Core/components/ui-kit/Button"
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected"
 import cells from "modules/membership/state/index"
 import Features from "modules/Core/components/ui-kit/Features"
 import Container from "modules/Core/components/ui-kit/Container"
 import styles from "./styles.module.scss"
-import Card from "modules/Core/components/ui-kit/Card"
 
 
 const { cancelMembership } = cells;
 const MembershipSettings = ({ cancelMembership }) => {
     return (
-        <Screen
+        <BoothScreen
             header="Membership Settings"
             className={styles.container}
             flex
@@ -36,7 +36,7 @@ const MembershipSettings = ({ cancelMembership }) => {
                     </Container>
                 </Card>
             </Container>
-        </Screen>
+        </BoothScreen>
     )
 }
 

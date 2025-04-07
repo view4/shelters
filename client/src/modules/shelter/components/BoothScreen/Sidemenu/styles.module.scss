@@ -1,0 +1,48 @@
+.container {
+    height: 100vh;
+    display : flex;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    & .header {
+        height: 5rem;
+        width: 75%;
+        h2 {
+            margin-left: 5%;
+            font-size: 2rem;
+        }
+    }
+    & .links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: -webkit-fill-available;
+        width: 100%;
+        & > div {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+    
+        }
+        margin-bottom: 3rem;
+    }
+
+    & .linkContainer {
+        width: 75%;
+        margin-top: 0.5rem;
+        p.link {
+            font-size: 1.8rem;
+            line-height: 2.25rem;;
+            &p {
+                font-size: 2rem;
+            }
+        
+        }
+    }
+    border-right: 1px solid rgba(128, 0, 128, 0.308);
+}
+
+
+

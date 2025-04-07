@@ -9,12 +9,11 @@ import Card from "modules/Core/components/ui-kit/Card";
 import styles from "./styles.module.scss";
 
 
-const BoothScheduleTab = ({ boothId, }) => {
-    const [view, setView] = useState('month');
+const BoothScheduleTab = ({ boothId, initialView='month', ...props }) => {
+    const [view, setView] = useState(initialView);
     const [presetValues, setPresetValues] = useState(null);
     return (
-        <Container className={styles.container} flex center>
-
+        <Container className={styles.container} {...props} flex center>
             <Card HeaderComponent={Container} headerProps={
                 {
                     children: <Container className={styles.buttonsContainer} flex spaceBetween alignCenter p1>

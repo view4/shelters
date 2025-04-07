@@ -9,3 +9,32 @@
         margin: 0rem 0.5rem;
     }
 }
+
+
+.container {
+    border: 1px solid grey;
+    display: grid;
+    height: 100vh;
+    width: 75vw;
+    position: absolute;
+    right: 0rem;
+    top: 0rem;
+    overflow: hidden;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-row-gap: 1rem;
+    grid-column-gap: 1rem;
+    padding: 2rem;
+    overflow: scroll;
+    & > div {
+        overflow: hidden;
+    }
+
+    & > div {
+        border: 1px solid grey;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

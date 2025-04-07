@@ -164,7 +164,7 @@ const DedicatedTimeFeed = ({ boothId, filters, className }) => (
     </Container>
 )
 
-export default withFocusedBoothId(strappedConnected(
+export default strappedConnected(
     DedicatedTimeFeed,
     {},
     {},
@@ -174,4 +174,4 @@ export default withFocusedBoothId(strappedConnected(
             parentId: null,
         }), [boothId]),
     })
-))
+)

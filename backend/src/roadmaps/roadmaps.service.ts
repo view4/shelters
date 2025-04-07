@@ -82,7 +82,6 @@ export class RoadmapsService {
             pipeline.push(
                 ...lookupCycless(boothId)
             )
-            
         }
         return aggregateFeed(
             this.gatewayModel,
@@ -185,7 +184,8 @@ const lookupCycless = (boothId: ID) => {
 
     pipeline.push({
         $match: {
-            cycles: { $size: 0 }
+            cycles: { $size: 0 },
+            'stamps.completed': null,
         }
     })
     return pipeline;
