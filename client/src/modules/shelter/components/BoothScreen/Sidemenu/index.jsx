@@ -6,42 +6,8 @@ import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
 import Chevron from "modules/Core/components/ui-kit/Chevron";
+import { links, WITH_PARAMS_PREFIX } from "./const";
 import styles from "./styles.module.scss"
-
-const links = [
-    {
-        text: "Roadmaps",
-        to: "/roadmaps"
-    },
-    {
-        text: "Cycles",
-        to: "/cycles"
-    },
-    {
-        text: "Entries",
-        to: "/entries"
-    },
-    {
-        text: "Time",
-        to: "/time-mapping"
-    },
-    {
-        text: "Info",
-        to: "/info"
-    },
-    {
-        text: "Booths",
-        to: "/booths",
-        ignoreRouteParams: true,
-    },
-    {
-        text: "Settings",
-        to: "/membership/settings",
-        ignoreRouteParams: true
-    },
-];
-
-const withParamsPrefix = `/booths/:boothId`
 
 
 const Sidemenu = ({ header = "Booths" }) => {
@@ -50,7 +16,7 @@ const Sidemenu = ({ header = "Booths" }) => {
     const boothId = params.boothId ?? params.id;
 
     const renderLink = useCallback((link) => {
-        const to = (link.ignoreRouteParams || !boothId) ? link.to : `${withParamsPrefix?.replace(':boothId', boothId)}${link.to}`;
+        const to = (link.ignoreRouteParams || !boothId) ? link.to : `${WITH_PARAMS_PREFIX?.replace(':boothId', boothId)}${link.to}`;
         return (
             <Container key={link.to} className={styles.linkContainer}>
                 <Link to={to} className={cx(styles.link)}>
@@ -77,14 +43,11 @@ const Sidemenu = ({ header = "Booths" }) => {
                 <Container>
                     {links.slice(0, 4).map(renderLink)}
                 </Container>
-                <Container>
-
-                </Container>
+                <Container/>
                 <Container>
                     {links.slice(4,).map(renderLink)}
                 </Container>
             </Container>
-
         </Container>
     )
 };

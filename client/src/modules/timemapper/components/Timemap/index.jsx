@@ -15,8 +15,7 @@ export default strappedConnected(
     },
     ({ entities, start, end, setFilters }) => {
         useEffect(() => {
-            setFilters({start, end, shouldRefetch: true});
+            setFilters({ start, end, shouldRefetch: true });
         }, [start, end]);
-        console.log(entities)
     }
 );

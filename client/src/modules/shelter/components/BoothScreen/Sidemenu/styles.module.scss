@@ -113,7 +113,6 @@
   border-right: 3px solid;
 }
 
-// addbordermove animation for the degrees changing there in an effective way for the border image
 @keyframes borderMove {
   0% {
     border-image: linear-gradient(180deg, #ff6b6b, #6ba5ff, #8b1a34) 1;
