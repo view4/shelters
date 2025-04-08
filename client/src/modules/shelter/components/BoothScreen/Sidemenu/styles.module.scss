@@ -1,48 +1,138 @@
-.container {
-    height: 100vh;
-    display : flex;
-    width: 90%;
-    flex-direction: column;
-    align-items: center;
-    & .header {
-        height: 5rem;
-        width: 75%;
-        h2 {
-            margin-left: 5%;
-            font-size: 2rem;
-        }
-    }
-    & .links {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        height: -webkit-fill-available;
-        width: 100%;
-        & > div {
-            width: 90%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-    
-        }
-        margin-bottom: 3rem;
-    }
-
-    & .linkContainer {
-        width: 75%;
-        margin-top: 0.5rem;
-        p.link {
-            font-size: 1.8rem;
-            line-height: 2.25rem;;
-            &p {
-                font-size: 2rem;
-            }
-        
-        }
-    }
-    border-right: 1px solid rgba(128, 0, 128, 0.308);
+.animated-gradient-text {
+  background-image: linear-gradient(90deg, #6ba5ff, #4682b4, #aa336a, #c41e3a);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 48px;
+  font-weight: 600;
+  animation: gradientText 6s ease infinite;
+  display: inline-block;
 }
 
+@keyframes gradientText {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 1s all;
+  overflow: hidden;
+  &.open {
+    width: 75%;
+    .toggleContainer {
+      right: 5%;
+    }
+  }
+  &.closed {
+    width: 10%;
+    .linkContainer {
+      display: none;
+    }
+    .header h2 {
+      display: none;
+    }
+    .toggleContainer {
+      right: 50%;
+      transform: rotate(180deg);
+    }
+  }
+  & .header {
+    height: 5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    p {
+      height: 100%;
+    }
+    h2 {
+      &:hover {
+        background-image: linear-gradient(
+          90deg,
+          #6ba5ff,
+          #4682b4,
+          #aa336a,
+          #c41e3a
+        );
+        background-size: 180% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: gradientText 6s ease infinite;
+        display: inline-block;
+      }
+      font-size: 3rem;
+      line-height: 5rem;
+      font-weight: 900;
+      margin-left: 15%;
+      margin-top: 1rem;
+      margin-bottom: unset;
+    }
+  }
+  & .links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: -webkit-fill-available;
+    width: 100%;
+    margin-top: 1rem;
+    & > div {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    margin-bottom: 3rem;
+  }
 
+  & .linkContainer {
+    width: 75%;
+    margin-top: 0.5rem;
+    p.link {
+      font-size: 1.8rem;
+      line-height: 2.25rem;
+      &p {
+        font-size: 2rem;
+      }
+    }
+  }
+  border-image: linear-gradient(180deg, #ff6b6b, #6ba5ff, #8b1a34) 1;
+  border-image: linear-gradient(180deg, #990000, #6ba5ff, #8b1a34) 1;
+  animation: borderMove 3s ease infinite;
+  border-right: 3px solid;
+}
+
+// addbordermove animation for the degrees changing there in an effective way for the border image
+@keyframes borderMove {
+  0% {
+    border-image: linear-gradient(180deg, #ff6b6b, #6ba5ff, #8b1a34) 1;
+  }
+  50% {
+    border-image: linear-gradient(180deg, #990000, #6ba5ff, #8b1a34) 1;
+  }
+  100% {
+    border-image: linear-gradient(180deg, #ff6b6b, #6ba5ff, #8b1a34) 1;
+  }
+}
+
+.toggleContainer {
+  position: absolute;
+  top: 3rem;
+  height: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 1s all;
+}

@@ -7,14 +7,9 @@ export default strappedConnected(
     component,
     {},
     { 
-        fetch: (id) => feed.cells?.fetchEntity.action({ id }) 
+        // fetch: (id) => feed.cells?.fetchEntity.action({ id }) 
     },
     ({ id, fetch }) => {
-        useOnLoad(
-            () => fetch(id),
-            Boolean(id)
-            [id]
-        )
         return {}
     }
 )

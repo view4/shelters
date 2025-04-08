@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Container from "modules/Core/components/ui-kit/Container"
 import BoothInfo from "../../BoothInfo";
 // import ActivateBoothButton from "../../ActivateBoothButton";
@@ -77,25 +78,25 @@ export default ({ activeBoothId, id }) => (
         // }
         tripanel
         boothId={id ?? activeBoothId}
+        RightPanelComponent={Fragment}
     >
         <Container className={styles.container}>
-
-            <Card>
+            <Card className={styles.card}>
                 <BoothScheduleTab initialView='day' p1 maxWidth maxHeight />
             </Card>
-            <Card>
+            <Card className={styles.card}>
                 <Container maxWidth maxHeight p1>
                     <Cycle />
                 </Container>
             </Card>
-            <Card>
+            <Card className={styles.card}>
                 <Container p1 maxWidth maxHeight>
                     <RoadmapsFeed boothId={id ?? activeBoothId} />
                     <AddRoadmapButton boothId={id ?? activeBoothId} />
                 </Container>
 
             </Card>
-            <Card>
+            <Card className={styles.card}>
                 <Container p1 maxWidth maxHeight>
                     <EntriesFeed boothId={id ?? activeBoothId} />
                     <Card>

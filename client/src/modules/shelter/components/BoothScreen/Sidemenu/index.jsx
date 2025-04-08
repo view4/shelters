@@ -1,10 +1,12 @@
 import cx from "classnames"
 import Container from "modules/Core/components/ui-kit/Container";
-import styles from "./styles.module.scss"
 import Link from "modules/Core/components/ui-kit/Link";
 import Title from "modules/Core/components/ui-kit/Title";
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
+import { useIsOpen } from "modules/Core/hooks/useIsOpen";
+import Chevron from "modules/Core/components/ui-kit/Chevron";
+import styles from "./styles.module.scss"
 
 const links = [
     {
@@ -43,6 +45,7 @@ const withParamsPrefix = `/booths/:boothId`
 
 
 const Sidemenu = ({ header = "Booths" }) => {
+    const { isOpen, toggle } = useIsOpen(true);
     const params = useParams();
     const boothId = params.boothId ?? params.id;
 
@@ -58,11 +61,17 @@ const Sidemenu = ({ header = "Booths" }) => {
     })
 
     return (
-        <Container lightShadow className={styles.container}>
-            <Container  className={styles.header}>
+        <Container relative lightShadow className={cx(styles.container, { [styles.closed]: !isOpen, [styles.open]: isOpen })} >
+            <Container className={styles.header} relative>
                 <Link to="/">
-                <Title>{header}</Title>
+                    <Title>{header}</Title>
                 </Link>
+                <Container className={styles.toggleContainer}>
+                    <Chevron nature='left'
+                        className={cx(styles.chevron, { [styles.open]: isOpen })}
+                        onClick={toggle}
+                    />
+                </Container>
             </Container>
             <Container className={styles.links}>
                 <Container>

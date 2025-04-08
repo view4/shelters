@@ -4,6 +4,8 @@ import Container from "../Container";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
 import Header from "../layout/Header";
 import ConditionalContainer from "../ConditionalContainer";
+import useTabs from "modules/Core/hooks/useTabs";
+import withRecursiveRender from "modules/Core/higher-order-components/withRecursiveRender";
 import styles from "./styles.module.scss";
 
 const Component = ({
@@ -41,5 +43,21 @@ const Component = ({
 const Card = withShouldRender(Component)
 
 
-export default Card
+const TabularCard = ({ tabs, tabProps, ...props }) => {
+    const { header, content, next, focusedTabIndex } = useTabs(tabs, tabProps)
+
+    return (
+        <Card
+            {...props}
+            HeaderComponent={Container}
+            headerProps={{ children: header }}
+        >
+            {content}
+        </Card>
+    )
+}
+
+export default withRecursiveRender({
+    tabs: TabularCard
+}, Card)
 
