@@ -1,6 +1,6 @@
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from "@nestjs/graphql";
 import { RoadmapsService } from "./roadmaps.service";
-import { Gateway, GatewayDocument } from "./schema/gateway.schema";
+import { GatewayDocument } from "./schema/gateway.schema";
 import { FeedParams } from "src/common/types";
 
 export type RoadmapInput = {
@@ -95,8 +95,6 @@ export class RoadmapsResolver {
     ) {
         const {entities} = await this.roadmapsService.gateways({ parentId: parent.id });
         return entities ?? [];
-        // const { entities } = await (this.roadmapsService.gateways(undefined, parent.id) ?? {});
-        // return entities ?? [];
     }
 
 }
