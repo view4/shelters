@@ -11,7 +11,7 @@ import styles from "./styles.module.scss";
 
 const BoothScheduleTab = ({ boothId, initialView='month', ...props }) => {
     const [view, setView] = useState(initialView);
-    const [presetValues, setPresetValues] = useState(null);
+    const [presetValues, setPresetValues] = useState({});
     return (
         <Container className={styles.container} {...props} flex center>
             <Card HeaderComponent={Container} headerProps={

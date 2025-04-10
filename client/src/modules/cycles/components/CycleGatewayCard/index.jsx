@@ -41,6 +41,7 @@ const Component = ({ gateway, children, refetch, remove, className, ...props }) 
                             onSuccess: refetch,
                             name: gateway?.name,
                             text: gateway?.text,
+                            parent: gateway?.parent,
                             parentName: gateway?.parent?.name
                         }
                     },

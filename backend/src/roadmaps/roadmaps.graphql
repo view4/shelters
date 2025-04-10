@@ -12,7 +12,8 @@ type Query {
     gatewayId: String
     feedParams: FeedParams,
     parentId: String,
-    isCycleless: Boolean
+    isCycleless: Boolean,
+    search: String
   ): GatewayFeed
 }
 

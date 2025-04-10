@@ -25,8 +25,8 @@ const EditGatewayButton = ({ onSuccess, gatewayId, entity, parentName }) => {
     )
 }
 
-export default strapped(EditGatewayButton, ({ name, text }) => ({
+export default strapped(EditGatewayButton, ({ name, text, parent,}) => ({
     entity: useMemo(() => ({
-        name, text
+        name, text, parent
     }), [name, text])
 }));

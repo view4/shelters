@@ -77,8 +77,12 @@ export const filter = (model, filter) => {
 };
 
 export const filterOne = (model, filter, options = null) => {
-  if (options?.populate) return model.findOne(filter).populate(options.populate);
-  return model.findOne(filter);
+  let query = model.findOne(filter)
+  if (options?.populate) query = query.populate(options.populate);
+  if (options?.sort) query = query.sort(options.sort);
+
+  // return model.findOne(filter);
+  return query;
 }
 
 export const fetchOrCreate = async (model, filter, additionalParams = {}) => {

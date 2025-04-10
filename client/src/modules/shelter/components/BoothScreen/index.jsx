@@ -8,9 +8,11 @@ import boothCells from "modules/booths/state/index";
 
 import styles from "./styles.module.scss";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad"
+import withShouldRender from "modules/Core/higher-order-components/withShouldRender"
+import { isAction } from "redux"
 
 export default strappedConnected(
-    Screen,
+    withShouldRender(Screen),
     {
         isAuthed: auth.validateToken.selectors.isAuthed,
         header: (state, { boothId }) => feed.cells.fetchEntity.selectField(boothId, "name")(state),
@@ -24,19 +26,20 @@ export default strappedConnected(
     ({ isAuthed, header, fetchActiveBooth, activeBoothId, fetchBooth, boothId, focusedBoothExists, ...props }) => {
         useOnLoad(
             () => fetchActiveBooth(),
-            !activeBoothId && !focusedBoothExists,
-            []
+            !activeBoothId && !focusedBoothExists && isAuthed,
+            [activeBoothId, focusedBoothExists, isAuthed]
         )
         useOnLoad(
             () => fetchBooth(boothId),
-            Boolean(boothId) && !focusedBoothExists,
-            [boothId]
+            Boolean(boothId) && !focusedBoothExists && isAuthed,
+            [boothId, focusedBoothExists, isAuthed]
         )
         return ({
             LeftPanelComponent: Sidemenu,
             tripanel: true,
             header: false,
             className: styles.screen,
+            shouldRender: Boolean(isAuthed),
             leftProps: useMemo(() => ({
                 isAuthed,
                 header

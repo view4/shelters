@@ -71,4 +71,13 @@ export class CyclesResolver {
     ) {
         return this.cyclesService.addGatewayToCycle(user.id, gatewayId);
     }
+
+    @UseGuards(AuthGuard)
+    @Mutation()
+    async focusCycle(
+        @SessionUser() user: SessionUserT,
+        @Args('cycleId') cycleId: string
+    ) {
+        return this.cyclesService.focusCycle(cycleId);
+    }
 }

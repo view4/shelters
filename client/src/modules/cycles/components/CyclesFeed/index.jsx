@@ -4,9 +4,11 @@ import strappedConnected from "modules/Core/higher-order-components/strappedConn
 import feed from "modules/cycles/state/feed";
 import { useMemo } from "react";
 import CycleGatewayCard, { SabbaticalGatewayCard } from "../CycleGatewayCard";
+import ConditionalContainer from "modules/Core/components/ui-kit/ConditionalContainer";
+import FocusCycleButton from "../FocusCycleButton";
 import styles from "./styles.module.scss";
 
-const ItemComponent = ({ className, onCreateSuccess, ...item }) => (
+const ItemComponent = ({ className, onCreateSuccess, displayFocus, ...item }) => (
     <Container className={cx(styles.container, className)} bg1 p1 flex col center>
         <CycleGatewayCard {...item.a} feedItem cycleId={item.id} orderKey={"a"} onCreateSuccess={onCreateSuccess} />
         <CycleGatewayCard {...item.b} feedItem cycleId={item.id} orderKey={"b"} onCreateSuccess={onCreateSuccess} />
@@ -15,6 +17,9 @@ const ItemComponent = ({ className, onCreateSuccess, ...item }) => (
         <CycleGatewayCard {...item.e} feedItem cycleId={item.id} orderKey={"e"} onCreateSuccess={onCreateSuccess} />
         <CycleGatewayCard {...item.f} feedItem cycleId={item.id} orderKey={"f"} onCreateSuccess={onCreateSuccess} />
         <SabbaticalGatewayCard gateway={item.sabbatical} />
+        <ConditionalContainer flex m1 flexEnd shouldRender={Boolean(displayFocus)} className={styles.focusContainer}>
+            <FocusCycleButton cycleId={item.id} className={styles.focusButton} onFocusCallback />
+        </ConditionalContainer>
     </Container>
 )
 
@@ -22,7 +27,7 @@ export default strappedConnected(
     feed.FeedComponent,
     {},
     { refetchFeed: () => feed.cells.fetchFeed.action({ renewStream: true }) },
-    ({ boothId, isCompleted, isForthcoming, className, refetchFeed }) => ({
+    ({ boothId, isCompleted, isForthcoming, className, refetchFeed, displayFocus, onFocusCallback }) => ({
         filters: useMemo(() => ({
             boothId,
             isCompleted,
@@ -30,6 +35,6 @@ export default strappedConnected(
         }), [boothId, isCompleted, isForthcoming]),
         feedItemClassName: className,
         ItemComponent,
-        itemProps: useMemo(() => ({ onCreateSuccess: refetchFeed }), [refetchFeed])
+        itemProps: useMemo(() => ({ displayFocus, onFocusCallback, onCreateSuccess: refetchFeed }), [refetchFeed, displayFocus, onFocusCallback])
     })
 )

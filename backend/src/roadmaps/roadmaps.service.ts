@@ -65,22 +65,30 @@ export class RoadmapsService {
         return fetchOne(this.gatewayModel, id);
     }
 
-    async gateways(boothId?: ID, parentId?: ID, isCycleless?: Boolean, feedParams?: FeedParams) {
+    async gateways(
+        { boothId, parentId, isCycleless, search }: { boothId?: ID, parentId?: ID, isCycleless?: Boolean, search?: string },
+        feedParams?: FeedParams
+    ) {
         const params = {
             ...feedParams,
             match: compactObject({
                 booth: boothId && new mongoose.Types.ObjectId(boothId),
                 parent: parentId && new mongoose.Types.ObjectId(parentId),
+                $or: Boolean(search) ? [
+                    { name: { $regex: search, $options: "i" } },
+                    { text: { $regex: search, $options: "i" } }
+                ] : null
             }),
             sort: {
                 createdAt: -1
             },
         }
         const pipeline = [];
+        // TODO: change to be like a more generic deep search, and cycleless is something layered on top of this - so for example - usaage in parent gateway search works as well. 
         if (isCycleless) {
             delete params['match']
             pipeline.push(
-                ...lookupCycless(boothId)
+                ...lookupCycless(boothId, search)
             )
         }
         return aggregateFeed(
@@ -122,7 +130,7 @@ export class RoadmapsService {
     }
 }
 
-const lookupCycless = (boothId: ID) => {
+const lookupCycless = (boothId: ID, search?: string) => {
     const pipeline = [];
     pipeline.push({
         $graphLookup: {
@@ -186,6 +194,12 @@ const lookupCycless = (boothId: ID) => {
         $match: {
             cycles: { $size: 0 },
             'stamps.completed': null,
+            ... (Boolean(search) ? {
+                $or: [
+                    { name: { $regex: search, $options: "i" } },
+                    { text: { $regex: search, $options: "i" } }
+                ]
+            } : {})
         }
     })
     return pipeline;

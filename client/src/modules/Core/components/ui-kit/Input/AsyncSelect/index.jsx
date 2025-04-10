@@ -7,7 +7,13 @@ const AsyncSelect = ({ query, variables, parseResult = (r => r), throttle = 1000
     const [selection, setSelection] = useState(null);
     const { handleRequest } = useMiddleware(query, variables, parseResult);
     const fetch = useCallback(async (vars) => {
-        const result = await handleRequest(vars ?? variables);
+        console.log({
+            vars, variables
+        })
+        const result = await handleRequest({
+            ...variables,
+            ...vars
+        });
         result && setSelection(result);
     }, [query, variables, handleRequest]);
     useOnLoad(fetch);

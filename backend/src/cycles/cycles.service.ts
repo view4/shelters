@@ -3,11 +3,12 @@ import { Cycle, CycleDocument } from "./schema/cycle.schema";
 import mongoose, { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { ID } from "src/common/types";
-import { aggregate, aggregateFeed, connect, filter, filterOne, upsert } from "src/common/utils/db";
+import { aggregate, aggregateFeed, connect, fetchOne, filter, filterOne, upsert } from "src/common/utils/db";
 import { SabbaticalsService } from "src/sabbaticals/sabbaticals.service";
 import { CycleInput } from "./cycles.resolver";
 import { CYCLE_GATEWAY_KEYS } from "./cycles.consts";
 import { BoothsService } from "src/booths/booths.service";
+import { compactObject } from "src/common/utils/object";
 
 const connectGateway = (key) => connect(
     "gateways",
@@ -60,9 +61,11 @@ export class CyclesService {
                         "stamps.completed": null,
                         "stamps.commenced": { $ne: null },
                         // user: new mongoose.Types.ObjectId(userId)
+                    },
 
-                    }
                 },
+                {$sort: { 'stamps.focused': -1 }},
+                {$limit: 1},
                 ...this.buildPipeline(boothId)
             ]
         )
@@ -90,9 +93,16 @@ export class CyclesService {
 
     async cycles({ boothId, isForthcoming, isCompleted }) {
         const match = { booth: new mongoose.Types.ObjectId(boothId) };
+        const sort = { 'stamps.commenced': -1 }
         if (isForthcoming) {
             match['stamps.completed'] = null;
-            match['stamps.commenced'] = null;
+            const currentCycle = await this.getCurrentCycle(null, boothId);
+            if (currentCycle) {
+                match['_id'] = { $ne: currentCycle._id };
+            }
+            sort['stamps.commenced'] = null;
+            sort['stamps.focused'] = -1;
+            sort['createdAt'] = -1;
         }
         if (isCompleted) {
             match['stamps.completed'] = { $ne: null };
@@ -106,7 +116,7 @@ export class CyclesService {
                     $match: match
                 },
                 ...this.buildPipeline(boothId),
-                { $sort: { 'stamps.commenced': -1 } }
+                { $sort: compactObject(sort) },
             ]
         )
     }
@@ -117,11 +127,12 @@ export class CyclesService {
 
     async getCurrentCycle(userId: ID, boothId: ID) {
         const filter = { booth: boothId, 'stamps.completed': null, 'stamps.commenced': { $ne: null } };
+        const sort = { 'stamps.focused': -1 };
         if (!boothId) {
             const booth = await this.boothsService.activeBooth(userId);
             filter.booth = booth._id;
         }
-        return filterOne(this.cycleModel, filter);
+        return filterOne(this.cycleModel, filter, { sort });
     }
 
 
@@ -169,6 +180,7 @@ export class CyclesService {
 
         if (input.activateCycle) {
             input['stamps.commenced'] = new Date();
+            input['stamps.focused'] = new Date();
         }
 
         if (!id) {
@@ -182,12 +194,28 @@ export class CyclesService {
         }, id);
     }
 
-    async completeCurrentCycle(userId: ID, ) {
+    async completeCurrentCycle(userId: ID,) {
         const booth = await this.boothsService.activeBooth(userId);
         const cycle = await this.getCurrentCycle(userId, booth?._id);
         if (cycle) {
             return await this.completeCycle(cycle._id);
         }
+    }
+
+    async focusCycle(cycleId: ID) {
+        const cycle = await fetchOne(this.cycleModel, cycleId);
+
+        if (cycle?.stamps?.commenced) return upsert(
+            this.cycleModel,
+            { 'stamps.focused': new Date() },
+            cycleId
+        )
+
+        return upsert(
+            this.cycleModel,
+            { 'stamps.focused': new Date(), 'stamps.commenced': new Date() },
+            cycleId
+        )
     }
 
     buildPipeline = (boothId) => [

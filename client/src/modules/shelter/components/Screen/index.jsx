@@ -13,7 +13,7 @@ const _Screen = ({ isAuthed, headerChildren, email, className, ...props }) => {
         <Screen
             {...props}
             className={cx(styles.container, className)}
-            // TODO: decide on keeping something similiar withint eh app and where:
+            // TODO: decide on keeping something similiar withint eh app and where: 
             // headerChildren={
             //     <Container className={styles.headerChildren}>
             //         {!isAuthed ? (<>

@@ -7,9 +7,10 @@ import Container from "modules/Core/components/ui-kit/Container";
 import Card from "modules/Core/components/ui-kit/Card";
 import styles from "./styles.module.scss";
 
+
 const ProspectiveCycles = ({ boothId, createForthcomingCycle }) => (
     <Container className={styles.drawerContainer} p3>
-        <CyclesFeed className={styles.cyclesFeed} boothId={boothId} isForthcoming={true} />
+        <CyclesFeed className={styles.cyclesFeed} boothId={boothId} isForthcoming={true} displayFocus />
         <Card borderless>
             <Button className={styles.addCycleButton} onClick={createForthcomingCycle}>
                 Add Cycle

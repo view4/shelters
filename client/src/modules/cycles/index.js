@@ -18,6 +18,7 @@ export default new CoreModule({
     removeGatewayFromActiveCycle: cells.removeGatewayFromActiveCycle,
     setFilters: feed.cells?.setFilters,
     addGatewayToCycle: cells.addGatewayToCycle,
+    focusCycle: cells.focusCycle,
   },
   routes: {},
 });
