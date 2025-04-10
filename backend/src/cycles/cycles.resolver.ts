@@ -76,8 +76,8 @@ export class CyclesResolver {
     @Mutation()
     async focusCycle(
         @SessionUser() user: SessionUserT,
-        @Args('cycleId') cycleId: string
+        @Args('id') id: string
     ) {
-        return this.cyclesService.focusCycle(cycleId);
+        return  this.cyclesService.focusCycle(id);
     }
 }

@@ -10,6 +10,6 @@ export default withFocusedBoothId(strappedConnected(
     { focus: cells.focusCycle.action },
     ({ focus, cycleId, callback }) => ({
         text: "focus cycle",
-        onClick: useCallback(() => focus({ input: { cycleId } }), [focus, cycleId])
+        onClick: useCallback(() => focus({ id: cycleId, callback }), [focus, cycleId, callback])
     })
 ))

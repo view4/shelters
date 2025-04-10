@@ -64,8 +64,8 @@ export class CyclesService {
                     },
 
                 },
-                {$sort: { 'stamps.focused': -1 }},
-                {$limit: 1},
+                { $sort: { 'stamps.focused': -1 } },
+                { $limit: 1 },
                 ...this.buildPipeline(boothId)
             ]
         )
@@ -80,11 +80,10 @@ export class CyclesService {
                     $match: {
                         booth: new mongoose.Types.ObjectId(boothId),
                         "stamps.completed": null,
-                        "stamps.commenced": null,
                     }
                 },
                 {
-                    $sort: { 'createdAt': 1 }
+                    $sort: { "stamps.focused": -1, 'createdAt': 1 }
                 }
             ]
         )
@@ -219,7 +218,6 @@ export class CyclesService {
     }
 
     buildPipeline = (boothId) => [
-
         ...CYCLE_GATEWAY_KEYS.slice(0, -1).map(key => connectGateway(key)),
         connect("sabbaticalgateways", "sabbatical", "_id", "sabbatical", [
             connect("gateways", "gateway", "_id", "gateway", [{ $addFields: { id: "$_id" } }]),
