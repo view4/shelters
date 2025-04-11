@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 import strapped from 'modules/Core/higher-order-components/strapped';
 import { useMemo } from 'react';
 
-const EditGatewayButton = ({ onSuccess, gatewayId, entity, parentName }) => {
+const EditGatewayButton = ({ onSuccess, gatewayId, entity }) => {
     const { open, close, isOpen } = useIsOpen();
     return (
         <>
@@ -16,7 +16,7 @@ const EditGatewayButton = ({ onSuccess, gatewayId, entity, parentName }) => {
                 title="Edit Gateway"
                 initialState={entity}
                 onSuccess={onSuccess}
-                parentName={parentName}
+                // parentName={parentName}
                 gatewayId={gatewayId}
                 isOpen={isOpen}
                 close={close}

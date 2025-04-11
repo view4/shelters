@@ -15,16 +15,16 @@ import Stamps from "modules/Core/components/ui-kit/Stamps";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/roadmaps/state/feed";
 import Title from "modules/Core/components/ui-kit/Title";
-import styles from "./styles.module.scss";
 import Button from "modules/Core/components/ui-kit/Button";
+import styles from "./styles.module.scss";
 
 
-export const GatewayExpandableOptions = ({ name, id, text, stamps, refetchGateway, refetchId, parentName, view = true }) => (
+export const GatewayExpandableOptions = ({ name, id, text, stamps, refetchGateway, refetchId, parent, view = true }) => (
     <ExpandableOptions
         horizontal
         className={styles.options}
         options={[
-            { Component: EditGatewayButton, props: { gatewayId: id, name, text, parentName } },
+            { Component: EditGatewayButton, props: { gatewayId: id, name, text, parent, } },
             { Component: AddGatewayToCycleButton, props: { gatewayId: id } },
             view && ({ Component: ViewRoadmapButton, props: { id, className: styles.viewBtn } }),
             { Component: AddGatewayButton, props: { parentId: id, parentName: name, refetchId } },
@@ -66,7 +66,7 @@ const RoadmapFeedItem = ({ text, name, stamps, children, id, parentId, refetchGa
                 name={name}
                 id={id}
                 text={text}
-                parentName={parent?.name ?? parentName}
+                parent={parent}
                 refetchId={parentId ?? id}
                 stamps={stamps}
                 refetchGateway={refetchGateway}

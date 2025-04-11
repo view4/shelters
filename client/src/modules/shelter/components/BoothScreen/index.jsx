@@ -1,3 +1,4 @@
+import cx from "classnames"
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected"
 import Screen from "../Screen"
 import Sidemenu from "./Sidemenu"
@@ -23,7 +24,7 @@ export default strappedConnected(
         fetchActiveBooth: boothCells.fetchActiveBooth.action,
         fetchBooth: (id) => feed.cells?.fetchEntity.action({ id })
     },
-    ({ isAuthed, header, fetchActiveBooth, activeBoothId, fetchBooth, boothId, focusedBoothExists, ...props }) => {
+    ({ isAuthed, header, className, fetchActiveBooth, activeBoothId, fetchBooth, boothId, focusedBoothExists, ...props }) => {
         useOnLoad(
             () => fetchActiveBooth(),
             !activeBoothId && !focusedBoothExists && isAuthed,
@@ -38,7 +39,7 @@ export default strappedConnected(
             LeftPanelComponent: Sidemenu,
             tripanel: true,
             header: false,
-            className: styles.screen,
+            className: cx(styles.screen, className),
             shouldRender: Boolean(isAuthed),
             leftProps: useMemo(() => ({
                 isAuthed,

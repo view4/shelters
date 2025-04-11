@@ -12,7 +12,7 @@ const schema = {
     fields: {
         parent: {
             label: "Parent Gateway",
-            Component:withFocusedBoothId(GatewaySelectField)
+            Component: withFocusedBoothId(GatewaySelectField)
         },
         name: {
             type: "text",
@@ -47,34 +47,24 @@ export default strappedConnected(
             onSuccess?.(res.upsertGateway);
             refetch(refetchId ?? id)
         }, [onSuccess, refetchId]);
-        console.log({
-            initialState
-        })
+
+        const parent = useMemo(() => initialState?.parent ? initialState.parent : parentId && { id: parentId, name: parentName }, [initialState?.parent?.id, parentId, parentName])
         return {
             onSubmit: useCallback(({ name, text, parent }) => create(compactObject({
                 name,
                 text,
-                parentId: parent?.id ?? parent?.key?.id,
+                parentId: parent?.id,
             }), gatewayId, callback), [create, gatewayId]),
             schema,
             initialState: useMemo(() => compactObject({
                 ...initialState,
-                parent: initialState?.parent?.id ? {
-                    name: initialState.parent.name,
-                    id: initialState.parent?.id,
-                    key: {
-                        name: initialState.parent.name,
-                        id: initialState.parent.id
-                    },
-                    readable: initialState.parent.name,
-                } : {
-                    name: parentName,
-                    id: parentId,
-                    key: { name: parentName, id: parentId },
-                    readable: parentName,
-                    disabled: Boolean(parentId),
+                parent: parent && {
+                    name: parent?.name,
+                    id: parent?.id,
+                    key: parent?.id,
+                    readable: parent?.name,
                 },
-            }), [parentName, parentId, initialState])
+            }), [parent, initialState])
         }
     }
 );

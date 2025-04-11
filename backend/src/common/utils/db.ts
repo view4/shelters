@@ -81,7 +81,6 @@ export const filterOne = (model, filter, options = null) => {
   if (options?.populate) query = query.populate(options.populate);
   if (options?.sort) query = query.sort(options.sort);
 
-  // return model.findOne(filter);
   return query;
 }
 

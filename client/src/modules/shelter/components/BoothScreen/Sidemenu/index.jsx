@@ -1,4 +1,5 @@
 import cx from "classnames"
+import { useLocation } from "react-router-dom";
 import Container from "modules/Core/components/ui-kit/Container";
 import Link from "modules/Core/components/ui-kit/Link";
 import Title from "modules/Core/components/ui-kit/Title";
@@ -14,11 +15,21 @@ const Sidemenu = ({ header = "Booths" }) => {
     const { isOpen, toggle } = useIsOpen(true);
     const params = useParams();
     const boothId = params.boothId ?? params.id;
+    const location = useLocation();
+
 
     const renderLink = useCallback((link) => {
         const to = (link.ignoreRouteParams || !boothId) ? link.to : `${WITH_PARAMS_PREFIX?.replace(':boothId', boothId)}${link.to}`;
+        const isActive = location.pathname.includes(to);
+        console.log({
+            isActive,
+            to,
+            location,
+            pathname: location.pathname,
+            boothId,
+        })
         return (
-            <Container key={link.to} className={styles.linkContainer}>
+            <Container key={link.to} className={cx(styles.linkContainer, { [styles.active]: isActive })}>
                 <Link to={to} className={cx(styles.link)}>
                     {link.text}
                 </Link>
@@ -28,7 +39,7 @@ const Sidemenu = ({ header = "Booths" }) => {
 
     return (
         <Container relative lightShadow className={cx(styles.container, { [styles.closed]: !isOpen, [styles.open]: isOpen })} >
-            <Container className={styles.header} relative>
+            <Container className={cx(styles.header, { [styles.active]: location.pathname === "/" })} relative>
                 <Link to="/">
                     <Title>{header}</Title>
                 </Link>
@@ -43,7 +54,7 @@ const Sidemenu = ({ header = "Booths" }) => {
                 <Container>
                     {links.slice(0, 4).map(renderLink)}
                 </Container>
-                <Container/>
+                <Container />
                 <Container>
                     {links.slice(4,).map(renderLink)}
                 </Container>
