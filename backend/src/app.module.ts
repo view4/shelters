@@ -24,6 +24,7 @@ import { StripeModule } from './transactions/submodules/stripe/stripe.module';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         uri: configService.get<string>('MONGO_URL'),
+        serverSelectionTimeoutMS: 5000,
       }),
 
     }),
