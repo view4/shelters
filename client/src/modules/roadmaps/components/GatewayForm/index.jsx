@@ -5,15 +5,14 @@ import { compactObject } from 'modules/Core/utils/obj';
 import useOnSuccess from 'modules/Core/sub-modules/Dialog/hooks/useOnSuccess';
 import useOnError from 'modules/Core/sub-modules/Dialog/hooks/useOnError';
 import component from './component';
-import styles from './styles.module.scss';
+import withFocusedBoothId from 'modules/booths/higher-order-components/withFocusedBoothId';
+import GatewaySelectField from 'modules/roadmaps/components/GatewaySelectField';
 
 const schema = {
     fields: {
         parent: {
             label: "Parent Gateway",
-            type: "text",
-            disabled: true,
-            className: styles.parent
+            Component: withFocusedBoothId(GatewaySelectField)
         },
         name: {
             type: "text",
@@ -48,17 +47,24 @@ export default strappedConnected(
             onSuccess?.(res.upsertGateway);
             refetch(refetchId ?? id)
         }, [onSuccess, refetchId]);
+
+        const parent = useMemo(() => initialState?.parent ? initialState.parent : parentId && { id: parentId, name: parentName }, [initialState?.parent?.id, parentId, parentName])
         return {
-            onSubmit: useCallback(({ name, text }) => create(compactObject({
+            onSubmit: useCallback(({ name, text, parent }) => create(compactObject({
                 name,
                 text,
-                parentId,
-            }), gatewayId, callback), [create, parentId, gatewayId]),
+                parentId: parent?.id,
+            }), gatewayId, callback), [create, gatewayId]),
             schema,
             initialState: useMemo(() => compactObject({
                 ...initialState,
-                parent: parentName,
-            }), [parentName, parentId, initialState])
+                parent: parent && {
+                    name: parent?.name,
+                    id: parent?.id,
+                    key: parent?.id,
+                    readable: parent?.name,
+                },
+            }), [parent, initialState])
         }
     }
 );

@@ -1,24 +1,28 @@
+import { Fragment } from "react"
 import feed from "modules/booths/state/feed"
 import Container from "modules/Core/components/ui-kit/Container"
 import RedirectButton from "modules/Core/components/ui-kit/RedirectButton"
 import StampedFeedItem from "modules/Core/components/Feed/StampedFeedItem"
-import Screen from "modules/shelter/components/Screen"
+import BoothScreen from "modules/shelter/components/BoothScreen"
 import styles from "./styles.module.scss"
 
 const Feed = feed.FeedComponent;
 
 export default ({ ...props }) => (
-    <Screen
+    <BoothScreen
+        tripanel
         header="Booths"
         footerProps={{
             className: styles.footer
         }}
-        footer={
-            <Container className={styles.headerChildren}>
+        RightPanelComponent={Fragment}
+        className={styles.screen}
+    >
+        <Container maxHeight flex col spaceBetween maxWidth>
+            <Feed {...props} ItemComponent={StampedFeedItem} />
+            <Container p3 flex maxWidth center className={styles.headerChildren}>
                 <RedirectButton text="Create Booth" to="/create" />
             </Container>
-        }
-    >
-        <Feed {...props} ItemComponent={StampedFeedItem} />
-    </Screen>
+        </Container>
+    </BoothScreen>
 )

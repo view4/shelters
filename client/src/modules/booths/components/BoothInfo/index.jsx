@@ -7,6 +7,7 @@ import EditBoothButton from "../EditBoothButton";
 import CompleteBoothButton from "../CompleteBoothButton";
 import styles from "./styles.module.scss";
 import Stamp from "modules/Core/components/ui-kit/Stamp";
+import ActivateBoothButton from "../ActivateBoothButton";
 
 export default withFocusedBoothId(strappedConnected(
     Features,
@@ -27,7 +28,7 @@ export default withFocusedBoothId(strappedConnected(
             {
                 content: <Features row features={[
                     { name: "Commenced", content: <Stamp className={styles.stamp} timestamp={booth?.stamps?.commenced} /> },
-                    booth.stamps?.completed && { name: "Completed", content: <Stamp className={styles.stamp} timestamp={booth?.stamps?.completed} /> }
+                    booth?.stamps?.completed && { name: "Completed", content: <Stamp className={styles.stamp} timestamp={booth?.stamps?.completed} /> }
                 ]} />
             },
             {
@@ -35,6 +36,9 @@ export default withFocusedBoothId(strappedConnected(
             },
             {
                 content: <CompleteBoothButton />
+            },
+            {
+                content: <ActivateBoothButton />
             }
         ]), [booth?.id, boothId, booth?.name, booth?.text]),
         card: true

@@ -13,29 +13,29 @@ const _Screen = ({ isAuthed, headerChildren, email, className, ...props }) => {
         <Screen
             {...props}
             className={cx(styles.container, className)}
-            headerChildren={
-                <Container className={styles.headerChildren}>
-                    {!isAuthed ? (<>
-                        <Button to="/register">
-                            Register Now
-                        </Button>
-                        <Button to="/login">
-                            Login
-                        </Button>
-                    </>) : (
-                        <ExpandableOptions
-                            horizontal
-                            className={styles.options}
-                            label={email}
-                            options={[
-                                { props: { text: "logout", to: "/logout" } },
-                                { props: { text: "settings", to: "/membership/settings" } },
-                            ]}
-                        />)}
-                                            {headerChildren}
-
-                </Container>
-            }
+            // TODO: decide on keeping something similiar withint eh app and where: 
+            // headerChildren={
+            //     <Container className={styles.headerChildren}>
+            //         {!isAuthed ? (<>
+            //             <Button to="/register">
+            //                 Register Now
+            //             </Button>
+            //             <Button to="/login">
+            //                 Login
+            //             </Button>
+            //         </>) : (
+            //             <ExpandableOptions
+            //                 horizontal
+            //                 className={styles.options}
+            //                 label={email}
+            //                 options={[
+            //                     { props: { text: "logout", to: "/logout" } },
+            //                     { props: { text: "settings", to: "/membership/settings" } },
+            //                 ]}
+            //             />)}
+            //         {headerChildren}
+            //     </Container>
+            // }
         />
     )
 }

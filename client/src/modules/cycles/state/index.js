@@ -82,4 +82,16 @@ export default {
       },
     },
   }),
+  focusCycle: initCell(CYCLES, {
+    name: "focusCycle",
+    sagas: {
+      latest: function* ({ payload: { id } }) {
+        const result = yield call(middleware.ops.focusCycle, { id });
+        if (!result.focusCycle.id) {
+          throw new Error("Failed to focus cycle");
+        }
+        return result.focusCycle.id;
+      },
+    },
+  }),
 };

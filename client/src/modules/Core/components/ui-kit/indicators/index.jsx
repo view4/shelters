@@ -18,6 +18,9 @@ import Download from '@mui/icons-material/FileDownload';
 import Org from '@mui/icons-material/Groups2';
 import UpArrow from '@mui/icons-material/ArrowUpward';
 import DownArrow from '@mui/icons-material/ArrowDownward';
+import Focus from '@mui/icons-material/Pages';
+import Minimise from '@mui/icons-material/Minimize';
+import Close from '@mui/icons-material/Close';
 
 export {
     Flag,
@@ -39,5 +42,8 @@ export {
     Download,
     Org,
     UpArrow,
-    DownArrow
+    DownArrow,
+    Focus,
+    Minimise,
+    Close,
 };

@@ -9,6 +9,16 @@ import { Stamps, StampsSchema } from 'src/common/schemas/stamps.schema';
 
 export type CycleDocument = mongoose.HydratedDocument<Cycle>;
 
+
+@Schema()
+export class CycleStamps extends Stamps {
+  @Prop({ required: false })
+  focused: Date;
+}
+
+export const CycleStampsSchema = SchemaFactory.createForClass(CycleStamps);
+
+
 @ObjectType()
 @Schema({ timestamps: true })
 export class Cycle {
@@ -48,8 +58,8 @@ export class Cycle {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'SabbaticalGateway' })
   sabbatical: SabbaticalGateway
 
-  @Prop({ type: StampsSchema, })
-  stamps: Stamps
+  @Prop({ type: CycleStampsSchema, })
+  stamps: CycleStamps
 }
 
 export const CycleSchema = SchemaFactory.createForClass(Cycle);

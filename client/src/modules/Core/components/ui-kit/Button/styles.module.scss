@@ -44,6 +44,9 @@ button.ocean-blue {
       color: $ui_blue90;
     }
   }
+  &:active {
+    color: $ui_blue90;
+  }
 }
 
 button.grey-blue {
@@ -55,6 +58,10 @@ button.grey-blue {
       background-color: $ocean_blue10;
     }
   }
+  &.active {
+    color: $ocean_blue;
+    opacity: 1;
+  }
 }
 button.none {
   color: unset;
@@ -64,5 +71,10 @@ button.none {
       opacity: 1;
       background-color: none;
     }
+  }
+  &:active {
+    color: unset;
+    opacity: 1;
+    background-color: none;
   }
 }

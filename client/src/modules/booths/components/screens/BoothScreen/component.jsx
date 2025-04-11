@@ -1,77 +1,39 @@
+import { Fragment } from "react";
 import Container from "modules/Core/components/ui-kit/Container"
-import AddRoadmapButton from "modules/roadmaps/components/AddRoadmapButton";
-import BoothInfo from "../../BoothInfo";
-import ActivateBoothButton from "../../ActivateBoothButton";
+import BoothScheduleTab from "../../BoothScheduleTab";
+import BoothScreen from "modules/shelter/components/BoothScreen";
+import EntriesFeed from "modules/entries/components/EntriesFeed";
+import AddEntryButton from "modules/entries/components/AddEntryButton";
+import Cycle from "modules/cycles/components/Cycle";
 import RoadmapsFeed from "modules/roadmaps/components/RoadmapsFeed";
-import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
-import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
-import BoothEntriesTab from "../../BoothEntriesTab";
+import AddRoadmapButton from "modules/roadmaps/components/AddRoadmapButton";
 import styles from "./styles.module.scss";
-import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
-import Title from "modules/Core/components/ui-kit/Title";
-import feed from "modules/booths/state/feed";
-import BoothPastCyclesTab from "../../BoothPastCyclesTab";
-import BoothActiveCycleTab from "../../BoothActiveCycletab";
-import Screen from "modules/shelter/components/Screen";
+import IntospectionCard from "../../IntospectionCard";
 
-
-const tabs = [
-    {
-        title: 'Active Cycle',
-        Component: BoothActiveCycleTab
-    },
-    {
-        title: 'Info',
-        Component: () => <BoothInfo />
-    },
-    {
-        title: 'Entries',
-        Component: () => <BoothEntriesTab />
-    },
-    {
-        title: 'Past Cycles',
-        Component: () => <BoothPastCyclesTab />
-    },
-];
-
-const LeftPanel = withFocusedBoothId(({ boothId }) => {
-    return (
-        <Container flex column alignCenter>
-            <AddRoadmapButton boothId={boothId} />
-            <RoadmapsFeed boothId={boothId} />
-        </Container>
-    )
-});
-
-
-const RightPanel = () => {
-    return (
-        <Container flex column alignCenter maxWidth>
-            <ActivateBoothButton />
-        </Container>
-    )
-};
-
-const BoothName = strappedConnected(
-    Title,
-    {
-        text: (state, { id }) => feed.cells.fetchEntity.selectField(id, "name")(state)
-    },
-    {},
-    ({ text }) => ({})
-)
 
 export default ({ activeBoothId, id }) => (
-    <Screen
-        contentHeader={
-            <Container className={styles.headerContent} flex maxHeight alignCenter >
-                <DedicatedTimeFeed className={styles.feed} />
-            </Container>
-        }
+    <BoothScreen
         tripanel
-        header={<BoothName id={id ?? activeBoothId} />}
-        tabs={tabs}
-        LeftPanelComponent={LeftPanel}
-        RightPanelComponent={RightPanel}
-    />
+        boothId={id ?? activeBoothId}
+        RightPanelComponent={Fragment}
+    >
+        <Container className={styles.container}>
+            <IntospectionCard title="Schedule" className={styles.card}>
+                <BoothScheduleTab initialView='day' p1 maxWidth maxHeight />
+            </IntospectionCard>
+            <IntospectionCard className={styles.card} title="Cycle" maxWidth maxHeight>
+                <Cycle />
+            </IntospectionCard>
+            <IntospectionCard className={styles.card} title="Roadmaps" maxWidth maxHeight>
+                <Container maxWidth maxHeight flex col alignCenter>
+                <RoadmapsFeed boothId={id ?? activeBoothId} />
+                <AddRoadmapButton boothId={id ?? activeBoothId} />
+                </Container>
+            </IntospectionCard>
+            <IntospectionCard className={styles.card} title="Entries" maxWidth maxHeight>
+                <EntriesFeed boothId={id ?? activeBoothId} />
+                <AddEntryButton className={styles.entriesButton} boothId={id ?? activeBoothId} />
+            </IntospectionCard>
+        </Container>
+    </BoothScreen>
 )

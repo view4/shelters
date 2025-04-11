@@ -1,9 +1,21 @@
 .headerChildren {
-    margin-left: auto;
-    margin-right: 1rem;
+  margin-left: auto;
+  margin-right: 1rem;
 }
 
 .footer {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.screen {
+  & > div {
+    & > div:last-child {
+      max-width: 0%;
+      width: 0% !important;
+    }
+    & > div:nth-child(2) {
+        width: 75% !important;
+    }
+  }
 }

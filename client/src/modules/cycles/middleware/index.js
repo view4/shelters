@@ -73,6 +73,13 @@ export default new MiddlewareModule({
                 }
             }
         `,
+    focusCycle: `
+        mutation focusCycle($id: String) {
+            focusCycle(id: $id) {
+                id
+            }
+        }
+    `,
   },
   operationsConfig: {
     fetchEntity: {
