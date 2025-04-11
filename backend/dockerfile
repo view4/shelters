@@ -8,7 +8,8 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn global add @nestjs/cli
+# RUN yarn global add @nestjs/cli
+RUN yarn global add @nestjs/cli@10.2.0
 
 # RUN yarn build
 
