@@ -1,0 +1,11 @@
+.dedicatedTimeFeedContainer { 
+    & > div {
+        // border: 2px solid red;
+        height: 18rem;
+        margin: 0.5rem 1rem
+    }
+    & > button {
+        // height: -webkit-fill-available;
+        height: 18rem;
+    }
+}

@@ -22,12 +22,6 @@ const SearchableSelect = ({
         handleRefetch();
     }, [search]);
 
-    useEffect(() => {
-        const readable = getOptionLabel(value);
-        if(readable !== search) setSearch(readable);
-
-    }, [getOptionLabel(value)])
-
     return (
         <Autocomplete
             options={selection ?? []}

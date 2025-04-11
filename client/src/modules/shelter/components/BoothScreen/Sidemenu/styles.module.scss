@@ -95,8 +95,9 @@
     }
     margin-bottom: 3rem;
   }
-  & .active{
-    p.link, h2 {
+  & .active {
+    p.link,
+    h2 {
       background-image: linear-gradient(
         90deg,
         #6ba5ff,

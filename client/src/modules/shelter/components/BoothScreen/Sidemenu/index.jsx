@@ -21,13 +21,7 @@ const Sidemenu = ({ header = "Booths" }) => {
     const renderLink = useCallback((link) => {
         const to = (link.ignoreRouteParams || !boothId) ? link.to : `${WITH_PARAMS_PREFIX?.replace(':boothId', boothId)}${link.to}`;
         const isActive = location.pathname.includes(to);
-        console.log({
-            isActive,
-            to,
-            location,
-            pathname: location.pathname,
-            boothId,
-        })
+
         return (
             <Container key={link.to} className={cx(styles.linkContainer, { [styles.active]: isActive })}>
                 <Link to={to} className={cx(styles.link)}>

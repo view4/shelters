@@ -9,9 +9,11 @@ import Card from "modules/Core/components/ui-kit/Card";
 import styles from "./styles.module.scss";
 
 
-const BoothScheduleTab = ({ boothId, initialView='month', ...props }) => {
+const BoothScheduleTab = ({ boothId, initialView = 'month', ...props }) => {
     const [view, setView] = useState(initialView);
     const [presetValues, setPresetValues] = useState({});
+
+
     return (
         <Container className={styles.container} {...props} flex center>
             <Card HeaderComponent={Container} headerProps={
@@ -48,15 +50,15 @@ const BoothScheduleTab = ({ boothId, initialView='month', ...props }) => {
                     </Container>
                 }
             } className={styles.card}>
-                <Timemap 
-                    className={styles.timemap} 
-                    boothId={boothId} 
+                <Timemap
+                    className={styles.timemap}
+                    boothId={boothId}
                     view={view}
-                    onSelectDates={(start, end) => setPresetValues({ 
+                    onSelectDates={(start, end) => setPresetValues({
                         startDate: start,
                         endDate: end,
                         startTime: start,
-                        endTime: end, 
+                        endTime: end,
                     })}
                 />
 

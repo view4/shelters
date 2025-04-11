@@ -1,9 +1,12 @@
 @import "src/modules/Core/styles/variables.scss";
 
 .wrapper {
-  margin: 1.5rem 0rem;
+  margin: 0.75rem 0rem;
   & > div {
     height: 3.6rem;
+    &.emptyCard {
+      height: unset;
+    }
   }
   & > div > div {
     margin-bottom: unset !important;
@@ -13,7 +16,6 @@
 
 .emptyCard {
   border-style: dashed;
-  // min-height: 3rem;
 }
 
 .reorder > * {

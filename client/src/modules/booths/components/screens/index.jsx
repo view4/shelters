@@ -27,12 +27,11 @@ export const BoothDedicatedTimeScreen = ({ boothId }) => {
     return (
         <BoothScreen boothId={boothId}>
             <Card maxHeight>
-                <Container flex row alignCenter maxWidth>
-                    <DedicatedTimeFeed boothId={boothId} />
+                <Container  flex row alignCenter maxWidth>
+                    <DedicatedTimeFeed className={styles.dedicatedTimeFeedContainer} boothId={boothId} />
                 </Container>
                 <BoothScheduleTab />
             </Card>
-
         </BoothScreen>
     )
 }
@@ -63,7 +62,13 @@ const cyclesTabs = [
 export const BoothCyclesScreen = ({ boothId }) => {
     return (
         <BoothScreen boothId={boothId}>
-            <Card className={styles.cyclesCard} tabs={cyclesTabs} maxHeight lightShadow maxWidth/>
+            <Card 
+                className={styles.cyclesCard} 
+                tabs={cyclesTabs} 
+                maxHeight 
+                lightShadow 
+                maxWidth 
+            />
         </BoothScreen>
     )
 }

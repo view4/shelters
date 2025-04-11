@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import Container from 'modules/Core/components/ui-kit/Container';
 import AsyncSelect from 'modules/Core/components/ui-kit/Input/AsyncSelect';
-import styles from "./styles.module.scss";
 import Card from "modules/Core/components/ui-kit/Card";
 import Title from "modules/Core/components/ui-kit/Title";
 import { Close } from "modules/Core/components/ui-kit/indicators";
 import { InputLabel } from "modules/Core/components/ui-kit/Input";
+import styles from "./styles.module.scss";
 
 const query = `
     query gateways($search: String, $boothId: String, $isCycleless: Boolean) {
@@ -52,13 +52,9 @@ const Value = ({ value, onChange }) => {
 }
 
 const Component = ({ value, onChange, boothId, disabled, }) => {
-    // COULDDO: get functioning without the use of key as an interim field, or key just being ID, yeeeeee...... :) 
     const variables = useMemo(() => ({ boothId, isCycleless: true }), [boothId]);
 
-    if (Boolean(value)) {
-        return <Value value={value} onChange={onChange} />
-    }
-
+    if (Boolean(value)) return <Value value={value} onChange={onChange} />
     return (
         <Container>
             <AsyncSelect
@@ -68,7 +64,7 @@ const Component = ({ value, onChange, boothId, disabled, }) => {
                 parseResult={(res) => res?.gateways.entities.map(({ name, id }) => ({
                     key: id,
                     readable: name,
-                    id, 
+                    id,
                     name
                 }))}
                 variables={variables}

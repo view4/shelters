@@ -1,10 +1,9 @@
-import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
+import { useCallback } from "react";
 import Button from "modules/Core/components/ui-kit/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import cells from "modules/cycles/state/index";
-import { useCallback } from "react";
 
-export default withFocusedBoothId(strappedConnected(
+export default strappedConnected(
     Button,
     {},
     { focus: cells.focusCycle.action },
@@ -12,4 +11,4 @@ export default withFocusedBoothId(strappedConnected(
         text: "focus cycle",
         onClick: useCallback(() => focus({ id: cycleId, callback }), [focus, cycleId, callback])
     })
-))
+)
