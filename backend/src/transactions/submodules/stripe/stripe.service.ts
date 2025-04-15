@@ -27,9 +27,17 @@ export class StripeService {
 
   async handleEvent(event: Record<string, string>) {
 
+    console.log('[StripeService] Incoming Event:', event);
+
     const handler =
       this.EVENT_TREE[event?.type] ||
       this.EVENT_TREE[PAYMENT_INTENT_EVENTS.NULL];
+
+    if (!handler) {
+      console.warn(`[StripeService] No handler found for event type: ${event?.type}`);
+      return;
+    }
+    
     return handler(event);
   }
 
