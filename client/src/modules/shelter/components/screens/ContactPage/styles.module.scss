@@ -1,0 +1,19 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.screen {
+  overflow-y: scroll;
+  & > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    .headerChildren {
+      margin: 0rem 2rem;
+      button {
+        margin: 0rem 1rem;
+      }
+    }
+  }
+  .container {
+    margin-top: 4rem;
+  }
+}

@@ -1,4 +1,5 @@
 import c from "classnames";
+import cells from "modules/auth/state";
 import Screen from "modules/Core/components/ui-kit/Screen";
 import Container from "modules/Core/components/ui-kit/Container";
 import Footer from "modules/Core/components/ui-kit/layout/Footer";
@@ -7,9 +8,9 @@ import Card from "modules/Core/components/ui-kit/Card";
 import Text from "modules/Core/components/ui-kit/Text";
 import Button from "modules/Core/components/ui-kit/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
-import cells from "modules/auth/state";
-import {ReactComponent as WelcomeBg} from "../../../assets/welcome_bg_cleaned.svg";
+import { ReactComponent as WelcomeBg } from "../../../assets/welcome_bg_cleaned.svg";
 import { ESSENTIALS, FEATURES } from "./consts";
+import Link from "modules/Core/components/ui-kit/Link";
 import styles from "./styles.module.scss";
 
 const FeatureCard = ({ name, description, className }) => (
@@ -19,6 +20,43 @@ const FeatureCard = ({ name, description, className }) => (
         </Text>
     </Card>
 );
+
+const LINKS = [
+    {
+        label: "homepage",
+        to: "/shelter"
+
+    },
+    {
+        label: "contact",
+        to: "/contact"
+    },
+    {
+        label: "policies",
+        to: "/policies"
+    }
+]
+
+
+export const SheltersFooter = () => (
+    <Footer>
+        <Container flex spaceBetween alignCenter p1 maxHeight>
+            <Text>
+                Shelters Project
+            </Text>
+            <Container flex>
+                {LINKS.map((link, index) => (
+                    <>
+                        <Link className={styles.footerLink} key={index} to={link.to}>
+                            {link.label}
+                        </Link>
+                        {index !== LINKS.length - 1 && <span className={styles.dot}>&#183;</span>}
+                    </>
+                ))}
+            </Container>
+        </Container>
+    </Footer>
+)
 
 const LandingPage = ({ isAuthed }) => {
     return (
@@ -118,16 +156,14 @@ const LandingPage = ({ isAuthed }) => {
                     </Button>
                 </Container>
             </Container>
-            <Footer>
-                Shelters Project
-            </Footer>
+            <SheltersFooter />
         </Screen>
     )
 }
 
 export default strappedConnected(
-    LandingPage, 
-    {isAuthed: cells.validateToken.selectors.isAuthed},
+    LandingPage,
+    { isAuthed: cells.validateToken.selectors.isAuthed },
     {},
     () => ({})
 );
