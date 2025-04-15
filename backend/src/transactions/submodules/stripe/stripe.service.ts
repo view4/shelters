@@ -28,7 +28,7 @@ export class StripeService {
   async handleEvent(event: Record<string, string>) {
 
     const handler =
-      this.EVENT_TREE[event.type] ||
+      this.EVENT_TREE[event?.type] ||
       this.EVENT_TREE[PAYMENT_INTENT_EVENTS.NULL];
     return handler(event);
   }
@@ -130,9 +130,9 @@ export class StripeService {
     [SUBSCRIPION_EVENTS.DELETED]: (event) =>
       this.handleSubscriptionChange(event.data.object),
     [PAYMENT_INTENT_EVENTS.NULL]: (event) => {
-      console.log(`Unhandled event type ${event.type}`);
+      console.log(`Unhandled event type ${event?.type}`);
       console.log('*************************************');
-      console.log(event.data);
+      console.log(event?.data);
     },
   };
 
