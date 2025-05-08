@@ -11,7 +11,7 @@ const SidemenuLink = ({ to, text, isActive, containerRef, children, className, .
             className={cx(styles.linkContainer, className, { [styles.active]: isActive })}
             {...props}
         >
-            <Link to={to} {...props}>
+            <Link to={to}  className={styles.link} {...props}>
                 {text}
             </Link>
             {children}
