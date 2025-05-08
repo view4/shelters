@@ -8,7 +8,6 @@ const { validateToken } = cells;
 export default (Component) => (props) => {
     const isAuthed = useSelector(validateToken.selectors.isAuthed)
     const nav = useNavigate()
-    console.log({ isAuthed })
     useEffect(() => {
         if (isAuthed === false) {
             nav("/login")

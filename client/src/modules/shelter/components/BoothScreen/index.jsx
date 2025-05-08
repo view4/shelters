@@ -24,7 +24,6 @@ export default strappedConnected(
         fetchBooth: (id) => feed.cells?.fetchEntity.action({ id })
     },
     ({ isAuthed, header, className, fetchFocusedBooth, focusedBoothId, fetchBooth, boothId, focusedBoothExists, ...props }) => {
-        console.log("reaching here...", header, boothId, focusedBoothExists)
         useOnLoad(
             () => fetchFocusedBooth(),
             !focusedBoothId && !focusedBoothExists && isAuthed,

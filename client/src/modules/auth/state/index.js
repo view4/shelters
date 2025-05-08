@@ -58,7 +58,6 @@ export default {
     selector: (state) => state.user,
     selectors: {
       isAuthed: (state) => {
-        console.log({ state: state.isAuthenticated })
         return state.isAuthenticated
       },
       membership: (state) =>
