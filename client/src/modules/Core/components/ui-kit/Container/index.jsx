@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import withUIKitClasses from 'modules/Core/higher-order-components/withUIKitClasses';
 
-const Container = ({ children, className, ...props }) => (
-    <div className={className} {...props}>
+const Container = forwardRef(({ children, className, ...props }, ref) => (
+    <div className={className} {...props} ref={ref}>
         {children}
     </div>
-);
+));
 
 export default withUIKitClasses(Container)

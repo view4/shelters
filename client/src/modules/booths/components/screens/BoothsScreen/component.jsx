@@ -19,7 +19,9 @@ export default ({ ...props }) => (
         className={styles.screen}
     >
         <Container maxHeight flex col spaceBetween maxWidth>
-            <Feed {...props} ItemComponent={StampedFeedItem} />
+            <Container flex col>
+                <Feed {...props} ItemComponent={StampedFeedItem} />
+            </Container>
             <Container p3 flex maxWidth center className={styles.headerChildren}>
                 <RedirectButton text="Create Booth" to="/create" />
             </Container>

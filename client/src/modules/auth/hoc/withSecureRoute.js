@@ -3,13 +3,14 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import cells from "../state";
 
-const {validateToken } = cells;
+const { validateToken } = cells;
 
 export default (Component) => (props) => {
     const isAuthed = useSelector(validateToken.selectors.isAuthed)
     const nav = useNavigate()
+    console.log({ isAuthed })
     useEffect(() => {
-        if(isAuthed === false) {
+        if (isAuthed === false) {
             nav("/login")
         }
     }, [isAuthed])

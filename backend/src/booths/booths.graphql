@@ -1,7 +1,8 @@
 type Query {
   booths(feedParams: FeedParams): BoothFeed
   booth(id: String!): Booth
-  activeBooth: Booth
+  focusedBooth: Booth
+  activeBooths: BoothFeed
 }
 
 type Mutation {
@@ -21,6 +22,7 @@ type Booth {
   text: String
   createdAt: String
   stamps: Stamps
+  isFocused: Boolean
 }
 
 input BoothInput {

@@ -27,6 +27,7 @@ type Mutation {
 type Stamps {
   commenced: String
   completed: String
+  focused: String
 }
 
 type GatewayFeed {

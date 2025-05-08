@@ -1,10 +1,10 @@
 import { Injectable, Inject, forwardRef } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Booth, BoothDocument } from "./schema/booth.schema";
-import mongoose, { Model } from "mongoose";
+import mongoose, { Model, Types } from "mongoose";
 import { aggregateFeed, count, create, filterOne, upsert, upsertOne } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
-import { ID } from "src/common/types";
+import { FeedParams, ID } from "src/common/types";
 import { MembershipService } from "src/auth/membership.service";
 
 @Injectable()
@@ -15,21 +15,34 @@ export class BoothsService {
     ) { }
     FREE_TIER_BOOTH_COUNT = 1;
 
-    async booths(userId: ID) {
+    async booths(userId: ID, feedParams?: FeedParams, pipeline: any[] = []) {
         // await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);
         return aggregateFeed(
             this.boothModel,
-            { sort: { createdAt: -1 }, match: { user: new mongoose.Types.ObjectId(userId) } },
-            []
+            {
+                sort: { createdAt: -1 },
+                match: { user: new mongoose.Types.ObjectId(userId) },
+                ...feedParams
+            },
+            pipeline
         );
     }
 
-    async activeBooth(userId: ID) {
-        return filterOne(this.boothModel, {
-            'stamps.completed': { $eq: null },
-            'stamps.commenced': { $ne: null },
-            user: new mongoose.Types.ObjectId(userId)
+    async activeBooths(userId: ID) {
+        return this.booths(userId, {
+            match: {
+                user: new mongoose.Types.ObjectId(userId),
+                'stamps.completed': { $eq: null },
+                'stamps.commenced': { $ne: null }
+            }
         });
+    }
+
+    async focusedBooth(userId: ID) {
+        return filterOne(this.boothModel, {
+            user: new mongoose.Types.ObjectId(userId),
+            'stamps.focused': { $ne: null }
+        }, { sort: { 'stamps.focused': -1 } });
     }
 
     async booth(userId: ID, id: string) {
@@ -74,6 +87,12 @@ export class BoothsService {
 
     async assignBoothToUser(boothId: string, userId: string) {
         return upsert(this.boothModel, { user: userId }, boothId);
+    }
+
+    async checkBoothIsFocused( booth) {
+        if (!booth.stamps.focused) return false;
+        const focusedBooth = await this.focusedBooth(booth.user);
+        return focusedBooth?._id.equals(booth._id);
     }
 
 }

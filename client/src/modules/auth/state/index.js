@@ -57,7 +57,10 @@ export default {
     name: "validateToken",
     selector: (state) => state.user,
     selectors: {
-      isAuthed: (state) => state.isAuthenticated,
+      isAuthed: (state) => {
+        console.log({ state: state.isAuthenticated })
+        return state.isAuthenticated
+      },
       membership: (state) =>
         state.user?.membership || state.user?.membership || {},
       hasActiveMembership: (state) => state.user?.membership?.isActive || false,

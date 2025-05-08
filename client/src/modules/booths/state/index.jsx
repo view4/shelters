@@ -4,13 +4,13 @@ import { call } from "redux-saga/effects";
 import middleware from "../middleware";
 
 export default {
-    fetchActiveBooth: initCell(
+    fetchFocusedBooth: initCell(
         BOOTHS,
         {
-            name: "fetchActiveBooth",
-            selector: (state) => state.activeBooth,
+            name: "fetchFocusedBooth",
+            selector: (state) => state.focusedBooth,
             selectors: {
-                id: (state) => state.activeBooth?.id,
+                id: (state) => state.focusedBooth?.id,
                 isLoading: (state) => state.isLoading
             },
             reducer: (state, { payload }) => {
@@ -18,15 +18,41 @@ export default {
             },
             sagas: {
                 latest: function* ({ payload }) {
-                    const res = yield call(middleware.ops.fetchActiveBooth);
-                    return res?.activeBooth
+                    const res = yield call(middleware.ops.fetchFocusedBooth);
+                    return res?.focusedBooth
                 },
                 onCellSuccess: true
             },
             successCell: {
                 reducer: (state, { payload }) => {
-                    state.activeBooth = payload
+                    state.focusedBooth = payload
                     state.entities[payload.id] = payload
+                    state.isLoading = false
+                }
+            }
+        }
+    ),
+    fetchActiveBooths: initCell(
+        BOOTHS,
+        {
+            name: "fetchActiveBooths",
+            selector: (state) => state.activeBooths,
+            selectors: {
+                isLoading: (state) => state.isLoading
+            },
+            reducer: (state, { payload }) => {
+                state.isLoading = true
+            },
+            sagas: {
+                latest: function* ({ payload }) {
+                    const res = yield call(middleware.ops.fetchActiveBooths);
+                    return res?.activeBooths
+                },
+                onCellSuccess: true
+            },
+            successCell: {
+                reducer: (state, { payload }) => {
+                    state.activeBooths = payload.entities
                     state.isLoading = false
                 }
             }

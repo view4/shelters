@@ -128,7 +128,7 @@ export class CyclesService {
         const filter = { booth: boothId, 'stamps.completed': null, 'stamps.commenced': { $ne: null } };
         const sort = { 'stamps.focused': -1 };
         if (!boothId) {
-            const booth = await this.boothsService.activeBooth(userId);
+            const booth = await this.boothsService.focusedBooth(userId);
             filter.booth = booth._id;
         }
         return filterOne(this.cycleModel, filter, { sort });
@@ -152,7 +152,7 @@ export class CyclesService {
     }
     async addGatewayToCurrentCycle(userId: ID, gatewayId: ID) {
         await this.validateAddGatewayToCycle(gatewayId);
-        const booth = await this.boothsService.activeBooth(userId);
+        const booth = await this.boothsService.focusedBooth(userId);
         const cycle = await this.getCurrentCycle(userId, booth?._id);
         if (!cycle) throw new Error('Active cycle not found');
         const isFull = CYCLE_GATEWAY_KEYS?.slice(0, -1).every(key => Boolean(cycle[key]));
@@ -194,7 +194,7 @@ export class CyclesService {
     }
 
     async completeCurrentCycle(userId: ID,) {
-        const booth = await this.boothsService.activeBooth(userId);
+        const booth = await this.boothsService.focusedBooth(userId);
         const cycle = await this.getCurrentCycle(userId, booth?._id);
         if (cycle) {
             return await this.completeCycle(cycle._id);

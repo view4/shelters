@@ -1,4 +1,4 @@
-import { Args, Field, InputType, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { Args, Field, InputType, Mutation, Query, Resolver, ResolveField, Parent } from "@nestjs/graphql";
 import { BoothsService } from "./booths.service";
 import { Booth } from "./schema/booth.schema";
 import { UseGuards } from "@nestjs/common";
@@ -7,7 +7,7 @@ import { SessionUser } from "src/auth/decorators/session-user.decorator";
 import { SessionUserT } from "src/auth/types/SessionUserType";
 
 @InputType()
-export class BoothInput{
+export class BoothInput {
     @Field()
     name: string;
 
@@ -26,16 +26,22 @@ export class BoothsResolver {
     }
 
     @UseGuards(AuthGuard)
+    @Query(() => Booth)
+    async focusedBooth(@SessionUser() user: SessionUserT): Promise<Booth> {
+        return this.boothsService.focusedBooth(user?.id);
+    }
+
+    @UseGuards(AuthGuard)
     @Query(() => [Booth])
-    async activeBooth(@SessionUser() user: SessionUserT): Promise<Booth[]> {
-        return this.boothsService.activeBooth(user?.id);
+    async activeBooths(@SessionUser() user: SessionUserT): Promise<Booth[]> {
+        return this.boothsService.activeBooths(user?.id);
     }
 
     @UseGuards(AuthGuard)
     @Query(() => Booth)
     async booth(
         @SessionUser() user: SessionUserT,
-        @Args('id', {type: () => String}) id: string
+        @Args('id', { type: () => String }) id: string
     ): Promise<Booth> {
         return this.boothsService.booth(user?.id, id);
     }
@@ -45,7 +51,7 @@ export class BoothsResolver {
     async upsertBooth(
         @SessionUser() user: SessionUserT,
         @Args('input') input: BoothInput,
-        @Args('id', {type: () => String}) id?: string
+        @Args('id', { type: () => String }) id?: string
     ): Promise<Booth> {
         return this.boothsService.upsertBooth(user?.id, input, id);
     }
@@ -53,17 +59,24 @@ export class BoothsResolver {
     @UseGuards(AuthGuard)
     @Mutation(() => Booth)
     stampBooth(
-        @Args('id', {type: () => String}) id: string,
-        @Args('key', {type: () => String, nullable: true}) key,
+        @Args('id', { type: () => String }) id: string,
+        @Args('key', { type: () => String, nullable: true }) key,
     ): Promise<Booth> {
         return this.boothsService.stampBooth(id, key);
     }
 
     @Mutation(() => Booth)
     assignBoothToUser(
-        @Args('boothId', {type: () => String}) boothId: string,
-        @Args('userId', {type: () => String}) userId: string
+        @Args('boothId', { type: () => String }) boothId: string,
+        @Args('userId', { type: () => String }) userId: string
     ): Promise<Booth> {
         return this.boothsService.assignBoothToUser(boothId, userId);
+    }
+
+    @ResolveField(() => Boolean)
+    async isFocused(
+        @Parent() booth: Booth
+    ): Promise<boolean> {
+        return this.boothsService.checkBoothIsFocused(booth);
     }
 }

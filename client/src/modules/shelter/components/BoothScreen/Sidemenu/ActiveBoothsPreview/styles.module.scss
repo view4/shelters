@@ -1,0 +1,104 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.popoverBody  {
+    min-height: 10rem;
+    width: 20rem;
+    max-height: 30rem;
+    border-radius: 2rem;
+    padding: 0.5rem;
+}
+.popover {
+    margin-left: 7rem;
+}
+.title {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.previewContainer {
+    min-width: 36vw;
+    max-width: 54vw;
+    max-height: 72vh;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.boothsContainer {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.boothCard {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid $grey10;
+    min-height: 7rem;
+    width: 18rem;
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-color: $ui_blue;
+        .actions {
+            opacity: 1;
+        }
+    }
+    &.focused {
+        border: 2px solid $ocean_blue;
+    }
+    align-items: center;
+    display: flex;
+}
+
+.boothContent {
+    padding: 1rem;
+}
+
+.boothName {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: $grey90;
+}
+
+.boothInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.actions {
+    display: flex;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.actionIcon {
+    cursor: pointer;
+    color: $grey72;
+    transition: color 0.5s ease;
+    &:hover {
+        color: $ocean_blue;
+    }
+}
+
+.previewModal {
+    width: 90vw !important;
+    height: 90vh !important;
+    max-width: none !important;
+    max-height: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+.previewFrame {
+    width: 100%;
+    height: 100%;
+    border: none;
+} 

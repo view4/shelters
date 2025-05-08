@@ -7,6 +7,9 @@ export class Stamps {
 
     @Prop({ required: false })
     completed: Date;
+
+    @Prop({ required: false })
+    focused: Date;
 }
 
 export const StampsSchema = SchemaFactory.createForClass(Stamps);

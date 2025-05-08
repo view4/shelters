@@ -10,7 +10,7 @@ const ModalButton = ({ text, onConfirm, copy, modal, ...props }) => {
     const { isOpen, open, close } = useIsOpen()
     return (
         <>
-            <Button text={text} {...props}  onClick={open} />
+            <Button text={text} {...props} onClick={open} />
             <Modal isOpen={isOpen} onClose={close}>
                 <Container className={styles.contentContainer}>
                     <Container>

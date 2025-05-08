@@ -24,6 +24,7 @@ export const links = [
         text: "Booths",
         to: "/booths",
         ignoreRouteParams: true,
+        
     },
     {
         text: "Settings",
