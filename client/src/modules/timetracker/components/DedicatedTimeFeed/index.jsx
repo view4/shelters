@@ -154,8 +154,8 @@ const FeedItemComponent = ({
     </Card>
 )
 
-const DedicatedTimeFeed = ({ boothId, filters, className }) => (
-    <Container className={cx(className, styles.feedContainer)} flex alignCenter maxHeight>
+const DedicatedTimeFeed = ({ boothId, filters, className, ...props }) => (
+    <Container className={cx(className, styles.feedContainer)} flex alignCenter maxHeight {...props}>
         <Component
             filters={filters}
             ItemComponent={FeedItemComponent}
