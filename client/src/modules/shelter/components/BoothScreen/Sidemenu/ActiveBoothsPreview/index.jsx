@@ -9,10 +9,10 @@ import Stamp from "modules/Core/components/ui-kit/Stamp";
 import { useNavigate } from "react-router-dom";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
 import Popover from "modules/Core/components/ui-kit/Popover";
-import styles from "./styles.module.scss";
 import { useCallback, useState, useRef } from "react";
-import { Visibility, OpenInNew } from "modules/Core/components/ui-kit/indicators";
+import { OpenInNew } from "modules/Core/components/ui-kit/indicators";
 import Modal from "modules/Core/components/ui-kit/Modal";
+import styles from "./styles.module.scss";
 
 const ActiveBoothsPreview = ({ activeBooths, onBoothClick, isOpen, containerElement, onClose }) => {
     const [previewBooth, setPreviewBooth] = useState(null);
@@ -62,11 +62,6 @@ const ActiveBoothsPreview = ({ activeBooths, onBoothClick, isOpen, containerElem
                                         <Stamp timestamp={booth.stamps?.commenced} />
                                         {booth.stamps?.focused && <Stamp timestamp={booth.stamps?.focused} />}
                                         <Container className={styles.actions}>
-                                            {/* <Visibility
-                                                className={styles.actionIcon}
-                                                onMouseEnter={() => handlePreviewHover(booth)}
-                                                onMouseLeave={handlePreviewLeave}
-                                            /> */}
                                             <OpenInNew
                                                 className={styles.actionIcon}
                                                 onClick={(e) => {

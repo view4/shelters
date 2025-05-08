@@ -16,19 +16,19 @@ export default strappedConnected(
     {
         isAuthed: auth.validateToken.selectors.isAuthed,
         header: (state, { boothId }) => feed.cells.fetchEntity.selectField(boothId, "name")(state),
-        activeBoothId: boothCells.fetchFocusedBooth.selectors.id,
+        focusedBoothId: boothCells.fetchFocusedBooth.selectors.id,
         focusedBoothExists: (state, { boothId }) => !!feed.cells.fetchEntity.selectField(boothId, "id")(state),
     },
     {
         fetchFocusedBooth: boothCells.fetchFocusedBooth.action,
         fetchBooth: (id) => feed.cells?.fetchEntity.action({ id })
     },
-    ({ isAuthed, header, className, fetchFocusedBooth, activeBoothId, fetchBooth, boothId, focusedBoothExists, ...props }) => {
+    ({ isAuthed, header, className, fetchFocusedBooth, focusedBoothId, fetchBooth, boothId, focusedBoothExists, ...props }) => {
         console.log("reaching here...", header, boothId, focusedBoothExists)
         useOnLoad(
             () => fetchFocusedBooth(),
-            !activeBoothId && !focusedBoothExists && isAuthed,
-            [activeBoothId, focusedBoothExists, isAuthed]
+            !focusedBoothId && !focusedBoothExists && isAuthed,
+            [focusedBoothId, focusedBoothExists, isAuthed]
         )
         useOnLoad(
             () => fetchBooth(boothId),
