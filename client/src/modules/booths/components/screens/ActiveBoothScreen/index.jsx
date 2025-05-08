@@ -32,10 +32,8 @@ export default strappedConnected(
     },
     { fetch: cells.fetchFocusedBooth.action },
     ({  focusedBoothId, isLoading }) => {
-        console.log("is being called...")
-        console.log({ focusedBoothId, isLoading })
         return {
-            shouldDisplayPlaceholder: !focusedBoothId && !isLoading
+            // shouldDisplayPlaceholder: !focusedBoothId && !isLoading
         }
     }
 );

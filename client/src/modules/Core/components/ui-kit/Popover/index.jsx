@@ -16,7 +16,6 @@ const Popover = ({
 }) => {
     return (
         <_Popover
-            // COULDDO: Integrate header and footer into this component - maybe even as a hoc or something there... I'd love a generic way to do this with a hoc or a kind of a hook. 
             open={isOpen}
             onClose={onClose}
             anchorEl={anchorElement}
