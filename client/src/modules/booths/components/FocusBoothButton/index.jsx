@@ -20,7 +20,7 @@ export default withFocusedBoothId(strappedConnected(
         onError
     },
     ({ boothId: id, stamp, stamps, refetch, onError, onSuccess, isFocused }) => ({
-        onConfirm: (close) => stamp(id, ({ id }) => {
+        onClick: (close) => stamp(id, ({ id }) => {
             if (!Boolean(id)) return onError("Failed to focus this booth")
             onSuccess("Booth focused!")
             refetch(id)
