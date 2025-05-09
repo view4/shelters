@@ -7,10 +7,10 @@ import AddEntryButton from "modules/entries/components/AddEntryButton";
 import Cycle from "modules/cycles/components/Cycle";
 import RoadmapsFeed from "modules/roadmaps/components/RoadmapsFeed";
 import AddRoadmapButton from "modules/roadmaps/components/AddRoadmapButton";
-import styles from "./styles.module.scss";
 import IntrospectionCard from "../../IntrospectionCard";
 import Card from "modules/Core/components/ui-kit/Card";
 import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
+import styles from "./styles.module.scss";
 
 const tabs = [
     {

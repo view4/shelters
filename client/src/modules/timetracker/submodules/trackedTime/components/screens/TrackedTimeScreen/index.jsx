@@ -11,11 +11,12 @@ import Text from "modules/Core/components/ui-kit/Text";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
 import { DedicatedTimeOptions, TrackedTimeFeatures } from "modules/timetracker/components/DedicatedTimeFeed";
 import styles from "./styles.module.scss";
+import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
+import BoothScreen from "modules/shelter/components/BoothScreen";
 
-const TrackedTimeScreen = ({ dedicatedTimeId, tabs, onTrackTimeSuccess, entity, }) => (
-    <Screen
-        header={"View Tracked Time"}
-        contentHeader={
+const TrackedTimeScreen = ({ dedicatedTimeId, boothId, tabs, onTrackTimeSuccess, entity, }) => (
+    <BoothScreen boothId={boothId} >
+        <Container maxHeight flex col alignCenter justifyCenter>
             <Card className={styles.card}>
                 <Container>
                     <Title>{entity?.name}</Title>
@@ -32,15 +33,14 @@ const TrackedTimeScreen = ({ dedicatedTimeId, tabs, onTrackTimeSuccess, entity, 
                     />
                 </Container>
             </Card>
-        }
-        back={{ to: "/", text: "Back" }}
-        tabs={tabs}
-    />
+            <Card className={styles.contentCard} tabs={tabs} />
+        </Container>
+    </BoothScreen>
 )
 
 
 export default strappedConnected(
-    TrackedTimeScreen,
+    withFocusedBoothId(TrackedTimeScreen),
     {
         entity: (state, { dedicatedTimeId }) => allocateTimeFeed.cells.fetchEntity.selector(dedicatedTimeId)(state),
     },

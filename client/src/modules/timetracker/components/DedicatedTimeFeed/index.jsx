@@ -37,7 +37,7 @@ export const DedicatedTimeOptions = strapped(
                 Component: RedirectButton,
                 props: {
                     text: 'View',
-                    to: `./tracked-times/${id}`
+                    to: `/tracked-times/${id}`
                 }
             },
             {
