@@ -57,22 +57,6 @@ const Component = ({ name, text, id, tabs, widgetProps, rightProps, stamps, refe
     </BoothScreen>
 )
 
-    // (
-    //     <Screen
-    //         contentHeader={
-    //             // TODO: consider utilising RoadmapFeedItem here or having a singular unified entity for this? 
-
-    //         }
-    //         title="View Roadmap"
-    //         back={{ text: "Back", onClick: () => window.history.back() }}
-    //         tripanel
-    //         leftWidgets={leftAppendages}
-    //         widgetProps={widgetProps}
-    //         tabs={tabs}
-
-    //     />
-    // );
-
 export default strappedConnected(
     Component,
     {
