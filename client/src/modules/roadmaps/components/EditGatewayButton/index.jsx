@@ -16,7 +16,6 @@ const EditGatewayButton = ({ onSuccess, gatewayId, entity }) => {
                 title="Edit Gateway"
                 initialState={entity}
                 onSuccess={onSuccess}
-                // parentName={parentName}
                 gatewayId={gatewayId}
                 isOpen={isOpen}
                 close={close}
@@ -28,5 +27,5 @@ const EditGatewayButton = ({ onSuccess, gatewayId, entity }) => {
 export default strapped(EditGatewayButton, ({ name, text, parent,}) => ({
     entity: useMemo(() => ({
         name, text, parent
-    }), [name, text])
+    }), [name, text, parent])
 }));

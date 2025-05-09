@@ -21,6 +21,8 @@ import DownArrow from '@mui/icons-material/ArrowDownward';
 import Focus from '@mui/icons-material/Pages';
 import Minimise from '@mui/icons-material/Minimize';
 import Close from '@mui/icons-material/Close';
+import Visibility from '@mui/icons-material/Visibility';
+import OpenInNew from '@mui/icons-material/OpenInNew';
 
 export {
     Flag,
@@ -46,4 +48,6 @@ export {
     Focus,
     Minimise,
     Close,
+    Visibility,
+    OpenInNew,
 };

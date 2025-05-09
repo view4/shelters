@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from "react";
 import Container from "modules/Core/components/ui-kit/Container";
-// import Screen from "modules/Core/components/ui-kit/Screen"
 import Button from "modules/Core/components/ui-kit/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/roadmaps/state/feed";
@@ -9,38 +8,24 @@ import RoadmapFeedItem, { GatewayExpandableOptions } from "../../RoadmapFeedItem
 import Card from "modules/Core/components/ui-kit/Card";
 import Title from "modules/Core/components/ui-kit/Title";
 import Text from "modules/Core/components/ui-kit/Text";
-import ExpandableOptions from "modules/Core/components/ui-kit/ExpandableOptions";
-import AddGatewayButton from "../../AddGatewayButton";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
-import EditGatewayButton from "../../EditGatewayButton";
-import styles from "./styles.module.scss";
 import { STAMPS } from "modules/Core/consts";
 import Stamps from "modules/Core/components/ui-kit/Stamps";
-import Screen from "modules/shelter/components/Screen";
+import BoothScreen from "modules/shelter/components/BoothScreen";
+import styles from "./styles.module.scss";
+
+const RightPanelComponent = ({ parent, gridRow }) => (
+    <Container maxHeight flex col flexEnd >
+        {parent?.id && <Button m1 mb3 className={styles.parentBtn} gridRow={gridRow} to={`/view-roadmap/${parent?.id}`} widget text={parent?.name} />}
+    </Container>
+)
 
 
-const leftAppendages = [
-    {
-        Component: ({ parent, gridRow }) => parent?.id && <Button className={styles.parentBtn} gridRow={gridRow} style={{ width: "100%" }} to={`/view-roadmap/${parent?.id}`} widget text={parent?.name} />,
-        gridRow: 3
-    }
-];
+const Component = ({ name, text, id, tabs, widgetProps, rightProps, stamps, refetch, parent }) => (
+    <BoothScreen boothId={id} RightPanelComponent={RightPanelComponent} rightProps={rightProps}>
 
-const Options = ({ id, name, text }) => (
-    <ExpandableOptions
-        horizontal
-        options={[
-            { Component: EditGatewayButton, props: { gatewayId: id, name, text, } },
-            { Component: AddGatewayButton, props: { parentId: id, parentName: name, refetchId: id } },
-        ]}
-    />
-);
-
-const Commponent = ({ name, text, id, tabs, widgetProps, stamps, refetch, parent }) => (
-    <Screen
-        contentHeader={
-            // TODO: consider utilising RoadmapFeedItem here or having a singular unified entity for this? 
-            <Card maxHeight maxWidth relative >
+        <Container maxHeight>
+            <Card className={styles.headerCard} maxWidth relative >
                 <Container>
                     <Title>{name}</Title>
                 </Container>
@@ -67,19 +52,13 @@ const Commponent = ({ name, text, id, tabs, widgetProps, stamps, refetch, parent
                     />
                 </Container>
             </Card>
-        }
-        title="View Roadmap"
-        back={{ text: "Back", onClick: () => window.history.back() }}
-        tripanel
-        leftWidgets={leftAppendages}
-        widgetProps={widgetProps}
-        tabs={tabs}
-
-    />
-);
+            <Card lightShadow className={styles.tabsCard} tabs={tabs} />
+        </Container>
+    </BoothScreen>
+)
 
 export default strappedConnected(
-    Commponent,
+    Component,
     {
         roadmap: (state, { id }) => feed.cells?.fetchEntity.selector(id)(state)
     },
@@ -97,7 +76,7 @@ export default strappedConnected(
             parentId: id,
             parent: { id, name: roadmap?.name }
         })), [roadmap?.children?.length]);
-        
+
         return {
             name: roadmap?.name,
             text: roadmap?.text,
@@ -105,6 +84,9 @@ export default strappedConnected(
             children: roadmap?.children,
             parent: roadmap?.parent,
             stamps: roadmap?.stamps,
+            rightProps: useMemo(() => ({
+                parent: roadmap?.parent,
+            }), [roadmap?.parent]),
             tabs: useMemo(() => [
                 {
                     title: 'Gateways',
@@ -117,7 +99,6 @@ export default strappedConnected(
                 },
             ], [roadmap?.children, feed]),
             refetch: useCallback(() => fetchEntity({ id }), [fetchEntity, id]),
-            widgetProps: useMemo(() => ({ parent: roadmap?.parent }), [roadmap])
         }
     }
 )

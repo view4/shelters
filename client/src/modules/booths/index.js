@@ -26,9 +26,10 @@ export default new CoreModule({
     createEntity: feed.cells?.createEntity,
     fetchFeed: feed.cells?.fetchFeed,
     fetchEntity: feed.cells?.fetchEntity,
-    fetchActiveBooth: cells?.fetchActiveBooth,
+    fetchFocusedBooth: cells?.fetchFocusedBooth,
     stampEntity: feed.cells?.stampEntity,
     setFilters: feed.cells?.setFilters,
+    fetchActiveBooths: cells?.fetchActiveBooths,
   },
   routes: {
     "/create": withSecureRoute(CreateBoothScreen),

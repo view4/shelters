@@ -4,13 +4,13 @@ import Title from 'modules/Core/components/ui-kit/Title';
 import Container from 'modules/Core/components/ui-kit/Container';
 import useTabs from 'modules/Core/hooks/useTabs';
 import { useCallback, useMemo, useState } from 'react';
-import styles from "./styles.module.scss";
 import { SelectableGatewayFeedItem } from "../RoadmapFeedItem"
 
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId"
 import middleware from 'modules/roadmaps/middleware';
 import { useOnLoad } from 'modules/Core/hooks/useOnLoad';
 import Feed from 'modules/Core/components/Feed';
+import styles from "./styles.module.scss";
 
 const CyclelessFeed = ({onSelect, boothId}) => {
     const [feedItems, setFeedItems] = useState([]) 
@@ -33,7 +33,7 @@ export default ({ isOpen, close, schema, title = "Add Gateway", onSelectGateway,
     }, {
         title: "Gateways",
         Component: () =>  withFocusedBoothId(CyclelessFeed)({ onSelect: onSelectGateway })
-    }]), []);
+    }]), [initialState]);
 
     const { header, content } = useTabs(tabs)
 

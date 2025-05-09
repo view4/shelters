@@ -5,9 +5,10 @@ import strappedConnected from "modules/Core/higher-order-components/strappedConn
 import { useMemo } from "react";
 import EditBoothButton from "../EditBoothButton";
 import CompleteBoothButton from "../CompleteBoothButton";
-import styles from "./styles.module.scss";
 import Stamp from "modules/Core/components/ui-kit/Stamp";
 import ActivateBoothButton from "../ActivateBoothButton";
+import FocusBoothButton from "../FocusBoothButton";
+import styles from "./styles.module.scss";
 
 export default withFocusedBoothId(strappedConnected(
     Features,
@@ -28,7 +29,8 @@ export default withFocusedBoothId(strappedConnected(
             {
                 content: <Features row features={[
                     { name: "Commenced", content: <Stamp className={styles.stamp} timestamp={booth?.stamps?.commenced} /> },
-                    booth?.stamps?.completed && { name: "Completed", content: <Stamp className={styles.stamp} timestamp={booth?.stamps?.completed} /> }
+                    booth?.stamps?.completed && { name: "Completed", content: <Stamp className={styles.stamp} timestamp={booth?.stamps?.completed} /> },
+                    booth?.stamps?.focused && { name: "Focused", content: <Stamp className={styles.stamp} timestamp={booth?.stamps?.focused} /> }
                 ]} />
             },
             {
@@ -39,6 +41,9 @@ export default withFocusedBoothId(strappedConnected(
             },
             {
                 content: <ActivateBoothButton />
+            },
+            {
+                content: <FocusBoothButton />
             }
         ]), [booth?.id, boothId, booth?.name, booth?.text]),
         card: true

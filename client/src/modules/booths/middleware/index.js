@@ -59,18 +59,31 @@ export default new MiddlewareModule({
               name
               text
               ${STAMPS_FRAGMENT}
-
+              isFocused
             }
           }
     `,
-    fetchActiveBooth: `
-      query activeBooth {
-        activeBooth {
+    fetchFocusedBooth: `
+      query focusedBooth {
+        focusedBooth {
           id
           name
           text
           ${STAMPS_FRAGMENT}
-
+          isFocused
+        }
+      }
+    `,
+    fetchActiveBooths: `
+      query activeBooths {
+        activeBooths {
+          entities {
+            id
+            name
+            text
+            ${STAMPS_FRAGMENT}
+            isFocused
+          }
         }
       }
     `,

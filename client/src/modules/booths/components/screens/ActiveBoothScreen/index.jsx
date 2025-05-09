@@ -16,8 +16,8 @@ const Placeholder = ({ isLoading }) => {
     return (
         <Screen flex center hideHeader={true}>
             <Loader overlay loading={isLoading}>
-                <Card className={styles.placeholder} header="No active Booth Found" fitContent  >
-                    No active booths found, return to booths feed to see available booths.
+                <Card className={styles.placeholder} header="No Focused Booth Found" fitContent  >
+                    No focused booths found, return to booths feed to see available booths.
                 </Card>
             </Loader>
         </Screen>
@@ -25,16 +25,15 @@ const Placeholder = ({ isLoading }) => {
 }
 
 export default strappedConnected(
-    withPlaceholder(component, Placeholder),
+    component,
     {
-        activeBoothId: cells.fetchActiveBooth.selectors.id,
-        isLoading: cells.fetchActiveBooth.selectors.isLoading
+        focusedBoothId: cells.fetchFocusedBooth.selectors.id,
+        isLoading: cells.fetchFocusedBooth.selectors.isLoading
     },
-    { fetch: cells.fetchActiveBooth.action },
-    ({  activeBoothId, isLoading }) => {
-        // const shouldDisplayPlaceholder = useMemo(() => !activeBoothId && !isLoading, [activeBoothId, isLoading]);
+    { fetch: cells.fetchFocusedBooth.action },
+    ({  focusedBoothId, isLoading }) => {
         return {
-            // shouldDisplayPlaceholder
+            // shouldDisplayPlaceholder: !focusedBoothId && !isLoading
         }
     }
 );

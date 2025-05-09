@@ -114,15 +114,6 @@
     }
   }
 
-  & .linkContainer {
-    width: 75%;
-    margin-top: 0.5rem;
-
-    p.link {
-      font-size: 1.8rem;
-      line-height: 2.25rem;
-    }
-  }
   border-image: linear-gradient(180deg, #ff6b6b, #6ba5ff, #8b1a34) 1;
   border-image: linear-gradient(180deg, #990000, #6ba5ff, #8b1a34) 1;
   animation: borderMove 3s ease infinite;

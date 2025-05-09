@@ -1,3 +1,4 @@
+import BoothsLink from "./BoothsLink";
 
 export const links = [
     {
@@ -24,6 +25,7 @@ export const links = [
         text: "Booths",
         to: "/booths",
         ignoreRouteParams: true,
+        Component: BoothsLink
     },
     {
         text: "Settings",

@@ -1,7 +1,6 @@
 .card {
-    height: 90%;
+    height: 25vh;
     width: 90%;
-    margin: 5%;
 }
 
 .feedContainer {
@@ -13,4 +12,9 @@
     & > div {
         width: 90%;
     }
+}
+
+.contentCard {
+    height: 72vh;
+    width: 90%;
 }

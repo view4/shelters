@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
 import Chevron from "modules/Core/components/ui-kit/Chevron";
 import { links, WITH_PARAMS_PREFIX } from "./const";
+import SidemenuLink from "./SidemenuLink";
 import styles from "./styles.module.scss"
 
 
@@ -17,22 +18,27 @@ const Sidemenu = ({ header = "Booths" }) => {
     const boothId = params.boothId ?? params.id;
     const location = useLocation();
 
-
     const renderLink = useCallback((link) => {
         const to = (link.ignoreRouteParams || !boothId) ? link.to : `${WITH_PARAMS_PREFIX?.replace(':boothId', boothId)}${link.to}`;
         const isActive = location.pathname.includes(to);
+        const Component = link.Component ?? SidemenuLink;
 
         return (
-            <Container key={link.to} className={cx(styles.linkContainer, { [styles.active]: isActive })}>
-                <Link to={to} className={cx(styles.link)}>
-                    {link.text}
-                </Link>
-            </Container>
+            <Component
+                to={to}
+                text={link.text}
+                isActive={isActive}
+                className={styles.linkContainer}
+            />
         )
-    })
+    }, [location.pathname, boothId])
 
     return (
-        <Container relative lightShadow className={cx(styles.container, { [styles.closed]: !isOpen, [styles.open]: isOpen })} >
+        <Container
+            relative
+            lightShadow
+            className={cx(styles.container, { [styles.closed]: !isOpen, [styles.open]: isOpen })}
+        >
             <Container className={cx(styles.header, { [styles.active]: location.pathname === "/" })} relative>
                 <Link to="/">
                     <Title>{header}</Title>

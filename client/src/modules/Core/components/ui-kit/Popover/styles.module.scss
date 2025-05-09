@@ -1,0 +1,9 @@
+@import "src/modules/Core/styles/mixins.scss";
+.body {
+    display: inline-block;
+    max-width: none;
+    max-height: none;
+    width: auto;
+    height: auto;
+  }
+  

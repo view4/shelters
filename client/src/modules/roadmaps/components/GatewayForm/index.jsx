@@ -49,6 +49,7 @@ export default strappedConnected(
         }, [onSuccess, refetchId]);
 
         const parent = useMemo(() => initialState?.parent ? initialState.parent : parentId && { id: parentId, name: parentName }, [initialState?.parent?.id, parentId, parentName])
+
         return {
             onSubmit: useCallback(({ name, text, parent }) => create(compactObject({
                 name,

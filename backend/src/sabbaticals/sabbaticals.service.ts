@@ -29,7 +29,7 @@ export class SabbaticalsService {
     async completeCycle(userId: ID, shouldStartNewCycle: boolean) {
         await this.cyclesService.completeCurrentCycle(userId);
         if (shouldStartNewCycle) {
-            const booth = await this.boothsService.activeBooth(userId);
+            const booth = await this.boothsService.focusedBooth(userId);
             await this.cyclesService.upsertCycle({ activateCycle: true, boothId: booth._id });
         }
         return true
