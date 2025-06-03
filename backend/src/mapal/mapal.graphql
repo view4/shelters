@@ -1,0 +1,89 @@
+type Query {
+  features(boothId: String, feedParams: FeedParams): FeatureFeed
+  feature(id: ID!): Feature
+  featureVotes(featureId: ID!): [FeatureVote!]!
+  featureComments(featureId: ID!): [FeatureComment!]!
+}
+
+type Mutation {
+  upsertFeature(input: FeatureInput, id: String): Feature!
+  upsertFeatureVote(input: FeatureVoteInput, id: String): FeatureVote!
+  upsertFeatureComment(input: FeatureCommentInput, id: String): FeatureComment!
+  stampFeature(id: String, stampKey: String): Feature
+  upsertMapalBooth(id: String, input: BoothInput): Booth
+}
+
+type FeatureFeed {
+  entities: [Feature]
+  info: FeedInfo
+}
+
+type FeatureStamps {
+  commenced: String
+  completed: String
+  focused: String
+  accepted: String
+  implemented: String
+  deployed: String
+}
+
+type Feature {
+  id: ID!
+  name: String!
+  text: String!
+  stamps: FeatureStamps
+  boothId: ID!
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+  comments: [FeatureComment]
+  votes: [FeatureVote]
+  children: [Feature]
+}
+
+type FeatureVote {
+  id: ID!
+  featureId: ID!
+  text: String!
+  score: Int!
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type FeatureComment {
+  id: ID!
+  featureId: ID!
+  text: String!
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+}
+
+input FeatureInput {
+  name: String!
+  text: String!
+  boothId: ID!
+  stamps: FeatureStampsInput
+  parentId: String
+}
+
+input FeatureVoteInput {
+  featureId: ID!
+  text: String!
+  score: Int!
+}
+
+input FeatureCommentInput {
+  featureId: ID!
+  text: String!
+}
+
+input FeatureStampsInput {
+  commenced: String
+  completed: String
+  focused: String
+  accepted: String
+  implemented: String
+  deployed: String
+}

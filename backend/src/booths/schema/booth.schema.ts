@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose';
 import { User } from 'src/auth/schemas/user.schema';
 import { ObjectType } from '@nestjs/graphql';
 import { Stamps, StampsSchema } from 'src/common/schemas/stamps.schema';
+import { BoothKind } from './booths.schema.consts';
 
 export type BoothDocument = mongoose.HydratedDocument<Booth>;
 
