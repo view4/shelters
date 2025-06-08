@@ -5,11 +5,11 @@ import Title from "modules/Core/components/ui-kit/Title";
 import Button from "modules/Core/components/ui-kit/Button";
 import { Focus, Minimise } from "modules/Core/components/ui-kit/indicators";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
-import styles from "./styles.module.scss";
 import Card from "modules/Core/components/ui-kit/Card";
 import Container from "modules/Core/components/ui-kit/Container";
+import styles from "./styles.module.scss";
 
-const CardHeader = ({ title, isOpen, toggle }) => (
+const CardHeader = ({ title, isOpen, toggle, actions }) => (
     <Container className={styles.cardHeader} flex spaceBetween maxWidth alignCenter>
         <Container>
             <Title>
@@ -17,6 +17,9 @@ const CardHeader = ({ title, isOpen, toggle }) => (
             </Title>
         </Container>
         <Container>
+            {actions?.map(({ Component = Button, ...props }, index) => (
+                <Component key={index} {...props} />
+            ))}
             <Button onClick={toggle}>
                 {isOpen ? <Minimise /> : <Focus />}
             </Button>
@@ -27,12 +30,12 @@ const CardHeader = ({ title, isOpen, toggle }) => (
 // TODO: improve the UI of this please...
 const Placeholder = withShouldRender(() => <Card className={styles.card} />)
 
-const Component = ({ children, className, title, isOpen, open, close, toggle, ...props }) => (
+const Component = ({ children, className, actions, title, isOpen, open, close, toggle, ...props }) => (
     <>
         <Card
             className={cx(styles.card, className, { [styles.focusedCard]: isOpen })}
             HeaderComponent={CardHeader}
-            headerProps={{ title, isOpen, open, close, toggle }}
+            headerProps={{ title, isOpen, actions, open, close, toggle }}
             {...props}
         >
             {children}
@@ -44,7 +47,7 @@ const Component = ({ children, className, title, isOpen, open, close, toggle, ..
 
 export default strapped(
     Component,
-    ({ title,}) => {
+    ({ title, }) => {
         const { isOpen, open, close, toggle } = useIsOpen();
 
         return {

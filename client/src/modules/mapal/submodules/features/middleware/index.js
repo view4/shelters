@@ -8,6 +8,15 @@ const FEATURE_FRAGMENT = `
     text
     stamps {
         commenced
+        prospective
+        committed
+        commenced
+        deployed
+        accepted
+    }
+    currentStamp {
+        key
+        value
     }
     boothId
     user
@@ -29,7 +38,14 @@ const FEATURE_FRAGMENT = `
         updatedAt
     }
     children {
-        ${STAMPS_FRAGMENT}
+        stamps {
+            commenced
+            prospective
+            committed
+            commenced
+            deployed
+            accepted
+        }
         id
         name
         text
@@ -48,11 +64,15 @@ export default new MiddlewareModule({
         `,
         fetchFeed: `
             query features($boothId: String) {
-                features(boothId: $boothId) {
+                feed: features(boothId: $boothId) {
                     entities {
                         id 
                         name
                         text
+                        currentStamp {
+                            key
+                            value
+                        }
                     }
                     info {
                         totalCount
@@ -62,7 +82,7 @@ export default new MiddlewareModule({
         `,
         fetchEntity: `
             query feature($id: ID!) {
-                feature(id: $id) {
+                entity: feature(id: $id) {
                     ${FEATURE_FRAGMENT}
                 }
             }
@@ -70,6 +90,13 @@ export default new MiddlewareModule({
         upsertVote: `
             mutation upsertFeatureVote($input: FeatureVoteInput, $id: String) {
                 upsertFeatureVote(input: $input, id: $id) {
+                    id
+                }
+            }
+        `,
+        stampEntity: `
+            mutation stampFeature($id: String, $key: String) {
+                stampFeature(id: $id, key: $key) {
                     id
                 }
             }

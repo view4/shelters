@@ -1,7 +1,7 @@
 import { initCell } from "modules/Core/core-modules/CoreModuleState/utils/cells";
 import { FEATURES } from "../consts";
 import feed from "./feed";
-import { call, put, } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 import middleware from "../middleware";
 import { onSuccess } from "modules/Core/sub-modules/Dialog/state/cells";
 

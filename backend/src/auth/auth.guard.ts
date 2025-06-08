@@ -16,6 +16,7 @@ export class AuthGuard implements CanActivate {
       request.user = await this.authService.verifyToken(token);
       return true;
     } catch (error) {
+      console.log("here....")
       console.log(error)
       throw new UnauthorizedException('Invalid authentication token');
     }

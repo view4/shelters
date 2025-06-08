@@ -1,0 +1,63 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+    padding: 1rem;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.title {
+    margin-bottom: 1rem;
+}
+
+.description {
+    color: var(--text-secondary);
+}
+
+.content {
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.item {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.voteItem {
+    border: 1px solid $grey36;
+    transition: all 0.2s ease;
+
+    &.upvote {
+        border-color: $ocean_blue72;
+        background: rgba($ocean_blue72, 0.05);
+    }
+
+    &.downvote {
+        border-color: $just_say_ok;
+        background: rgba($just_say_ok, 0.05);
+    }
+} 
+
+.commentInput {
+    margin-top: 1rem;
+    border: 1px solid $grey36;
+    display: flex;
+}
+
+.headerCard {
+    & > div {
+        padding-bottom: 3rem;
+        min-height: 12rem;
+        & > div:last-child {
+            height: 2.5rem;
+            padding-bottom: 0.5rem;
+            button {
+                margin: 0.5rem;
+            }
+        }
+    }
+}

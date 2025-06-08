@@ -9,8 +9,13 @@ type Mutation {
   upsertFeature(input: FeatureInput, id: String): Feature!
   upsertFeatureVote(input: FeatureVoteInput, id: String): FeatureVote!
   upsertFeatureComment(input: FeatureCommentInput, id: String): FeatureComment!
-  stampFeature(id: String, stampKey: String): Feature
+  stampFeature(id: String, key: String): Feature
   upsertMapalBooth(id: String, input: BoothInput): Booth
+}
+
+type MapalBooth {
+  id: String
+  booth: String
 }
 
 type FeatureFeed {
@@ -18,13 +23,18 @@ type FeatureFeed {
   info: FeedInfo
 }
 
+type CurrentStamp {
+  key: String
+  value: String
+}
+
 type FeatureStamps {
-  commenced: String
-  completed: String
   focused: String
-  accepted: String
-  implemented: String
+  prospective: String
+  committed: String
+  commenced: String
   deployed: String
+  accepted: String
 }
 
 type Feature {
@@ -32,7 +42,8 @@ type Feature {
   name: String!
   text: String!
   stamps: FeatureStamps
-  boothId: ID!
+  currentStamp: CurrentStamp
+  boothId: ID
   user: ID!
   createdAt: String!
   updatedAt: String!
@@ -64,7 +75,6 @@ input FeatureInput {
   name: String!
   text: String!
   boothId: ID!
-  stamps: FeatureStampsInput
   parentId: String
 }
 
@@ -77,13 +87,4 @@ input FeatureVoteInput {
 input FeatureCommentInput {
   featureId: ID!
   text: String!
-}
-
-input FeatureStampsInput {
-  commenced: String
-  completed: String
-  focused: String
-  accepted: String
-  implemented: String
-  deployed: String
 }

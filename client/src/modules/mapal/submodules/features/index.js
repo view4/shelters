@@ -2,6 +2,8 @@ import CoreModule from "modules/Core/core-modules/CoreModule";
 import { FEATURES } from "./consts";
 import feed from "./state/feed";
 import cells from "./state";
+import FeatureScreen from "./components/screens/FeatureScreen";
+import withParams from "modules/Core/higher-order-components/withParams";
 
 export default new CoreModule({
     name: FEATURES,
@@ -13,7 +15,10 @@ export default new CoreModule({
         fetchFeed: feed.cells?.fetchFeed,
         fetchEntity: feed.cells?.fetchEntity,
         upsertFeatureVote: cells.upsertFeatureVote,
-        upsertFeatureComment: cells.upsertFeatureComment
+        upsertFeatureComment: cells.upsertFeatureComment,
+        stampEntity: feed.cells?.stampEntity
     },
-    routes: {}
+    routes: {
+        "/feature/:id": withParams(FeatureScreen)
+    }
 }); 

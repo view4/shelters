@@ -1,7 +1,7 @@
 import CoreModule from "modules/Core/core-modules/CoreModule";
 import { MAPAL } from "./consts";
 import feed from "./state/feed";
-import features from "./submodules/features";
+import CreateMapalBoothScreen from "./components/screens/CreateMapalBoothScreen";
 
 export default new CoreModule({
     name: MAPAL,
@@ -11,6 +11,8 @@ export default new CoreModule({
     cells: {
         createEntity: feed.cells?.createEntity
     },
-    routes: {},
+    routes: {
+        "/mapal/create": CreateMapalBoothScreen
+    }
 });
 

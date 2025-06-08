@@ -4,13 +4,20 @@ import Text from "../Text";
 import Date from "../Date";
 import styles from "./styles.module.scss";
 
-const formatter = (date) => {
+const _formatter = (date) => {
     if(!date) return '';
     const d = new window.Date(date);
     return `${String(d.getDate()).padStart(2, '0')}·${String(d.getMonth() + 1).padStart(2, '0')}·${d.getFullYear()}`;
 }
 
-const Stamp = ({ nature='ocean_blue', stamp, timestamp, className, ...props }) => {
+const Stamp = ({ 
+    nature='ocean_blue', 
+    stamp, 
+    timestamp, 
+    className,
+    formatter = _formatter,
+    ...props
+ }) => {
     return (
         <Container
             className={cx(styles.container, className, { [styles[nature]]: true })}

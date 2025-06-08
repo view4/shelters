@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID, InputType, Field, ResolveField, Parent } from '@nestjs/graphql';
 import { MapalService } from './mapal.service';
 import { Feature } from './schema/feature.schema';
 import { FeatureVote } from './schema/feature-vote.schema';
@@ -11,6 +11,25 @@ import { SessionUserT } from 'src/auth/types/SessionUserType';
 import { Booth } from 'src/booths/schema/booth.schema';
 import { BoothInput } from 'src/booths/booths.resolver';
 
+
+export class FeatureStampsInput {
+
+    @Field(() => Date, { nullable: true })
+    prospective?: Date;
+                
+    @Field(() => Date, { nullable: true })
+    committed?: Date;
+
+    @Field(() => Date, { nullable: true })
+    commenced?: Date;
+
+    @Field(() => Date, { nullable: true })
+    deployed?: Date;
+
+    @Field(() => Date, { nullable: true })
+    accepted?: Date;
+}
+
 @InputType()
 export class FeatureInput {
     @Field()
@@ -20,16 +39,19 @@ export class FeatureInput {
     text: string;
 
     @Field()
-    booth: string;
+    boothId: string;
 
     @Field(() => ID, { nullable: true })
     parent?: string;
+
+    @Field(() => FeatureStampsInput, { nullable: true })
+    stamps: FeatureStampsInput;
 }
 
 @InputType()
 export class FeatureVoteInput {
     @Field()
-    feature: string;
+    featureId: string;
 
     @Field()
     score: number;
@@ -41,15 +63,17 @@ export class FeatureVoteInput {
 @InputType()
 export class FeatureCommentInput {
     @Field()
-    feature: string;
+    featureId: string;
 
     @Field()
     text: string;
 }
 
-@Resolver()
+@Resolver(() => Feature)
 export class MapalResolver {
     constructor(private readonly mapalService: MapalService) { }
+
+
 
     // Feature queries and mutations
     @Query(() => [Feature])
@@ -75,9 +99,9 @@ export class MapalResolver {
     @Mutation(() => Feature)
     async stampFeature(
         @Args('id') id: string,
-        @Args('stampKey') stampKey: string,
+        @Args('key') key: string,
     ) {
-        return this.mapalService.stampFeature(id, stampKey);
+        return this.mapalService.stampFeature(id, key);
     }
 
     @Query(() => [FeatureVote])
@@ -110,12 +134,6 @@ export class MapalResolver {
         return this.mapalService.upsertComment(user?.id, input, id);
     }
 
-    // MapalBooth queries and mutations
-    @Query(() => MapalBooth)
-    async mapalBooth(@Args('boothId', { type: () => ID }) boothId: string) {
-        return this.mapalService.mapalBooth(boothId);
-    }
-
     @Mutation(() => Booth)
     @UseGuards(AuthGuard)
     async upsertMapalBooth(
@@ -126,11 +144,18 @@ export class MapalResolver {
         return this.mapalService.upsertMapalBooth(user?.id, input, id);
     }
 
-    @Mutation(() => MapalBooth)
-    async stampMapalBooth(
-        @Args('id') id: string,
-        @Args('stampKey') stampKey: string,
-    ) {
-        return this.mapalService.stampMapalBooth(id, stampKey);
+    @ResolveField(() => ({key: String, value: String}), { nullable: true })
+    async currentStamp(@Parent() feature: Feature) {
+        if (!feature.stamps) return null;
+
+        const stamps = Object.entries(feature.stamps ?? {})
+            .filter(([_, value]) => value instanceof Date)
+            .map(([key, value]) => ({ key,  value }));
+
+        if (stamps.length === 0) return null;
+
+        return stamps.reduce((latest, current) =>
+            current.value > latest.value ? current : latest
+        );
     }
 } 

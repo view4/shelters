@@ -13,6 +13,9 @@ export default new FeedModule({
         },
         fetchEntityCell: {
             requestHandler: middleware.ops.fetchEntity,
+        },
+        stampEntityCell: {
+            requestHandler: middleware.ops.stampEntity,
         }
     }
 }); 

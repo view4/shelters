@@ -43,7 +43,7 @@ export const ExpandableCardComponent = ({
             children: children && (
                 <Container flex row alignCenter>
                     {headerProps?.appendage}
-                    <Button className={c(styles.chevronBtn, toggleButtonClassName)} onClick={toggle} hover={false} />,
+                    <Button className={c(styles.chevronBtn, toggleButtonClassName)} onClick={toggle} hover={false} />
                 </Container>
             ),
             Element: "h4",

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { Feature } from './schema/feature.schema';
 import { FeatureVote } from './schema/feature-vote.schema';
 import { FeatureComment } from './schema/feature-comment.schema';
@@ -23,7 +23,9 @@ export class MapalService {
 
   // Feature methods
   async upsertFeature(userId: ID, input: FeatureInput, id?: string): Promise<Feature> {
-    return upsert(this.featureModel, { ...input, user: userId }, id);
+    const data = { ...input, booth: input.boothId, user: userId };
+    if (!id) data.stamps = { prospective: new Date() };
+    return upsert(this.featureModel, data, id);
   }
 
   async features(boothId?: string) {
@@ -61,15 +63,19 @@ export class MapalService {
     );
   }
 
-  async feature(id: string): Promise<Feature> {
-    const [feature] = await aggregate(this.featureModel, {}, [
-      { $match: { _id: id } },
+  async feature(id: ID): Promise<Feature> {
+    const [feature] = await aggregate(this.featureModel, [
+      { $match: { _id: new mongoose.Types.ObjectId(id) } },
+      { $limit: 1 },
       {
         $lookup: {
           from: 'featurevotes',
           localField: '_id',
           foreignField: 'feature',
-          as: 'votes'
+          as: 'votes',
+          pipeline: [
+            { $addFields: { id: '$_id' } }
+          ]
         }
       },
       {
@@ -77,7 +83,10 @@ export class MapalService {
           from: 'featurecomments',
           localField: '_id',
           foreignField: 'feature',
-          as: 'comments'
+          as: 'comments',
+          pipeline: [
+            { $addFields: { id: '$_id' } }
+          ]
         }
       },
       {
@@ -97,6 +106,8 @@ export class MapalService {
               in: { $add: ['$$value', '$$this.score'] }
             }
           },
+          id: '$_id',
+          boothId: '$booth',
           totalComments: {
             $size: '$comments'
           }
@@ -108,7 +119,7 @@ export class MapalService {
 
   // FeatureVote methods
   async upsertVote(userId: ID, input: FeatureVoteInput, id?: string): Promise<FeatureVote> {
-    return upsert(this.featureVoteModel, { ...input, user: userId }, id);
+    return upsert(this.featureVoteModel, { ...input, user: userId, feature: input.featureId }, id);
   }
 
   async featureVotes(featureId: string): Promise<FeatureVote[]> {
@@ -117,16 +128,16 @@ export class MapalService {
 
   // FeatureComment methods
   async upsertComment(userId: ID, input: FeatureCommentInput, id?: string): Promise<FeatureComment> {
-    return upsert(this.featureCommentModel, { ...input, user: userId }, id);
+    return upsert(this.featureCommentModel, { ...input, user: userId, feature: input.featureId }, id);
   }
 
   async featureComments(featureId: string): Promise<FeatureComment[]> {
     return filter(this.featureCommentModel, { featureId });
   }
 
-  async stampFeature(id: string, stampKey: string): Promise<Feature> {
+  async stampFeature(id: string, key: string): Promise<Feature> {
     const update = {};
-    update[`stamps.${stampKey}`] = new Date();
+    update[`stamps.${key}`] = new Date();
     return upsert(this.featureModel, update, id);
   }
 

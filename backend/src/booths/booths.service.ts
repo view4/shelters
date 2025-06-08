@@ -2,7 +2,7 @@ import { Injectable, Inject, forwardRef } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Booth, BoothDocument } from "./schema/booth.schema";
 import mongoose, { Model, Types } from "mongoose";
-import { aggregateFeed, count, create, filterOne, upsert, upsertOne } from "src/common/utils/db";
+import { aggregate, aggregateFeed, count, create, filterOne, upsert, upsertOne } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { FeedParams, ID } from "src/common/types";
 import { MembershipService } from "src/auth/membership.service";
@@ -17,15 +17,41 @@ export class BoothsService {
 
     async booths(userId: ID, feedParams?: FeedParams, pipeline: any[] = []) {
         // await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);
-        return aggregateFeed(
+        const res = await aggregateFeed(
             this.boothModel,
             {
                 sort: { createdAt: -1 },
                 match: { user: new mongoose.Types.ObjectId(userId) },
                 ...feedParams
             },
-            pipeline
+            [
+                {
+                    $lookup: {
+                        from: 'mapalbooths',
+                        localField: '_id',
+                        foreignField: 'booth',
+                        as: 'mapal',
+                        pipeline: [
+                            {
+                                $addFields: {
+                                    id: '$_id',
+                                }
+                            }
+                        ]
+                    },
+                },
+                {
+                    $addFields: {
+                        mapal: {
+                            $first: '$mapal'
+                        }
+                    }
+                },
+                ...pipeline
+            ]
         );
+        console.log(res.entities)
+        return res;
     }
 
     async activeBooths(userId: ID) {
@@ -47,10 +73,39 @@ export class BoothsService {
 
     async booth(userId: ID, id: string) {
         await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);
-        return filterOne(this.boothModel, {
-            _id: new mongoose.Types.ObjectId(id),
-            user: new mongoose.Types.ObjectId(userId)
-        });
+        const [booth] = await aggregate(this.boothModel, [
+            {
+                $match: {
+                    _id: new mongoose.Types.ObjectId(id),
+                    user: new mongoose.Types.ObjectId(userId)
+                }
+            },
+            {
+                $limit: 1
+            },
+            {
+                $lookup: {
+                    from: 'mapalbooths',
+                    localField: '_id',
+                    foreignField: 'booth',
+                    as: 'mapal',
+                    pipeline: [
+                        {
+                            $addFields: {
+                                id: '$_id',
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                $addFields: {
+                    mapal: { $first: '$mapal' },
+                    id: '$_id'
+                }
+            }
+        ])
+        return booth;
     }
 
     async validateMembership(userId: ID, count = this.FREE_TIER_BOOTH_COUNT) {
@@ -89,8 +144,8 @@ export class BoothsService {
         return upsert(this.boothModel, { user: userId }, boothId);
     }
 
-    async checkBoothIsFocused( booth) {
-        if (!booth.stamps.focused) return false;
+    async checkBoothIsFocused(booth) {
+        if (!booth?.stamps?.focused) return false;
         const focusedBooth = await this.focusedBooth(booth.user);
         return focusedBooth?._id.equals(booth._id);
     }

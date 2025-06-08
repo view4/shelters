@@ -6,12 +6,8 @@ export default new MiddlewareModule({
     operations: {
         create: `
             mutation upsertMapalBooth($id: String, $input: BoothInput) {
-                upsertMapalBooth(id: $id, input: $input) {
+                entity: upsertMapalBooth(id: $id, input: $input) {
                     id
-                    name
-                    text
-                    createdAt
-                    updatedAt
                 }
             }
         `
