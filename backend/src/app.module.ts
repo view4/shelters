@@ -16,6 +16,7 @@ import { FirebaseModule } from './auth/submodules/firebase/firebase.module';
 import { TransactionModule } from './transactions/transaction.module';
 import { StripeModule } from './transactions/submodules/stripe/stripe.module';
 import { MapalModule } from './mapal/mapal.module';
+import { MalchutModule } from './malchut/malchut.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { MapalModule } from './mapal/mapal.module';
     StripeModule,
     TransactionModule,
     MapalModule,
+    MalchutModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -8,6 +8,7 @@ import { FeatureComment, FeatureCommentSchema } from './schema/feature-comment.s
 import { MapalBooth, MapalBoothSchema } from './schema/mapal-booth.schema';
 import { BoothsModule } from 'src/booths/booths.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { EntriesModule } from 'src/entries/entries.module';
 
 @Module({
   imports: [
@@ -18,8 +19,8 @@ import { AuthModule } from 'src/auth/auth.module';
       { name: MapalBooth.name, schema: MapalBoothSchema },
     ]),
     BoothsModule,
-    forwardRef(() => AuthModule)
-
+    forwardRef(() => AuthModule),
+    EntriesModule,
   ],
   providers: [MapalService, MapalResolver],
   exports: [MapalService],

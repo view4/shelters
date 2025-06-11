@@ -5,11 +5,12 @@ import { Feature } from './schema/feature.schema';
 import { FeatureVote } from './schema/feature-vote.schema';
 import { FeatureComment } from './schema/feature-comment.schema';
 import { MapalBooth } from './schema/mapal-booth.schema';
-import { aggregate, aggregateFeed, fetchOne, filter, filterOne, upsert } from 'src/common/utils/db';
+import { aggregate, aggregateFeed, fetchOne, filter, filterOne, upsert, upsertOne } from 'src/common/utils/db';
 import { ID } from 'src/common/types';
 import { BoothsService } from 'src/booths/booths.service';
 import { BoothInput } from 'src/booths/booths.resolver';
 import { FeatureCommentInput, FeatureInput, FeatureVoteInput } from './mapal.resolver';
+import { CommentsService } from 'src/entries/comments.service';
 
 @Injectable()
 export class MapalService {
@@ -19,6 +20,7 @@ export class MapalService {
     @InjectModel(FeatureComment.name) private featureCommentModel: Model<FeatureComment>,
     @InjectModel(MapalBooth.name) private mapalBoothModel: Model<MapalBooth>,
     private readonly boothsService: BoothsService,
+    private readonly commentsService: CommentsService,
   ) { }
 
   // Feature methods
@@ -83,6 +85,14 @@ export class MapalService {
           from: 'featurecomments',
           localField: '_id',
           foreignField: 'feature',
+          as: 'featureComments'
+        }
+      },
+      {
+        $lookup: {
+          from: 'comments',
+          localField: 'featureComments.comment',
+          foreignField: '_id',
           as: 'comments',
           pipeline: [
             { $addFields: { id: '$_id' } }
@@ -128,7 +138,17 @@ export class MapalService {
 
   // FeatureComment methods
   async upsertComment(userId: ID, input: FeatureCommentInput, id?: string): Promise<FeatureComment> {
-    return upsert(this.featureCommentModel, { ...input, user: userId, feature: input.featureId }, id);
+    // First create/update the base comment
+    const comment = await this.commentsService.upsertComment(userId, { text: input.text }, id);
+    
+    // Then create/update the feature-specific reference
+    return upsertOne(this.featureCommentModel, {
+      comment: comment._id,
+      feature: input.featureId,
+    }, {
+      comment: comment._id,
+      feature: input.featureId,
+    });
   }
 
   async featureComments(featureId: string): Promise<FeatureComment[]> {

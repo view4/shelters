@@ -19,6 +19,9 @@ export class Booth {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
 
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Booth' })
+  parent: Booth;
+
   @Prop({ type: StampsSchema })
   stamps: Stamps
 }
