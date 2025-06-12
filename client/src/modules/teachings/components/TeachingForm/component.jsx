@@ -1,17 +1,11 @@
 import React from "react";
 import Modal from "modules/Core/components/ui-kit/Modal";
-import styles from "./styles.module.scss";
 import SchemaForm from "modules/Core/components/form/Form/SchemaForm";
-import VoteButtons from "../VoteButtons";
+import styles from "./styles.module.scss";
 
 const schema = {
     title: "Teachings",
     fields: {
-        // name: {
-        //     type: "text",
-        //     label: "Name",
-        //     required: true
-        // },
         text: {
             type: "textarea",
             label: "Description",

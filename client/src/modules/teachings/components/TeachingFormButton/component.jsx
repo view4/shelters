@@ -1,11 +1,12 @@
 import React from "react";
 import Button from "modules/Core/components/ui-kit/Button";
+import Container from "modules/Core/components/ui-kit/Container";
 import TeachingForm from "../TeachingForm";
 import styles from "./styles.module.scss";
 
 const TeachingFormButton = ({ isOpen, onOpen, onClose, initialValues, boothId }) => {
     return (
-        <div className={styles.container}>
+        <Container className={styles.container} flex row>
             <Button onClick={onOpen}>
                 {initialValues ? "Edit" : "Add Teaching"}
             </Button>
@@ -16,7 +17,7 @@ const TeachingFormButton = ({ isOpen, onOpen, onClose, initialValues, boothId })
                 initialValues={initialValues}
                 boothId={boothId}
             />
-        </div>
+        </Container>
     );
 };
 

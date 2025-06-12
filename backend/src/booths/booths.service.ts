@@ -47,10 +47,24 @@ export class BoothsService {
                         }
                     }
                 },
+                {
+                    $lookup: {
+                        from: 'malchutbooths',
+                        localField: '_id',
+                        foreignField: 'booth',
+                        as: 'malchut',
+                    }
+                },
+                {
+                    $addFields: {
+                        malchut: {
+                            $first: '$malchut'
+                        }
+                    }
+                },
                 ...pipeline
             ]
         );
-        console.log(res.entities)
         return res;
     }
 
