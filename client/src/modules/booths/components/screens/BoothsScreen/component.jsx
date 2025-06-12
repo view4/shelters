@@ -4,15 +4,16 @@ import Container from "modules/Core/components/ui-kit/Container"
 import RedirectButton from "modules/Core/components/ui-kit/RedirectButton"
 import StampedFeedItem, { FeedItemStamps } from "modules/Core/components/Feed/StampedFeedItem"
 import BoothScreen from "modules/shelter/components/BoothScreen"
-import styles from "./styles.module.scss"
 import Stamp from "modules/Core/components/ui-kit/Stamp"
+import styles from "./styles.module.scss"
 
 const Feed = feed.FeedComponent;
 
-const FeedItem = ({mapal, stamps, ...props}) => (
+const FeedItem = ({ mapal, stamps, malchut, ...props }) => (
     <StampedFeedItem
         headerChildren={<Container flex row >
-            {mapal?.id && <Stamp nature='somewhat_certain' stamp={"Mapal"}/>}
+            {mapal?.id && <Stamp nature='somewhat_certain' stamp={"Mapal"} />}
+            {malchut?.id && <Stamp nature='somewhat_certain' stamp={"Teachings"} />}
             <FeedItemStamps stamps={stamps} />
         </Container>}
         {...props}

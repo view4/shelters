@@ -17,8 +17,6 @@ const FeatureCommentInput = ({ isOpen, text, onTextChange, className, onSubmit, 
     }
 
     return (
-        // <Container className={cx(styles.container, className)}>
-
 
         <Modal
             isOpen={isOpen}
@@ -45,9 +43,6 @@ const FeatureCommentInput = ({ isOpen, text, onTextChange, className, onSubmit, 
                 </Button>
             </Container>
         </Modal>
-
-        // </Container>
-
     );
 };
 
