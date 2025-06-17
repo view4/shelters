@@ -29,7 +29,8 @@ export class MapalService {
   }
 
   async features(boothId?: string) {
-    const match = boothId ? { booth: boothId } : {};
+    console.log('boothId', boothId);
+    const match = boothId ? { booth: new mongoose.Types.ObjectId(boothId) } : {};
     return aggregateFeed(
       this.featureModel,
       {},
@@ -143,7 +144,6 @@ export class MapalService {
 
   // MapalBooth methods
   async upsertMapalBooth(userId: ID, input: BoothInput, id?: string): Promise<any> {
-    // First upsert the booth
     const booth = await this.boothsService.upsertBooth(userId, input, id);
     if (id) return booth;
 
@@ -151,7 +151,7 @@ export class MapalService {
       booth: booth._id,
     });
 
-    return { ...booth.toObject(), mapalBoothId: mapalBooth._id };
+    return { ...booth.toObject(), id: booth._id, mapalBoothId: mapalBooth._id };
   }
 
   async mapalBooth(boothId: string): Promise<MapalBooth> {

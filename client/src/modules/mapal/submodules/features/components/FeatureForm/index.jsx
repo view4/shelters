@@ -10,14 +10,17 @@ export default strappedConnected(
     {},
     {
         onSubmit: feed.cells.createEntity.action,
+        refetchFeed: feed.cells.fetchFeed.action,
     },
-    ({ onSubmit, initialValues, id, boothId,  }) => {
+    ({ onSubmit, id, boothId, onSuccess: _onSuccess, refetchFeed }) => {
         const onSuccess = useOnSuccess();
         const callback = useCallback((res) => {
-            if (!res?.id) return null;
+            if (!res?.upsertFeature?.id) return null;
             onSuccess("Feature created successfully");
+            refetchFeed({ renewStream: true });
+            _onSuccess?.();
             return res;
-        }, [onSuccess]);
+        }, [onSuccess, _onSuccess, refetchFeed]);
 
         return {
             onSubmit: useCallback(({ name, text }) => {

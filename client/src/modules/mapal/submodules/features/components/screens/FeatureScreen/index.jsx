@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import cx from 'classnames';
 import Text from "modules/Core/components/ui-kit/Text";
 import Container from "modules/Core/components/ui-kit/Container";
@@ -23,37 +23,102 @@ const formatter = (date) => {
     return `${String(d.getDate()).padStart(2, '0')}·${String(d.getMonth() + 1).padStart(2, '0')}·${d.getFullYear()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
 };
 
-const Component = ({ feature, currentStamp }) => {
-    if (!feature) return null;
+const StrappedStamp = strappedConnected(Stamp, {
+    currentStamp: (state, { featureId }) => feed.cells.fetchEntity.selectField(featureId, "currentStamp")(state)
+}, {
+}, ({ featureId, fetchFeature, feature, currentStamp }) => {
+    return {
+        stamp: currentStamp?.key,
+        timestamp: currentStamp?.value,
+    }
+})
+
+const VotesCard = strappedConnected(IntrospectionCard,
+    {
+        votes: (state, { featureId }) => feed.cells.fetchEntity.selectField(featureId, "votes")(state)
+    },
+    {
+        // fetchFeature: feed.cells.fetchEntity.action
+    },
+    ({ featureId, votes }) => {
+        return {
+            title: "Votes",
+            actions: [{ Component: FeatureVoteButton, featureId }],
+            children: votes?.length ? (
+                votes.map(vote => (
+                    <Container key={vote.id} className={cx(
+                        styles.item,
+                        styles.voteItem,
+                        { [styles.upvote]: vote.score === 1 },
+                        { [styles.downvote]: vote.score === -1 }
+                    )}
+                    >
+                        <Container flex row spaceBetween alignCenter>
+                            <Container flex alignCenter gap1>
+                                <Container>
+                                    {vote.score === 1 ? <UpArrow /> : <DownArrow />}
+                                </Container>
+                                <Text>{vote.text}</Text>
+                            </Container>
+                            <Container flex alignCenter gap1>
+                                <Stamp timestamp={vote.createdAt} formatter={formatter} />
+                            </Container>
+                        </Container>
+                    </Container>
+                ))
+            ) : <Text>No votes yet</Text>,
+        }
+    })
+
+const CommentsCard = strappedConnected(IntrospectionCard, {
+    comments: (state, { featureId }) => feed.cells.fetchEntity.selectField(featureId, "comments")(state)
+}, {
+},
+    ({ featureId, comments }) => {
+        return {
+            title: "Comments",
+            actions: [{ Component: FeatureCommentInput, className: styles.commentInput, featureId }],
+            children: comments?.length ? (
+                comments.map(comment => (
+                    <Container key={comment.id} bg1 flex lightShadow row spaceBetween p1>
+                    
+                        <Text>{comment.text}</Text>
+                        <Stamp timestamp={comment.createdAt} formatter={formatter} />
+                    </Container>
+                ))
+            ) : <Text>No comments yet</Text>,
+        }
+    })
+
+const Component = ({ boothId, name, text, feature, currentStamp, id }) => {
+    if (!boothId) return null;
 
     console.log(feature);
     console.log(JSON.stringify(currentStamp, null, 2));
     return (
-        <BoothScreen>
+        <BoothScreen boothId={boothId}>
             <Container className={styles.container}>
                 <Card relative className={styles.headerCard}
                 >
-                    <Title>{feature.name}</Title>
-                    <Text>{feature.text}</Text>
+                    <Title>{name}</Title>
+                    <Text>{text}</Text>
                     <Container flex row spaceBetween absolute maxWidth bottom alignCenter>
-                        {currentStamp && (
-                            <Stamp
-                                stamp={currentStamp.key}
-                                timestamp={currentStamp.value}
-                            />
-                        )}
+                        {/* {currentStamp && ( */}
+                        <StrappedStamp
+                            featureId={id}
+                        />
+                        {/* )} */}
                         <Container flex row gap1>
 
                             <StampFeatureButton
-                                id={feature.id}
-                                currentStamp={currentStamp}
+                                featureId={id}
                             />
                             <FeatureFormButton
                                 initialValues={{
-                                    name: feature.name,
-                                    text: feature.text
+                                    name,
+                                    text
                                 }}
-                                id={feature.id}
+                                id={id}
                             />
                         </Container>
 
@@ -61,55 +126,8 @@ const Component = ({ feature, currentStamp }) => {
                 </Card>
 
                 <Container flex col maxHeight maxWidth className={styles.content}>
-                    <IntrospectionCard
-                        actions={[{ Component: FeatureVoteButton, featureId: feature.id }]}
-                        title="Votes"
-                    >
-                        {feature.votes?.length ? (
-                            feature.votes.map(vote => (
-                                <Container
-                                    key={vote.id}
-                                    className={cx(
-                                        styles.item,
-                                        styles.voteItem,
-                                        { [styles.upvote]: vote.score === 1 },
-                                        { [styles.downvote]: vote.score === -1 }
-                                    )}
-                                >
-                                    <Container flex row spaceBetween alignCenter>
-                                        <Container flex alignCenter gap1>
-                                            <Container>
-                                                {vote.score === 1 ? <UpArrow /> : <DownArrow />}
-                                            </Container>
-                                            <Text>{vote.text}</Text>
-                                        </Container>
-
-                                        <Container flex alignCenter gap1>
-                                            <Stamp timestamp={vote.createdAt} formatter={formatter} />
-                                        </Container>
-                                    </Container>
-                                </Container>
-                            ))
-                        ) : (
-                            <Text>No votes yet</Text>
-                        )}
-                    </IntrospectionCard>
-
-                    <IntrospectionCard
-                        title="Comments"
-                        actions={[{ Component: FeatureCommentInput, className: styles.commentInput, featureId: feature.id }]}
-                    >
-                        {feature.comments?.length ? (
-                            feature.comments.map(comment => (
-                                <Container key={comment.id} bg1 flex row spaceBetween p1 className={styles.item}>
-                                    <Text>{comment.text}</Text>
-                                    <Stamp timestamp={comment.createdAt} formatter={formatter} />
-                                </Container>
-                            ))
-                        ) : (
-                            <Text>No comments yet</Text>
-                        )}
-                    </IntrospectionCard>
+                    <VotesCard featureId={id} />
+                    <CommentsCard featureId={id} />
                 </Container>
             </Container>
         </BoothScreen>
@@ -119,18 +137,16 @@ const Component = ({ feature, currentStamp }) => {
 export default strappedConnected(
     Component,
     {
-        feature: (state, { id }) => feed.cells.fetchEntity.selector(id)(state)
+        boothId: (state, { id }) => feed.cells.fetchEntity.selectField(id, "boothId")(state),
+        name: (state, { id }) => feed.cells.fetchEntity.selectField(id, "name")(state),
+        text: (state, { id }) => feed.cells.fetchEntity.selectField(id, "text")(state),
     },
     {
         fetchFeature: feed.cells.fetchEntity.action
     },
-    ({ id, fetchFeature, feature }) => {
+    ({ id, fetchFeature, feature, }) => {
         useOnLoad(() => {
             fetchFeature({ id });
         }, id && !feature?.id, [id]);
-        return {
-            id,
-            currentStamp: useMemo(() => feature?.currentStamp, [feature])
-        }
     }
 ); 

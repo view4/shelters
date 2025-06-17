@@ -1,5 +1,4 @@
 import React from "react";
-import cx from "classnames";
 import Button from "modules/Core/components/ui-kit/Button";
 import Input from "modules/Core/components/ui-kit/Input";
 import Container from "modules/Core/components/ui-kit/Container";
@@ -17,9 +16,6 @@ const FeatureCommentInput = ({ isOpen, text, onTextChange, className, onSubmit, 
     }
 
     return (
-        // <Container className={cx(styles.container, className)}>
-
-
         <Modal
             isOpen={isOpen}
             onClose={cancel}
@@ -45,9 +41,6 @@ const FeatureCommentInput = ({ isOpen, text, onTextChange, className, onSubmit, 
                 </Button>
             </Container>
         </Modal>
-
-        // </Container>
-
     );
 };
 

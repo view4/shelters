@@ -28,14 +28,13 @@ const Component = ({ id: boothId }) => {
             <IntrospectionCard 
                 className={styles.introspectionCard} 
                 title="Booth Info" 
-                boothId={boothId} 
-                actions={[{ Component: FeatureFormButton, boothId }]}
+                // actions={[{ Component: FeatureFormButton, boothId }]}
             >
+
                 <BoothInfo boothId={boothId} />
             </IntrospectionCard>
             <IntrospectionCard
                 title="Features"
-                boothId={boothId}
                 maxWidth
                 maxHeight
                 className={styles.introspectionCard}

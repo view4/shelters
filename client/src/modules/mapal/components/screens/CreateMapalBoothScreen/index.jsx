@@ -18,10 +18,11 @@ export default strappedConnected(
         const onSuccess = useOnSuccess();
 
         const callback = useCallback((res) => {
+            console.log({ res });
             if (!res?.id) return null;
             onSuccess("Booth created successfully");
-            navigate(`/feature/${res.id}`);
-        }, [navigate]);
+            navigate(`/booths/${res.id}`);
+        }, [navigate, onSuccess]);
 
         return {
             onSubmit: useCallback(({ name, text }) => {

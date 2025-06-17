@@ -1,15 +1,16 @@
-import React from "react";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import cells from "../../state";
+import feed from "../../state/feed";
 import Component from "./component";
 
 export default strappedConnected(
     Component,
     {},
     {
-        upsertFeatureVote: cells.upsertFeatureVote.action
+        upsertFeatureVote: cells.upsertFeatureVote.action,
+        refetchEntity: feed.cells.fetchEntity.action
     },
-    ({ featureId, upsertFeatureVote, isOpen, onClose }) => {
+    ({ featureId, upsertFeatureVote, isOpen, onSuccess, refetchEntity }) => {
         const handleSubmit = (data) => {
             upsertFeatureVote({
                 input: {
@@ -17,12 +18,12 @@ export default strappedConnected(
                     ...data
                 }
             });
-            onClose();
+            refetchEntity({ id: featureId });
+            onSuccess();
         };
 
         return {
             isOpen,
-            onClose,
             onSubmit: handleSubmit
         };
     }

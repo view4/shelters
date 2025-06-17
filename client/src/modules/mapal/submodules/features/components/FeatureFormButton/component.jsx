@@ -12,9 +12,9 @@ const FeatureFormButton = ({ isOpen, onOpen, onClose, initialValues, boothId }) 
 
             <FeatureForm
                 isOpen={isOpen}
-                onClose={onClose}
                 initialValues={initialValues}
                 boothId={boothId}
+                onSuccess={onClose}
             />
         </div>
     );

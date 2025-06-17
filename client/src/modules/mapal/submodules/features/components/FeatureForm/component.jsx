@@ -3,9 +3,10 @@ import Modal from "modules/Core/components/ui-kit/Modal";
 import styles from "./styles.module.scss";
 import SchemaForm from "modules/Core/components/form/Form/SchemaForm";
 import VoteButtons from "../VoteButtons";
+import Title from "modules/Core/components/ui-kit/Title";
 
 const schema = {
-    title: "Feature",
+    header: "Feature Form",
     fields: {
         name: {
             type: "text",
@@ -27,6 +28,7 @@ const FeatureForm = ({ isOpen, onClose, onSubmit, initialValues }) => {
             onClose={onClose}
             title={initialValues ? "Edit Feature" : "Create Feature"}
         >
+            {/* <Title ml3>Feature Form:</Title> */}
             <SchemaForm
                 schema={schema}
                 onSubmit={onSubmit}
