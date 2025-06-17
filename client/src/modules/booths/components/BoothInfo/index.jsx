@@ -28,7 +28,7 @@ export default withFocusedBoothId(strappedConnected(
             },
             {
                 content: <Features row features={[
-                    { name: "Commenced", content: <Stamp className={styles.stamp} timestamp={booth?.stamps?.commenced} /> },
+                    booth?.stamps?.commenced && { name: "Commenced", content: <Stamp className={styles.stamp} timestamp={booth?.stamps?.commenced} /> },
                     booth?.stamps?.completed && { name: "Completed", content: <Stamp className={styles.stamp} timestamp={booth?.stamps?.completed} /> },
                     booth?.stamps?.focused && { name: "Focused", content: <Stamp className={styles.stamp} timestamp={booth?.stamps?.focused} /> }
                 ]} />

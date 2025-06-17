@@ -49,3 +49,7 @@
     @include bordered-text($success_street);
 }
 
+.somewhat_certain {
+    @include bordered-text($somewhat_certain);
+}
+

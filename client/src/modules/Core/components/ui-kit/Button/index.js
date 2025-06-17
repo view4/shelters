@@ -9,14 +9,14 @@ import ClickableCard from './ClickableCard';
 import RedirectButton from '../RedirectButton';
 import PanelButton from '../PanelButton';
 import WidgetButton from '../Widget/WidgetButton';
-import styles from './styles.module.scss';
 import ModalButton from './ModalButton';
+import styles from './styles.module.scss';
 
 
-const _Button = ({ onClick, children, active, nature = "grey-blue", className, text, rightIndicator, loading, hover=true, ...props }) => (
+const _Button = ({ onClick, children, active, nature = "grey-blue", className, text, rightIndicator, loading, hover = true, ...props }) => (
     <__Button
         onClick={onClick}
-        className={c(styles.btn_base, className, styles[nature], {[styles.hover]: hover, [styles.active]: active})}
+        className={c(styles.btn_base, className, styles[nature], { [styles.hover]: hover, [styles.active]: active })}
         disabled={loading}
         endIcon={rightIndicator}
         {...props}
@@ -44,7 +44,7 @@ const DownloadButton = ({ download, ...props }) => {
         link.click();
         document.body.removeChild(link);
     }, [download]);
-    
+
     return <Button  {...props} onClick={onClick} />
 }
 

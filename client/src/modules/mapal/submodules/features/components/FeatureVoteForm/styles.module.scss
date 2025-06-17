@@ -1,0 +1,16 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.voteButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 1.25rem;
+    & > p {
+        margin: unset;
+        line-height: unset;
+    }
+    & button {
+        border: 1px solid $ocean_blue;
+    }
+}

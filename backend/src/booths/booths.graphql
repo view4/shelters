@@ -23,6 +23,8 @@ type Booth {
   createdAt: String
   stamps: Stamps
   isFocused: Boolean
+  mapalId: String
+  mapal: MapalBooth
 }
 
 input BoothInput {

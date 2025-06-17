@@ -15,6 +15,7 @@ import { EntriesModule } from './entries/entries.module';
 import { FirebaseModule } from './auth/submodules/firebase/firebase.module';
 import { TransactionModule } from './transactions/transaction.module';
 import { StripeModule } from './transactions/submodules/stripe/stripe.module';
+import { MapalModule } from './mapal/mapal.module';
 
 @Module({
   imports: [
@@ -26,7 +27,6 @@ import { StripeModule } from './transactions/submodules/stripe/stripe.module';
         uri: configService.get<string>('MONGO_URL'),
         serverSelectionTimeoutMS: 5000,
       }),
-
     }),
     GraphQLModule.forRoot<YogaDriverConfig>({
       driver: YogaDriver,
@@ -44,6 +44,7 @@ import { StripeModule } from './transactions/submodules/stripe/stripe.module';
     FirebaseModule,
     StripeModule,
     TransactionModule,
+    MapalModule,
   ],
   controllers: [AppController],
   providers: [AppService],

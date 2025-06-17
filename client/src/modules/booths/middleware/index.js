@@ -37,6 +37,9 @@ export default new MiddlewareModule({
                 text
                 ${STAMPS_FRAGMENT}
                 createdAt
+                mapal {
+                  id
+                }
               }
             }
           }
@@ -60,6 +63,9 @@ export default new MiddlewareModule({
               text
               ${STAMPS_FRAGMENT}
               isFocused
+              mapal {
+                id
+              }
             }
           }
     `,
