@@ -4,7 +4,6 @@ import strappedConnected from "modules/Core/higher-order-components/strappedConn
 import feed from "modules/mapal/state/feed";
 import Component from "./component";
 import useOnSuccess from "modules/Core/sub-modules/Dialog/hooks/useOnSuccess";
-// import { showSuccess } from "modules/Core/state/notifications";
 
 
 export default strappedConnected(
@@ -18,7 +17,6 @@ export default strappedConnected(
         const onSuccess = useOnSuccess();
 
         const callback = useCallback((res) => {
-            console.log({ res });
             if (!res?.id) return null;
             onSuccess("Booth created successfully");
             navigate(`/booths/${res.id}`);

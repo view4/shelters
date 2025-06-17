@@ -9,7 +9,7 @@ import { aggregate, aggregateFeed, fetchOne, filter, filterOne, upsert } from 's
 import { ID } from 'src/common/types';
 import { BoothsService } from 'src/booths/booths.service';
 import { BoothInput } from 'src/booths/booths.resolver';
-import { FeatureCommentInput, FeatureInput, FeatureVoteInput } from './mapal.resolver';
+import { FeatureCommentInput, FeatureInput, FeatureVoteInput } from './schema/feature-inputs.schema';
 
 @Injectable()
 export class MapalService {
@@ -23,13 +23,17 @@ export class MapalService {
 
   // Feature methods
   async upsertFeature(userId: ID, input: FeatureInput, id?: string): Promise<Feature> {
-    const data = { ...input, booth: input.boothId, user: userId };
-    if (!id) data.stamps = { prospective: new Date() };
-    return upsert(this.featureModel, data, id);
+    return upsert(this.featureModel, {
+      ...input,
+      booth: input.boothId,
+      user: userId,
+      stamps: id ? {} : {
+        prospective: new Date()
+      }
+    }, id);
   }
 
   async features(boothId?: string) {
-    console.log('boothId', boothId);
     const match = boothId ? { booth: new mongoose.Types.ObjectId(boothId) } : {};
     return aggregateFeed(
       this.featureModel,
@@ -137,9 +141,9 @@ export class MapalService {
   }
 
   async stampFeature(id: string, key: string): Promise<Feature> {
-    const update = {};
-    update[`stamps.${key}`] = new Date();
-    return upsert(this.featureModel, update, id);
+    return upsert(this.featureModel, {
+      [`stamps.${key}`]: new Date()
+    }, id);
   }
 
   // MapalBooth methods
@@ -156,11 +160,5 @@ export class MapalService {
 
   async mapalBooth(boothId: string): Promise<MapalBooth> {
     return filterOne(this.mapalBoothModel, { boothId });
-  }
-
-  async stampMapalBooth(id: string, stampKey: string): Promise<MapalBooth> {
-    const update = {};
-    update[`stamps.${stampKey}`] = new Date();
-    return upsert(this.mapalBoothModel, update, id);
   }
 } 

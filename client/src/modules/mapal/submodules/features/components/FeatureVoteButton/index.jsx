@@ -17,7 +17,7 @@ const FeatureVoteButton = ({ featureId }) => {
             <FeatureVoteForm
                 featureId={featureId}
                 isOpen={isFormVisible}
-                onSuccess={() => setIsFormVisible(false)}
+                onClose={() => setIsFormVisible(false)}
             />
         </div>
     );

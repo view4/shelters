@@ -26,7 +26,7 @@ const formatter = (date) => {
 const StrappedStamp = strappedConnected(Stamp, {
     currentStamp: (state, { featureId }) => feed.cells.fetchEntity.selectField(featureId, "currentStamp")(state)
 }, {
-}, ({ featureId, fetchFeature, feature, currentStamp }) => {
+}, ({ currentStamp }) => {
     return {
         stamp: currentStamp?.key,
         timestamp: currentStamp?.value,
@@ -37,12 +37,11 @@ const VotesCard = strappedConnected(IntrospectionCard,
     {
         votes: (state, { featureId }) => feed.cells.fetchEntity.selectField(featureId, "votes")(state)
     },
-    {
-        // fetchFeature: feed.cells.fetchEntity.action
-    },
+    {},
     ({ featureId, votes }) => {
         return {
             title: "Votes",
+            className: styles.votesCard,
             actions: [{ Component: FeatureVoteButton, featureId }],
             children: votes?.length ? (
                 votes.map(vote => (
@@ -77,11 +76,12 @@ const CommentsCard = strappedConnected(IntrospectionCard, {
     ({ featureId, comments }) => {
         return {
             title: "Comments",
+            className: styles.commentsCard,
             actions: [{ Component: FeatureCommentInput, className: styles.commentInput, featureId }],
             children: comments?.length ? (
                 comments.map(comment => (
                     <Container key={comment.id} bg1 flex lightShadow row spaceBetween p1>
-                    
+
                         <Text>{comment.text}</Text>
                         <Stamp timestamp={comment.createdAt} formatter={formatter} />
                     </Container>
@@ -90,11 +90,9 @@ const CommentsCard = strappedConnected(IntrospectionCard, {
         }
     })
 
-const Component = ({ boothId, name, text, feature, currentStamp, id }) => {
+const Component = ({ boothId, name, text, id }) => {
     if (!boothId) return null;
 
-    console.log(feature);
-    console.log(JSON.stringify(currentStamp, null, 2));
     return (
         <BoothScreen boothId={boothId}>
             <Container className={styles.container}>
@@ -103,11 +101,9 @@ const Component = ({ boothId, name, text, feature, currentStamp, id }) => {
                     <Title>{name}</Title>
                     <Text>{text}</Text>
                     <Container flex row spaceBetween absolute maxWidth bottom alignCenter>
-                        {/* {currentStamp && ( */}
                         <StrappedStamp
                             featureId={id}
                         />
-                        {/* )} */}
                         <Container flex row gap1>
 
                             <StampFeatureButton
@@ -144,9 +140,9 @@ export default strappedConnected(
     {
         fetchFeature: feed.cells.fetchEntity.action
     },
-    ({ id, fetchFeature, feature, }) => {
+    ({ id, fetchFeature, }) => {
         useOnLoad(() => {
             fetchFeature({ id });
-        }, id && !feature?.id, [id]);
+        }, id && [id]);
     }
 ); 
