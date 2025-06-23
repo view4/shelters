@@ -1,11 +1,8 @@
 import React from "react";
 import Modal from "modules/Core/components/ui-kit/Modal";
-import styles from "./styles.module.scss";
 import SchemaForm from "modules/Core/components/form/Form/SchemaForm";
-import VoteButtons from "../VoteButtons";
-
 const schema = {
-    title: "Feature",
+    header: "Feature Form",
     fields: {
         name: {
             type: "text",

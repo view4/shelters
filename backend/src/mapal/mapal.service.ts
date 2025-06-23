@@ -25,13 +25,18 @@ export class MapalService {
 
   // Feature methods
   async upsertFeature(userId: ID, input: FeatureInput, id?: string): Promise<Feature> {
-    const data = { ...input, booth: input.boothId, user: userId };
-    if (!id) data.stamps = { prospective: new Date() };
-    return upsert(this.featureModel, data, id);
+    return upsert(this.featureModel, {
+      ...input,
+      booth: input.boothId,
+      user: userId,
+      stamps: id ? {} : {
+        prospective: new Date()
+      }
+    }, id);
   }
 
   async features(boothId?: string) {
-    const match = boothId ? { booth: boothId } : {};
+    const match = boothId ? { booth: new mongoose.Types.ObjectId(boothId) } : {};
     return aggregateFeed(
       this.featureModel,
       {},
@@ -156,14 +161,13 @@ export class MapalService {
   }
 
   async stampFeature(id: string, key: string): Promise<Feature> {
-    const update = {};
-    update[`stamps.${key}`] = new Date();
-    return upsert(this.featureModel, update, id);
+    return upsert(this.featureModel, {
+      [`stamps.${key}`]: new Date()
+    }, id);
   }
 
   // MapalBooth methods
   async upsertMapalBooth(userId: ID, input: BoothInput, id?: string): Promise<any> {
-    // First upsert the booth
     const booth = await this.boothsService.upsertBooth(userId, input, id);
     if (id) return booth;
 
@@ -171,16 +175,10 @@ export class MapalService {
       booth: booth._id,
     });
 
-    return { ...booth.toObject(), mapalBoothId: mapalBooth._id };
+    return { ...booth.toObject(), id: booth._id, mapalBoothId: mapalBooth._id };
   }
 
   async mapalBooth(boothId: string): Promise<MapalBooth> {
     return filterOne(this.mapalBoothModel, { boothId });
-  }
-
-  async stampMapalBooth(id: string, stampKey: string): Promise<MapalBooth> {
-    const update = {};
-    update[`stamps.${stampKey}`] = new Date();
-    return upsert(this.mapalBoothModel, update, id);
   }
 } 

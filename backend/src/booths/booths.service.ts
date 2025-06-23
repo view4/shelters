@@ -17,7 +17,7 @@ export class BoothsService {
 
     async booths(userId: ID, feedParams?: FeedParams, pipeline: any[] = []) {
         // await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);
-        const res = await aggregateFeed(
+        return aggregateFeed(
             this.boothModel,
             {
                 sort: { createdAt: -1 },
@@ -65,7 +65,6 @@ export class BoothsService {
                 ...pipeline
             ]
         );
-        return res;
     }
 
     async activeBooths(userId: ID) {
@@ -99,6 +98,7 @@ export class BoothsService {
             },
             {
                 $lookup: {
+                    // COULDDO: better way of utilising repeated pipeline segments
                     from: 'mapalbooths',
                     localField: '_id',
                     foreignField: 'booth',

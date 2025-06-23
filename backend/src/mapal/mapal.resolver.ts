@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, ID, InputType, Field, ResolveField, Parent } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID, ResolveField, Parent } from '@nestjs/graphql';
 import { MapalService } from './mapal.service';
 import { Feature } from './schema/feature.schema';
 import { FeatureVote } from './schema/feature-vote.schema';
@@ -10,70 +10,11 @@ import { SessionUser } from 'src/auth/decorators/session-user.decorator';
 import { SessionUserT } from 'src/auth/types/SessionUserType';
 import { Booth } from 'src/booths/schema/booth.schema';
 import { BoothInput } from 'src/booths/booths.resolver';
-
-
-export class FeatureStampsInput {
-
-    @Field(() => Date, { nullable: true })
-    prospective?: Date;
-                
-    @Field(() => Date, { nullable: true })
-    committed?: Date;
-
-    @Field(() => Date, { nullable: true })
-    commenced?: Date;
-
-    @Field(() => Date, { nullable: true })
-    deployed?: Date;
-
-    @Field(() => Date, { nullable: true })
-    accepted?: Date;
-}
-
-@InputType()
-export class FeatureInput {
-    @Field()
-    name: string;
-
-    @Field()
-    text: string;
-
-    @Field()
-    boothId: string;
-
-    @Field(() => ID, { nullable: true })
-    parent?: string;
-
-    @Field(() => FeatureStampsInput, { nullable: true })
-    stamps: FeatureStampsInput;
-}
-
-@InputType()
-export class FeatureVoteInput {
-    @Field()
-    featureId: string;
-
-    @Field()
-    score: number;
-
-    @Field()
-    text: string;
-}
-
-@InputType()
-export class FeatureCommentInput {
-    @Field()
-    featureId: string;
-
-    @Field()
-    text: string;
-}
+import { FeatureInput, FeatureVoteInput, FeatureCommentInput } from './schema/feature-inputs.schema';
 
 @Resolver(() => Feature)
 export class MapalResolver {
     constructor(private readonly mapalService: MapalService) { }
-
-
 
     // Feature queries and mutations
     @Query(() => [Feature])

@@ -6,38 +6,17 @@ import IntrospectionCard from "modules/booths/components/IntrospectionCard";
 import FeatureFormButton from "modules/mapal/submodules/features/components/FeatureFormButton";
 import styles from "./styles.module.scss";
 
-// const tabs = [
-//     {
-//         title: "Features",
-//         Component: FeatureFeed
-//     },
-//     {
-//         title: "Details",
-//         Component: ({ boothId }) => (
-//             <Container flex row alignCenter maxWidth>
-//                 <BoothInfo boothId={boothId} />
-//             </Container>
-//         )
-//     }
-// ]
-
 const Component = ({ id: boothId }) => {
-    console.log("MAPAL booth screen", boothId)
     return (
         <BoothScreen className={styles.screen} boothId={boothId}>
-            <IntrospectionCard 
-                className={styles.introspectionCard} 
-                title="Booth Info" 
-                boothId={boothId} 
-                actions={[{ Component: FeatureFormButton, boothId }]}
+            <IntrospectionCard
+                className={styles.introspectionCard}
+                title="Booth Info"
             >
                 <BoothInfo boothId={boothId} />
             </IntrospectionCard>
             <IntrospectionCard
                 title="Features"
-                boothId={boothId}
-                maxWidth
-                maxHeight
                 className={styles.introspectionCard}
                 actions={[{ Component: FeatureFormButton, boothId }]}
             >
@@ -49,9 +28,7 @@ const Component = ({ id: boothId }) => {
 
 export default strappedConnected(
     Component,
-    {
-    },
-    {
-    },
+    {},
+    {},
     () => ({})
 )

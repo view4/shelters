@@ -9,7 +9,6 @@ export class FirebaseService {
     try {
       return await this.firebaseAdmin.getAuth().verifyIdToken(token);
     } catch (error) {
-      console.log("here....")
       console.log(error)
       throw new UnauthorizedException('Invalid token');
     }

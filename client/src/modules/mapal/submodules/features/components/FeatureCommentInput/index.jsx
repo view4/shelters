@@ -8,7 +8,7 @@ export default strappedConnected(
     Component,
     {},
     {
-        upsertFeatureComment: cells.upsertFeatureComment.action
+        upsertFeatureComment: cells.upsertFeatureComment.action,
     },
     ({ featureId, upsertFeatureComment }) => {
         const { isOpen, open, close } = useIsOpen();
@@ -20,10 +20,11 @@ export default strappedConnected(
                     input: {
                         featureId,
                         text
+                    }, callback: () => {
+                        setText("");
+                        close();
                     }
                 });
-                setText("");
-                close();
             }
         };
 

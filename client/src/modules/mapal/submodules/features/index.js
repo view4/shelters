@@ -16,7 +16,10 @@ export default new CoreModule({
         fetchEntity: feed.cells?.fetchEntity,
         upsertFeatureVote: cells.upsertFeatureVote,
         upsertFeatureComment: cells.upsertFeatureComment,
-        stampEntity: feed.cells?.stampEntity
+        stampEntity: feed.cells?.stampEntity,
+        setFilters: feed.cells?.setFilters,
+
+
     },
     routes: {
         "/feature/:id": withParams(FeatureScreen)
