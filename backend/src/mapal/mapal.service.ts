@@ -9,7 +9,7 @@ import { aggregate, aggregateFeed, fetchOne, filter, filterOne, upsert, upsertOn
 import { ID } from 'src/common/types';
 import { BoothsService } from 'src/booths/booths.service';
 import { BoothInput } from 'src/booths/booths.resolver';
-import { FeatureCommentInput, FeatureInput, FeatureVoteInput } from './mapal.resolver';
+import { FeatureCommentInput, FeatureInput, FeatureVoteInput } from './schema/feature-inputs.schema';
 import { CommentsService } from 'src/entries/comments.service';
 
 @Injectable()

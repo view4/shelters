@@ -15,6 +15,7 @@ export default ({ schema, onSubmit }) => (
         </Container>
         <Container mb3>
             <Button mb3 text='Create Mapal Booth' to="/mapal/create" panel />
+            <Button mb3 text='Create Malchut Booth' to="/teachings/create" panel />
         </Container>
     </Screen>
 )

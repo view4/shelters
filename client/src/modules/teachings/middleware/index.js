@@ -20,7 +20,7 @@ export default new MiddlewareModule({
         `,
         fetchFeed: `
             query teachings($boothId: String) {
-                feed: teachings(boothId: $boothId) {
+                feed: directives(boothId: $boothId) {
                     entities {
                         id
                         name

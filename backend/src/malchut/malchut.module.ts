@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { MalchutService } from './malchut.service';
 import { MalchutResolver } from './malchut.resolver';
 import { MongooseModule } from '@nestjs/mongoose';

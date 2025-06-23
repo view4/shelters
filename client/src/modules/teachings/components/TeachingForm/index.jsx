@@ -9,15 +9,18 @@ export default strappedConnected(
     {},
     {
         onSubmit: feed.cells.createEntity.action,
+        refetch: feed.cells.fetchFeed.action
     },
-    ({ onSubmit, initialValues, id, boothId,  }) => {
+    ({ onSubmit,  id, onClose, refetch, boothId,  }) => {
         const onSuccess = useOnSuccess();
         
         const callback = useCallback((res) => {
             if (!res?.id) return null;
             onSuccess("Teaching created successfully");
+            onClose();
+            refetch({renewStream: true });
             return res;
-        }, [onSuccess]);
+        }, [onSuccess, onClose, refetch]);
 
         return {
             onSubmit: useCallback(({ name, text }) => {

@@ -53,6 +53,13 @@ export class BoothsService {
                         localField: '_id',
                         foreignField: 'booth',
                         as: 'malchut',
+                        pipeline: [
+                            {
+                                $addFields: {
+                                    id: '$_id',
+                                }
+                            }
+                        ]
                     }
                 },
                 {
@@ -115,6 +122,27 @@ export class BoothsService {
             {
                 $addFields: {
                     mapal: { $first: '$mapal' },
+                    id: '$_id'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'malchutbooths',
+                    localField: '_id',
+                    foreignField: 'booth',
+                    as: 'malchut',
+                    pipeline: [
+                        {
+                            $addFields: {
+                                id: '$_id',
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                $addFields: {
+                    malchut: { $first: '$malchut' },
                     id: '$_id'
                 }
             }

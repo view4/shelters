@@ -14,6 +14,11 @@ type DirectiveFeed {
   info: FeedInfo
 }
 
+type MalchutBooth {
+  id: String
+  booth: String
+}
+
 type DirectiveStamps {
   proposed: String
   reviewed: String

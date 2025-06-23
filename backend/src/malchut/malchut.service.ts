@@ -19,7 +19,7 @@ export class MalchutService {
     @InjectModel(DirectiveComment.name) private directiveCommentModel: Model<DirectiveComment>,
     private boothsService: BoothsService,
     private commentsService: CommentsService,
-  ) {}
+  ) { }
 
   // Directive methods
   async upsertDirective(userId: ID, input: any, id?: string): Promise<Directive> {
@@ -28,7 +28,7 @@ export class MalchutService {
   }
 
   async directives(boothId?: string, feedParams?: any) {
-    const match = boothId ? { booth: boothId } : {};
+    const match = boothId ? { booth: new mongoose.Types.ObjectId(boothId) } : {};
     return aggregateFeed(
       this.directiveModel,
       feedParams,
@@ -47,7 +47,14 @@ export class MalchutService {
             from: 'comments',
             localField: 'directiveComments.comment',
             foreignField: '_id',
-            as: 'comments'
+            as: 'comments',
+            pipeline: [
+              {
+                $addFields: {
+                  id: '$_id',
+                }
+              }
+            ]
           }
         },
         {
@@ -121,6 +128,6 @@ export class MalchutService {
       booth: booth._id,
     });
 
-    return { ...booth.toObject(), malchutBoothId: malchutBooth._id };
+    return { ...booth.toObject(), id: booth._id, malchutBoothId: malchutBooth._id };
   }
 } 

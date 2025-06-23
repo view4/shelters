@@ -8,9 +8,6 @@ import { SessionUser } from 'src/auth/decorators/session-user.decorator';
 import { SessionUserT } from 'src/auth/types/SessionUserType';
 import { Booth } from 'src/booths/schema/booth.schema';
 import { BoothInput } from 'src/booths/booths.resolver';
-import { GqlAuthGuard } from 'src/auth/gql-auth.guard';
-import { CurrentUser } from 'src/auth/current-user.decorator';
-import { User } from 'src/users/schema/user.schema';
 
 @Resolver(() => Directive)
 export class MalchutResolver {
@@ -22,7 +19,7 @@ export class MalchutResolver {
     @SessionUser() user: SessionUserT,
     @Args('id', { type: () => ID }) id: string,
   ) {
-    return this.malchutService.directive(user?.id, id);
+    return this.malchutService.directive(id);
   }
 
   @Query(() => [Directive])

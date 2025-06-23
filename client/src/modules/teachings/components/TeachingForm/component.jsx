@@ -6,6 +6,11 @@ import styles from "./styles.module.scss";
 const schema = {
     title: "Teachings",
     fields: {
+        name: {
+            type: "text",
+            label: "Name",
+            required: true
+        },
         text: {
             type: "textarea",
             label: "Description",
@@ -14,7 +19,7 @@ const schema = {
     }
 };
 
-const TeachingForm = ({ isOpen, onClose, onSubmit, initialValues }) => {
+const TeachingForm = ({ isOpen, onClose, initialValues, onSubmit }) => {
     return (
         <Modal
             isOpen={isOpen}
@@ -23,9 +28,8 @@ const TeachingForm = ({ isOpen, onClose, onSubmit, initialValues }) => {
         >
             <SchemaForm
                 schema={schema}
-                onSubmit={onSubmit}
-                onCancel={onClose}
                 initialValues={initialValues}
+                onSubmit={onSubmit}
             />
         </Modal>
     );

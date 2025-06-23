@@ -14,6 +14,7 @@ export default new CoreModule({
         fetchFeed: feed.cells?.fetchFeed,
         upsertComment: state.upsertComment,
         upsertBooth: state.upsertBooth,
+        setFilters: feed.cells?.setFilters,
     },
     routes: {
         "/teachings/create": CreateTeachingsBoothScreen

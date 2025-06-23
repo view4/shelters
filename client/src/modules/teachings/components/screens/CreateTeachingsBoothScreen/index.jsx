@@ -1,16 +1,15 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
-import feed from "modules/mapal/state/feed";
 import Component from "./component";
 import useOnSuccess from "modules/Core/sub-modules/Dialog/hooks/useOnSuccess";
-
+import state from 'modules/teachings/state'
 
 export default strappedConnected(
     Component,
     {},
     {
-        createEntity: feed.cells.createEntity.action
+        createEntity: state.upsertBooth.action
     },
     ({ createEntity }) => {
         const navigate = useNavigate();
@@ -19,8 +18,8 @@ export default strappedConnected(
         const callback = useCallback((res) => {
             if (!res?.id) return null;
             onSuccess("Booth created successfully");
-            navigate(`/feature/${res.id}`);
-        }, [navigate]);
+            navigate(`/booths/${res.id}`);
+        }, [navigate, onSuccess]);
 
         return {
             onSubmit: useCallback(({ name, text }) => {

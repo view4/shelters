@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import cx from "classnames";
 import Container from "modules/Core/components/ui-kit/Container";
 import Text from "modules/Core/components/ui-kit/Text";
@@ -10,6 +10,7 @@ import FeatureCommentInput from "modules/mapal/submodules/features/components/Fe
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
 import state from "modules/teachings/state";
 import styles from "./styles.module.scss";
+import useOnError from "modules/Core/sub-modules/Dialog/hooks/useOnError";
 
 const CommentItem = ({ text, id }) => (
     <Text>
@@ -22,24 +23,32 @@ const CommentInput = strappedConnected(
     FeatureCommentInput,
     {},
     {
-        upsertComment: state.upsertComment.action
+        upsertComment: state.upsertComment.action,
+        refetch: feed.cells.fetchFeed.action
     },
-    ({ upsertComment, teachingId }) => {
+    ({ upsertComment, teachingId, refetch }) => {
         const { isOpen, open, close } = useIsOpen();
         const [text, setText] = useState("");
 
-        const handleSubmit = () => {
+        const onError = useOnError();
+
+
+        const handleSubmit = useCallback(() => {
             if (text.trim()) {
                 upsertComment({
                     input: {
                         directiveId: teachingId,
                         text
+                    },
+                    callback: (res) => {
+                        if (!res?.id) return onError("Failed to add comment");
+                        refetch({ renewStream: true });
                     }
                 });
                 setText("");
                 close();
             }
-        };
+        }, [upsertComment, teachingId, refetch, text, onError, close]);
 
         return {
             isOpen,
@@ -58,10 +67,11 @@ const CommentInput = strappedConnected(
 // COULD DO: Enable Edit here
 const FeedItem = ({ name, text, id, currentStamp, comments }) => (
     <ExpandableFeedItem
-        name={text}
+        name={name}
         className={cx(styles.itemContainer, { [styles.titleless]: !name })}
         size={text?.length > 360 ? "xlg" : text?.length < 180 ? "md" : "lg"}
     >
+        <Text>{text}</Text>
         <CommentInput
             teachingId={id}
         />

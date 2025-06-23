@@ -25,6 +25,7 @@ type Booth {
   isFocused: Boolean
   mapalId: String
   mapal: MapalBooth
+  malchut: MalchutBooth
 }
 
 input BoothInput {

@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { DirectiveStamps, DirectiveStampsSchema } from './Directive-stamps.schema';
 import { Stamps, StampsSchema } from 'src/common/schemas/stamps.schema';
 
 @Schema({ timestamps: true })

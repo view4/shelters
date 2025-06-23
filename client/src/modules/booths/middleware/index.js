@@ -40,6 +40,9 @@ export default new MiddlewareModule({
                 mapal {
                   id
                 }
+                malchut {
+                  id
+                }
               }
             }
           }
@@ -64,6 +67,9 @@ export default new MiddlewareModule({
               ${STAMPS_FRAGMENT}
               isFocused
               mapal {
+                id
+              }
+              malchut {
                 id
               }
             }
