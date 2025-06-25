@@ -54,4 +54,16 @@ export class FeatureCommentInput {
 
     @Field()
     text: string;
+}
+
+@InputType()
+export class FeatureLabelInput {
+    @Field()
+    featureId: string;
+
+    @Field(() => ID, { nullable: true })
+    labelId?: string;
+
+    @Field({ nullable: true })
+    name?: string;
 } 

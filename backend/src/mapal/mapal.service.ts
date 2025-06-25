@@ -5,11 +5,13 @@ import { Feature } from './schema/feature.schema';
 import { FeatureVote } from './schema/feature-vote.schema';
 import { FeatureComment } from './schema/feature-comment.schema';
 import { MapalBooth } from './schema/mapal-booth.schema';
-import { aggregate, aggregateFeed, fetchOne, filter, filterOne, upsert } from 'src/common/utils/db';
+import { FeatureLabel } from './schema/feature-label.schema';
+import { aggregate, aggregateFeed, fetchOne, filter, filterOne, upsert, upsertOne } from 'src/common/utils/db';
 import { ID } from 'src/common/types';
 import { BoothsService } from 'src/booths/booths.service';
 import { BoothInput } from 'src/booths/booths.resolver';
-import { FeatureCommentInput, FeatureInput, FeatureVoteInput } from './schema/feature-inputs.schema';
+import { FeatureCommentInput, FeatureInput, FeatureVoteInput, FeatureLabelInput } from './schema/feature-inputs.schema';
+import { Label } from 'src/labels/schema/label.schema';
 
 @Injectable()
 export class MapalService {
@@ -18,6 +20,8 @@ export class MapalService {
     @InjectModel(FeatureVote.name) private featureVoteModel: Model<FeatureVote>,
     @InjectModel(FeatureComment.name) private featureCommentModel: Model<FeatureComment>,
     @InjectModel(MapalBooth.name) private mapalBoothModel: Model<MapalBooth>,
+    @InjectModel(FeatureLabel.name) private featureLabelModel: Model<FeatureLabel>,
+    @InjectModel(Label.name) private labelModel: Model<Label>,
     private readonly boothsService: BoothsService,
   ) { }
 
@@ -33,8 +37,10 @@ export class MapalService {
     }, id);
   }
 
-  async features(boothId?: string) {
+  async features(boothId?: string, parentId?: string) {
     const match = boothId ? { booth: new mongoose.Types.ObjectId(boothId) } : {};
+    if (parentId) match.parent = new mongoose.Types.ObjectId(parentId);
+
     return aggregateFeed(
       this.featureModel,
       {},
@@ -117,6 +123,32 @@ export class MapalService {
             $size: '$comments'
           }
         }
+      },
+      {
+        $lookup: {
+          from: 'featurelabels',
+          localField: '_id',
+          foreignField: 'feature',
+          as: 'labels',
+          pipeline: [
+            {
+              $lookup: {
+                from: 'labels',
+                localField: 'label',
+                foreignField: '_id',
+                as: 'label'
+              }
+            }
+          ]
+        }
+      },
+      {
+        $unwind: '$labels'
+      },
+      {
+        $addFields: {
+          label: '$labels.label'
+        }
       }
     ]);
     return feature;
@@ -140,6 +172,25 @@ export class MapalService {
     return filter(this.featureCommentModel, { featureId });
   }
 
+  async upsertLabel(userId: ID, name: string): Promise<Label> {
+    return upsertOne(this.labelModel, { name, user: userId }, { name, user: userId });
+  }
+
+  async addFeatureLabel(userId: ID, input: FeatureLabelInput): Promise<Feature> {
+    const { name, featureId, labelId } = input;
+    const label = !labelId ? await this.upsertLabel(userId, name);
+    const existingFeatureLabel = await filterOne(this.featureLabelModel, { feature: featureId, label: label._id });
+    if (existingFeatureLabel) throw new Error('Feature already has this label');
+    return upsertOne(
+      this.featureLabelModel,
+      { feature: featureId, label: labelId ?? label._id, user: userId },
+      { feature: featureId, label: labelId ?? label._id }
+    );
+  }
+
+  async removeFeatureLabel(featureLabelId: string): Promise<boolean> {
+    return del(this.featureLabelModel, featureLabelId);
+  }
   async stampFeature(id: string, key: string): Promise<Feature> {
     return upsert(this.featureModel, {
       [`stamps.${key}`]: new Date()
