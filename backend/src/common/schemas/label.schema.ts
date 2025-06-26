@@ -5,7 +5,7 @@ import { Stamps, StampsSchema } from './stamps.schema';
 
 export type LabelDocument = mongoose.HydratedDocument<Label>;
 
-@ObjectType()
+// @ObjectType()
 @Schema({ timestamps: true })
 export class Label {
   @Prop({ required: true })

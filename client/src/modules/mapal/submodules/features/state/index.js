@@ -33,5 +33,33 @@ export default {
                 return result.upsertFeatureComment;
             }
         }
+    }),
+    addFeatureLabel: initCell(FEATURES, {
+        name: "addFeatureLabel",
+        sagas: {
+            latest: function* ({ payload: { input, callback } }) {
+                const result = yield call(middleware.ops.addFeatureLabel, { input });
+                if (!result.addFeatureLabel.id) {
+                    throw new Error("Failed to add feature label");
+                }
+                yield put(onSuccess("Label added"));
+                yield put(feed.cells.fetchEntity.action({ id: input.featureId }));
+                if (callback) callback();
+                return result.addFeatureLabel;
+            }
+        }
+    }),
+    removeFeatureLabel: initCell(FEATURES, {
+        name: "removeFeatureLabel",
+        sagas: {
+            latest: function* ({ payload: { featureLabelId } }) {
+                const result = yield call(middleware.ops.removeFeatureLabel, { featureLabelId });
+                if (!result.removeFeatureLabel) {
+                    throw new Error("Failed to remove feature label");
+                }
+                yield put(onSuccess("Label removed"));
+                return result.removeFeatureLabel;
+            }
+        }
     })
 };

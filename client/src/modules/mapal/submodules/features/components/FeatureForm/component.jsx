@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "modules/Core/components/ui-kit/Modal";
 import SchemaForm from "modules/Core/components/form/Form/SchemaForm";
+
 const schema = {
     header: "Feature Form",
     fields: {

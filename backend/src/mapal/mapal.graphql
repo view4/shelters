@@ -1,6 +1,7 @@
 type Query {
   features(boothId: String, parentId: String, feedParams: FeedParams): FeatureFeed
   feature(id: ID!): Feature
+  boothLabels(boothId: String!): [FeatureLabel!]!
 }
 
 type Mutation {
@@ -79,6 +80,7 @@ type FeatureLabel {
   user: ID!
   createdAt: String!
   updatedAt: String!
+  name: String
 }
 
 input FeatureInput {

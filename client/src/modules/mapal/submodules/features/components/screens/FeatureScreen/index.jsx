@@ -15,6 +15,9 @@ import Stamp from "modules/Core/components/ui-kit/Stamp";
 import { UpArrow, DownArrow } from 'modules/Core/components/ui-kit/indicators';
 import FeatureFormButton from "../../FeatureFormButton";
 import StampFeatureButton from "../../StampFeatureButton";
+import { FeedItem as FeatureFeedItem } from "../../FeatureFeed";
+import Feed from "modules/Core/components/Feed";
+import LabelsCard from "../../LabelsCard";
 import styles from "./styles.module.scss";
 
 const formatter = (date) => {
@@ -90,11 +93,30 @@ const CommentsCard = strappedConnected(IntrospectionCard, {
         }
     })
 
+const ChildFeaturesCard = strappedConnected(IntrospectionCard, {
+    children: (state, { featureId }) => feed.cells.fetchEntity.selectField(featureId, "children")(state)
+}, {
+},
+    ({ featureId, children }) => {
+        return {
+            title: "Sub-Features",
+            className: styles.childFeaturesCard,
+            children: () => <Feed.Component feed={children} ItemComponent={FeatureFeedItem} />,
+            actions: [{ Component: FeatureFormButton, parentId: featureId }],
+        }
+    })
+
+const RightPanel = ({ featureId }) => {
+    return <Container maxHeight maxWidth flex center>
+        <LabelsCard featureId={featureId} />
+    </Container>
+}
+
 const Component = ({ boothId, name, text, id }) => {
     if (!boothId) return null;
 
     return (
-        <BoothScreen boothId={boothId}>
+        <BoothScreen RightPanelComponent={RightPanel} rightProps={{ featureId: id }} boothId={boothId}>
             <Container className={styles.container}>
                 <Card relative className={styles.headerCard}
                 >
@@ -124,6 +146,7 @@ const Component = ({ boothId, name, text, id }) => {
                 <Container flex col maxHeight maxWidth className={styles.content}>
                     <VotesCard featureId={id} />
                     <CommentsCard featureId={id} />
+                    <ChildFeaturesCard featureId={id} />
                 </Container>
             </Container>
         </BoothScreen>

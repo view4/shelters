@@ -10,6 +10,7 @@ import { FeatureLabel, FeatureLabelSchema } from './schema/feature-label.schema'
 import { BoothsModule } from 'src/booths/booths.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { CommonModule } from 'src/common/common.module';
+import { Label, LabelSchema } from 'src/common/schemas/label.schema';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CommonModule } from 'src/common/common.module';
       { name: FeatureComment.name, schema: FeatureCommentSchema },
       { name: MapalBooth.name, schema: MapalBoothSchema },
       { name: FeatureLabel.name, schema: FeatureLabelSchema },
+      { name: Label.name, schema: LabelSchema },
     ]),
     BoothsModule,
     CommonModule,
