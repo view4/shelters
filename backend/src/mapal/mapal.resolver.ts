@@ -81,7 +81,8 @@ export class MapalResolver {
         @SessionUser() user: SessionUserT,
         @Args('featureLabelId') featureLabelId: string,
     ) {
-        return this.mapalService.removeFeatureLabel(featureLabelId);
+        await this.mapalService.removeFeatureLabel(featureLabelId);
+        return true;
     }
 
     @Mutation(() => Booth)

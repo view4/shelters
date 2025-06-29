@@ -37,11 +37,11 @@ const FEATURE_FRAGMENT = `
         updatedAt
     }
     labels {
-        id
         featureId
         labelId
         user
         name
+        id
     }
     children {
         id
@@ -120,6 +120,14 @@ export default new MiddlewareModule({
         removeFeatureLabel: `
             mutation removeFeatureLabel($featureLabelId: String) {
                 removeFeatureLabel(featureLabelId: $featureLabelId)
+            }
+        `,
+        fetchBoothLabels: `
+            query boothLabels($boothId: String!) {
+                boothLabels(boothId: $boothId) {
+                    id
+                    name
+                }
             }
         `
     }

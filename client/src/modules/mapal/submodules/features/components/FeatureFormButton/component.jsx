@@ -3,7 +3,7 @@ import Button from "modules/Core/components/ui-kit/Button";
 import FeatureForm from "../FeatureForm";
 import styles from "./styles.module.scss";
 
-const FeatureFormButton = ({ isOpen, onOpen, onClose, initialValues, parentId,  boothId }) => {
+const FeatureFormButton = ({ isOpen, onOpen, id, onClose, onSuccess, initialValues, parentId,  boothId }) => {
     return (
         <div className={styles.container}>
             <Button onClick={onOpen}>
@@ -15,7 +15,9 @@ const FeatureFormButton = ({ isOpen, onOpen, onClose, initialValues, parentId,  
                 initialValues={initialValues}
                 parentId={parentId}
                 boothId={boothId}
-                onSuccess={onClose}
+                onSuccess={onSuccess}
+                onClose={onClose}
+                id={id}
             />
         </div>
     );

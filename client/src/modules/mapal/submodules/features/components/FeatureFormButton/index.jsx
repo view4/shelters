@@ -7,13 +7,17 @@ export default strappedConnected(
     Component,
     {},
     {},
-    ({ }) => {
+    ({ onSuccess }) => {
         const { isOpen, open, close } = useIsOpen();
 
         return {
             isOpen,
             onOpen: useCallback(() => open(), [open]),
             onClose: useCallback(() => close(), [close]),
+            onSuccess: useCallback(() => {
+                onSuccess();
+                close();    
+            }, [onSuccess, close]),
         };
     }
 ); 

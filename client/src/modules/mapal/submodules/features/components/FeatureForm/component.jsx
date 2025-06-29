@@ -29,7 +29,7 @@ const FeatureForm = ({ isOpen, onClose, onSubmit, initialValues }) => {
                 schema={schema}
                 onSubmit={onSubmit}
                 onCancel={onClose}
-                initialValues={initialValues}
+                initialState={initialValues}
             />
         </Modal>
     );

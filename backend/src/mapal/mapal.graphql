@@ -86,7 +86,7 @@ type FeatureLabel {
 input FeatureInput {
   name: String!
   text: String!
-  boothId: ID!
+  boothId: ID
   parentId: String
 }
 

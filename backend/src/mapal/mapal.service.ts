@@ -12,6 +12,7 @@ import { BoothsService } from 'src/booths/booths.service';
 import { BoothInput } from 'src/booths/booths.resolver';
 import { FeatureCommentInput, FeatureInput, FeatureVoteInput, FeatureLabelInput } from './schema/feature-inputs.schema';
 import { Label, LabelDocument } from 'src/common/schemas/label.schema';
+import { compactObject } from 'src/common/utils/object';
 
 @Injectable()
 export class MapalService {
@@ -27,19 +28,20 @@ export class MapalService {
 
   // Feature methods
   async upsertFeature(userId: ID, input: FeatureInput, id?: string): Promise<Feature> {
-    return upsert(this.featureModel, {
+    return upsert(this.featureModel, compactObject({
       ...input,
       booth: input.boothId,
+      parent: input.parentId,
       user: userId,
-      stamps: id ? {} : {
+      stamps: id ? null : {
         prospective: new Date()
       }
-    }, id);
+    }), id);
   }
 
   async features(boothId?: string, parentId?: string) {
     const match: any = boothId ? { booth: new mongoose.Types.ObjectId(boothId) } : {};
-    if (parentId) match.parent = new mongoose.Types.ObjectId(parentId);
+    match.parent = parentId ? new mongoose.Types.ObjectId(parentId) : null;
 
     return aggregateFeed(
       this.featureModel,
@@ -75,7 +77,6 @@ export class MapalService {
   }
 
   async feature(id: ID): Promise<Feature> {
-    console.log(id);
     const [feature] = await aggregate(this.featureModel, [
       { $match: { _id: new mongoose.Types.ObjectId(id) } },
       { $limit: 1 },
@@ -106,7 +107,10 @@ export class MapalService {
           from: 'features',
           localField: '_id',
           foreignField: 'parent',
-          as: 'children'
+          as: 'children',
+          pipeline: [
+            { $addFields: { id: '$_id' } }
+          ]
         }
       },
       {
@@ -139,20 +143,30 @@ export class MapalService {
                 foreignField: '_id',
                 as: 'label'
               }
+            },
+            { $unwind: { path: '$label', preserveNullAndEmptyArrays: true } },
+            {
+              $addFields: {
+                labelId: '$label._id',
+                featureId: '$feature',
+                name: '$label.name' // <- important: adds 'name' for GQL
+              }
+            },
+            {
+              $project: {
+                id: '$_id',
+                labelId: 1,
+                featureId: 1,
+                user: 1,
+                createdAt: 1,
+                updatedAt: 1,
+                name: 1
+              }
             }
           ]
         }
-      },
-      // {
-      //   $unwind: '$labels'
-      // },
-      // {
-      //   $addFields: {
-      //     label: '$labels.label'
-      //   }
-      // }
+      }
     ]);
-    console.log(feature);
     return feature;
   }
 
@@ -175,18 +189,24 @@ export class MapalService {
   }
 
   async upsertLabel(userId: ID, name: string): Promise<LabelDocument> {
-    return upsertOne(this.labelModel, { name, user: userId }, { name, user: userId });
+    return upsertOne(this.labelModel, { name, user: userId }, { name, user: userId }, { new: true });
   }
 
   async addFeatureLabel(userId: ID, input: FeatureLabelInput): Promise<Feature> {
-    const { name, featureId, labelId } = input;
-    const label = labelId ? await this.upsertLabel(userId, name) : null;
-    const existingFeatureLabel = await filterOne(this.featureLabelModel, { feature: featureId, label: label._id });
+    const { name, featureId } = input;
+    let labelId = input.labelId;
+    if (!labelId) {
+      const newLabel = await this.upsertLabel(userId, name);
+      console.log(newLabel);
+      labelId = String(newLabel._id);
+    }
+    console.log(labelId, name);
+    const existingFeatureLabel = await filterOne(this.featureLabelModel, { feature: featureId, label: labelId });
     if (existingFeatureLabel) throw new Error('Feature already has this label');
     return upsertOne(
       this.featureLabelModel,
-      { feature: featureId, label: labelId ?? label._id, user: userId },
-      { feature: featureId, label: labelId ?? label._id }
+      { feature: featureId, label: labelId, user: userId },
+      { feature: featureId, label: labelId }
     );
   }
 
@@ -296,7 +316,8 @@ export class MapalService {
         $addFields: {
           id: '$_id',
           featureId: '$feature',
-          labelId: '$label'
+          labelId: '$label',
+          name: '$label.name'
         }
       }
     ]);

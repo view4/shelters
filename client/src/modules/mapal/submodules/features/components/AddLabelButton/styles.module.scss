@@ -1,0 +1,40 @@
+@import "src/modules/Core/styles/variables.scss";
+
+
+.selected {
+    border: 2px solid $ocean_blue !important;
+}
+
+.container {
+    min-height: 54vh;
+    min-width: 36rem;
+}
+
+.footer {
+    height: 4rem;
+    padding: 0rem 5rem;
+
+}
+
+.labelsContainer {
+    min-height: 36vh;
+    padding: 0rem 1rem;
+    span {
+        margin: 0.5rem 0.5rem;
+        cursor: pointer;
+    }
+}
+
+.inputContainer {
+    min-height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    div {
+        width: -webkit-fill-available;
+        width: 90%;
+    }
+    input {
+        width: -webkit-fill-available;
+    }
+}

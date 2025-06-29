@@ -3,6 +3,11 @@
 .labelsCard {
   height: auto;
   min-height: 200px;
+  button {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+  }
 }
 
 .labelItem {

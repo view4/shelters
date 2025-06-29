@@ -26,10 +26,10 @@ export class FeatureInput {
     text: string;
 
     @Field()
-    boothId: string;
+    boothId?: string;
 
     @Field(() => ID, { nullable: true })
-    parent?: string;
+    parentId?: string;
 
     @Field(() => FeatureStampsInput, { nullable: true })
     stamps: FeatureStampsInput;
