@@ -42,7 +42,6 @@ const sagaWrapper = (
   function* ({ payload, ...args }) {
     try {
       const res = yield saga({ payload });
-      console.log("callback", payload?.callback, res);
       payload?.callback?.(res);
       if (!processSuccess(res)) return;
       if (onCellSuccessAction) yield put(onCellSuccessAction(res));

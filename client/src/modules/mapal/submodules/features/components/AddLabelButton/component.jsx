@@ -29,8 +29,7 @@ const AddLabelModal = strappedConnected(Modal,
     ({ isOpen, onClose, refetchFeature, existingLabels, fetchBoothLabels, boothId, labels = [], onCreate, featureId }) => {
         const [input, setInput] = useState('');
         const [selectedLabel, setSelectedLabel] = useState(null);
-        
-        console.log(existingLabels)
+
         const filteredLabels = useMemo(() => {
             if (!input.trim()) return labels;
             return labels.filter(label =>
@@ -42,18 +41,14 @@ const AddLabelModal = strappedConnected(Modal,
         }, [boothId]);
 
         const toggleSelectedLabel = useCallback((label) => {
-            if (selectedLabel?.id === label.id) {
-                setSelectedLabel(null);
-            } else {
-                setSelectedLabel(label);
-            }
+            return setSelectedLabel(selectedLabel?.id === label.id ? null : label);
         }, [selectedLabel]);
 
-        const handleCreateLabel = useCallback(({ id, labelId, name }) => {
+        const handleCreateLabel = useCallback(({ labelId, name }) => {
             onCreate({
                 input: compactObject({
                     featureId,
-                    labelId: labelId,
+                    labelId,
                     name
                 }),
                 callback: () => {

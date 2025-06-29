@@ -149,7 +149,7 @@ export class MapalService {
               $addFields: {
                 labelId: '$label._id',
                 featureId: '$feature',
-                name: '$label.name' // <- important: adds 'name' for GQL
+                name: '$label.name'
               }
             },
             {
@@ -197,10 +197,8 @@ export class MapalService {
     let labelId = input.labelId;
     if (!labelId) {
       const newLabel = await this.upsertLabel(userId, name);
-      console.log(newLabel);
       labelId = String(newLabel._id);
     }
-    console.log(labelId, name);
     const existingFeatureLabel = await filterOne(this.featureLabelModel, { feature: featureId, label: labelId });
     if (existingFeatureLabel) throw new Error('Feature already has this label');
     return upsertOne(

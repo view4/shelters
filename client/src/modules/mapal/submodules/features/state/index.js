@@ -54,12 +54,10 @@ export default {
         sagas: {
             latest: function* ({ payload: { featureLabelId } }) {
                 const result = yield call(middleware.ops.removeFeatureLabel, { featureLabelId });
-                console.log("result", result);
                 if (!result.removeFeatureLabel) {
                     throw new Error("Failed to remove feature label");
                 }
                 yield put(onSuccess("Label removed"));
-                console.log("result", result);
                 return result.removeFeatureLabel;
             },
             onCellSuccess: true
