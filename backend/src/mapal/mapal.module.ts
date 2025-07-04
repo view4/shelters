@@ -6,8 +6,11 @@ import { Feature, FeatureSchema } from './schema/feature.schema';
 import { FeatureVote, FeatureVoteSchema } from './schema/feature-vote.schema';
 import { FeatureComment, FeatureCommentSchema } from './schema/feature-comment.schema';
 import { MapalBooth, MapalBoothSchema } from './schema/mapal-booth.schema';
+import { FeatureLabel, FeatureLabelSchema } from './schema/feature-label.schema';
 import { BoothsModule } from 'src/booths/booths.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { CommonModule } from 'src/common/common.module';
+import { Label, LabelSchema } from 'src/common/schemas/label.schema';
 
 @Module({
   imports: [
@@ -16,8 +19,11 @@ import { AuthModule } from 'src/auth/auth.module';
       { name: FeatureVote.name, schema: FeatureVoteSchema },
       { name: FeatureComment.name, schema: FeatureCommentSchema },
       { name: MapalBooth.name, schema: MapalBoothSchema },
+      { name: FeatureLabel.name, schema: FeatureLabelSchema },
+      { name: Label.name, schema: LabelSchema },
     ]),
     BoothsModule,
+    CommonModule,
     forwardRef(() => AuthModule)
 
   ],

@@ -2,7 +2,7 @@
 import cx from 'classnames';
 import styles from "./styles.module.scss";
 
-const Tag = ({ text, onDelete, children, className, nature='purple', size='md', grey }) => (
+const Tag = ({ text, onDelete, children, className, nature='purple', size='md', grey, onClick }) => (
     <span
         className={cx(
             styles.container,
@@ -13,6 +13,7 @@ const Tag = ({ text, onDelete, children, className, nature='purple', size='md', 
                 [styles[size]]:Boolean(size)
             }
         )}
+        onClick={onClick}
     >
         {text ?? children} {onDelete && <span onClick={onDelete} className={styles.x} >X</span>}
     </span>

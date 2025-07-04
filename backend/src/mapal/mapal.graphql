@@ -1,8 +1,7 @@
 type Query {
-  features(boothId: String, feedParams: FeedParams): FeatureFeed
+  features(boothId: String, parentId: String, feedParams: FeedParams): FeatureFeed
   feature(id: ID!): Feature
-  featureVotes(featureId: ID!): [FeatureVote!]!
-  featureComments(featureId: ID!): [FeatureComment!]!
+  boothLabels(boothId: String!): [FeatureLabel!]!
 }
 
 type Mutation {
@@ -11,6 +10,8 @@ type Mutation {
   upsertFeatureComment(input: FeatureCommentInput, id: String): FeatureComment!
   stampFeature(id: String, key: String): Feature
   upsertMapalBooth(id: String, input: BoothInput): Booth
+  addFeatureLabel(input: FeatureLabelInput): Feature
+  removeFeatureLabel(featureLabelId: String): Boolean
 }
 
 type MapalBooth {
@@ -49,7 +50,9 @@ type Feature {
   updatedAt: String!
   comments: [FeatureComment]
   votes: [FeatureVote]
+  labels: [FeatureLabel]
   children: [Feature]
+  parent: Feature
 }
 
 type FeatureVote {
@@ -71,10 +74,20 @@ type FeatureComment {
   updatedAt: String!
 }
 
+type FeatureLabel {
+  id: ID!
+  featureId: ID!
+  labelId: ID!
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+  name: String
+}
+
 input FeatureInput {
   name: String!
   text: String!
-  boothId: ID!
+  boothId: ID
   parentId: String
 }
 
@@ -87,4 +100,10 @@ input FeatureVoteInput {
 input FeatureCommentInput {
   featureId: ID!
   text: String!
+}
+
+input FeatureLabelInput {
+  featureId: ID!
+  labelId: ID
+  name: String
 }

@@ -5,11 +5,15 @@ import { Feature } from './schema/feature.schema';
 import { FeatureVote } from './schema/feature-vote.schema';
 import { FeatureComment } from './schema/feature-comment.schema';
 import { MapalBooth } from './schema/mapal-booth.schema';
-import { aggregate, aggregateFeed, fetchOne, filter, filterOne, upsert } from 'src/common/utils/db';
+import { FeatureLabel } from './schema/feature-label.schema';
+import { aggregate, aggregateFeed, fetchOne, filter, filterOne, upsert, upsertOne, del } from 'src/common/utils/db';
 import { ID } from 'src/common/types';
 import { BoothsService } from 'src/booths/booths.service';
 import { BoothInput } from 'src/booths/booths.resolver';
-import { FeatureCommentInput, FeatureInput, FeatureVoteInput } from './schema/feature-inputs.schema';
+import { FeatureCommentInput, FeatureInput, FeatureVoteInput, FeatureLabelInput } from './schema/feature-inputs.schema';
+import { Label, LabelDocument } from 'src/common/schemas/label.schema';
+import { compactObject } from 'src/common/utils/object';
+import { aggregateBoothLabels, aggregateFeature } from './mapal.utils';
 
 @Injectable()
 export class MapalService {
@@ -18,23 +22,28 @@ export class MapalService {
     @InjectModel(FeatureVote.name) private featureVoteModel: Model<FeatureVote>,
     @InjectModel(FeatureComment.name) private featureCommentModel: Model<FeatureComment>,
     @InjectModel(MapalBooth.name) private mapalBoothModel: Model<MapalBooth>,
+    @InjectModel(FeatureLabel.name) private featureLabelModel: Model<FeatureLabel>,
+    @InjectModel(Label.name) private labelModel: Model<Label>,
     private readonly boothsService: BoothsService,
   ) { }
 
   // Feature methods
   async upsertFeature(userId: ID, input: FeatureInput, id?: string): Promise<Feature> {
-    return upsert(this.featureModel, {
+    return upsert(this.featureModel, compactObject({
       ...input,
       booth: input.boothId,
+      parent: input.parentId,
       user: userId,
-      stamps: id ? {} : {
+      stamps: id ? null : {
         prospective: new Date()
       }
-    }, id);
+    }), id);
   }
 
-  async features(boothId?: string) {
-    const match = boothId ? { booth: new mongoose.Types.ObjectId(boothId) } : {};
+  async features(boothId?: string, parentId?: string) {
+    const match: any = boothId ? { booth: new mongoose.Types.ObjectId(boothId) } : {};
+    match.parent = parentId ? new mongoose.Types.ObjectId(parentId) : null;
+
     return aggregateFeed(
       this.featureModel,
       {},
@@ -69,56 +78,7 @@ export class MapalService {
   }
 
   async feature(id: ID): Promise<Feature> {
-    const [feature] = await aggregate(this.featureModel, [
-      { $match: { _id: new mongoose.Types.ObjectId(id) } },
-      { $limit: 1 },
-      {
-        $lookup: {
-          from: 'featurevotes',
-          localField: '_id',
-          foreignField: 'feature',
-          as: 'votes',
-          pipeline: [
-            { $addFields: { id: '$_id' } }
-          ]
-        }
-      },
-      {
-        $lookup: {
-          from: 'featurecomments',
-          localField: '_id',
-          foreignField: 'feature',
-          as: 'comments',
-          pipeline: [
-            { $addFields: { id: '$_id' } }
-          ]
-        }
-      },
-      {
-        $lookup: {
-          from: 'features',
-          localField: '_id',
-          foreignField: 'parent',
-          as: 'children'
-        }
-      },
-      {
-        $addFields: {
-          totalVotes: {
-            $reduce: {
-              input: '$votes',
-              initialValue: 0,
-              in: { $add: ['$$value', '$$this.score'] }
-            }
-          },
-          id: '$_id',
-          boothId: '$booth',
-          totalComments: {
-            $size: '$comments'
-          }
-        }
-      }
-    ]);
+    const [feature] = await aggregateFeature(this.featureModel, id);
     return feature;
   }
 
@@ -138,6 +98,34 @@ export class MapalService {
 
   async featureComments(featureId: string): Promise<FeatureComment[]> {
     return filter(this.featureCommentModel, { featureId });
+  }
+
+  async upsertLabel(userId: ID, name: string): Promise<LabelDocument> {
+    return upsertOne(this.labelModel, { name, user: userId }, { name, user: userId }, { new: true });
+  }
+
+  async addFeatureLabel(userId: ID, input: FeatureLabelInput): Promise<Feature> {
+    const { name, featureId } = input;
+    let labelId = input.labelId;
+    if (!labelId) {
+      const newLabel = await this.upsertLabel(userId, name);
+      labelId = String(newLabel._id);
+    }
+    const existingFeatureLabel = await filterOne(this.featureLabelModel, { feature: featureId, label: labelId });
+    if (existingFeatureLabel) throw new Error('Feature already has this label');
+    return upsertOne(
+      this.featureLabelModel,
+      { feature: featureId, label: labelId, user: userId },
+      { feature: featureId, label: labelId }
+    );
+  }
+
+  async removeFeatureLabel(featureLabelId: string): Promise<boolean> {
+    return del(this.featureLabelModel, featureLabelId);
+  }
+
+  async boothLabels(boothId: string): Promise<FeatureLabel[]> {
+    return aggregateBoothLabels(this.featureModel, boothId);
   }
 
   async stampFeature(id: string, key: string): Promise<Feature> {
