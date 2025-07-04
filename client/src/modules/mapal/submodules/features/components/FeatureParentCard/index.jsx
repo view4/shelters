@@ -6,7 +6,6 @@ import Title from "modules/Core/components/ui-kit/Title";
 import Text from "modules/Core/components/ui-kit/Text";
 import Button from "modules/Core/components/ui-kit/Button";
 import { useNavigate } from "react-router-dom";
-// import feed from "../../../state/feed";
 import feed from "modules/mapal/submodules/features/state/feed";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import styles from "./styles.module.scss";
@@ -39,7 +38,6 @@ const FeatureParentCard = strappedConnected(
                         <Button
                             onClick={handleNavigateToParent}
                             text="View Parent"
-                            // nature="ocean-blue"
                             size="sm"
                         />
                     </Container>
