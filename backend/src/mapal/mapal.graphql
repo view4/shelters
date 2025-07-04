@@ -52,6 +52,7 @@ type Feature {
   votes: [FeatureVote]
   labels: [FeatureLabel]
   children: [Feature]
+  parent: Feature
 }
 
 type FeatureVote {

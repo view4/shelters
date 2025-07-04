@@ -43,6 +43,11 @@ const FEATURE_FRAGMENT = `
         name
         id
     }
+    parent {
+        id
+        name
+        text
+    }
     children {
         id
         name

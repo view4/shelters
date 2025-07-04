@@ -10,7 +10,7 @@ import Container from "modules/Core/components/ui-kit/Container";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
 import Text from "modules/Core/components/ui-kit/Text";
 import Tag from "modules/Core/components/ui-kit/Tag";
-import { getLabelColor } from "../LabelsCard";
+import { getLabelColor } from "../LabelsCard/helpers";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 import { compactObject } from "modules/Core/utils/obj";
@@ -56,9 +56,13 @@ const AddLabelModal = strappedConnected(Modal,
                     setSelectedLabel(null);
                     onClose();
                     refetchFeature({ id: featureId });
+                    
+                    if (!labelId && name && name.trim().length > 0) {
+                        fetchBoothLabels({ boothId });
+                    }
                 }
             });
-        }, [onCreate, featureId, onClose, refetchFeature]);
+        }, [onCreate, featureId, onClose, refetchFeature, fetchBoothLabels, boothId]);
 
 
         return {

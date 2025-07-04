@@ -18,6 +18,7 @@ import StampFeatureButton from "../../StampFeatureButton";
 import { FeedItem as FeatureFeedItem } from "../../FeatureFeed";
 import Feed from "modules/Core/components/Feed";
 import LabelsCard from "../../LabelsCard";
+import FeatureParentCard from "../../FeatureParentCard";
 import styles from "./styles.module.scss";
 
 const formatter = (date) => {
@@ -113,9 +114,12 @@ const ChildFeaturesCard = strappedConnected(IntrospectionCard, {
     })
 
 const RightPanel = ({ featureId, refetch }) => {
-    return <Container maxHeight maxWidth flex center>
-        <LabelsCard featureId={featureId} refetch={refetch} />
-    </Container>
+    return (
+        <Container maxHeight maxWidth flex col className={styles.rightPanel} p2>
+            <LabelsCard featureId={featureId} refetch={refetch} />
+            <FeatureParentCard featureId={featureId} />
+        </Container>
+    );
 }
 
 const Component = ({ boothId, name, rightProps, text, id, refetch }) => {

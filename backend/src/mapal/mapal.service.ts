@@ -13,6 +13,7 @@ import { BoothInput } from 'src/booths/booths.resolver';
 import { FeatureCommentInput, FeatureInput, FeatureVoteInput, FeatureLabelInput } from './schema/feature-inputs.schema';
 import { Label, LabelDocument } from 'src/common/schemas/label.schema';
 import { compactObject } from 'src/common/utils/object';
+import { aggregateBoothLabels, aggregateFeature } from './mapal.utils';
 
 @Injectable()
 export class MapalService {
@@ -77,96 +78,7 @@ export class MapalService {
   }
 
   async feature(id: ID): Promise<Feature> {
-    const [feature] = await aggregate(this.featureModel, [
-      { $match: { _id: new mongoose.Types.ObjectId(id) } },
-      { $limit: 1 },
-      {
-        $lookup: {
-          from: 'featurevotes',
-          localField: '_id',
-          foreignField: 'feature',
-          as: 'votes',
-          pipeline: [
-            { $addFields: { id: '$_id' } }
-          ]
-        }
-      },
-      {
-        $lookup: {
-          from: 'featurecomments',
-          localField: '_id',
-          foreignField: 'feature',
-          as: 'comments',
-          pipeline: [
-            { $addFields: { id: '$_id' } }
-          ]
-        }
-      },
-      {
-        $lookup: {
-          from: 'features',
-          localField: '_id',
-          foreignField: 'parent',
-          as: 'children',
-          pipeline: [
-            { $addFields: { id: '$_id' } }
-          ]
-        }
-      },
-      {
-        $addFields: {
-          totalVotes: {
-            $reduce: {
-              input: '$votes',
-              initialValue: 0,
-              in: { $add: ['$$value', '$$this.score'] }
-            }
-          },
-          id: '$_id',
-          boothId: '$booth',
-          totalComments: {
-            $size: '$comments'
-          }
-        }
-      },
-      {
-        $lookup: {
-          from: 'featurelabels',
-          localField: '_id',
-          foreignField: 'feature',
-          as: 'labels',
-          pipeline: [
-            {
-              $lookup: {
-                from: 'labels',
-                localField: 'label',
-                foreignField: '_id',
-                as: 'label'
-              }
-            },
-            { $unwind: { path: '$label', preserveNullAndEmptyArrays: true } },
-            {
-              $addFields: {
-                labelId: '$label._id',
-                featureId: '$feature',
-                name: '$label.name'
-              }
-            },
-            {
-              $project: {
-                id: '$_id',
-                labelId: 1,
-                featureId: 1,
-                user: 1,
-                createdAt: 1,
-                updatedAt: 1,
-                name: 1
-              }
-            }
-          ]
-        }
-      }
-    ]);
+    const [feature] = await aggregateFeature(this.featureModel, id);
     return feature;
   }
 
@@ -213,114 +125,7 @@ export class MapalService {
   }
 
   async boothLabels(boothId: string): Promise<FeatureLabel[]> {
-    // Use a single aggregation pipeline to get all features and their labels
-    const result = await aggregate(this.featureModel, [
-      // Start with features directly in the booth
-      {
-        $match: {
-          booth: new mongoose.Types.ObjectId(boothId)
-        }
-      },
-      // Use $graphLookup to recursively find all child features
-      {
-        $graphLookup: {
-          from: 'features',
-          startWith: '$_id',
-          connectFromField: '_id',
-          connectToField: 'parent',
-          as: 'descendants',
-          depthField: 'depth'
-        }
-      },
-      // Unwind the descendants array to get individual features
-      {
-        $unwind: {
-          path: '$descendants',
-          preserveNullAndEmptyArrays: false
-        }
-      },
-      // Replace the root with the descendant feature
-      {
-        $replaceRoot: {
-          newRoot: '$descendants'
-        }
-      },
-      // Add back the original feature as well
-      {
-        $unionWith: {
-          coll: 'features',
-          pipeline: [
-            {
-              $match: {
-                booth: new mongoose.Types.ObjectId(boothId)
-              }
-            }
-          ]
-        }
-      },
-      // Remove duplicates
-      {
-        $group: {
-          _id: '$_id',
-          feature: { $first: '$$ROOT' }
-        }
-      },
-      // Replace root with the feature
-      {
-        $replaceRoot: {
-          newRoot: '$feature'
-        }
-      },
-      // Now lookup the feature labels
-      {
-        $lookup: {
-          from: 'featurelabels',
-          localField: '_id',
-          foreignField: 'feature',
-          as: 'featureLabels'
-        }
-      },
-      // Unwind the feature labels
-      {
-        $unwind: {
-          path: '$featureLabels',
-          preserveNullAndEmptyArrays: false
-        }
-      },
-      // Replace root with the feature label
-      {
-        $replaceRoot: {
-          newRoot: '$featureLabels'
-        }
-      },
-      // Lookup the actual label details
-      {
-        $lookup: {
-          from: 'labels',
-          localField: 'label',
-          foreignField: '_id',
-          as: 'label'
-        }
-      },
-      // Unwind the label
-      {
-        $unwind: {
-          path: '$label',
-          preserveNullAndEmptyArrays: false
-        }
-      },
-      // Add the id field
-      {
-        $addFields: {
-          id: '$_id',
-          featureId: '$feature',
-          labelId: '$label',
-          name: '$label.name'
-        }
-      }
-    ]);
-
-    return result;
+    return aggregateBoothLabels(this.featureModel, boothId);
   }
 
   async stampFeature(id: string, key: string): Promise<Feature> {
