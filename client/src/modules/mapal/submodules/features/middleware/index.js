@@ -1,6 +1,5 @@
 import MiddlewareModule from "modules/Core/core-modules/MiddlewareModule";
 import { FEATURES } from "../consts";
-import { STAMPS_FRAGMENT } from "modules/Core/consts/graphql";
 
 const FEATURE_FRAGMENT = `
     id
@@ -37,18 +36,26 @@ const FEATURE_FRAGMENT = `
         createdAt
         updatedAt
     }
-    children {
-        stamps {
-            commenced
-            prospective
-            committed
-            commenced
-            deployed
-            accepted
-        }
+    labels {
+        featureId
+        labelId
+        user
+        name
+        id
+    }
+    parent {
         id
         name
         text
+    }
+    children {
+        id
+        name
+        text
+        currentStamp {
+            key
+            value
+        }
     }
 `;
 
@@ -105,6 +112,26 @@ export default new MiddlewareModule({
             mutation upsertFeatureComment($input: FeatureCommentInput, $id: String) {
                 upsertFeatureComment(input: $input, id: $id) {
                     id
+                }
+            }
+        `,
+        addFeatureLabel: `
+            mutation addFeatureLabel($input: FeatureLabelInput) {
+                addFeatureLabel(input: $input) {
+                    id
+                }
+            }
+        `,
+        removeFeatureLabel: `
+            mutation removeFeatureLabel($featureLabelId: String) {
+                removeFeatureLabel(featureLabelId: $featureLabelId)
+            }
+        `,
+        fetchBoothLabels: `
+            query boothLabels($boothId: String!) {
+                boothLabels(boothId: $boothId) {
+                    id
+                    name
                 }
             }
         `

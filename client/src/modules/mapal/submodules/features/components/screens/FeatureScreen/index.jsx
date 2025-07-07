@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import cx from 'classnames';
 import Text from "modules/Core/components/ui-kit/Text";
 import Container from "modules/Core/components/ui-kit/Container";
@@ -15,6 +15,10 @@ import Stamp from "modules/Core/components/ui-kit/Stamp";
 import { UpArrow, DownArrow } from 'modules/Core/components/ui-kit/indicators';
 import FeatureFormButton from "../../FeatureFormButton";
 import StampFeatureButton from "../../StampFeatureButton";
+import { FeedItem as FeatureFeedItem } from "../../FeatureFeed";
+import Feed from "modules/Core/components/Feed";
+import LabelsCard from "../../LabelsCard";
+import FeatureParentCard from "../../FeatureParentCard";
 import styles from "./styles.module.scss";
 
 const formatter = (date) => {
@@ -45,11 +49,11 @@ const VotesCard = strappedConnected(IntrospectionCard,
             actions: [{ Component: FeatureVoteButton, featureId }],
             children: votes?.length ? (
                 votes.map(vote => (
-                    <Container key={vote.id} className={cx(
+                    <Container key={vote?.id} className={cx(
                         styles.item,
                         styles.voteItem,
-                        { [styles.upvote]: vote.score === 1 },
-                        { [styles.downvote]: vote.score === -1 }
+                        { [styles.upvote]: vote?.score === 1 },
+                        { [styles.downvote]: vote?.score === -1 }
                     )}
                     >
                         <Container flex row spaceBetween alignCenter>
@@ -80,7 +84,7 @@ const CommentsCard = strappedConnected(IntrospectionCard, {
             actions: [{ Component: FeatureCommentInput, className: styles.commentInput, featureId }],
             children: comments?.length ? (
                 comments.map(comment => (
-                    <Container key={comment.id} bg1 flex lightShadow row spaceBetween p1>
+                    <Container key={comment?.id} bg1 flex lightShadow row spaceBetween p1>
 
                         <Text>{comment.text}</Text>
                         <Stamp timestamp={comment.createdAt} formatter={formatter} />
@@ -90,11 +94,39 @@ const CommentsCard = strappedConnected(IntrospectionCard, {
         }
     })
 
-const Component = ({ boothId, name, text, id }) => {
+const ChildFeaturesCard = strappedConnected(IntrospectionCard, {
+    children: (state, { featureId }) => feed.cells.fetchEntity.selectField(featureId, "children")(state),
+    boothId: (state, { featureId }) => feed.cells.fetchEntity.selectField(featureId, "boothId")(state),
+
+}, {
+    refetch: feed.cells.fetchEntity.action,
+},
+    ({ featureId, children, boothId, refetch }) => {
+        const onSuccess = useCallback(() => {
+            refetch({ id: featureId });
+        }, [refetch, featureId]);
+        return {
+            title: "Sub-Features",
+            className: styles.childFeaturesCard,
+            children: <Feed.Component feed={children} ItemComponent={FeatureFeedItem} />,
+            actions: [{ Component: FeatureFormButton, parentId: featureId, boothId, onSuccess }],
+        }
+    })
+
+const RightPanel = ({ featureId, refetch }) => {
+    return (
+        <Container maxHeight maxWidth flex col className={styles.rightPanel} p2>
+            <LabelsCard featureId={featureId} refetch={refetch} />
+            <FeatureParentCard featureId={featureId} />
+        </Container>
+    );
+}
+
+const Component = ({ boothId, name, rightProps, text, id, refetch }) => {
     if (!boothId) return null;
 
     return (
-        <BoothScreen boothId={boothId}>
+        <BoothScreen RightPanelComponent={RightPanel} rightProps={rightProps} boothId={boothId}>
             <Container className={styles.container}>
                 <Card relative className={styles.headerCard}
                 >
@@ -105,7 +137,6 @@ const Component = ({ boothId, name, text, id }) => {
                             featureId={id}
                         />
                         <Container flex row gap1>
-
                             <StampFeatureButton
                                 featureId={id}
                             />
@@ -115,15 +146,15 @@ const Component = ({ boothId, name, text, id }) => {
                                     text
                                 }}
                                 id={id}
+                                onSuccess={refetch}
                             />
                         </Container>
-
                     </Container>
                 </Card>
-
                 <Container flex col maxHeight maxWidth className={styles.content}>
                     <VotesCard featureId={id} />
                     <CommentsCard featureId={id} />
+                    <ChildFeaturesCard featureId={id} />
                 </Container>
             </Container>
         </BoothScreen>
@@ -143,6 +174,13 @@ export default strappedConnected(
     ({ id, fetchFeature, }) => {
         useOnLoad(() => {
             fetchFeature({ id });
-        }, id && [id]);
+        }, id, [id]);
+        const refetch = useCallback((overwrite = false) => {
+            fetchFeature({ id, overwrite });
+        }, [fetchFeature, id]);
+        return {
+            refetch, 
+            rightProps: { featureId: id, refetch }
+        }
     }
 ); 

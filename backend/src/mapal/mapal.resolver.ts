@@ -10,7 +10,8 @@ import { SessionUser } from 'src/auth/decorators/session-user.decorator';
 import { SessionUserT } from 'src/auth/types/SessionUserType';
 import { Booth } from 'src/booths/schema/booth.schema';
 import { BoothInput } from 'src/booths/booths.resolver';
-import { FeatureInput, FeatureVoteInput, FeatureCommentInput } from './schema/feature-inputs.schema';
+import { FeatureInput, FeatureVoteInput, FeatureCommentInput, FeatureLabelInput } from './schema/feature-inputs.schema';
+import { FeatureLabel } from './schema/feature-label.schema';
 
 @Resolver(() => Feature)
 export class MapalResolver {
@@ -18,8 +19,8 @@ export class MapalResolver {
 
     // Feature queries and mutations
     @Query(() => [Feature])
-    async features(@Args('boothId', { nullable: true }) boothId?: string) {
-        return this.mapalService.features(boothId);
+    async features(@Args('boothId', { nullable: true }) boothId?: string, @Args('parentId', { nullable: true }) parentId?: string) {
+        return this.mapalService.features(boothId, parentId);
     }
 
     @Query(() => Feature)
@@ -45,11 +46,6 @@ export class MapalResolver {
         return this.mapalService.stampFeature(id, key);
     }
 
-    @Query(() => [FeatureVote])
-    async featureVotes(@Args('featureId', { type: () => ID }) featureId: string) {
-        return this.mapalService.featureVotes(featureId);
-    }
-
     @Mutation(() => FeatureVote)
     @UseGuards(AuthGuard)
     async upsertFeatureVote(
@@ -60,11 +56,6 @@ export class MapalResolver {
         return this.mapalService.upsertVote(user?.id, input, id);
     }
 
-    @Query(() => [FeatureComment])
-    async featureComments(@Args('featureId', { type: () => ID }) featureId: string) {
-        return this.mapalService.featureComments(featureId);
-    }
-
     @Mutation(() => FeatureComment)
     @UseGuards(AuthGuard)
     async upsertFeatureComment(
@@ -73,6 +64,25 @@ export class MapalResolver {
         @Args('id', { nullable: true }) id?: string,
     ) {
         return this.mapalService.upsertComment(user?.id, input, id);
+    }
+
+    @Mutation(() => Feature)
+    @UseGuards(AuthGuard)
+    async addFeatureLabel(
+        @SessionUser() user: SessionUserT,
+        @Args('input') input: FeatureLabelInput,
+    ) {
+        return this.mapalService.addFeatureLabel(user?.id, input);
+    }
+
+    @Mutation(() => Boolean)
+    @UseGuards(AuthGuard)
+    async removeFeatureLabel(
+        @SessionUser() user: SessionUserT,
+        @Args('featureLabelId') featureLabelId: string,
+    ) {
+        await this.mapalService.removeFeatureLabel(featureLabelId);
+        return true;
     }
 
     @Mutation(() => Booth)
@@ -98,5 +108,10 @@ export class MapalResolver {
         return stamps.reduce((latest, current) =>
             current.value > latest.value ? current : latest
         );
+    }
+
+    @Query(() => [FeatureLabel])
+    async boothLabels(@Args('boothId') boothId: string) {
+        return this.mapalService.boothLabels(boothId);
     }
 } 

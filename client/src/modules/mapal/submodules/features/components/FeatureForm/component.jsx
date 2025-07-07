@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "modules/Core/components/ui-kit/Modal";
 import SchemaForm from "modules/Core/components/form/Form/SchemaForm";
+
 const schema = {
     header: "Feature Form",
     fields: {
@@ -28,7 +29,7 @@ const FeatureForm = ({ isOpen, onClose, onSubmit, initialValues }) => {
                 schema={schema}
                 onSubmit={onSubmit}
                 onCancel={onClose}
-                initialValues={initialValues}
+                initialState={initialValues}
             />
         </Modal>
     );

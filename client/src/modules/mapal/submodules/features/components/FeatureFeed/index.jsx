@@ -9,7 +9,7 @@ import Button from "modules/Core/components/ui-kit/Button";
 import Stamp from "modules/Core/components/ui-kit/Stamp";
 import styles from "./styles.module.scss";
 
-const FeedItem = ({ name, text, id, currentStamp }) => (
+export const FeedItem = ({ name, text, id, currentStamp }) => (
     <ExpandableFeedItem
         name={name ?? "titleless"}
         className={cx(styles.itemContainer, { [styles.titleless]: !name })}

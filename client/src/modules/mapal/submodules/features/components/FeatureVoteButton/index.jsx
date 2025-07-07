@@ -3,7 +3,7 @@ import Button from "modules/Core/components/ui-kit/Button";
 import FeatureVoteForm from "../FeatureVoteForm";
 import styles from "./styles.module.scss";
 
-const FeatureVoteButton = ({ featureId }) => {
+const FeatureVoteButton = ({ featureId, }) => {
     const [isFormVisible, setIsFormVisible] = useState(false);
 
     return (

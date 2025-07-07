@@ -18,7 +18,7 @@ export default strappedConnected(
         fetchEntity: feed.cells.fetchEntity.action
     },
     ({ featureId: id, currentStamp, stampEntity, fetchEntity }) => {
-        const currentIndex = STAMP_SEQUENCE.indexOf(currentStamp.key);
+        const currentIndex = STAMP_SEQUENCE.indexOf(currentStamp?.key);
         const nextStamp = STAMP_SEQUENCE[currentIndex + 1];
 
         const onSuccess = useOnSuccess();

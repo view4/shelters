@@ -43,14 +43,21 @@ export default (
         let res = yield call(requestHandler, { id });
         res = parseRes?.(res) ?? res;
         if (!res?.id) return null;
-        yield putSuccess(moduleName, args?.name ?? FETCH_ENTITY, res);
-        return res;
+        yield putSuccess(moduleName, args?.name ?? FETCH_ENTITY, {
+          overwrite: payload?.overwrite,
+          ...res
+        });
+        return {
+          overwrite: payload?.overwrite,
+          ...res
+        };
       },
     },
     successCell: {
-      reducer: (state, { payload }) => {
+      reducer: (state, { payload: _payload }) => {
+        const { overwrite = false, ...payload } = _payload;
         state.isLoading = false;
-        state.entities[payload.id] = infuse(
+        state.entities[payload.id] = overwrite ? payload : infuse(
           state.entities[payload.id],
           payload
         );

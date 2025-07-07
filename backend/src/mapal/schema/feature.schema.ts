@@ -13,7 +13,7 @@ export class Feature extends Document {
   @Prop({ type: FeatureStampsSchema })
   stamps: FeatureStamps;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Booth', required: true })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Booth' })
   booth: MongooseSchema.Types.ObjectId;
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Feature' })

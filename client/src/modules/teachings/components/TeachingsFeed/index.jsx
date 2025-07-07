@@ -9,8 +9,8 @@ import Feed from "modules/Core/components/Feed";
 import FeatureCommentInput from "modules/mapal/submodules/features/components/FeatureCommentInput/component";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
 import state from "modules/teachings/state";
-import styles from "./styles.module.scss";
 import useOnError from "modules/Core/sub-modules/Dialog/hooks/useOnError";
+import styles from "./styles.module.scss";
 
 const CommentItem = ({ text, id }) => (
     <Text>
