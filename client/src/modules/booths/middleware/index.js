@@ -29,8 +29,8 @@ export default new MiddlewareModule({
             }
         `,
     fetchFeed: `
-          query booths($feedParams: FeedParams, ) {
-            feed: booths(feedParams: $feedParams) {
+          query booths($feedParams: FeedParams, $kind: String, $parentId: String) {
+            feed: booths(feedParams: $feedParams, kind: $kind, parentId: $parentId) {
               entities {
                 id
                 name

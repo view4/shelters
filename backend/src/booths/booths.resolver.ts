@@ -13,6 +13,9 @@ export class BoothInput {
 
     @Field()
     text: string;
+
+    @Field()
+    parentId: string;
 };
 
 @Resolver(() => Booth)
@@ -21,8 +24,12 @@ export class BoothsResolver {
 
     @UseGuards(AuthGuard)
     @Query(() => [Booth])
-    async booths(@SessionUser() user: SessionUserT): Promise<Booth[]> {
-        return this.boothsService.booths(user?.id);
+    async booths(
+        @SessionUser() user: SessionUserT,
+        @Args('parentId', { type: () => String, nullable: true }) parentId?: string,
+        @Args('kind', { type: () => String, nullable: true }) kind?: string
+    ): Promise<Booth[]> {
+        return this.boothsService.booths({ userId: user?.id, parentId, kind });
     }
 
     @UseGuards(AuthGuard)

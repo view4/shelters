@@ -3,6 +3,7 @@ import feed from "./state/feed";
 import { TEACHINGS } from "./consts";
 import state from "./state";
 import CreateTeachingsBoothScreen from "./components/screens/CreateTeachingsBoothScreen";
+import withParams from "modules/Core/higher-order-components/withParams";
 
 export default new CoreModule({
     name: TEACHINGS,
@@ -17,7 +18,7 @@ export default new CoreModule({
         setFilters: feed.cells?.setFilters,
     },
     routes: {
-        "/teachings/create": CreateTeachingsBoothScreen
+        "/teachings/create": withParams(CreateTeachingsBoothScreen)
     }
 });
 

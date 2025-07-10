@@ -6,6 +6,8 @@ import { aggregate, aggregateFeed, count, create, filterOne, upsert, upsertOne }
 import { compactObject } from "src/common/utils/object";
 import { FeedParams, ID } from "src/common/types";
 import { MembershipService } from "src/auth/membership.service";
+import { BoothInput } from "./booths.resolver";
+import { BoothsFilter, aggregateBooths } from "./booths.utils";
 
 @Injectable()
 export class BoothsService {
@@ -15,67 +17,13 @@ export class BoothsService {
     ) { }
     FREE_TIER_BOOTH_COUNT = 1;
 
-    async booths(userId: ID, feedParams?: FeedParams, pipeline: any[] = []) {
-        // await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);
-        return aggregateFeed(
-            this.boothModel,
-            {
-                sort: { createdAt: -1 },
-                match: { user: new mongoose.Types.ObjectId(userId) },
-                ...feedParams
-            },
-            [
-                {
-                    $lookup: {
-                        from: 'mapalbooths',
-                        localField: '_id',
-                        foreignField: 'booth',
-                        as: 'mapal',
-                        pipeline: [
-                            {
-                                $addFields: {
-                                    id: '$_id',
-                                }
-                            }
-                        ]
-                    },
-                },
-                {
-                    $addFields: {
-                        mapal: {
-                            $first: '$mapal'
-                        }
-                    }
-                },
-                {
-                    $lookup: {
-                        from: 'malchutbooths',
-                        localField: '_id',
-                        foreignField: 'booth',
-                        as: 'malchut',
-                        pipeline: [
-                            {
-                                $addFields: {
-                                    id: '$_id',
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
-                    $addFields: {
-                        malchut: {
-                            $first: '$malchut'
-                        }
-                    }
-                },
-                ...pipeline
-            ]
-        );
+    async booths(filter: BoothsFilter, feedParams?: FeedParams, pipeline: any[] = []) {
+        // await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);        
+        return aggregateBooths(this.boothModel, filter, feedParams, pipeline);
     }
 
     async activeBooths(userId: ID) {
-        return this.booths(userId, {
+        return this.booths({userId}, {
             match: {
                 user: new mongoose.Types.ObjectId(userId),
                 'stamps.completed': { $eq: null },
@@ -160,9 +108,10 @@ export class BoothsService {
         }
     }
 
-    async upsertBooth(userId, input: any, id?: string) {
+    async upsertBooth(userId: ID, input: BoothInput, id?: string) {
         if (!id) await this.validateMembership(userId);
         input.user = userId;
+        if (input.parentId) input.parent = new mongoose.Types.ObjectId(input.parentId);
         if (!id) return create(this.boothModel, input);
         return upsertOne(this.boothModel, input, compactObject({ _id: id, user: id && userId }));
     }

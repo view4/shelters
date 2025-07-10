@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import Component from "./component";
@@ -11,7 +11,7 @@ export default strappedConnected(
     {
         createEntity: state.upsertBooth.action
     },
-    ({ createEntity }) => {
+    ({ createEntity, parentId }) => {
         const navigate = useNavigate();
         const onSuccess = useOnSuccess();
 
@@ -22,9 +22,12 @@ export default strappedConnected(
         }, [navigate, onSuccess]);
 
         return {
-            onSubmit: useCallback(({ name, text }) => {
-                createEntity({ input: { name, text }, callback });
-            }, [createEntity, callback])
+            onSubmit: useCallback(({ name, text, parent }) => {
+                createEntity({ input: { name, text, parentId: parent }, callback });
+            }, [createEntity, callback]),
+            initialState: useMemo(() => ({
+                parent: parentId
+            }), [parentId])
         };
     }
 ); 
