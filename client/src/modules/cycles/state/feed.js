@@ -1,9 +1,11 @@
+import { compact } from 'lodash'
+import { put } from 'redux-saga/effects'
+import { createSelector } from "@reduxjs/toolkit";
 import FeedModule from "modules/Core/core-modules/FeedModule";
 import { CYCLES } from "../consts";
 import middleware from "../middleware";
-import { createSelector } from "@reduxjs/toolkit";
 import state from 'modules/roadmaps/state/index'
-import { compact } from 'lodash'
+
 
 const extractGateways = cycle => {
   return compact([

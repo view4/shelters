@@ -18,7 +18,7 @@ const processEntities = (entities = []) => {
     return [
       ...entities,
       flatten(entity),
-      ...children
+      ...entity.children
     ]
 
   }, [])

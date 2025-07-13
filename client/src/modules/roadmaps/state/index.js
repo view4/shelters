@@ -3,7 +3,7 @@ import { ROADMAPS } from "../consts";
 import middleware from "../middleware";
 import stampEntityCell from "modules/Core/state/reusableCells/stampEntityCell";
 import { merge } from "lodash";
-import { arrayToObject } from "modules/Core/core-modules/CoreModuleState/utils/helpers";
+import { arrayToObject } from "modules/Core/utils/obj";
 
 export default {
   stampGateway: stampEntityCell(ROADMAPS, {
