@@ -2,37 +2,33 @@ import MiddlewareModule from "modules/Core/core-modules/MiddlewareModule";
 import { ROADMAPS } from "../consts";
 import { STAMPS_FRAGMENT } from "modules/Core/consts/graphql";
 
+export const GATEWAY_FIELDS_FRAGMENT = `
+                id
+                name
+                text
+                ${STAMPS_FRAGMENT}
+`
+
+export const GATEWAY_FRAGMENT = `
+    {
+        ${GATEWAY_FIELDS_FRAGMENT}
+        parent {
+            ${GATEWAY_FIELDS_FRAGMENT}
+        }
+        children {
+            ${GATEWAY_FIELDS_FRAGMENT}
+        }
+    }
+`
+
+
+
 export default new MiddlewareModule({
   name: ROADMAPS,
   operations: {
     fetchEntity: `
         query gateway($id: String) {
-            entity: gateway(id: $id) {
-                id
-                name
-                text
-                parent {
-                    id
-                    name
-                }
-                children {
-                    id 
-                    name
-                    text
-                    ${STAMPS_FRAGMENT}
-                    children {
-                        id 
-                        name
-                        text
-                        parent {
-                            id
-                            name
-                        }
-                        ${STAMPS_FRAGMENT}
-                    }
-                }
-                ${STAMPS_FRAGMENT}
-            }
+            entity: gateway(id: $id) ${GATEWAY_FRAGMENT}
         }
     `,
     create: `
@@ -45,32 +41,7 @@ export default new MiddlewareModule({
     fetchFeed: `
             query gateways($feedParams: FeedParams, $boothId: String, $parentId: String, $isCycleless: Boolean ) {
                 feed: gateways(feedParams: $feedParams, boothId: $boothId, parentId: $parentId, isCycleless: $isCycleless) {
-                    entities {
-                        id
-                        name
-                        text
-                        ${STAMPS_FRAGMENT}
-                        children {
-                            id
-                            name
-                            text
-                            parent {
-                                id
-                                name
-                            }
-                            ${STAMPS_FRAGMENT}
-                            children {
-                                id 
-                                name
-                                text
-                                ${STAMPS_FRAGMENT}
-                                parent {
-                                    id
-                                    name
-                                }
-                            }
-                        }
-                    }
+                    entities ${GATEWAY_FRAGMENT}
                 }    
             }
         `,

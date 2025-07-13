@@ -2,15 +2,35 @@ import FeedModule from "modules/Core/core-modules/FeedModule";
 import { CYCLES } from "../consts";
 import middleware from "../middleware";
 import { createSelector } from "@reduxjs/toolkit";
+import state from 'modules/roadmaps/state/index'
+import { compact } from 'lodash'
 
+const extractGateways = cycle => {
+  return compact([
+    cycle?.a,
+    cycle?.b,
+    cycle?.c,
+    cycle?.d,
+    cycle?.e,
+    cycle?.f,
+    cycle?.sabbatical?.gateway,
+  ])
+}
 
 export default new FeedModule({
   name: CYCLES,
   cellOptions: {
     createEntityCell: {
+      // UPDATE HANDLING HERE RE: flattening gateways (altnerative is to fetch by ids)
       requestHandler: middleware.ops.create,
+      onSuccess: function* ({ payload }) {
+        const entities = extractGateways(payload);
+        yield put(state.setEntities.action(entities));
+      }
+
     },
     fetchFeedCell: {
+      // UPDATE HANDLING HERE RE: flattening gateways (alternave is to fetch by ids)
       requestHandler: middleware.ops.fetchFeed,
     },
     fetchEntityCell: {
