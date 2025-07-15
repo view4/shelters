@@ -1,6 +1,9 @@
-import { FeedParams } from "src/common/types";
+import { FeedParams, ID } from "src/common/types";
 import mongoose, { Model } from "mongoose";
 import { BoothDocument } from "./schema/booth.schema";
+import { compactObject } from "src/common/utils/object";
+import { aggregateFeed } from "src/common/utils/db";
+
 
 export type BoothsFilter = {
     userId?: ID;
@@ -34,7 +37,7 @@ export const aggregateBooths = (model: Model<BoothDocument>, filter: BoothsFilte
     const { match, pipeline: filteredPipeline } = parseBoothFilters(filter);
 
     return aggregateFeed(
-        this.boothModel,
+        model,
         {
             sort: { createdAt: -1 },
             match,

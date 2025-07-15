@@ -61,6 +61,7 @@ export default (
           state.entities[payload.id],
           payload
         );
+        state.focusedEntityId = payload?.id // doesn't this just make sense....
       },
     },
     ...args,

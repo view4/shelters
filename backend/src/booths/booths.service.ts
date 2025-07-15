@@ -110,8 +110,8 @@ export class BoothsService {
 
     async upsertBooth(userId: ID, input: BoothInput, id?: string) {
         if (!id) await this.validateMembership(userId);
-        input.user = userId;
-        if (input.parentId) input.parent = new mongoose.Types.ObjectId(input.parentId);
+        input["user"] = userId;
+        if (input.parentId) input["parent"] = new mongoose.Types.ObjectId(input.parentId);
         if (!id) return create(this.boothModel, input);
         return upsertOne(this.boothModel, input, compactObject({ _id: id, user: id && userId }));
     }

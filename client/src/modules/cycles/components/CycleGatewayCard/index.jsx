@@ -10,6 +10,7 @@ import Text from "modules/Core/components/ui-kit/Text";
 import cells from "modules/cycles/state";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/cycles/state/feed";
+import roadmapsFeedState from "modules/roadmaps/state/feed";
 import { DownArrow, UpArrow } from "modules/Core/components/ui-kit/indicators";
 import { CYCLE_GATEWAY_KEYS } from "modules/cycles/consts";
 import StampGatewayButton from "modules/roadmaps/components/StampGatewayButton";
@@ -22,8 +23,7 @@ import Stamp from "modules/Core/components/ui-kit/Stamp";
 import RoadmapFeedItem, { TitleWithStamps } from "modules/roadmaps/components/RoadmapFeedItem";
 import styles from "./styles.module.scss";
 
-
-const Component = ({ gateway, children, refetch, remove, className, ...props }) => {
+const Component = ({ gateway = {}, children, refetch, remove, className, ...props }) => {
     const stamps = useMemo(() => Object.entries(gateway?.stamps ?? {})?.map(([key, value]) => (value && { text: key?.toLowerCase(), timestamp: value })), [gateway?.stamps]);
     return (
         <ExpandableCard
@@ -62,7 +62,8 @@ const Component = ({ gateway, children, refetch, remove, className, ...props }) 
                             text: "Stamp Completed",
                             callback: refetch
                         }
-                    }
+                    },
+                    { Component: AddGatewayButton, props: { parentId: gateway?.id, parentName: gateway?.name, refetchId: gateway?.id } },
 
                 ]}
             />
@@ -70,6 +71,7 @@ const Component = ({ gateway, children, refetch, remove, className, ...props }) 
                 <Container mt1>
                     {gateway?.text}
                     {children}
+                    {gateway?.childrenIds?.map(id => <CycleChildGatewayCard gatewayId={id} />)}
                     <Container flex flexEnd mt3 >
                         <Container>
                             <Stamps stamps={stamps} />
@@ -100,7 +102,7 @@ const EmptyGatewayCard = ({ cycleId, orderKey, onCreateSuccess }) => {
     )
 };
 
-export const SabbaticalGatewayCard = ({ gateway, refetch }) => (
+export const SabbaticalGatewayCard = ({ gateway = {}, refetch }) => (
     <Component
         className={styles.sabbaticalGateway}
         gateway={gateway.gateway}
@@ -114,6 +116,19 @@ export const SabbaticalGatewayCard = ({ gateway, refetch }) => (
     </Component>
 );
 
+
+const CycleChildGatewayCard = ({ gatewayId }) => strappedConnected(
+    ({ gateway }) => (
+        <Container>
+            <Text>{gateway?.name}</Text>
+        </Container>
+    ),
+    { gateway: roadmapsFeedState.cells.fetchEntity.selector(gatewayId) },
+    {},
+    ({ gateway }) => ({
+        gateway
+    })
+)
 
 
 const withWrapper = (C) => ({ reorder, hideUp, hideDown, ...props }) => (
@@ -145,7 +160,7 @@ const C = withRecursiveRender({
 export default strappedConnected(
     C,
     {
-        gateway: (state, { orderKey }) => feed.cells.fetchEntity.selectGateway(orderKey)(state)
+        gateway: (state, { gatewayId }) => roadmapsFeedState.cells.fetchEntity.selector(gatewayId)(state)
     },
     {
         reorder: cells.reorderCycleGateway.action,

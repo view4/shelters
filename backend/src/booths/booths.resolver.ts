@@ -27,7 +27,7 @@ export class BoothsResolver {
     async booths(
         @SessionUser() user: SessionUserT,
         @Args('parentId', { type: () => String, nullable: true }) parentId?: string,
-        @Args('kind', { type: () => String, nullable: true }) kind?: string
+        @Args('kind', { type: () => String, nullable: true }) kind?: "mapal" | "malchut"
     ): Promise<Booth[]> {
         return this.boothsService.booths({ userId: user?.id, parentId, kind });
     }
