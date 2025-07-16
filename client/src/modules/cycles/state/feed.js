@@ -18,6 +18,18 @@ const extractGateways = cycle => {
   ])
 }
 
+const extractGateways = cycle => {
+  return compact([
+    cycle?.a,
+    cycle?.b,
+    cycle?.c,
+    cycle?.d,
+    cycle?.e,
+    cycle?.f,
+    cycle?.sabbatical?.gateway,
+  ])
+}
+
 export default new FeedModule({
   name: CYCLES,
   cellOptions: {
