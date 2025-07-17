@@ -12,13 +12,13 @@ export default new CoreModule({
   cells: {
     createEntity: feed.cells?.createEntity,
     fetchFeed: feed.cells?.fetchFeed,
-    fetchEntity: feed.cells?.fetchEntity,
     addGatewayToActiveCycle: cells.addGatewayToActiveCycle,
     reorderCycleGateway: cells.reorderCycleGateway,
     removeGatewayFromActiveCycle: cells.removeGatewayFromActiveCycle,
     setFilters: feed.cells?.setFilters,
     addGatewayToCycle: cells.addGatewayToCycle,
     focusCycle: cells.focusCycle,
+    fetchCycle: cells.fetchCycle,
   },
   routes: {},
 });

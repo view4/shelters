@@ -10,6 +10,7 @@ import Text from "modules/Core/components/ui-kit/Text";
 import cells from "modules/cycles/state";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/cycles/state/feed";
+import state from "modules/cycles/state";
 import roadmapsFeedState from "modules/roadmaps/state/feed";
 import { DownArrow, UpArrow } from "modules/Core/components/ui-kit/indicators";
 import { CYCLE_GATEWAY_KEYS } from "modules/cycles/consts";
@@ -102,10 +103,10 @@ const EmptyGatewayCard = ({ cycleId, orderKey, onCreateSuccess }) => {
     )
 };
 
-export const SabbaticalGatewayCard = ({ gateway = {}, refetch }) => (
+export const SabbaticalGatewayCard = ({ gateway = {},gatewayId, refetch }) => (
     <Component
         className={styles.sabbaticalGateway}
-        gateway={gateway.gateway}
+        gateway={gateway}
         refetch={refetch}
         headerProps={{ appendage: <Stamp nature={"success_street"} stamp="Sabbatical" /> }}
     >
@@ -123,7 +124,7 @@ const CycleChildGatewayCard = ({ gatewayId }) => strappedConnected(
             <Text>{gateway?.name}</Text>
         </Container>
     ),
-    { gateway: roadmapsFeedState.cells.fetchEntity.selector(gatewayId) },
+    { gateway: (state, { gatewayId }) => roadmapsFeedState.cells.fetchEntity.selector(gatewayId)(state) },
     {},
     ({ gateway }) => ({
         gateway
@@ -164,7 +165,7 @@ export default strappedConnected(
     },
     {
         reorder: cells.reorderCycleGateway.action,
-        refetch: feed.cells.fetchEntity?.action,
+        refetch: state.fetchCycle.action,
         remove: cells.removeGatewayFromActiveCycle.action
     },
     ({ orderKey, gateway, reorder, refetch, boothId, remove, feedItem }) => ({

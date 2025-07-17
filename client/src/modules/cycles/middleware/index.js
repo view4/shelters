@@ -70,8 +70,8 @@ export default new MiddlewareModule({
     `,
     },
     operationsConfig: {
-        fetchEntity: {
-            paramsParser: ({ id = null }) => ({ boothId: id }),
-        },
+        // fetchEntity: {
+        //     paramsParser: ({ id = null }) => ({ boothId: id }),
+        // },
     },
 });
