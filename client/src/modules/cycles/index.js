@@ -2,7 +2,6 @@ import CoreModule from "modules/Core/core-modules/CoreModule";
 import { CYCLES } from "./consts";
 import feed from "./state/feed";
 import cells from "./state/index";
-import { add } from "lodash";
 
 export default new CoreModule({
   name: CYCLES,

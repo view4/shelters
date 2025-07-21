@@ -1,0 +1,11 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.sabbaticalGateway {
+  border: 1px solid $success_street;
+  width: calc(100% - 2rem);
+  & h4 {
+    text-decoration: underline;
+    text-decoration-color: $success_street;
+    font-weight: 700;
+  }
+}
