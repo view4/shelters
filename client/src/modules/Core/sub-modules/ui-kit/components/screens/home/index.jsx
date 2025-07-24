@@ -47,7 +47,7 @@ const Sidebar = ({ searchTerm, setSearchTerm, groupedComponents, loading, error,
                                         onClick={() => navigateToComponent(component)}
                                     >
                                         <Text variant="body" className={styles.componentName}>
-                                            {component.key}
+                                            {component.name}
                                         </Text>
                                     </Container>
                                 ))}
@@ -90,9 +90,6 @@ const UIKitHomeScreen = React.memo(() => {
     );
 
     const navigateToComponent = (component) => {
-        // Convert the component path to URL structure
-        // e.g., "Date" -> "ui-kit/components/date"
-        // e.g., "Text/TranslatableText" -> "ui-kit/components/text/translatabletext"
         const pathParts = component.path.split('/');
         const urlPath = pathParts.map(part => part.toLowerCase()).join('/');
         const fullUrl = `/ui-kit/components/${urlPath}`;

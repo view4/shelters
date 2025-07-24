@@ -47,7 +47,7 @@ export * from './components/indicators';
 export * from './hooks';
 
 // Documentation
-export { default as UIKitDocs } from './UIKitDocs';
+// export { default as UIKitDocs } from './UIKitDocs';
 
 // CSS
 import './ui-kit.css'; 

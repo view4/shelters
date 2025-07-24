@@ -9,9 +9,10 @@ import Modal from '../components/Modal';
 import Loader from '../components/Loader';
 import Stamp from '../components/Stamp';
 import Screen from '../components/Screen';
-import docsData from '../docs.json';
+// import docsData from '../docs.json';
 import styles from './styles.module.scss';
 
+const docsData = {}
 const UIKitDocs = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
