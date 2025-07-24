@@ -1,16 +1,16 @@
 import { useCallback, useMemo } from "react";
-import Container from "modules/Core/components/ui-kit/Container";
-import Button from "modules/Core/components/ui-kit/Button";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/roadmaps/state/feed";
 import Feed from "modules/Core/components/Feed";
 import RoadmapFeedItem, { GatewayExpandableOptions } from "../../RoadmapFeedItem";
-import Card from "modules/Core/components/ui-kit/Card";
-import Title from "modules/Core/components/ui-kit/Title";
-import Text from "modules/Core/components/ui-kit/Text";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
 import { STAMPS } from "modules/Core/consts";
-import Stamps from "modules/Core/components/ui-kit/Stamps";
+import Stamps from "modules/Core/sub-modules/ui-kit/components/Stamps";
 import BoothScreen from "modules/shelter/components/BoothScreen";
 import styles from "./styles.module.scss";
 

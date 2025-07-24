@@ -1,0 +1,13 @@
+{
+  "key": "Stamp",
+  "name": "Time Stamp",
+  "path": "Stamp",
+  "section": "general",
+  "intro": "A component that marks and displays the sacred moments of creation, modification, or significant events, honoring the divine timing of spiritual experiences.",
+  "principles": ["presence", "moment", "clarity", "brevity"],
+  "demo": {
+    "props": {
+      "timestamp": "2024-01-15T10:30:00Z"
+    }
+  }
+} 

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import cx from "classnames";
-import Container from "modules/Core/components/ui-kit/Container";
-import Text from "modules/Core/components/ui-kit/Text";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import ExpandableFeedItem from "modules/Core/components/Feed/ExpandableFeedItem";
 import feed from "../../state/feed";

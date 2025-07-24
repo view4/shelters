@@ -3,7 +3,7 @@
 // import useOnError from "modules/Core/sub-modules/Dialog/hooks/useOnError";
 // import Container from "../../ui-kit/Container";
 // import PhoneInput from "../PhoneInput";
-// import _Button from "modules/Core/components/ui-kit/Button";
+// import _Button from "modules/Core/sub-modules/ui-kit/components/Button";
 // import { InputLabel } from "../../ui-kit/Input";
 // import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
 

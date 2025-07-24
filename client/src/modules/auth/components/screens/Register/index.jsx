@@ -1,12 +1,12 @@
-import Container from "modules/Core/components/ui-kit/Container"
-import Input from "modules/Core/components/ui-kit/Input"
-import Screen from "modules/Core/components/ui-kit/Screen"
+import Container from "modules/Core/sub-modules/ui-kit/components/Container"
+import Input from "modules/Core/sub-modules/ui-kit/components/Input"
+import Screen from "modules/Core/sub-modules/ui-kit/components/Screen"
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import cells from "modules/auth/state";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Card from "modules/Core/components/ui-kit/Card";
-import Button from "modules/Core/components/ui-kit/Button";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import styles from "./styles.module.scss";
 import useOnError from "modules/Core/sub-modules/Dialog/hooks/useOnError";
 

@@ -3,9 +3,9 @@ import { useCallback, useEffect, useMemo } from "react"
 import { useIsOpen } from "modules/Core/hooks/useIsOpen"
 import Sidebar from "modules/Core/components/Sidebar";
 import userGuide from "../../state/cells/displayUserGuide";
-import _Title from "modules/Core/components/ui-kit/Title";
-import _Text from "modules/Core/components/ui-kit/Text";
-import Container from "modules/Core/components/ui-kit/Container";
+import _Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import _Text from "modules/Core/sub-modules/ui-kit/components/Text";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import { get } from "modules/Core/utils/obj";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
 import GUIDE from './lib'

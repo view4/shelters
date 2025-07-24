@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "modules/Core/components/ui-kit/Button";
-import Container from "modules/Core/components/ui-kit/Container";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import TeachingForm from "../TeachingForm";
 import styles from "./styles.module.scss";
 

@@ -1,6 +1,6 @@
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "../../state/feed";
-import Button from "modules/Core/components/ui-kit/Button";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import { STAMP_SEQUENCE } from "../../consts";
 import useOnSuccess from "modules/Core/sub-modules/Dialog/hooks/useOnSuccess";
 import { useCallback } from "react";

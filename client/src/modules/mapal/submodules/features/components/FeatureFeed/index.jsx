@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 import cx from "classnames";
-import Container from "modules/Core/components/ui-kit/Container";
-import Text from "modules/Core/components/ui-kit/Text";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import ExpandableFeedItem from "modules/Core/components/Feed/ExpandableFeedItem";
 import feed from "../../state/feed";
-import Button from "modules/Core/components/ui-kit/Button";
-import Stamp from "modules/Core/components/ui-kit/Stamp";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
+import Stamp from "modules/Core/sub-modules/ui-kit/components/Stamp";
 import styles from "./styles.module.scss";
 
 export const FeedItem = ({ name, text, id, currentStamp }) => (

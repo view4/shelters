@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import cx from "classnames";
 import { noop } from "lodash";
-import Container from "modules/Core/components/ui-kit/Container";
-import Title from "modules/Core/components/ui-kit/Title";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import Text from "../../ui-kit/Text";
 import { formatDate } from "modules/Core/utils/date";
 import styles from "./styles.module.scss";

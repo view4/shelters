@@ -1,5 +1,5 @@
-// import Container from "modules/Core/components/ui-kit/Container";
-// import { InputLabel } from "modules/Core/components/ui-kit/Input";
+// import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+// import { InputLabel } from "modules/Core/sub-modules/ui-kit/components/Input";
 // import PhoneNumberField from "../PhoneNumberField";
 // import { TeamMembersCard } from "modules/Partners/submodules/team-members/components/TeamMembersFeed/FeedItem";
 // import styles from './styles.module.scss';

@@ -1,13 +1,13 @@
 import React from "react";
-import Text from "modules/Core/components/ui-kit/Text";
-import Container from "modules/Core/components/ui-kit/Container";
-import Tag from "modules/Core/components/ui-kit/Tag";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Tag from "modules/Core/sub-modules/ui-kit/components/Tag";
 import feed from "modules/mapal/submodules/features/state/feed";
 import state from "modules/mapal/submodules/features/state";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import AddLabelButton from "../AddLabelButton";
 import styles from "./styles.module.scss";
-import Card from "modules/Core/components/ui-kit/Card";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import { getLabelColor } from "./helpers";
 
 const LabelsCard = strappedConnected(Card,

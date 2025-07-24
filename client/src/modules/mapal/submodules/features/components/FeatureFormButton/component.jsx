@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "modules/Core/components/ui-kit/Button";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import FeatureForm from "../FeatureForm";
 import styles from "./styles.module.scss";
 

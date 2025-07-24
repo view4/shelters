@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import cx from "classnames";
 import strapped from "modules/Core/higher-order-components/strapped";
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Button from "../../ui-kit/Button";
 // import SchemaForm from "./SchemaForm";
 import Success from "./Success";

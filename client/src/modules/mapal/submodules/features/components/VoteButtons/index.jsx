@@ -1,10 +1,10 @@
 import React from 'react';
-import { UpArrow, DownArrow } from 'modules/Core/components/ui-kit/indicators';
-import Container from 'modules/Core/components/ui-kit/Container';
-import Button from 'modules/Core/components/ui-kit/Button';
+import { UpArrow, DownArrow } from 'modules/Core/sub-modules/ui-kit/components/indicators';
+import Container from 'modules/Core/sub-modules/ui-kit/components/Container';
+import Button from 'modules/Core/sub-modules/ui-kit/components/Button';
 import cx from 'classnames';
 import styles from './styles.module.scss';
-import { InputLabel } from 'modules/Core/components/ui-kit/Input';
+import { InputLabel } from 'modules/Core/sub-modules/ui-kit/components/Input';
 
 const VoteButtons = ({ value, onChange, label, className }) => {
     const handleUpvote = () => onChange(1);

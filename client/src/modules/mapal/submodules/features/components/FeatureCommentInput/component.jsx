@@ -1,10 +1,10 @@
 import React from "react";
-import Button from "modules/Core/components/ui-kit/Button";
-import Input from "modules/Core/components/ui-kit/Input";
-import Container from "modules/Core/components/ui-kit/Container";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
+import Input from "modules/Core/sub-modules/ui-kit/components/Input";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import styles from "./styles.module.scss";
-import Modal from "modules/Core/components/ui-kit/Modal";
-import Title from "modules/Core/components/ui-kit/Title";
+import Modal from "modules/Core/sub-modules/ui-kit/components/Modal";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 
 const FeatureCommentInput = ({ isOpen, text, onTextChange, className, onSubmit, cancel, open }) => {
     if (!isOpen) {

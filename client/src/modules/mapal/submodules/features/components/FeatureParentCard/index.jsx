@@ -1,10 +1,10 @@
 import React from "react";
 import { useCallback } from "react";
-import Container from "modules/Core/components/ui-kit/Container";
-import Card from "modules/Core/components/ui-kit/Card";
-import Title from "modules/Core/components/ui-kit/Title";
-import Text from "modules/Core/components/ui-kit/Text";
-import Button from "modules/Core/components/ui-kit/Button";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import { useNavigate } from "react-router-dom";
 import feed from "modules/mapal/submodules/features/state/feed";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";

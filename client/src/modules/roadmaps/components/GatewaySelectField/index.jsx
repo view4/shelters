@@ -1,10 +1,10 @@
 import { useMemo } from "react";
-import Container from 'modules/Core/components/ui-kit/Container';
-import AsyncSelect from 'modules/Core/components/ui-kit/Input/AsyncSelect';
-import Card from "modules/Core/components/ui-kit/Card";
-import Title from "modules/Core/components/ui-kit/Title";
-import { Close } from "modules/Core/components/ui-kit/indicators";
-import { InputLabel } from "modules/Core/components/ui-kit/Input";
+import Container from 'modules/Core/sub-modules/ui-kit/components/Container';
+import AsyncSelect from 'modules/Core/sub-modules/ui-kit/components/Input/AsyncSelect';
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import { Close } from "modules/Core/sub-modules/ui-kit/components/indicators";
+import { InputLabel } from "modules/Core/sub-modules/ui-kit/components/Input";
 import styles from "./styles.module.scss";
 
 const query = `

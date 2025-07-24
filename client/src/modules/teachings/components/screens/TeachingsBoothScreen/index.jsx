@@ -5,7 +5,7 @@ import IntrospectionCard from "modules/booths/components/IntrospectionCard";
 import SubBoothsCard from "modules/booths/components/SubBoothsCard";
 import TeachingsFeed from "../../TeachingsFeed";
 import TeachingFormButton from "../../TeachingFormButton";
-import RedirectButton from "modules/Core/components/ui-kit/RedirectButton";
+import RedirectButton from "modules/Core/sub-modules/ui-kit/components/RedirectButton";
 import styles from "./styles.module.scss";
 
 const Component = ({ id: boothId }) => {

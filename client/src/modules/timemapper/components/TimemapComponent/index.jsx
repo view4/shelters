@@ -1,8 +1,8 @@
 import Calendar from '@toast-ui/react-calendar';
 import '@toast-ui/calendar/dist/toastui-calendar.min.css';
-import Container from 'modules/Core/components/ui-kit/Container';
+import Container from 'modules/Core/sub-modules/ui-kit/components/Container';
 import { useMemo, useRef, useState } from 'react';
-import Button from 'modules/Core/components/ui-kit/Button';
+import Button from 'modules/Core/sub-modules/ui-kit/components/Button';
 import ScheduledTimeDetailsModal from '../ScheduledTimeDetailsModal';
 
 const calendars = [

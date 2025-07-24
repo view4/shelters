@@ -1,6 +1,6 @@
 import cx from "classnames";
 import { useEffect } from "react";
-import Container from "modules/Core/components/ui-kit/Container"
+import Container from "modules/Core/sub-modules/ui-kit/components/Container"
 import useSchemaFormFields from "../Form/hooks/useSchemaFormFields"
 import styles from "./styles.module.scss";
 import { InputLabel } from "../../ui-kit/Input";

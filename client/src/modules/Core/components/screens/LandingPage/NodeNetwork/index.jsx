@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import useFocusedId from "modules/Core/hooks/useFocusedId";
 import Node from "../Node";
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import { randomise, randomiseFloat } from "modules/Core/utils/number";
 import styles from "./styles.module.scss";
 

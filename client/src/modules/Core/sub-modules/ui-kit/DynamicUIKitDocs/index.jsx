@@ -1,0 +1,14 @@
+import React, { useState, useEffect } from 'react';
+import Container from '../components/Container';
+import Card from '../components/Card';
+import Title from '../components/Title';
+import Text from '../components/Text';
+import Button from '../components/Button';
+import Input from '../components/Input';
+import Modal from '../components/Modal';
+import Loader from '../components/Loader';
+import Stamp from '../components/Stamp';
+import Screen from '../components/Screen';
+import Date from '../components/Date';
+import Features from '../components/Features';
+import styles from './styles.module.scss'; 

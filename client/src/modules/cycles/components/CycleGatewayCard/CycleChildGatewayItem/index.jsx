@@ -1,7 +1,7 @@
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import roadmapsFeedState from "modules/roadmaps/state/feed";
-import Text from "modules/Core/components/ui-kit/Text";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 
 
 export default ({ gatewayId }) => strappedConnected(

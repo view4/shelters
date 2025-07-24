@@ -1,17 +1,17 @@
 import { useCallback, useMemo } from "react"
 import cx from "classnames";
 import { useDispatch } from "react-redux";
-import ExpandableCard from "modules/Core/components/ui-kit/Card/ExpandableCard";
-import Container from "modules/Core/components/ui-kit/Container";
-import Card from "modules/Core/components/ui-kit/Card";
+import ExpandableCard from "modules/Core/sub-modules/ui-kit/components/Card/ExpandableCard";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import AddGatewayButton from "modules/roadmaps/components/AddGatewayButton";
-import Text from "modules/Core/components/ui-kit/Text";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import cells from "modules/cycles/state";
 import StampGatewayButton from "modules/roadmaps/components/StampGatewayButton";
 import { STAMPS } from "modules/Core/consts";
-import Stamps from "modules/Core/components/ui-kit/Stamps";
+import Stamps from "modules/Core/sub-modules/ui-kit/components/Stamps";
 import EditGatewayButton from "modules/roadmaps/components/EditGatewayButton";
-import ExpandableOptions from "modules/Core/components/ui-kit/ExpandableOptions";
+import ExpandableOptions from "modules/Core/sub-modules/ui-kit/components/ExpandableOptions";
 import  { TitleWithStamps } from "modules/roadmaps/components/RoadmapFeedItem";
 import ChildGateway from "./CycleChildGatewayItem"
 import styles from "./styles.module.scss";

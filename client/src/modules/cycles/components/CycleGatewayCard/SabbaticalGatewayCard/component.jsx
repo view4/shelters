@@ -1,6 +1,6 @@
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import CompleteSabbaticalButton from "modules/sabbaticals/components/CompleteSabbaticalButton";
-import Stamp from "modules/Core/components/ui-kit/Stamp";
+import Stamp from "modules/Core/sub-modules/ui-kit/components/Stamp";
 import Component from "../component";
 import styles from "./styles.module.scss";
 

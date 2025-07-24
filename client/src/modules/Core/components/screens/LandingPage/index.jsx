@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import Container from "modules/Core/components/ui-kit/Container";
-import TypewriterText from "modules/Core/components/ui-kit/Text/TypewriterText";
-import Text from "modules/Core/components/ui-kit/Text";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import TypewriterText from "modules/Core/sub-modules/ui-kit/components/Text/TypewriterText";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import microcopy from "./microcopy.json"
 import ExternalScreen from "../../ui-kit/Screen/ExternalScreen";
 import Cursor from "./Cursor";

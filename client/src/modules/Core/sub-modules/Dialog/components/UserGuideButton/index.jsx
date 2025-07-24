@@ -5,7 +5,7 @@
 // import authorizeToken from 'modules/Auth/state/cells/authorizeToken';
 // import styles from "./styles.module.scss"
 
-// const Button = lazy(() => import('modules/Core/components/ui-kit/Button'))
+// const Button = lazy(() => import('modules/Core/sub-modules/ui-kit/components/Button'))
 
 // const Component = (props) => (
 //     <Suspense fallback={<React.Fragment />}>

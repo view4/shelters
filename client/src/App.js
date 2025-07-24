@@ -1,5 +1,5 @@
 import "./App.css";
-import "./modules/Core/styles/ui-kit.css";
+import "./modules/Core/sub-modules/ui-kit/ui-kit.css";
 import booths from "modules/booths";
 import { BrowserRouter, Routes } from "react-router-dom";
 import { Provider } from "react-redux";

@@ -1,12 +1,12 @@
 import cx from "classnames";
 import strapped from "modules/Core/higher-order-components/strapped";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
-import Title from "modules/Core/components/ui-kit/Title";
-import Button from "modules/Core/components/ui-kit/Button";
-import { Focus, Minimise } from "modules/Core/components/ui-kit/indicators";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
+import { Focus, Minimise } from "modules/Core/sub-modules/ui-kit/components/indicators";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
-import Card from "modules/Core/components/ui-kit/Card";
-import Container from "modules/Core/components/ui-kit/Container";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import styles from "./styles.module.scss";
 
 const CardHeader = ({ title, isOpen, toggle, actions }) => (

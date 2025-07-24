@@ -1,4 +1,4 @@
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/roadmaps/state/feed";
 import { useMemo } from "react";

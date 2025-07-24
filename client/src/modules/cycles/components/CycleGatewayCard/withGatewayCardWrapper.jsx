@@ -1,5 +1,5 @@
-import Container from "modules/Core/components/ui-kit/Container";
-import { DownArrow, UpArrow } from "modules/Core/components/ui-kit/indicators";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import { DownArrow, UpArrow } from "modules/Core/sub-modules/ui-kit/components/indicators";
 import styles from "./styles.module.scss";
 
 export default (C) => ({ reorder, hideUp, hideDown, ...props }) => (

@@ -1,9 +1,9 @@
 import { useMemo } from "react"
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import ActivateNewCycleButton from "../ActivateNewCycleButton";
 import { CYCLE_GATEWAY_KEYS } from "modules/cycles/consts";
 import CycleGatewayCard from "../CycleGatewayCard";
-import Card from "modules/Core/components/ui-kit/Card";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import styles from "./styles.module.scss";
 
 export const Placeholder = ({ boothId, fetch }) => (

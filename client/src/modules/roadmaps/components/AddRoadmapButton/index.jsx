@@ -1,4 +1,4 @@
-import Button from 'modules/Core/components/ui-kit/Button';
+import Button from 'modules/Core/sub-modules/ui-kit/components/Button';
 import { useIsOpen } from 'modules/Core/hooks/useIsOpen';
 import AddRoadmapForm from '../RoadmapForm';
 import styles from "./styles.module.scss";

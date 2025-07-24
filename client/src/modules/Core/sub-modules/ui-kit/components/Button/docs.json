@@ -1,0 +1,14 @@
+{
+  "key": "Button",
+  "name": "Action Button",
+  "path": "Button",
+  "section": "general",
+  "intro": "A versatile button component that embodies intentional action and choice, providing clear pathways for user interaction and spiritual engagement.",
+  "principles": ["clarity", "intentionality", "accessibility", "purpose"],
+  "demo": {
+    "props": {
+      "variant": "primary",
+      "children": "Take Action"
+    }
+  }
+} 

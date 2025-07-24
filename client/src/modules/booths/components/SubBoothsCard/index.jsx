@@ -3,8 +3,8 @@ import IntrospectionCard from "../IntrospectionCard";
 import feed from "../../state/feed";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import StampedFeedItem, { FeedItemStamps } from "modules/Core/components/Feed/StampedFeedItem";
-import Container from "modules/Core/components/ui-kit/Container";
-import Stamp from "modules/Core/components/ui-kit/Stamp";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Stamp from "modules/Core/sub-modules/ui-kit/components/Stamp";
 
 const Feed = feed.FeedComponent;
 

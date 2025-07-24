@@ -2,10 +2,10 @@ import strappedConnected from "modules/Core/higher-order-components/strappedConn
 import component from "../BoothScreen/component";
 import cells from "modules/booths/state/index";
 import { useMemo } from "react";
-import Card from "modules/Core/components/ui-kit/Card";
-import Screen from "modules/Core/components/ui-kit/Screen";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Screen from "modules/Core/sub-modules/ui-kit/components/Screen";
 import styles from "./styles.module.scss";
-import Loader from "modules/Core/components/ui-kit/Loader";
+import Loader from "modules/Core/sub-modules/ui-kit/components/Loader";
 
 const withPlaceholder = (Component, PlaceholderComponent, isEmptyKey = "shouldDisplayPlaceholder") => (props) => {
     const C = useMemo(() => Boolean(props[isEmptyKey]) ? PlaceholderComponent : Component, [PlaceholderComponent, Component, props?.[isEmptyKey]]);

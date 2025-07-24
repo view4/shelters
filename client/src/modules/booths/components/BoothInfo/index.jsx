@@ -1,11 +1,11 @@
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
 import feed from "modules/booths/state/feed";
-import Features from "modules/Core/components/ui-kit/Features";
+import Features from "modules/Core/sub-modules/ui-kit/components/Features";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import { useMemo } from "react";
 import EditBoothButton from "../EditBoothButton";
 import CompleteBoothButton from "../CompleteBoothButton";
-import Stamp from "modules/Core/components/ui-kit/Stamp";
+import Stamp from "modules/Core/sub-modules/ui-kit/components/Stamp";
 import ActivateBoothButton from "../ActivateBoothButton";
 import FocusBoothButton from "../FocusBoothButton";
 import styles from "./styles.module.scss";

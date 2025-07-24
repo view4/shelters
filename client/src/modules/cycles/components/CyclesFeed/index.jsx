@@ -1,10 +1,10 @@
 import cx from "classnames";
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/cycles/state/feed";
 import { useCallback, useMemo } from "react";
 import CycleGatewayCard from "../CycleGatewayCard";
-import ConditionalContainer from "modules/Core/components/ui-kit/ConditionalContainer";
+import ConditionalContainer from "modules/Core/sub-modules/ui-kit/components/ConditionalContainer";
 import FocusCycleButton from "../FocusCycleButton";
 import styles from "./styles.module.scss";
 import SabbaticalGatewayCard from "modules/cycles/components/CycleGatewayCard/SabbaticalGatewayCard/component"

@@ -1,7 +1,7 @@
 import React from "react";
 import SchemaForm from "modules/Core/components/form/Form/SchemaForm";
 import { BOOTH_SCHEMA } from "modules/booths/components/screens/CreateBoothScreen";
-import Screen from "modules/Core/components/ui-kit/Screen";
+import Screen from "modules/Core/sub-modules/ui-kit/components/Screen";
 import styles from "./styles.module.scss";
 
 const CreateMapalBoothScreen = ({ onSubmit }) => {

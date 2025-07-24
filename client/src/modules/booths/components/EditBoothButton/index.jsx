@@ -1,8 +1,8 @@
-import Button from 'modules/Core/components/ui-kit/Button';
+import Button from 'modules/Core/sub-modules/ui-kit/components/Button';
 import { useIsOpen } from 'modules/Core/hooks/useIsOpen';
 import feed from 'modules/booths/state/feed';
 import styles from "./styles.module.scss";
-import Modal from 'modules/Core/components/ui-kit/Modal';
+import Modal from 'modules/Core/sub-modules/ui-kit/components/Modal';
 import SchemaForm from 'modules/Core/components/form/Form/SchemaForm';
 import { BOOTH_SCHEMA } from '../screens/CreateBoothScreen';
 import withFocusedBoothId from 'modules/booths/higher-order-components/withFocusedBoothId';

@@ -1,0 +1,16 @@
+{
+  "key": "Features",
+  "name": "Feature Collection",
+  "path": "Features",
+  "section": "general",
+  "intro": "A container component that holds and displays multiple features or capabilities, creating a harmonious space for showcasing spiritual tools and resources.",
+  "principles": ["containment", "harmony", "organization", "clarity"],
+  "demo": {
+    "props": {
+      "features": [
+        {"title": "Feature 1", "description": "First feature description"},
+        {"title": "Feature 2", "description": "Second feature description"}
+      ]
+    }
+  }
+} 

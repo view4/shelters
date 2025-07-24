@@ -1,10 +1,10 @@
 import { Fragment } from "react"
 import feed from "modules/booths/state/feed"
-import Container from "modules/Core/components/ui-kit/Container"
-import RedirectButton from "modules/Core/components/ui-kit/RedirectButton"
+import Container from "modules/Core/sub-modules/ui-kit/components/Container"
+import RedirectButton from "modules/Core/sub-modules/ui-kit/components/RedirectButton"
 import StampedFeedItem, { FeedItemStamps } from "modules/Core/components/Feed/StampedFeedItem"
 import BoothScreen from "modules/shelter/components/BoothScreen"
-import Stamp from "modules/Core/components/ui-kit/Stamp"
+import Stamp from "modules/Core/sub-modules/ui-kit/components/Stamp"
 import styles from "./styles.module.scss"
 
 const Feed = feed.FeedComponent;

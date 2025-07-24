@@ -1,6 +1,6 @@
-import Modal from "modules/Core/components/ui-kit/Modal";
+import Modal from "modules/Core/sub-modules/ui-kit/components/Modal";
 import styles from "./styles.module.scss";
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import EntityForm from "modules/Core/components/form/EntityForm";
 
 const EntityFormModal = ({ FormComponent = EntityForm, isOpen, close, ...props }) => (
