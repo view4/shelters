@@ -19,6 +19,7 @@ import timemapper from "modules/timemapper";
 import mapal from "modules/mapal";
 import features from "modules/mapal/submodules/features";
 import teachings from "modules/teachings";
+import UIKit from "modules/Core/sub-modules/ui-kit";
 
 const { store, rootRender, routes } = init([
   booths,
@@ -36,7 +37,8 @@ const { store, rootRender, routes } = init([
   timemapper,
   mapal,
   features,
-  teachings
+  teachings,
+  UIKit,
 ]);
 
 const RootWrapper = () => {

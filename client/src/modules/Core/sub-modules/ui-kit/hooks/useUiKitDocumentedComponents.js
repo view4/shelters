@@ -21,10 +21,12 @@ const useUiKitDocumentedComponents = () => {
         setError(null);
 
         // Use require.context to get all docs.json files recursively
-        const docsContext = require.context('./components', true, /docs\.json$/);
+        const docsContext = require.context('../components', true, /docs\.json$/);
         const componentKeys = docsContext.keys();
 
         const loadedComponents = [];
+        const seenKeys = new Set(); // Track seen component keys to prevent duplicates
+        const seenPaths = new Set(); // Track seen paths as backup
 
         for (const key of componentKeys) {
           try {
@@ -52,7 +54,12 @@ const useUiKitDocumentedComponents = () => {
                 componentPath: componentPath
               };
 
-              loadedComponents.push(component);
+              // Check for duplicates using both key and path
+              if (!seenKeys.has(component.key) && !seenPaths.has(component.path)) {
+                seenKeys.add(component.key);
+                seenPaths.add(component.path);
+                loadedComponents.push(component);
+              }
             }
           } catch (componentError) {
             console.warn(`Failed to load component docs from ${key}:`, componentError);

@@ -1,6 +1,6 @@
 import EntityForm from "../EntityForm";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
-import Card from "../../ui-kit/Card";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import styles from "./styles.module.scss";
 
 const EntityFormCard = ({ handleSubmit, ...props }) => (

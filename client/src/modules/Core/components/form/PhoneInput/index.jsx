@@ -1,8 +1,8 @@
 // import { forwardRef, useMemo } from 'react'
 // import _PhoneInput from 'react-phone-number-input'
-// import Input from '../../ui-kit/Input'
-// import Text from '../../ui-kit/Text'
-// import Container from '../../ui-kit/Container'
+// import Input from 'modules/Core/sub-modules/ui-kit/components/Input'
+// import Text from 'modules/Core/sub-modules/ui-kit/components/Text'
+// import Container from 'modules/Core/sub-modules/ui-kit/components/Container'
 // import styles from './styles.module.scss'
 // import 'react-phone-number-input/style.css'
 

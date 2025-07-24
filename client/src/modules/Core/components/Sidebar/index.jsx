@@ -1,6 +1,6 @@
 import cx from "classnames";
 import Drawer from "modules/Core/sub-modules/ui-kit/components/Drawer";
-import Container from "../ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import styles from './styles.module.scss';
 // import P4PEmblem from "modules/P4P/components/P4PEmblem";
 

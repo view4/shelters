@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import cx from "classnames";
 import strapped from "modules/Core/higher-order-components/strapped";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
-import Button from "../../ui-kit/Button";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 // import SchemaForm from "./SchemaForm";
 import Success from "./Success";
 import withRecursiveRender from "modules/Core/higher-order-components/withRecursiveRender";
-import Header from "../../ui-kit/layout/Header";
-import Footer from "../../ui-kit/layout/Footer";
+import Header from "modules/Core/sub-modules/ui-kit/components/layout/Header";
+import Footer from "modules/Core/sub-modules/ui-kit/components/layout/Footer";
 import styles from "./styles.module.scss";
 
 const Component = ({ className, children, header, fullScreen, headerProps }) => (

@@ -8,8 +8,8 @@
   "demo": {
     "props": {
       "features": [
-        {"title": "Feature 1", "description": "First feature description"},
-        {"title": "Feature 2", "description": "Second feature description"}
+        {"name": "Feature 1", "content": "First feature description"},
+        {"name": "Feature 2", "content": "Second feature description"}
       ]
     }
   }

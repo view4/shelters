@@ -7,7 +7,8 @@
   "principles": ["clarity", "presence", "moment", "accessibility"],
   "demo": {
     "props": {
-      "date": "1705312200000"
+      "timestamp": "2024-01-15T10:30:00Z",
+      "format": "MMM DD, YYYY"
     }
   }
 } 

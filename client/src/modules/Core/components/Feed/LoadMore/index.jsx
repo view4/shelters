@@ -1,6 +1,6 @@
 import cx from "classnames";
-import Container from "../../ui-kit/Container"
-import Button from "../../ui-kit/Button";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container"
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
 import styles from "./styles.module.scss";
 

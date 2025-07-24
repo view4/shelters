@@ -22,14 +22,19 @@ const useLazyLoadedComponentDoc = (componentPath) => {
         const docsContext = require.context('../components', true, /docs\.json$/);
         const docKeys = docsContext.keys();
 
-        // Find the matching docs.json file
+        // Find the matching docs.json file by matching the file path (case-insensitive)
         let foundDoc = null;
         let foundDocKey = null;
 
         for (const key of docKeys) {
           try {
-            const docData = docsContext(key);
-            if (docData.path === componentPath) {
+            // Extract the component path from the require.context key
+            // Remove './' prefix and '/docs.json' suffix
+            const keyPath = key.replace(/^\.\//, '').replace(/\/docs\.json$/, '');
+            
+            // Check if this key matches the requested componentPath (case-insensitive)
+            if (keyPath.toLowerCase() === componentPath.toLowerCase()) {
+              const docData = docsContext(key);
               foundDoc = docData;
               foundDocKey = key;
               break;
@@ -46,27 +51,23 @@ const useLazyLoadedComponentDoc = (componentPath) => {
         setDoc(foundDoc);
 
         // Use React.lazy to dynamically import the component
-        const componentPathParts = componentPath.split('/');
-        const componentKey = componentPathParts[componentPathParts.length - 1];
-        
-        // Create a lazy component that imports from the correct path
         const LazyLoadedComponent = React.lazy(() => {
           return new Promise((resolve, reject) => {
             try {
-              // Try to import the component from the docs.json location
-              const componentContext = require.context('../components', true, /index\.jsx$/);
+              // Try to import the component from the matching path
+              const componentContext = require.context('../components', true, /index\.(js|jsx)$/);
               const componentKeys = componentContext.keys();
               
-              // Find the matching component file
+              // Find the matching component file (case-insensitive)
               const matchingKey = componentKeys.find(key => {
-                const keyPath = key.replace(/^\.\//, '').replace(/\/index\.jsx$/, '');
-                return keyPath === componentPath;
+                const keyPath = key.replace(/^\.\//, '').replace(/\/index\.(js|jsx)$/, '');
+                return keyPath.toLowerCase() === componentPath.toLowerCase();
               });
 
               if (matchingKey) {
-                componentContext(matchingKey).then(module => {
-                  resolve(module);
-                }).catch(reject);
+                // require.context returns the module directly, not a Promise
+                const componentModule = componentContext(matchingKey);
+                resolve(componentModule);
               } else {
                 reject(new Error(`Component file not found for: ${componentPath}`));
               }

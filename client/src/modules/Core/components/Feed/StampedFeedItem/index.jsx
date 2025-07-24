@@ -1,4 +1,4 @@
-import Stamps from "../../ui-kit/Stamps";
+import Stamps from "modules/Core/sub-modules/ui-kit/components/Stamps";
 import FeedItem from "../FeedItem";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";;
 
