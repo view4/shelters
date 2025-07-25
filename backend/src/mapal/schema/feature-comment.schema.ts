@@ -1,20 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { Stamps, StampsSchema } from 'src/common/schemas/stamps.schema';
+import { Comment, CommentSchema } from 'src/entries/schema/comment.schema';
 
 @Schema({ timestamps: true })
-export class FeatureComment extends Document {
-  @Prop({ required: true })
-  text: string;
-
+export class FeatureComment extends Comment {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Feature', required: true })
   feature: MongooseSchema.Types.ObjectId;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
-  user: MongooseSchema.Types.ObjectId;
-
-  @Prop({ type: StampsSchema })
-  stamps: Stamps
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Comment', required: true })
+  comment: MongooseSchema.Types.ObjectId;
 }
 
-export const FeatureCommentSchema = SchemaFactory.createForClass(FeatureComment); 
+export const FeatureCommentSchema = SchemaFactory.createForClass(FeatureComment);

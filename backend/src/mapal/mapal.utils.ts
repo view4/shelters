@@ -3,6 +3,66 @@ import mongoose from "mongoose";
 import { Model } from "mongoose";
 import { ID } from 'src/common/types';
 
+// const [feature] = await aggregate(this.featureModel, [
+//   { $match: { _id: new mongoose.Types.ObjectId(id) } },
+//   { $limit: 1 },
+//   {
+//     $lookup: {
+//       from: 'featurevotes',
+//       localField: '_id',
+//       foreignField: 'feature',
+//       as: 'votes',
+//       pipeline: [
+//         { $addFields: { id: '$_id' } }
+//       ]
+//     }
+//   },
+//   {
+//     $lookup: {
+//       from: 'featurecomments',
+//       localField: '_id',
+//       foreignField: 'feature',
+//       as: 'featureComments'
+//     }
+//   },
+//   {
+//     $lookup: {
+//       from: 'comments',
+//       localField: 'featureComments.comment',
+//       foreignField: '_id',
+//       as: 'comments',
+//       pipeline: [
+//         { $addFields: { id: '$_id' } }
+//       ]
+//     }
+//   },
+//   {
+//     $lookup: {
+//       from: 'features',
+//       localField: '_id',
+//       foreignField: 'parent',
+//       as: 'children'
+//     }
+//   },
+//   {
+//     $addFields: {
+//       totalVotes: {
+//         $reduce: {
+//           input: '$votes',
+//           initialValue: 0,
+//           in: { $add: ['$$value', '$$this.score'] }
+//         }
+//       },
+//       id: '$_id',
+//       boothId: '$booth',
+//       totalComments: {
+//         $size: '$comments'
+//       }
+//     }
+//   }
+// ]);
+
+
 export const aggregateFeature = (model: Model<any>, id: ID) =>  aggregate(model, [
     { $match: { _id: new mongoose.Types.ObjectId(id) } },
     { $limit: 1 },

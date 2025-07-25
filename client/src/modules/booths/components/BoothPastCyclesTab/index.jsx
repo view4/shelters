@@ -1,5 +1,5 @@
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import styles from "./styles.module.scss";
 import CyclesFeed from "modules/cycles/components/CyclesFeed";
 

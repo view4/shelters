@@ -1,11 +1,11 @@
 import cx from "classnames"
-import Button from "modules/Core/components/ui-kit/Button"
-import Container from "modules/Core/components/ui-kit/Container"
-import Screen from "modules/Core/components/ui-kit/Screen"
+import Button from "modules/Core/sub-modules/ui-kit/components/Button"
+import Container from "modules/Core/sub-modules/ui-kit/components/Container"
+import Screen from "modules/Core/sub-modules/ui-kit/components/Screen"
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected"
 import cells from "modules/auth/state"
 import styles from "./styles.module.scss"
-import ExpandableOptions from "modules/Core/components/ui-kit/ExpandableOptions"
+import ExpandableOptions from "modules/Core/sub-modules/ui-kit/components/ExpandableOptions"
 
 
 const _Screen = ({ isAuthed, headerChildren, email, className, ...props }) => {

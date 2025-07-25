@@ -1,17 +1,17 @@
 import cx from "classnames";
-import Container from "modules/Core/components/ui-kit/Container";
-import Card from "modules/Core/components/ui-kit/Card";
-import Title from "modules/Core/components/ui-kit/Title";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/booths/state/feed";
 import cells from "modules/booths/state";
-import Stamp from "modules/Core/components/ui-kit/Stamp";
+import Stamp from "modules/Core/sub-modules/ui-kit/components/Stamp";
 import { useNavigate } from "react-router-dom";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
-import Popover from "modules/Core/components/ui-kit/Popover";
+import Popover from "modules/Core/sub-modules/ui-kit/components/Popover";
 import { useCallback, useState, useRef } from "react";
-import { OpenInNew } from "modules/Core/components/ui-kit/indicators";
-import Modal from "modules/Core/components/ui-kit/Modal";
+import { OpenInNew } from "modules/Core/sub-modules/ui-kit/components/indicators";
+import Modal from "modules/Core/sub-modules/ui-kit/components/Modal";
 import styles from "./styles.module.scss";
 
 const ActiveBoothsPreview = ({ activeBooths, onBoothClick, isOpen, containerElement, onClose }) => {

@@ -2,10 +2,10 @@ import { useCallback, useMemo } from "react";
 import cx from "classnames";
 import P4PValuesFeed from "modules/P4P/sub-modules/Values/components/P4PValuesFeed";
 import useSelectedState from "modules/Core/hooks/useSelectedState";
-import Modal from "modules/Core/components/ui-kit/Modal";
-import Container from "modules/Core/components/ui-kit/Container";
-import Title from "modules/Core/components/ui-kit/Title";
-import Button from "modules/Core/components/ui-kit/Button";
+import Modal from "modules/Core/sub-modules/ui-kit/components/Modal";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import styles from './styles.module.scss';
 
 const FeedItem = ({ getIsSelected, ...props }) => (

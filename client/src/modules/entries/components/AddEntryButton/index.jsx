@@ -1,5 +1,5 @@
 import cx from "classnames"
-import Button from 'modules/Core/components/ui-kit/Button';
+import Button from 'modules/Core/sub-modules/ui-kit/components/Button';
 import { useIsOpen } from 'modules/Core/hooks/useIsOpen';
 import EntryForm from '../EntryForm';
 import strappedConnected from 'modules/Core/higher-order-components/strappedConnected';

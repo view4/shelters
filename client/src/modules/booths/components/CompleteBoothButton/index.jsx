@@ -1,7 +1,7 @@
 import { useState } from "react";
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
 import feed from "modules/booths/state/feed";
-import Button from "modules/Core/components/ui-kit/Button";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import { STAMPS } from "modules/Core/consts";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";

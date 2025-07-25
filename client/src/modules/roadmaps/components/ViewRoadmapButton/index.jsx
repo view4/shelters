@@ -1,4 +1,4 @@
-import Button from "modules/Core/components/ui-kit/Button";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import strapped from "modules/Core/higher-order-components/strapped";
 import { useNavigate } from "react-router-dom";
 

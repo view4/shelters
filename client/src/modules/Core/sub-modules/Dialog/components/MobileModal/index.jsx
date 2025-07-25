@@ -1,7 +1,7 @@
-import Container from "modules/Core/components/ui-kit/Container"
-import Modal from "modules/Core/components/ui-kit/Modal"
-import Title from "modules/Core/components/ui-kit/Title"
-import Text from "modules/Core/components/ui-kit/Text";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container"
+import Modal from "modules/Core/sub-modules/ui-kit/components/Modal"
+import Title from "modules/Core/sub-modules/ui-kit/components/Title"
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import styles from "./styles.module.scss"
 import useResponsiveness from "modules/Core/hooks/useResponsiveness";
 

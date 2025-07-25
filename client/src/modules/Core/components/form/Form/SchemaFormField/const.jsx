@@ -1,9 +1,9 @@
 import { useCallback } from "react";
-import Input, { InputLabel } from "modules/Core/components/ui-kit/Input"
+import Input, { InputLabel } from "modules/Core/sub-modules/ui-kit/components/Input"
 import SchemaFormArrayField from "./SchemaFormArrayField"
-import AsyncSelect from "modules/Core/components/ui-kit/Input/AsyncSelect"
-import ImageInput from "modules/Core/components/ui-kit/Input/ImageInput";
-import Container from "modules/Core/components/ui-kit/Container";
+import AsyncSelect from "modules/Core/sub-modules/ui-kit/components/Input/AsyncSelect"
+import ImageInput from "modules/Core/sub-modules/ui-kit/components/Input/ImageInput";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 // import UsersField from "../../UsersField";
 import ObjectField from "../../ObjectField";
 import styles from "./styles.module.scss";

@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "modules/Core/components/ui-kit/Modal";
+import Modal from "modules/Core/sub-modules/ui-kit/components/Modal";
 import SchemaForm from "modules/Core/components/form/Form/SchemaForm";
 import styles from "./styles.module.scss";
 import VoteButtons from "../VoteButtons";

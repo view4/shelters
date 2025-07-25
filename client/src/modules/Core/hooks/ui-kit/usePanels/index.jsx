@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import cx from 'classnames';
 import { isNumber } from 'lodash';
-import Container from 'modules/Core/components/ui-kit/Container';
-import TitleSection from 'modules/Core/components/ui-kit/SplitScreen/TitleSection';
+import Container from 'modules/Core/sub-modules/ui-kit/components/Container';
+import TitleSection from 'modules/Core/sub-modules/ui-kit/components/SplitScreen/TitleSection';
 import useSidebar from "modules/Core/components/Sidebar/useSidebar";
 import styles from './styles.module.scss';
 

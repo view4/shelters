@@ -1,7 +1,7 @@
 import cx from "classnames";
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
-import Text from "modules/Core/components/ui-kit/Text";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import styles from "./styles.module.scss";
 import { useCallback, useState } from "react";
 

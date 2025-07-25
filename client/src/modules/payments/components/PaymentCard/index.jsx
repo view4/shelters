@@ -1,4 +1,4 @@
-import Card from 'modules/Core/components/ui-kit/Card';
+import Card from 'modules/Core/sub-modules/ui-kit/components/Card';
 import PaymentElement from '../PaymentElement';
 
 const PaymentCard = ({ clientSecret,header, className, options={} }) => {

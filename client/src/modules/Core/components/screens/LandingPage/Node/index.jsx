@@ -1,8 +1,8 @@
 import cx from "classnames";
-import Title from "modules/Core/components/ui-kit/Title";
-import Text from "modules/Core/components/ui-kit/Text";
-import RedirectButton from "modules/Core/components/ui-kit/RedirectButton";
-import Container from "modules/Core/components/ui-kit/Container";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
+import RedirectButton from "modules/Core/sub-modules/ui-kit/components/RedirectButton";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import styles from "./styles.module.scss";
 import { useMemo } from "react";
 

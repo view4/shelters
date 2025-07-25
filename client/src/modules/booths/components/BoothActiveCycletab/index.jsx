@@ -1,10 +1,10 @@
 import Cycle from "modules/cycles/components/Cycle";
-import Drawer from "modules/Core/components/ui-kit/Drawer";
-import Button from "modules/Core/components/ui-kit/Button";
+import Drawer from "modules/Core/sub-modules/ui-kit/components/Drawer";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
 import CyclesFeed from "modules/cycles/components/CyclesFeed";
-import Card from "modules/Core/components/ui-kit/Card";
-import Container from "modules/Core/components/ui-kit/Container";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import cFeed from "modules/cycles/state/feed";
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
 import styles from "./styles.module.scss";

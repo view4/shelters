@@ -1,0 +1,24 @@
+{
+    "key": "Card",
+    "name": "Card",
+    "path": "Card",
+    "section": "layout",
+    "intro": "A stylized container designed to wrap content in a way that visually and semantically separates it from its surroundings, enabling focused and expressive UI segments.",
+    "principles": [
+      "separation of concerns",
+      "adaptability",
+      "reusability",
+      "meaningful containment"
+    ],
+    "demo": {
+      "props": {
+        "header": "Example Card",
+        "children": "This is a card body with meaningful content."
+      }
+    },
+    "notes": "Use the Card when you need to establish visual hierarchy and intentional space around content. It holds space without overwhelming it, and can adapt to complex structures like tabbed interfaces.",
+    "status": "stable",
+    "tags": ["layout", "container", "structure", "focus"],
+    "lastUpdated": "2025-07-24"
+  }
+  

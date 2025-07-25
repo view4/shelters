@@ -1,7 +1,7 @@
-import Container from "modules/Core/components/ui-kit/Container";
-import Footer from "modules/Core/components/ui-kit/layout/Footer";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Footer from "modules/Core/sub-modules/ui-kit/components/layout/Footer";
 import Action from "modules/Posts/components/PostActions/Action";
-import { EditNote, RemoveCircle } from "modules/Core/components/ui-kit/indicators";
+import { EditNote, RemoveCircle } from "modules/Core/sub-modules/ui-kit/components/indicators";
 import styles from "./styles.module.scss";
 
 const AimsInputActions = ({ onDelete, onEdit }) => (

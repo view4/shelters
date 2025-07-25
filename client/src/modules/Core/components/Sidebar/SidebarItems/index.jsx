@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import styles from "./styles.module.scss";
-import Container from '../../ui-kit/Container';
-import RedirectButton from '../../ui-kit/RedirectButton';
-import Title from '../../ui-kit/Title';
+import Container from 'modules/Core/sub-modules/ui-kit/components/Container';
+import RedirectButton from 'modules/Core/sub-modules/ui-kit/components/RedirectButton';
+import Title from 'modules/Core/sub-modules/ui-kit/components/Title';
 
 const MenuItem = ({ text, header, to, divider }) => {
     const content = useMemo(() => {

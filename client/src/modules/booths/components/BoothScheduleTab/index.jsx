@@ -1,11 +1,11 @@
 import cx from "classnames";
 import { useState } from "react";
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Timemap from "modules/timemapper/components/Timemap";
 import ScheduleTimeButton from "modules/timemapper/components/MapTimeButton";
-import Button from "modules/Core/components/ui-kit/Button";
-import Card from "modules/Core/components/ui-kit/Card";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import styles from "./styles.module.scss";
 
 

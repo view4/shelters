@@ -1,0 +1,13 @@
+{
+  "key": "Date",
+  "name": "Date",
+  "path": "Date",
+  "section": "general",
+  "intro": "A component that displays dates and timestamps in a human-readable format, honoring the sacred nature of time and moments.",
+  "principles": ["clarity", "presence", "moment", "accessibility"],
+  "demo": {
+    "props": {
+      "date": "1705312200000"
+    }
+  }
+} 

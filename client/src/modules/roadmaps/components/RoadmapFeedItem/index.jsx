@@ -1,21 +1,21 @@
 import { useCallback } from "react";
 import cx from "classnames";
 import ExpandableFeedItem from "modules/Core/components/Feed/ExpandableFeedItem";
-import Container from "modules/Core/components/ui-kit/Container";
-import Text from "modules/Core/components/ui-kit/Text";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import AddGatewayButton from "../AddGatewayButton";
 import Feed from "modules/Core/components/Feed";
 import AddGatewayToCycleButton from "../AddGatewayToCycleButton";
-import ExpandableOptions from "modules/Core/components/ui-kit/ExpandableOptions";
+import ExpandableOptions from "modules/Core/sub-modules/ui-kit/components/ExpandableOptions";
 import EditGatewayButton from "../EditGatewayButton";
 import ViewRoadmapButton from "../ViewRoadmapButton";
 import StampGatewayButton from "../StampGatewayButton";
 import { STAMPS } from "modules/Core/consts";
-import Stamps from "modules/Core/components/ui-kit/Stamps";
+import Stamps from "modules/Core/sub-modules/ui-kit/components/Stamps";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/roadmaps/state/feed";
-import Title from "modules/Core/components/ui-kit/Title";
-import Button from "modules/Core/components/ui-kit/Button";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import styles from "./styles.module.scss";
 
 

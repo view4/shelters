@@ -1,6 +1,6 @@
 import cx from "classnames"
-import Container from "modules/Core/components/ui-kit/Container";
-import Link from "modules/Core/components/ui-kit/Link";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Link from "modules/Core/sub-modules/ui-kit/components/Link";
 import styles from "./styles.module.scss"
 
 const SidemenuLink = ({ to, text, isActive, containerRef, children, className, ...props }) => {

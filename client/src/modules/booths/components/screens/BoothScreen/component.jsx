@@ -1,5 +1,5 @@
 import { Fragment, useMemo } from "react";
-import Container from "modules/Core/components/ui-kit/Container"
+import Container from "modules/Core/sub-modules/ui-kit/components/Container"
 import BoothScheduleTab from "../../BoothScheduleTab";
 import BoothScreen from "modules/shelter/components/BoothScreen";
 import EntriesFeed from "modules/entries/components/EntriesFeed";
@@ -8,7 +8,7 @@ import Cycle from "modules/cycles/components/Cycle";
 import RoadmapsFeed from "modules/roadmaps/components/RoadmapsFeed";
 import AddRoadmapButton from "modules/roadmaps/components/AddRoadmapButton";
 import IntrospectionCard from "../../IntrospectionCard";
-import Card from "modules/Core/components/ui-kit/Card";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
 import styles from "./styles.module.scss";
 

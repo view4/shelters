@@ -1,16 +1,16 @@
 import c from "classnames";
 import cells from "modules/auth/state";
-import Screen from "modules/Core/components/ui-kit/Screen";
-import Container from "modules/Core/components/ui-kit/Container";
-import Footer from "modules/Core/components/ui-kit/layout/Footer";
-import Title from "modules/Core/components/ui-kit/Title";
-import Card from "modules/Core/components/ui-kit/Card";
-import Text from "modules/Core/components/ui-kit/Text";
-import Button from "modules/Core/components/ui-kit/Button";
+import Screen from "modules/Core/sub-modules/ui-kit/components/Screen";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Footer from "modules/Core/sub-modules/ui-kit/components/layout/Footer";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import { ReactComponent as WelcomeBg } from "../../../assets/welcome_bg_cleaned.svg";
 import { ESSENTIALS, FEATURES } from "./consts";
-import Link from "modules/Core/components/ui-kit/Link";
+import Link from "modules/Core/sub-modules/ui-kit/components/Link";
 import styles from "./styles.module.scss";
 
 const FeatureCard = ({ name, description, className }) => (

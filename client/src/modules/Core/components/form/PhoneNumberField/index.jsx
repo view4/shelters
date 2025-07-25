@@ -1,10 +1,10 @@
 // import { useCallback, useState } from "react";
 // import { useRequest } from "modules/Core/hooks/useMiddleware";
 // import useOnError from "modules/Core/sub-modules/Dialog/hooks/useOnError";
-// import Container from "../../ui-kit/Container";
+// import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 // import PhoneInput from "../PhoneInput";
-// import _Button from "modules/Core/components/ui-kit/Button";
-// import { InputLabel } from "../../ui-kit/Input";
+// import _Button from "modules/Core/sub-modules/ui-kit/components/Button";
+// import { InputLabel } from "modules/Core/sub-modules/ui-kit/components/Input";
 // import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
 
 // const query = `

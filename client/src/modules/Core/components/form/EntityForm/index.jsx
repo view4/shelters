@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from "react";
 import cx from "classnames";
-import Button from "modules/Core/components/ui-kit/Button";
-import Input from "modules/Core/components/ui-kit/Input";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
+import Input from "modules/Core/sub-modules/ui-kit/components/Input";
 import AimsInput from "../AimsInput";
-import Container from "modules/Core/components/ui-kit/Container";
-import Header from "modules/Core/components/ui-kit/layout/Header";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Header from "modules/Core/sub-modules/ui-kit/components/layout/Header";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
 import styles from "./styles.module.scss";
 

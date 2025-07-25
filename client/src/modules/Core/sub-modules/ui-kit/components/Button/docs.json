@@ -1,0 +1,25 @@
+{
+  "key": "Button",
+  "name": "Button",
+  "path": "Button",
+  "section": "general",
+  "intro": "A versatile and expressive component for triggering meaningful action. Buttons serve as invitations — clear calls toward engagement, intention, and movement.",
+  "principles": [
+    "clarity",
+    "intentionality",
+    "accessibility",
+    "facilitating meaningful action",
+    "encouraging engagement",
+    "purposeful direction"
+  ],
+  "demo": {
+    "props": {
+      "variant": "primary",
+      "children": "Take Action"
+    }
+  },
+  "notes": "Use buttons to guide the user toward the next step. The Button component honors the user’s time and energy by clearly presenting purposeful choices. Its design should always reflect care: in sizing, label, and placement.",
+  "status": "stable",
+  "tags": ["action", "interaction", "primary", "engagement"],
+  "lastUpdated": "2025-07-24"
+}

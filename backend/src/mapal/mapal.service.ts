@@ -14,6 +14,7 @@ import { FeatureCommentInput, FeatureInput, FeatureVoteInput, FeatureLabelInput 
 import { Label, LabelDocument } from 'src/common/schemas/label.schema';
 import { compactObject } from 'src/common/utils/object';
 import { aggregateBoothLabels, aggregateFeature } from './mapal.utils';
+import { CommentsService } from 'src/entries/comments.service';
 
 @Injectable()
 export class MapalService {
@@ -25,6 +26,7 @@ export class MapalService {
     @InjectModel(FeatureLabel.name) private featureLabelModel: Model<FeatureLabel>,
     @InjectModel(Label.name) private labelModel: Model<Label>,
     private readonly boothsService: BoothsService,
+    private readonly commentsService: CommentsService,
   ) { }
 
   // Feature methods
@@ -93,7 +95,17 @@ export class MapalService {
 
   // FeatureComment methods
   async upsertComment(userId: ID, input: FeatureCommentInput, id?: string): Promise<FeatureComment> {
-    return upsert(this.featureCommentModel, { ...input, user: userId, feature: input.featureId }, id);
+    // First create/update the base comment
+    const comment = await this.commentsService.upsertComment(userId, { text: input.text }, id);
+
+    // Then create/update the feature-specific reference
+    return upsertOne(this.featureCommentModel, {
+      comment: comment._id,
+      feature: input.featureId,
+    }, {
+      comment: comment._id,
+      feature: input.featureId,
+    });
   }
 
   async featureComments(featureId: string): Promise<FeatureComment[]> {

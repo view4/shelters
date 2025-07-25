@@ -1,0 +1,26 @@
+{
+    "key": "ExpandableCard",
+    "name": "Expandable Card",
+    "path": "Card/ExpandableCard",
+    "section": "layout",
+    "intro": "A collapsible container designed to gracefully reveal or hide content, inviting intentional interaction while maintaining structural clarity and containment.",
+    "principles": [
+      "progressive disclosure",
+      "intentional interaction",
+      "not overloading the user",
+      "clean containment",
+      "form that connects to meaning beyond form"
+    ],
+    "demo": {
+      "props": {
+        "label": "Expandable Section",
+        "children": "This content is revealed when the card is expanded.",
+        "defaultOpen": false
+      }
+    },
+    "notes": "Use the ExpandableCard when information should be available without overwhelming the interface. It supports simplicity, presence, and choice. Content is gently tucked away, but always available. The structure invites attention inward — not for its own sake, but in service of meaning held within.",
+    "status": "stable",
+    "tags": ["layout", "interaction", "collapsible", "structure", "reveal"],
+    "lastUpdated": "2025-07-24"
+  }
+  

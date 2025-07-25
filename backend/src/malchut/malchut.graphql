@@ -1,0 +1,63 @@
+type Query {
+  directives(boothId: String, feedParams: FeedParams): DirectiveFeed
+  directive(id: ID!): Directive
+}
+
+type Mutation {
+  upsertDirective(input: DirectiveInput, id: String): Directive!
+  upsertDirectiveComment(input: DirectiveCommentInput, id: String): DirectiveComment!
+  upsertMalchutBooth(id: String, input: BoothInput): Booth
+}
+
+type DirectiveFeed {
+  entities: [Directive]
+  info: FeedInfo
+}
+
+type MalchutBooth {
+  id: String
+  booth: String
+}
+
+type DirectiveStamps {
+  proposed: String
+  reviewed: String
+  approved: String
+  implemented: String
+  completed: String
+  archived: String
+}
+
+type Directive {
+  id: ID!
+  name: String!
+  text: String!
+  stamps: DirectiveStamps
+  boothId: ID
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+  comments: [DirectiveComment]
+  children: [Directive]
+}
+
+type DirectiveComment {
+  id: ID!
+  directiveId: ID!
+  text: String!
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+}
+
+input DirectiveInput {
+  name: String!
+  text: String!
+  boothId: ID!
+  parentId: String
+}
+
+input DirectiveCommentInput {
+  directiveId: ID!
+  text: String!
+}

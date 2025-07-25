@@ -1,5 +1,5 @@
-import Container from "modules/Core/components/ui-kit/Container";
-import Button from "../../ui-kit/Button";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import styles from "./styles.module.scss";
 
 const TabsHeader = ({ tabs, activeIndex, setActiveIndex }) => (

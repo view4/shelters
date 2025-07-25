@@ -5,7 +5,7 @@ import { putSuccess } from '../utils';
 import { onError, onSuccess as onSuccessAction } from 'modules/Core/sub-modules/Dialog/state/cells';
 
 const defaultParseRes = (res) => res?.entity;
-export default (moduleName, { requestHandler, parseRes = defaultParseRes, onErrorMessage, onSuccess, successMessage, name = CREATE_ENTITY }) => initCell(
+export default (moduleName, { requestHandler, parseRes = defaultParseRes, onErrorMessage, onSuccess, successMessage, name = CREATE_ENTITY, ...args } = {}) => initCell(
     moduleName,
     {
         name,
@@ -20,7 +20,7 @@ export default (moduleName, { requestHandler, parseRes = defaultParseRes, onErro
                 let res = yield call(requestHandler, {...payload, id})
                 res = parseRes?.(res) ?? res;
                 yield putSuccess(moduleName, name, res)
-                callback?.(res)
+                callback?.(res) 
                 return res;
             },
             onError: onErrorMessage && function* () {
@@ -35,6 +35,15 @@ export default (moduleName, { requestHandler, parseRes = defaultParseRes, onErro
             reducer: (state, payload) => {
                 state.isLoading = false;
             },
-        }
-    }
+            sagas: {
+                latest: function* ({ payload: { callback, id, ...payload } }) {
+                    console.log('on success saga being called here...')
+                    console.log("payload", payload)
+                    console.log('onSuccess', onSuccess)
+                    if (onSuccess) yield onSuccess(...args)
+                }
+            }
+        },
+        ...(args || {})
+    },
 )
