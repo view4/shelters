@@ -25,9 +25,7 @@ export default strappedConnected(
             onSubmit: useCallback(({ name, text, parent }) => {
                 createEntity({ input: { name, text, parentId: parent }, callback });
             }, [createEntity, callback]),
-            initialState: useMemo(() => ({
-                parent: parentId
-            }), [parentId])
+            parentId
         };
     }
 ); 

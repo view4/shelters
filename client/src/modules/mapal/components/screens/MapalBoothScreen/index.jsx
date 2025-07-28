@@ -4,6 +4,8 @@ import FeatureFeed from "modules/mapal/submodules/features/components/FeatureFee
 import BoothInfo from "modules/booths/components/BoothInfo";
 import IntrospectionCard from "modules/booths/components/IntrospectionCard";
 import FeatureFormButton from "modules/mapal/submodules/features/components/FeatureFormButton";
+import SubBoothsCard from "modules/booths/components/SubBoothsCard";
+import { BOOTH_KINDS } from "modules/booths/consts";
 import styles from "./styles.module.scss";
 
 const Component = ({ id: boothId }) => {
@@ -22,6 +24,11 @@ const Component = ({ id: boothId }) => {
             >
                 <FeatureFeed boothId={boothId} />
             </IntrospectionCard>
+            <SubBoothsCard
+                parentId={boothId}
+                kind={BOOTH_KINDS.MALCHUT}
+                title="Sub-Booths"
+            />
         </BoothScreen>
     )
 }
