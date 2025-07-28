@@ -9,7 +9,7 @@ import styles from "./styles.module.scss"
 
 const Feed = feed.FeedComponent;
 
-const FeedItem = ({ mapal, stamps, malchut, ...props }) => (
+export const FeedItem = ({ mapal, stamps, malchut, ...props }) => (
     <StampedFeedItem
         headerChildren={<Container flex row >
             {mapal?.id && <Stamp nature='somewhat_certain' stamp={"Mapal"} />}

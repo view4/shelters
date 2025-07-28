@@ -1,3 +1,5 @@
+// CSS
+import './ui-kit.css'; 
 // UI Kit Components
 export { default as Button } from './components/Button';
 export { default as Container } from './components/Container';
@@ -48,6 +50,3 @@ export * from './hooks';
 
 // Documentation
 // export { default as UIKitDocs } from './UIKitDocs';
-
-// CSS
-import './ui-kit.css'; 

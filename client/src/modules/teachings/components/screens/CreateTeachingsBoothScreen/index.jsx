@@ -22,8 +22,14 @@ export default strappedConnected(
         }, [navigate, onSuccess]);
 
         return {
-            onSubmit: useCallback(({ name, text, parent }) => {
-                createEntity({ input: { name, text, parentId: parent }, callback });
+            onSubmit: useCallback(({ name, text, parentId, ...rest }) => {
+                console.log({
+                    name,
+                    text,
+                    parentId,
+                    ...rest
+                })
+                createEntity({ input: { name, text, parentId }, callback });
             }, [createEntity, callback]),
             parentId
         };

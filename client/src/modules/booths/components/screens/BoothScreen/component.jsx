@@ -11,6 +11,7 @@ import IntrospectionCard from "../../IntrospectionCard";
 import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
 import SubBoothsCard from "../../SubBoothsCard";
+import { BOOTH_KINDS } from "modules/booths/consts";
 import styles from "./styles.module.scss";
 
 
@@ -39,33 +40,36 @@ const BoothTimeIntrospectionCard = ({ boothId, ...props }) => {
     )
 }
 
-export default ({ focusedBoothId, id = focusedBoothId }) => id && (
+export default ({ focusedBoothId, id = focusedBoothId }) => (
     <BoothScreen
         tripanel
         boothId={id}
         RightPanelComponent={Fragment}
     >
         <Container className={styles.container}>
-            <BoothTimeIntrospectionCard boothId={id} />
-            <IntrospectionCard className={styles.card} title="Cycle" maxWidth maxHeight>
-                <Cycle />
-            </IntrospectionCard>
-            <IntrospectionCard className={styles.card} title="Roadmaps" maxWidth maxHeight>
-                <Container maxWidth maxHeight flex col alignCenter>
-                    <RoadmapsFeed boothId={id} />
-                    <AddRoadmapButton boothId={id} />
-                </Container>
-            </IntrospectionCard>
-            <IntrospectionCard className={styles.card} title="Entries" maxWidth maxHeight>
-                <AddEntryButton className={styles.entriesButton} boothId={id} />
-                <EntriesFeed boothId={id} />
-            </IntrospectionCard>
+            <Container>
+                <BoothTimeIntrospectionCard boothId={id} />
+                <IntrospectionCard className={styles.card} title="Cycle" maxWidth maxHeight>
+                    <Cycle />
+                </IntrospectionCard>
+                <IntrospectionCard className={styles.card} title="Roadmaps" maxWidth maxHeight>
+                    <Container maxWidth maxHeight flex col alignCenter>
+                        <RoadmapsFeed boothId={id} />
+                        <AddRoadmapButton boothId={id} />
+                    </Container>
+                </IntrospectionCard>
+                <IntrospectionCard className={styles.card} title="Entries" maxWidth maxHeight>
+                    <AddEntryButton className={styles.entriesButton} boothId={id} />
+                    <EntriesFeed boothId={id} />
+                </IntrospectionCard>
+            </Container>
+            <Container>
+                <SubBoothsCard
+                    parentId={id}
+                    kind={BOOTH_KINDS.MALCHUT}
+                />
+            </Container>
         </Container>
-        <Container>
-            <SubBoothsCard
-                parentId={id}
-                kind={BOOTH_KINDS.MALCHUT}
-            />
-        </Container>
+
     </BoothScreen>
 )

@@ -1,0 +1,35 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.feedItem {
+    margin: 0.5rem;
+    border: 1px solid $grey10;
+    border-radius: 1rem;
+    box-shadow: 0 0.25rem 0.5rem $grey7;
+    width: -webkit-fill-available;
+    height: 7rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: $white90;
+    
+    &:hover {
+        transform: translateY(-0.15rem);
+        border-color: $ocean_blue36;
+        box-shadow: 0 0.4rem 0.8rem $grey18;
+        background-color: $grey3;
+        
+        & h2 {
+            color: $ocean_blue;
+        }
+    }
+    
+    &:active {
+        transform: translateY(-0.05rem);
+        box-shadow: 0 0.25rem 0.5rem $grey18;
+    }
+    
+    & h2 {
+        margin: unset;
+        transition: color 0.2s ease;
+    }
+}

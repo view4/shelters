@@ -7,45 +7,16 @@ import { useNavigate } from "react-router-dom";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
 import authCells from "modules/auth/state";
 import useOnError from "modules/Core/sub-modules/Dialog/hooks/useOnError";
-import { Container } from "modules/Core/sub-modules/ui-kit/exports";
-import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
-import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import withQueryParams from "modules/Core/higher-order-components/withQueryParams";
 
-const ParentBoothFieldComponent = ({ parentId, name, id }) => {
-    return (
-        <Container>
-            <Title>{name}</Title>
-        </Container>
-    )
-}
-
-const ParentBoothField = strappedConnected(
-    withShouldRender(ParentBoothFieldComponent),
-    {
-        parent: (state, { parentId }) => feed.cells.fetchEntity.selector(parentId)(state)
-    },
-    {
-        fetchBooths: feed.cells?.fetchFeed.action
-    },
-    ({ fetchBooths, parentId, ...props }) => {
-        console.log({
-            parentId,
-            ...props
-        })
-        return {
-            shouldRender: Boolean(parentId),
-            name: parent?.name,
-            id: parent?.id
-        }
-    }
-)
+import BoothParentField from "../../BoothParentField";
 
 export const BOOTH_SCHEMA = {
-    title: "Create Booth",
+    title: "Create Booth",      
     fields: {
         parentId: {
-            Component: withQueryParams(ParentBoothField)
+            Component: withQueryParams(BoothParentField),
+            wrapperClassName: 'parent-field'
         },
         name: {
             type: "text",

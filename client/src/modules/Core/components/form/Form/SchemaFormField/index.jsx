@@ -18,11 +18,13 @@ const SchemaFormField = ({
     highlightable = true,
     cardless,
     userGuideKey,
+    wrapperClassName,
     ...props
 }) => (
     <Wrapper 
         className={cx(
             styles.container,
+            wrapperClassName,
             {
                 [styles.card]: !cardless,
                 [styles[type]]: type,

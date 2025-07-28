@@ -21,7 +21,6 @@ export const progenitorsToSagas = (moduleName, progenitors) => {
     const sagas = [];
     Object.entries(progenitors).forEach(([name, progenitor]) => {
         // Add main progenitor sagas
-        console.log("progenitor", progenitor, name)
         if (progenitor?.sagas) {
             Object.entries(progenitor.sagas).forEach(([sagaName, saga]) => {
                 if (sagaName === 'latest') {
