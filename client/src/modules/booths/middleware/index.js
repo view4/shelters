@@ -37,6 +37,11 @@ export default new MiddlewareModule({
                 text
                 ${STAMPS_FRAGMENT}
                 createdAt
+                parent {
+                  id
+                  name
+                  text
+                }
                 mapal {
                   id
                 }
@@ -66,6 +71,11 @@ export default new MiddlewareModule({
               text
               ${STAMPS_FRAGMENT}
               isFocused
+              parent {
+                  id
+                  name
+                  text
+              }
               mapal {
                 id
               }

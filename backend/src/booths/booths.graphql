@@ -26,6 +26,7 @@ type Booth {
   mapalId: String
   mapal: MapalBooth
   malchut: MalchutBooth
+  parent: Booth
 }
 
 input BoothInput {

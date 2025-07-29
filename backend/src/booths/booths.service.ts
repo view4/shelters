@@ -1,8 +1,8 @@
 import { Injectable, Inject, forwardRef } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Booth, BoothDocument } from "./schema/booth.schema";
-import mongoose, { Model, Types } from "mongoose";
-import { aggregate, aggregateFeed, count, create, filterOne, upsert, upsertOne } from "src/common/utils/db";
+import mongoose, { Model } from "mongoose";
+import { aggregate, count, create, filterOne, upsert, upsertOne } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { FeedParams, ID } from "src/common/types";
 import { MembershipService } from "src/auth/membership.service";
@@ -53,6 +53,21 @@ export class BoothsService {
             },
             {
                 $lookup: {
+                    from: 'booths',
+                    localField: 'parent',
+                    foreignField: '_id',
+                    as: 'parent',
+                    pipeline: [
+                        {
+                            $addFields: {
+                                id: '$_id',
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                $lookup: {
                     // COULDDO: better way of utilising repeated pipeline segments
                     from: 'mapalbooths',
                     localField: '_id',
@@ -65,12 +80,6 @@ export class BoothsService {
                             }
                         }
                     ]
-                }
-            },
-            {
-                $addFields: {
-                    mapal: { $first: '$mapal' },
-                    id: '$_id'
                 }
             },
             {
@@ -90,6 +99,8 @@ export class BoothsService {
             },
             {
                 $addFields: {
+                    parent: { $first: '$parent' },
+                    mapal: { $first: '$mapal' },
                     malchut: { $first: '$malchut' },
                     id: '$_id'
                 }
