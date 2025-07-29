@@ -16,10 +16,8 @@ const STAMP_TEXT = {
     "LIFE": "Life"
 }
 
-const BoothParentFieldComponent = ({ parentId, name, kind }) => {
-    const stampText = useMemo(() => STAMP_TEXT[kind] || STAMP_TEXT.default, [kind])
-
-    if (!parentId) return <Container className={styles.hidden}/>
+const BoothParentFieldComponent = ({ parentId, name, stampText }) => {
+    if (!parentId) return <Container className={styles.hidden} />
 
     return (
         <Container className={styles.parentFieldContainer}>
@@ -27,9 +25,9 @@ const BoothParentFieldComponent = ({ parentId, name, kind }) => {
             <Container className={styles.parentInfoContainer}>
                 <Title className={styles.parentName}>{name}</Title>
                 <Container className={styles.stampContainer}>
-                    <Stamp 
-                        nature='somewhat_certain' 
-                        stamp={stampText} 
+                    <Stamp
+                        nature='somewhat_certain'
+                        stamp={stampText}
                         className={styles.stamp}
                     />
                 </Container>
@@ -47,13 +45,14 @@ const BoothParentField = strappedConnected(
         fetchParent: feed.cells?.fetchEntity.action
     },
     ({ fetchParent, parentId, parent, kind, onChange, ...props }) => {
+        console.log({ parentId, parent, kind })
         useOnLoad(() => {
             if (parentId) {
                 fetchParent({ id: parentId })
 
             }
         }, !parent?.name && parentId, [fetchParent, parentId])
-        
+
 
         useEffect(() => {
             if (parentId) {
@@ -65,7 +64,13 @@ const BoothParentField = strappedConnected(
             shouldRender: Boolean(parentId),
             name: parent?.name,
             id: parent?.id,
-            kind: parent?.kind || kind
+            stampText: useMemo(() => {
+                if (!parent) return null
+                if (parent?.mapal?.id) return STAMP_TEXT[BOOTH_KINDS.MAPAL]
+                if (parent?.malchut?.id) return STAMP_TEXT[BOOTH_KINDS.MALCHUT]
+                return STAMP_TEXT.LIFE
+            }, [parent])
+
         }
     }
 );
