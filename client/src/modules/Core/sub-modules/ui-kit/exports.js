@@ -47,6 +47,3 @@ export * from './components/indicators';
 
 // Hooks
 export * from './hooks';
-
-// Documentation
-// export { default as UIKitDocs } from './UIKitDocs';
