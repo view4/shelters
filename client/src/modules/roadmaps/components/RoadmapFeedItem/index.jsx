@@ -46,7 +46,7 @@ export const TitleWithStamps = ({ title, stamps }) => (
     </Container>
 )
 
-const RoadmapFeedItem = ({ text, name, stamps, children, id, parentId, refetchGateway, className, parent, parentName, headerChildren }) => (
+const RoadmapFeedItem = ({ text, name, stamps, children,childrenIds, id, parentId, refetchGateway, className, parent, parentName, headerChildren }) => (
     <ExpandableFeedItem
         className={cx(
             styles.container,
@@ -79,8 +79,8 @@ const RoadmapFeedItem = ({ text, name, stamps, children, id, parentId, refetchGa
         </Container  >
         <Container col flex flexEnd alignCenter maxWidth>
             <Feed.Component
-                feed={children}
-                ItemComponent={RoadmapFeedItem}
+                feed={childrenIds?.map(id => ({ id }))}
+                ItemComponent={ChildGatewayFeedItem}
                 className={styles.childFeedItem}
             />
         </Container>
@@ -106,6 +106,25 @@ export const SelectableGatewayFeedItem = ({ onSelect, ...props }) => (
             </Container>
         }
     />
+)
+
+export const ChildGatewayFeedItem = strappedConnected(
+    RoadmapFeedItem, 
+    {gateway: (state, { id }) => feed.cells.fetchEntity.selector(id)(state)},
+    {
+        refetchGateway: (id) => feed.cells.fetchEntity.action({ id }),
+    }, 
+    ({ gateway, refetchGateway, parent, parentId }) => ({
+        text: gateway?.name,
+        name: gateway?.name,
+        stamps: gateway?.stamps,
+        childrenIds: gateway?.childrenIds,
+        id: gateway?.id,
+        parentId: gateway?.parentId,
+        refetchGateway: useCallback(() => refetchGateway(gateway?.id), [refetchGateway, gateway?.id]),
+        parent: parent ?? gateway?.parentId,
+        parentName: parent?.name ?? gateway?.parentName,
+    })
 )
 
 export default strappedConnected(

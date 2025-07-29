@@ -5,12 +5,12 @@ import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import Screen from "modules/Core/sub-modules/ui-kit/components/Screen";
 
 export default ({ schema, onSubmit }) => (
-    <Screen  spaceBetween flex col>
+    <Screen spaceBetween flex col>
         <Container >
-        <Title text="Create Booth" />
-        <SchemaForm 
-            schema={schema} 
-                onSubmit={onSubmit} 
+            <Title text="Create Booth" />
+            <SchemaForm
+                schema={schema}
+                onSubmit={onSubmit}
             />
         </Container>
         <Container mb3>

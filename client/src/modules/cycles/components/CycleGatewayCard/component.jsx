@@ -83,7 +83,7 @@ export default ({ gateway = {}, children, refetch, remove, className, ...props }
                 <Container mt1>
                     {gateway?.text}
                     {children}
-                    {gateway?.childrenIds?.map(id => <ChildGateway gatewayId={id} />)}
+                    {gateway?.childrenIds?.map(id => <ChildGateway key={id} gatewayId={id} />)}
                     <Container flex flexEnd mt3 >
                         <Container>
                             <Stamps stamps={stamps} />

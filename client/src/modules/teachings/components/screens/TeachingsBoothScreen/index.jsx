@@ -5,7 +5,7 @@ import IntrospectionCard from "modules/booths/components/IntrospectionCard";
 import SubBoothsCard from "modules/booths/components/SubBoothsCard";
 import TeachingsFeed from "../../TeachingsFeed";
 import TeachingFormButton from "../../TeachingFormButton";
-import RedirectButton from "modules/Core/sub-modules/ui-kit/components/RedirectButton";
+import { BOOTH_KINDS } from "modules/booths/consts";
 import styles from "./styles.module.scss";
 
 const Component = ({ id: boothId }) => {
@@ -25,10 +25,9 @@ const Component = ({ id: boothId }) => {
             </IntrospectionCard>
             <SubBoothsCard
                 parentId={boothId}
-                kind="malchut"
+                kind={BOOTH_KINDS.MALCHUT}
                 title="Sub-Teaching Booths"
                 className={styles.introspectionCard}
-                actions={[{ Component: RedirectButton, text: "Create Sub-Teaching", to: `/teachings/create?parentId=${boothId}` }]}
             />
             <IntrospectionCard
                 title="Teachings"

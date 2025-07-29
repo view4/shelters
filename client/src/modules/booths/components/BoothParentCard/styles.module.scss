@@ -1,0 +1,21 @@
+@import "modules/Core/styles/variables.scss";
+
+.card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px $grey10;
+    }
+}
+
+.name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $grey;
+    transition: color 0.2s ease;
+    &:hover {
+        color: $ocean_blue;
+    }
+} 

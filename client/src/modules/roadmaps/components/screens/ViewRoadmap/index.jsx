@@ -4,7 +4,7 @@ import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/roadmaps/state/feed";
 import Feed from "modules/Core/components/Feed";
-import RoadmapFeedItem, { GatewayExpandableOptions } from "../../RoadmapFeedItem";
+import RoadmapFeedItem, { ChildGatewayFeedItem, GatewayExpandableOptions } from "../../RoadmapFeedItem";
 import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
@@ -21,7 +21,7 @@ const RightPanelComponent = ({ parent, gridRow }) => (
 )
 
 
-const Component = ({ name, text, id, tabs, widgetProps, rightProps, stamps, refetch, parent }) => (
+const Component = ({ name, text, id, tabs, rightProps, stamps, refetch, parent }) => (
     <BoothScreen boothId={id} RightPanelComponent={RightPanelComponent} rightProps={rightProps}>
 
         <Container maxHeight>
@@ -71,17 +71,16 @@ export default strappedConnected(
             !Boolean(roadmap?.id),
             [id]
         )
-        const feed = useMemo(() => roadmap?.children?.map(child => ({
-            ...child,
+
+        const feed = useMemo(() => roadmap?.childrenIds?.map(childId => ({
+            id: childId,
             parentId: id,
             parent: { id, name: roadmap?.name }
-        })), [roadmap?.children?.length]);
+        })), [roadmap?.childrenIds?.length]);
 
         return {
             name: roadmap?.name,
             text: roadmap?.text,
-            gateways: roadmap?.gateways,
-            children: roadmap?.children,
             parent: roadmap?.parent,
             stamps: roadmap?.stamps,
             rightProps: useMemo(() => ({
@@ -93,7 +92,7 @@ export default strappedConnected(
                     Component: () => <Container>
                         <Feed.Component
                             feed={feed}
-                            ItemComponent={RoadmapFeedItem}
+                            ItemComponent={ChildGatewayFeedItem}
                         />
                     </Container>
                 },

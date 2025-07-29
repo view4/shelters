@@ -22,7 +22,7 @@ export const processEntities = (entities = []) => {
     ]
 
   }, [])
-}
+};
 
 export default new FeedModule({
   name: ROADMAPS,
@@ -52,14 +52,14 @@ export default new FeedModule({
     fetchEntityCell: {
       requestHandler: middleware.ops.fetchEntity,
       successCell: {
-        reducer: (state, { payload }) => {
+        reducer: (state, { payload: { overwrite, ...entity } }) => {
           state.isLoading = false;
           const entities = [
-            flatten(payload.entity),
-            ...payload.entity.children
+            flatten(entity),
+            ...entity.children
           ]
           state.entities = merge({}, state.entities, arrayToObject(entities))
-          state.focusedEntityId = payload?.id // doesn't this just make sense....
+          state.focusedEntityId = entity?.id // doesn't this just make sense....
         },
       },
     },

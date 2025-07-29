@@ -1,7 +1,6 @@
 import { FeedParams, ID } from "src/common/types";
 import mongoose, { Model } from "mongoose";
 import { BoothDocument } from "./schema/booth.schema";
-import { compactObject } from "src/common/utils/object";
 import { aggregateFeed } from "src/common/utils/db";
 
 
@@ -35,7 +34,6 @@ export const parseBoothFilters = (filter: BoothsFilter) => {
 
 export const aggregateBooths = (model: Model<BoothDocument>, filter: BoothsFilter, feedParams?: FeedParams, pipeline: any[] = []) => {
     const { match, pipeline: filteredPipeline } = parseBoothFilters(filter);
-
     return aggregateFeed(
         model,
         {
@@ -44,6 +42,21 @@ export const aggregateBooths = (model: Model<BoothDocument>, filter: BoothsFilte
             ...feedParams
         },
         [
+            {
+                $lookup: {
+                    from: 'booths',
+                    localField: 'parent',
+                    foreignField: '_id',
+                    as: 'parent',
+                    pipeline: [
+                        {
+                            $addFields: {
+                                id: '$_id',
+                            }
+                        }
+                    ]
+                }
+            },
             {
                 $lookup: {
                     from: 'mapalbooths',
@@ -58,13 +71,6 @@ export const aggregateBooths = (model: Model<BoothDocument>, filter: BoothsFilte
                         }
                     ]
                 },
-            },
-            {
-                $addFields: {
-                    mapal: {
-                        $first: '$mapal'
-                    }
-                }
             },
             {
                 $lookup: {
@@ -83,28 +89,24 @@ export const aggregateBooths = (model: Model<BoothDocument>, filter: BoothsFilte
             },
             {
                 $addFields: {
-                    malchut: {
-                        $first: '$malchut'
-                    }
-                }
-            },
-            {
-                $addFields: {
-                    kind: {
+                  kind: {
+                    $cond: {
+                      if: { $gt: [{ $size: '$mapal' }, 0] },
+                      then: 'mapal',
+                      else: {
                         $cond: {
-                            if: { $ne: ['$mapal', null] },
-                            then: 'mapal',
-                            else: {
-                                $cond: {
-                                    if: { $ne: ['$malchut', null] },
-                                    then: 'malchut',
-                                    else: 'regular'
-                                }
-                            }
+                          if: { $gt: [{ $size: '$malchut' }, 0] },
+                          then: 'malchut',
+                          else: 'life'
                         }
+                      }
                     }
+                  },
+                  parent: { $first: '$parent' },
+                  mapal: { $first: '$mapal' },
+                  malchut: { $first: '$malchut' }
                 }
-            },
+              },
             ...pipeline,
             ...filteredPipeline
         ]

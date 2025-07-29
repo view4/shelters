@@ -7,10 +7,17 @@ import { useNavigate } from "react-router-dom";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
 import authCells from "modules/auth/state";
 import useOnError from "modules/Core/sub-modules/Dialog/hooks/useOnError";
+import withQueryParams from "modules/Core/higher-order-components/withQueryParams";
+
+import BoothParentField from "../../BoothParentField";
 
 export const BOOTH_SCHEMA = {
-    title: "Create Booth",
+    title: "Create Booth",      
     fields: {
+        parentId: {
+            Component: withQueryParams(BoothParentField),
+            wrapperClassName: 'parent-field'
+        },
         name: {
             type: "text",
             label: "Name",
@@ -52,8 +59,8 @@ export default strappedConnected(
         }, true, [boothCount, hasActiveMembership, onError, nav])
 
         return {
-            onSubmit: useCallback(({ name, text }) => {
-                create({ input: { name, text }, callback })
+            onSubmit: useCallback(({ name, text, parentId }) => {
+                create({ input: { name, text, parentId }, callback })
             }, [callback]),
             schema: BOOTH_SCHEMA
         }

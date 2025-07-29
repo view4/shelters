@@ -1,3 +1,4 @@
+import cx from "classnames";
 import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
@@ -15,8 +16,8 @@ export default strappedConnected(
             callback
         })
     },
-    ({ gatewayId, stampKey, callback, onClick }) => ({
+    ({ gatewayId, stampKey, callback, onClick, className }) => ({
         onClick: useCallback(() => onClick(gatewayId, stampKey, callback), [onClick, gatewayId, stampKey, callback]),
-        className: styles.container
+        className: cx(styles.container, className)
     })
 )

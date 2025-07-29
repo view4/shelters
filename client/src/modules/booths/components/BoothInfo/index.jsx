@@ -8,6 +8,7 @@ import CompleteBoothButton from "../CompleteBoothButton";
 import Stamp from "modules/Core/sub-modules/ui-kit/components/Stamp";
 import ActivateBoothButton from "../ActivateBoothButton";
 import FocusBoothButton from "../FocusBoothButton";
+import BoothParentCard from "../BoothParentCard";
 import styles from "./styles.module.scss";
 
 export default withFocusedBoothId(strappedConnected(
@@ -25,6 +26,10 @@ export default withFocusedBoothId(strappedConnected(
             {
                 name: "Booth Description",
                 content: booth?.text
+            },
+            booth.parent && {
+                name: "Parent Booth",
+                content: <BoothParentCard boothId={boothId} />
             },
             {
                 content: <Features row features={[
