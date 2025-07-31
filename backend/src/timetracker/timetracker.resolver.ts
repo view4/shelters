@@ -2,16 +2,16 @@ import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { TimetrackerService } from "./timetracker.service";
 
 export type DedicatedTimeInput = {
-    boothId: string;
-    parentId: string;
-    mins: number;
-    text: string;
-    name: string;
+    boothId?: string;
+    parentId?: string;
+    mins?: number;
+    text?: string;
+    name?: string;
 }
 
 export type TrackedTimeInput = {
-    dedicatedTimeId: string;
-    mins: number;
+    dedicatedTimeId?: string;
+    mins?: number;
     text?: string;
 }
 
@@ -45,11 +45,11 @@ export class TimetrackerResolver {
     }
 
     @Mutation()
-    async upsertDedicatedTime(
+    async dedicateTime(
         @Args('input') input: DedicatedTimeInput,
         @Args('id', { type: () => String }) id?: string
     ) {
-        return this.service.upsertDedicatedTime(input, id);
+        return this.service.dedicateTime(input, id);
     }
 
     @Mutation()
@@ -68,31 +68,4 @@ export class TimetrackerResolver {
         return true;
     }
 
-    // @ResolveField()
-    // async trackedTime(
-    //     @Parent() parent: DedicatedTimeDocument
-    // ) {
-    //     return this.service.getTrackedTime(parent._id);
-    // }
-
-    // @ResolveField()
-    // async children(
-    //     @Parent() parent: DedicatedTimeDocument
-    // ) {
-    //     return this.service.dedicatedTimes(null, parent._id);
-    // }
-
-    // @ResolveField()
-    // async totalTime(
-    //     @Parent() parent: DedicatedTimeDocument
-    // ) {
-    //     return this.service.getTotalTime(parent._id);
-    // }
-
-    // @ResolveField()
-    // async totalTrackedTime(
-    //     @Parent() parent: DedicatedTimeDocument
-    // ) {
-    //     return this.service.getTotalTrackedTime(parent._id);
-    // }
 }

@@ -16,7 +16,7 @@ type Query {
 
 type Mutation {
   trackTime(input: TrackedTimeInput, id: String): TrackedTime
-  upsertDedicatedTime(input: DedicatedTimeInput, id: String): DedicatedTime
+  dedicateTime(input: DedicatedTimeInput, id: String): DedicatedTime
   upsertScheduledTime(input: ScheduledTimeInput, id: String): ScheduledTime
   removeTrackedTime(id: String): Boolean
   removeScheduledTime(id: String): Boolean
