@@ -37,15 +37,18 @@ export default strappedConnected(
         create: (input, callback, id) => feed.cells.createEntity.action({ input, callback, id }),
         refetch: () => feed.cells.fetchFeed.action({ renewStream: true }),
         onSuccess,
-        onError
+        onError,
+        import: (dedicatedTimeId, boothId) => feed.cells.createEntity.action({ input: { boothId }, callback, id: dedicatedTimeId })
     },
-    ({ create, close, parentId, boothId, refetch, onError, onSuccess, id,  }) => {
+    ({ create, close, parentId, boothId, refetch, onError, onSuccess, id, import }) => {
+
         const callback = useCallback((res) => {
             if (!res?.id) return onError('Failed')
             onSuccess("Success")
             close()
             refetch()
         }, [refetch, onSuccess, onError]);
+
         const refinedSchema = useMemo(() => compactObject({
             fields: {
                 ...schema.fields,
@@ -61,7 +64,8 @@ export default strappedConnected(
                 boothId,
                 parentId
             }, callback, id), [create, boothId, parentId, callback, id]),
-            schema: refinedSchema
+            schema: refinedSchema,
+            onImport: (dedicatedTimeId) => import(dedicatedTimeId, boothId)
         }
     }
 );

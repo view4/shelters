@@ -5,8 +5,8 @@ export default new MiddlewareModule({
     name: TIMETRACKER,
     operations: {
         create: `
-            mutation upsertDedicatedTime($input: DedicatedTimeInput, $id: String) {
-                entity: upsertDedicatedTime(input: $input, id: $id) {
+            mutation dedicateTime($input: DedicatedTimeInput, $id: String) {
+                entity: dedicateTime(input: $input, id: $id) {
                     id
                 }
             }

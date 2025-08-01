@@ -1,0 +1,16 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+    margin-bottom: 1rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contentContainer {
+    height: 54vh;
+    overflow-y: scroll;
+}

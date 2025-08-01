@@ -34,11 +34,17 @@ export default strappedConnected(
     {},
     {
         create: (input, callback, id) => cells.trackTime.action({ input, callback, id }),
+        trackExisting: (trackedTimeId, dedicatedTimeId, callback) => cells.trackTime.action({ 
+            input: { dedicatedTimeId }, 
+            callback, 
+            id: trackedTimeId 
+        }),
         dialogSuccess: onSuccess,
         dialogError: onError
     },
     ({
         create,
+        trackExisting,
         dedicatedTimeId,
         close,
         dialogSuccess,
@@ -59,6 +65,11 @@ export default strappedConnected(
             name: dedicatedTimeName,
             ...initialState
         }), [dedicatedTimeName, dedicatedTimeId])
+        
+        const onSelectTrackedTimeCallback = useCallback((trackedTime) => {
+            trackExisting(trackedTime.id, dedicatedTimeId, callback);
+        }, [trackExisting, dedicatedTimeId, callback]);
+        
         return {
             onSubmit: useCallback(({ text, mins }) => create({
                 text,
@@ -66,7 +77,8 @@ export default strappedConnected(
                 dedicatedTimeId
             }, callback, id), [create, dedicatedTimeId, callback, id]),
             schema,
-            initialState: refinedInitialState
+            initialState: refinedInitialState,
+            onSelectTrackedTime: dedicatedTimeId ? onSelectTrackedTimeCallback : undefined
         }
     }
 );
