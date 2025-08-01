@@ -23,7 +23,8 @@ export class TimetrackerService {
     async dedicatedTimes(
         boothId?: ID,
         parentId?: ID,
-        feedParams?: any
+        feedParams?: any,
+        search?: string
     ) {
         const pipeline = boothId ? [...this.pipeline, { $match: { 'booths.booth': new mongoose.Types.ObjectId(boothId) } }] : this.pipeline;
         return aggregateFeed(
@@ -34,6 +35,12 @@ export class TimetrackerService {
                     parent: parentId ? new mongoose.Types.ObjectId(parentId) : {
                         $exists: false
                     },
+                    ...(search && {
+                        $or: [
+                            { name: { $regex: search, $options: 'i' } },
+                            { text: { $regex: search, $options: 'i' } }
+                        ]
+                    })
                 }),
                 sort: { createdAt: -1 }
             },
@@ -57,13 +64,24 @@ export class TimetrackerService {
             "parent",
             "children",
             [
-                connect(
-                    "trackedtimes",
-                    "_id",
-                    "dedicatedTime",
-                    "trackedTimes"
-
-                ),
+                // Lookup TrackedDedicatedTime connections
+                {
+                    $lookup: {
+                        from: "trackeddedicatedtimes",
+                        localField: "_id",
+                        foreignField: "dedicatedTime",
+                        as: "trackedDedicatedConnections"
+                    }
+                },
+                // Lookup actual TrackedTime records through the connections
+                {
+                    $lookup: {
+                        from: "trackedtimes",
+                        localField: "trackedDedicatedConnections.trackedTime",
+                        foreignField: "_id",
+                        as: "trackedTimes"
+                    }
+                },
                 {
                     $addFields: {
                         trackedTime: {
@@ -82,7 +100,7 @@ export class TimetrackerService {
 
                 },
                 totalMins: {
-                    $sum: `$children.mins`
+                    $sum: "$children.mins"
                 },
                 id: "$_id"
             }
@@ -98,12 +116,24 @@ export class TimetrackerService {
                 $match: { _id: new mongoose.Types.ObjectId(id) },
 
             },
-            connect(
-                "trackedtimes",
-                "_id",
-                "dedicatedTime",
-                "trackedTimes"
-            ),
+            // Lookup TrackedDedicatedTime connections
+            {
+                $lookup: {
+                    from: "trackeddedicatedtimes",
+                    localField: "_id",
+                    foreignField: "dedicatedTime",
+                    as: "trackedDedicatedConnections"
+                }
+            },
+            // Lookup actual TrackedTime records through the connections
+            {
+                $lookup: {
+                    from: "trackedtimes",
+                    localField: "trackedDedicatedConnections.trackedTime",
+                    foreignField: "_id",
+                    as: "trackedTimes"
+                }
+            },
             {
                 $addFields: {
                     trackedTime: {
@@ -118,26 +148,43 @@ export class TimetrackerService {
 
 
     async trackedTimes(
-        dedicatedTimeId: ID
+        dedicatedTimeId: ID,
+        search?: string
     ) {
+        const pipeline: any = [
+            {
+                $lookup: {
+                    from: "trackeddedicatedtimes",
+                    localField: "_id",
+                    foreignField: "trackedTime",
+                    as: "dedicatedTimes"
+                }
+            },
+ 
+        ]
+
+        if (dedicatedTimeId) {
+            pipeline.push({
+                $match: {
+                    'dedicatedTimes.dedicatedTime': new mongoose.Types.ObjectId(dedicatedTimeId)
+                }
+            })
+        }
+
+        if (search) {
+            pipeline.push({
+                $match: {
+                    $or: [
+                        { text: { $regex: search, $options: 'i' } },
+                        { name: { $regex: search, $options: 'i' } }
+                    ]
+                }
+            })
+        }
         return aggregateFeed(
             this.trackedTimeModel,
             {},
-            [
-                {
-                    $lookup: {
-                        from: "trackeddedicatedtimes",
-                        localField: "_id",
-                        foreignField: "trackedTime",
-                        as: "dedicatedTimes"
-                    }
-                },
-                {
-                    $match: {
-                        'dedicatedTimes.dedicatedTime': new mongoose.Types.ObjectId(dedicatedTimeId)
-                    }
-                }
-            ]
+            pipeline
         )
     }
 
@@ -152,9 +199,9 @@ export class TimetrackerService {
 
     async dedicateTime(input: DedicatedTimeInput, id?: ID) {
         if (id && input && !input.mins && !input.name && input.boothId) {
-             await this.connectDedicatedTimeToBooth(id, input.boothId)
-             return {id}
-            }
+            await this.connectDedicatedTimeToBooth(id, input.boothId)
+            return { id }
+        }
         if (!input.name) throw new Error('Name is required');
         if (!input.mins && Boolean(input.parentId)) throw new Error('Mins is required');
         // Create or update the DedicatedTime without booth field
@@ -183,7 +230,7 @@ export class TimetrackerService {
     async trackTime(input: TrackedTimeInput, id?: ID) {
         if (id && input && !input.mins && !input.text && input.dedicatedTimeId) {
             await this.connectTrackedTimeToDedicatedTime(id, input.dedicatedTimeId);
-            return {id}
+            return { id }
         }
 
         // Create or update the TrackedTime without dedicatedTime field

@@ -24,8 +24,8 @@ export default new MiddlewareModule({
             }
         `,
         fetchFeed: `
-            query dedicatedTimes($feedParams: FeedParams, $boothId: String, $parentId: String) {
-                feed: dedicatedTimes(feedParams: $feedParams, boothId: $boothId, parentId: $parentId) {
+            query dedicatedTimes($feedParams: FeedParams, $boothId: String, $parentId: String, $search: String) {
+                feed: dedicatedTimes(feedParams: $feedParams, boothId: $boothId, parentId: $parentId, search: $search) {
                     entities {
                         id
                         name

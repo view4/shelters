@@ -2,9 +2,10 @@ type Query {
   dedicatedTimes(
     boothId: String
     parentId: String
-    feedParams: FeedParams
+    feedParams: FeedParams,
+    search: String
   ): DedicatedTimeFeed
-  trackedTimes(dedicatedTimeId: String, feedParams: FeedParams): TrackedTimeFeed
+  trackedTimes(dedicatedTimeId: String, feedParams: FeedParams, search: String): TrackedTimeFeed
   dedicatedTime(id: String): DedicatedTime
   scheduledTimes(
     boothId: String

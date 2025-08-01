@@ -53,7 +53,6 @@ export default strappedConnected(
         dedicatedTimeName,
         dialogError,
         id,
-
     }) => {
         const callback = useCallback((res) => {
             if (!res?.id) return dialogError("Faiiled")
@@ -66,9 +65,13 @@ export default strappedConnected(
             ...initialState
         }), [dedicatedTimeName, dedicatedTimeId])
         
-        const onSelectTrackedTimeCallback = useCallback((trackedTime) => {
-            trackExisting(trackedTime.id, dedicatedTimeId, callback);
+        const onSelectTrackedTimeCallback = useCallback((trackedTimeId) => {
+            console.log("heyyya")
+            console.log(trackedTimeId, dedicatedTimeId);
+            trackExisting(trackedTimeId, dedicatedTimeId, callback);
         }, [trackExisting, dedicatedTimeId, callback]);
+
+        console.log(dedicatedTimeId);
         
         return {
             onSubmit: useCallback(({ text, mins }) => create({
@@ -78,7 +81,7 @@ export default strappedConnected(
             }, callback, id), [create, dedicatedTimeId, callback, id]),
             schema,
             initialState: refinedInitialState,
-            onSelectTrackedTime: dedicatedTimeId ? onSelectTrackedTimeCallback : undefined
+            trackExisting: onSelectTrackedTimeCallback
         }
     }
 );

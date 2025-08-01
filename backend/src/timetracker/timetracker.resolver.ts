@@ -23,15 +23,17 @@ export class TimetrackerResolver {
 
     @Query()
     async trackedTimes(
-        @Args('dedicatedTimeId', { type: () => String }) dedicatedTimeId?: string
+        @Args('dedicatedTimeId', { type: () => String }) dedicatedTimeId?: string,
+        @Args('search', { type: () => String }) search?: string
     ) {
-        return this.service.trackedTimes(dedicatedTimeId);
+        return this.service.trackedTimes(dedicatedTimeId, search);
     }
 
     @Query()
     async dedicatedTimes(
         @Args('boothId', { type: () => String }) boothId?: string,
-        @Args('parentId', { type: () => String }) parentId?: string
+        @Args('parentId', { type: () => String }) parentId?: string,
+        @Args('search', { type: () => String }) search?: string
     ) {
         const result = await this.service.dedicatedTimes(boothId, parentId);
         return result;

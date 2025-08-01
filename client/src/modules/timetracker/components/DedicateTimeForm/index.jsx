@@ -29,7 +29,6 @@ const schema = {
     }
 }
 
-
 export default strappedConnected(
     component,
     {},
@@ -38,9 +37,9 @@ export default strappedConnected(
         refetch: () => feed.cells.fetchFeed.action({ renewStream: true }),
         onSuccess,
         onError,
-        import: (dedicatedTimeId, boothId) => feed.cells.createEntity.action({ input: { boothId }, callback, id: dedicatedTimeId })
+        onImport: (dedicatedTimeId, boothId, callback) => feed.cells.createEntity.action({ input: { boothId }, callback, id: dedicatedTimeId })
     },
-    ({ create, close, parentId, boothId, refetch, onError, onSuccess, id, import }) => {
+    ({ create, close, parentId, boothId, refetch, onError, onSuccess, id, onImport }) => {
 
         const callback = useCallback((res) => {
             if (!res?.id) return onError('Failed')
@@ -65,7 +64,7 @@ export default strappedConnected(
                 parentId
             }, callback, id), [create, boothId, parentId, callback, id]),
             schema: refinedSchema,
-            onImport: (dedicatedTimeId) => import(dedicatedTimeId, boothId)
+            onImport: (dedicatedTimeId) => onImport(dedicatedTimeId, boothId, callback)
         }
     }
 );
