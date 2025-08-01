@@ -1,0 +1,30 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.contentContainer {
+    height: 54vh;
+    overflow-y: scroll;
+}
+
+.feedContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.searchContainer {
+    margin: 1rem 2rem;
+    // width: 100%;
+}
+
+.searchInput {
+    width: 100%;
+}
+
+.trackedTimeItem {
+    margin-bottom: 0.5rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

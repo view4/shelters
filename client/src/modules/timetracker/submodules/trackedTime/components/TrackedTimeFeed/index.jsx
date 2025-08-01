@@ -11,14 +11,24 @@ import TrackTimeButton from "../TrackTimeButton";
 
 const Component = feed.FeedComponent;
 
-const FeedItemComponent = ({
+export const FeedItemComponent = ({
     name,
     mins,
     text,
     onRemove,
-    id
+    id,
+    children,
+    className,
+    onClick
 }) => (
-    <Card header={name}>
+    <Card 
+        header={name}
+        headerProps={{
+            style: { fontSize: '1rem' }
+        }}
+        className={className}
+        onClick={onClick}
+    >
         <ExpandableOptions
             options={[
                 {
@@ -42,6 +52,7 @@ const FeedItemComponent = ({
                 alignCenter: true
             }}
         />
+        {children}
     </Card>
 )
 

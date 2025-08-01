@@ -122,19 +122,23 @@ export const TrackedTimeFeatures = ({ trackedTime, totalMins, }) =>
         }}
     />
 
-const FeedItemComponent = ({
+export const FeedItemComponent = ({
     name,
     trackedTime,
     mins,
     totalMins,
     children,
-    id
+    id,
+    onClick,
+    className,
+    headerChildren
 }) => (
     <Card
-        className={styles.container}
+        className={cx(styles.container, className)}
         header={name}
+        onClick={onClick}
         headerProps={{
-            children:
+            children: headerChildren ? headerChildren :
                 <ExpandableOptions
                     options={[
                         {

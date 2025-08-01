@@ -16,7 +16,6 @@ const fetchCycleCell = initCell(CYCLES, {
     activeCycle: createSelector(
       (state) => ({ entities: state.entities, activeCycleId: state.activeCycleId }),
       ({ entities, activeCycleId }) => {
-        console.log("inside selector", entities, activeCycleId)
         return entities[activeCycleId]
       }
     ),
@@ -28,9 +27,7 @@ const fetchCycleCell = initCell(CYCLES, {
   },
   sagas: {
     latest: function* ({ payload: { boothId } }) {
-      console.log("boothId", boothId)
       const result = yield call(middleware.ops.fetchEntity, { boothId });
-      console.log("result", result)
       if (!result.currentCycle.id) throw new Error("Failed to fetch cycle");
       const cycleGateways = extractGateways(result.currentCycle);
       yield put(roadmapsState.setEntities.action(cycleGateways));

@@ -117,7 +117,7 @@ export const prepareEntitiesPipeline = ({
   unwind,
   lookup,
   addFields,
-  connectStamps
+  connectStamps,
 }: FeedParams, pipeline = []) => {
   return _.compact([
     match && { $match: match },
