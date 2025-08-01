@@ -66,12 +66,8 @@ export default strappedConnected(
         }), [dedicatedTimeName, dedicatedTimeId])
         
         const onSelectTrackedTimeCallback = useCallback((trackedTimeId) => {
-            console.log("heyyya")
-            console.log(trackedTimeId, dedicatedTimeId);
             trackExisting(trackedTimeId, dedicatedTimeId, callback);
         }, [trackExisting, dedicatedTimeId, callback]);
-
-        console.log(dedicatedTimeId);
         
         return {
             onSubmit: useCallback(({ text, mins }) => create({
