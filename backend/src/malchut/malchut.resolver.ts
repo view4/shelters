@@ -2,6 +2,8 @@ import { Resolver, Query, Mutation, Args, ID, ResolveField, Parent } from '@nest
 import { MalchutService } from './malchut.service';
 import { Directive } from './schema/directive.schema';
 import { DirectiveComment } from './schema/directive-comment.schema';
+import { DirectiveVote } from './schema/directive-vote.schema';
+import { DirectiveInput, DirectiveVoteInput } from './schema/directive-inputs.schema';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { SessionUser } from 'src/auth/decorators/session-user.decorator';
@@ -36,7 +38,7 @@ export class MalchutResolver {
   @UseGuards(AuthGuard)
   async upsertDirective(
     @SessionUser() user: SessionUserT,
-    @Args('input') input: any,
+    @Args('input') input: DirectiveInput,
     @Args('id', { nullable: true }) id?: string,
   ) {
     return this.malchutService.upsertDirective(user?.id, input, id);
@@ -50,6 +52,27 @@ export class MalchutResolver {
     @Args('id', { nullable: true }) id?: string,
   ) {
     return this.malchutService.upsertDirectiveComment(user?.id, input, id);
+  }
+
+  @Mutation(() => DirectiveVote)
+  @UseGuards(AuthGuard)
+  async upsertDirectiveVote(
+    @SessionUser() user: SessionUserT,  
+    @Args('input') input: DirectiveVoteInput,
+    @Args('id', { nullable: true }) id?: string,
+  ) {
+    const vote = await this.malchutService.upsertDirectiveVote(user?.id, input, id);
+    
+    // Return flattened structure to match GraphQL schema
+    return {
+      id: vote._id,
+      directiveId: input.directiveId,
+      text: vote.text,
+      score: vote.score,
+      user: vote.user,
+      createdAt: vote.createdAt,
+      updatedAt: vote.updatedAt
+    };
   }
 
   @Mutation(() => Booth)
