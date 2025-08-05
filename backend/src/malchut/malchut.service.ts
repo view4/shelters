@@ -117,7 +117,7 @@ export class MalchutService {
             totalComments: {
               $size: '$comments'
             },
-            totalVotes: {
+            votingScore: {
               $reduce: {
                 input: '$directiveVotes',
                 initialValue: 0,
@@ -211,7 +211,7 @@ export class MalchutService {
           totalComments: {
             $size: '$comments'
           },
-          totalVotes: {
+          votingScore: {
             $reduce: {
               input: '$directiveVotes',
               initialValue: 0,

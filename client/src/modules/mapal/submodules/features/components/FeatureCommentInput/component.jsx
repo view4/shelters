@@ -6,11 +6,11 @@ import styles from "./styles.module.scss";
 import Modal from "modules/Core/sub-modules/ui-kit/components/Modal";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 
-const FeatureCommentInput = ({ isOpen, text, onTextChange, className, onSubmit, cancel, open }) => {
+const FeatureCommentInput = ({ isOpen, text, onTextChange, className, onSubmit, cancel, open, buttonChildren, buttonProps }) => {
     if (!isOpen) {
         return (
-            <Button onClick={open}>
-                Add Comment
+            <Button onClick={open} {...buttonProps}>
+                {buttonChildren || "Add Comment"}
             </Button>
         );
     }

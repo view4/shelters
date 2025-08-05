@@ -46,7 +46,7 @@ import { ID } from 'src/common/types';
 //   },
 //   {
 //     $addFields: {
-//       totalVotes: {
+//       votingScore: {
 //         $reduce: {
 //           input: '$votes',
 //           initialValue: 0,
@@ -138,7 +138,7 @@ export const aggregateFeature = (model: Model<any>, id: ID) =>  aggregate(model,
     {
       $addFields: {
         votes: '$featureVotes',
-        totalVotes: {
+        votingScore: {
           $reduce: {
             input: '$featureVotes',
             initialValue: 0,

@@ -4,11 +4,11 @@ import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import TeachingForm from "../TeachingForm";
 import styles from "./styles.module.scss";
 
-const TeachingFormButton = ({ isOpen, onOpen, onClose, initialValues, boothId }) => {
+const TeachingFormButton = ({ isOpen, onOpen, id, parentId, onClose, initialValues, boothId, text="Add Teaching" }) => {
     return (
         <Container className={styles.container} flex row>
             <Button onClick={onOpen}>
-                {initialValues ? "Edit" : "Add Teaching"}
+                {text}
             </Button>
 
             <TeachingForm
@@ -16,6 +16,8 @@ const TeachingFormButton = ({ isOpen, onOpen, onClose, initialValues, boothId })
                 onClose={onClose}
                 initialValues={initialValues}
                 boothId={boothId}
+                id={id}
+                parentId={parentId}
             />
         </Container>
     );

@@ -53,6 +53,7 @@ type Feature {
   labels: [FeatureLabel]
   children: [Feature]
   parent: Feature
+  votingScore: Int
 }
 
 type FeatureVote {

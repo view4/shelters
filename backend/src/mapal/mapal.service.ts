@@ -80,7 +80,7 @@ export class MapalService {
         },
         {
           $addFields: {
-            totalVotes: {
+            votingScore: {
               $reduce: {
                 input: '$featureVotes',
                 initialValue: 0,
@@ -92,7 +92,7 @@ export class MapalService {
         },
         {
           $sort: {
-            totalVotes: -1
+            votingScore: -1
           }
         }
       ]

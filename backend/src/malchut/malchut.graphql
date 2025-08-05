@@ -41,6 +41,7 @@ type Directive {
   comments: [DirectiveComment]
   votes: [DirectiveVote]
   children: [Directive]
+  votingScore: Int
 }
 
 type DirectiveComment {

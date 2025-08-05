@@ -31,6 +31,13 @@ export default new MiddlewareModule({
                             createdAt
                             updatedAt
                         }
+                        votes {
+                            id
+                            text
+                            score
+                            createdAt
+                            updatedAt
+                        }
                     }
                     info {
                         totalCount
@@ -41,6 +48,13 @@ export default new MiddlewareModule({
         upsertComment: `
             mutation upsertDirectiveComment($id: String, $input: DirectiveCommentInput) {
                 entity: upsertDirectiveComment(id: $id, input: $input) {
+                    id
+                }
+            }
+        `,
+        upsertVote: `
+            mutation upsertDirectiveVote($id: String, $input: DirectiveVoteInput) {
+                entity: upsertDirectiveVote(id: $id, input: $input) {
                     id
                 }
             }
