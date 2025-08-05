@@ -71,9 +71,28 @@ export const aggregateFeature = (model: Model<any>, id: ID) =>  aggregate(model,
         from: 'featurevotes',
         localField: '_id',
         foreignField: 'feature',
-        as: 'votes',
+        as: 'featureVotes',
         pipeline: [
-          { $addFields: { id: '$_id' } }
+          {
+            $lookup: {
+              from: 'votes',
+              localField: 'vote',
+              foreignField: '_id',
+              as: 'voteData'
+            }
+          },
+          { $unwind: '$voteData' },
+          {
+            $addFields: {
+              id: '$_id',
+              featureId: '$feature',
+              text: '$voteData.text',
+              score: '$voteData.score',
+              user: '$voteData.user',
+              createdAt: '$createdAt',
+              updatedAt: '$updatedAt'
+            }
+          }
         ]
       }
     },
@@ -118,9 +137,10 @@ export const aggregateFeature = (model: Model<any>, id: ID) =>  aggregate(model,
     },
     {
       $addFields: {
+        votes: '$featureVotes',
         totalVotes: {
           $reduce: {
-            input: '$votes',
+            input: '$featureVotes',
             initialValue: 0,
             in: { $add: ['$$value', '$$this.score'] }
           }

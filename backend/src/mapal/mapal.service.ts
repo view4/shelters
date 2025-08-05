@@ -6,7 +6,7 @@ import { FeatureVote } from './schema/feature-vote.schema';
 import { FeatureComment } from './schema/feature-comment.schema';
 import { MapalBooth } from './schema/mapal-booth.schema';
 import { FeatureLabel } from './schema/feature-label.schema';
-import { aggregate, aggregateFeed, fetchOne, filter, filterOne, upsert, upsertOne, del } from 'src/common/utils/db';
+import { aggregateFeed, filter, filterOne, upsert, upsertOne, del } from 'src/common/utils/db';
 import { ID } from 'src/common/types';
 import { BoothsService } from 'src/booths/booths.service';
 import { BoothInput } from 'src/booths/booths.resolver';
@@ -15,6 +15,8 @@ import { Label, LabelDocument } from 'src/common/schemas/label.schema';
 import { compactObject } from 'src/common/utils/object';
 import { aggregateBoothLabels, aggregateFeature } from './mapal.utils';
 import { CommentsService } from 'src/entries/comments.service';
+import { VoteService } from 'src/common/vote.service';
+import { Vote } from 'src/common/schemas/vote.schema';
 
 @Injectable()
 export class MapalService {
@@ -27,6 +29,7 @@ export class MapalService {
     @InjectModel(Label.name) private labelModel: Model<Label>,
     private readonly boothsService: BoothsService,
     private readonly commentsService: CommentsService,
+    private readonly voteService: VoteService,
   ) { }
 
   // Feature methods
@@ -56,18 +59,35 @@ export class MapalService {
             from: 'featurevotes',
             localField: '_id',
             foreignField: 'feature',
-            as: 'votes'
+            as: 'featureVotes',
+            pipeline: [
+              {
+                $lookup: {
+                  from: 'votes',
+                  localField: 'vote',
+                  foreignField: '_id',
+                  as: 'voteData'
+                }
+              },
+              { $unwind: '$voteData' },
+              {
+                $addFields: {
+                  score: '$voteData.score'
+                }
+              }
+            ]
           }
         },
         {
           $addFields: {
             totalVotes: {
               $reduce: {
-                input: '$votes',
+                input: '$featureVotes',
                 initialValue: 0,
                 in: { $add: ['$$value', '$$this.score'] }
               }
-            }
+            },
+            votes: '$featureVotes'
           }
         },
         {
@@ -85,12 +105,28 @@ export class MapalService {
   }
 
   // FeatureVote methods
-  async upsertVote(userId: ID, input: FeatureVoteInput, id?: string): Promise<FeatureVote> {
-    return upsert(this.featureVoteModel, { ...input, user: userId, feature: input.featureId }, id);
+  async upsertVote(userId: ID, input: FeatureVoteInput, id?: string): Promise<Vote> {
+    // First, create or update the vote
+    const vote = await this.voteService.upsert(userId, {
+      text: input.text,
+      score: input.score
+    }, id);
+
+    await upsert(this.featureVoteModel, {
+      feature: input.featureId,
+      vote: vote._id
+    });
+
+    return vote;
+
   }
 
   async featureVotes(featureId: string): Promise<FeatureVote[]> {
-    return filter(this.featureVoteModel, { featureId });
+    return filter(this.featureVoteModel, { feature: featureId });
+  }
+
+  async getVoteById(voteId: any): Promise<any> {
+    return this.voteService.getVote(voteId);
   }
 
   // FeatureComment methods

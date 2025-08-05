@@ -3,7 +3,6 @@ import { MapalService } from './mapal.service';
 import { Feature } from './schema/feature.schema';
 import { FeatureVote } from './schema/feature-vote.schema';
 import { FeatureComment } from './schema/feature-comment.schema';
-import { MapalBooth } from './schema/mapal-booth.schema';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { SessionUser } from 'src/auth/decorators/session-user.decorator';
