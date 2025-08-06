@@ -1,55 +1,101 @@
-import { useMemo } from "react";
 import cx from "classnames";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import ExpandableFeedItem from "modules/Core/components/Feed/ExpandableFeedItem";
 import TeachingCommentsSection from "../../TeachingCommentsSection";
 import TeachingVotesSection from "../../TeachingVotesSection";
-import styles from "./styles.module.scss";
-import { ExpandableOptions } from "modules/Core/sub-modules/ui-kit/exports";
+import { Card, ExpandableOptions, Title } from "modules/Core/sub-modules/ui-kit/exports";
 import TeachingFormButton from "../../TeachingFormButton";
+import EditTeachingButton from "../../TeachingFormButton/EditTeachingButton";
+import styles from "./styles.module.scss";
 
-
-const TeachingExpandableOptions = () => (
+const TeachingExpandableOptions = ({ id }) => (
     <ExpandableOptions
         horizontal
         options={[
-            { Component: TeachingFormButton, props: { id, text: "Edit Teaching" } },
-            { Component: TeachingFormButton, props: { parentId: id, text: "Add Sub-Teaching" } },
+            { Component: EditTeachingButton, props: { id, text: "edit" } },
+            { Component: TeachingFormButton, props: { parentId: id, text: "add subteaching" } },
         ]}
     />
 )
-// COULD DO: Enable Edit here  
-export default ({ name, text, id, currentStamp, comments, votes }) => {
+const MOCK_CHILDREN = [
+    {
+        name: "Child 1",
+        text: "Child 1 text",
+        id: "1",
+    },
+    {
+        name: "Child 2",
+        text: "Child 2 text",
+        id: "2",
+    },
+    {
+        name: "Child 3",
+        text: "Child 3 text",
+        id: "3",
+    },
+]
 
+const SubteachingCard = ({ name, text, id }) => (
+    <Card className={styles.subteachingContainer} p1>
+        <Container>
+            <Title>{name}</Title>
+            <Text>{text}</Text>
+        </Container>
+        <Container>
+            <Container display flex flexEnd>
+                {/* Comments */}
+                <Container className={styles.interactionGroup}>
+                    <TeachingCommentsSection
+                        teachingId={id}
+                        comments={[]}
+                    />
+                </Container>
+                {/* Votes */}
+                <Container className={styles.interactionGroup}>
+                    <TeachingVotesSection
+                        teachingId={id}
+                        votes={[]}
+                    />
+                </Container>
+            </Container>
+        </Container>
+    </Card>
+)
+
+// COULD DO: Enable Edit here  
+export default ({ name, text, id, comments, votes, children = MOCK_CHILDREN }) => {
     return (
         <ExpandableFeedItem
             name={name}
             className={cx(styles.container, { [styles.titleless]: !name })}
             size={text?.length > 360 ? "xlg" : text?.length < 180 ? "md" : "lg"}
         >
-            <Text>{text}</Text>
-
-            {/* Interaction Section */}
-            <Container className={styles.interactionSection}>
-                {/* Comments */}
-                <Container className={styles.interactionGroup}>
-                    <TeachingCommentsSection
-                        teachingId={id}
-                        comments={comments}
-                    />
+            <Container className={styles.innerHeader} display flex spaceBetween>
+                <Container  >
+                    {/* Comments */}
+                    <Container className={styles.interactionGroup}>
+                        <TeachingCommentsSection
+                            teachingId={id}
+                            comments={comments}
+                        />
+                    </Container>
+                    {/* Votes */}
+                    <Container className={styles.interactionGroup}>
+                        <TeachingVotesSection
+                            teachingId={id}
+                            votes={votes}
+                        />
+                    </Container>
                 </Container>
-
-                {/* Votes */}
-                <Container className={styles.interactionGroup}>
-                    <TeachingVotesSection
-                        teachingId={id}
-                        votes={votes}
-                    />
-                </Container>
+                <TeachingExpandableOptions id={id} />
             </Container>
-
-
+            <Text>{text}</Text>
+            <Container>
+                {(MOCK_CHILDREN).map((child) => (
+                    <SubteachingCard key={child.id} {...child} />
+                ))}
+            </Container>
         </ExpandableFeedItem>
     );
 };

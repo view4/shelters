@@ -38,6 +38,11 @@ export default new MiddlewareModule({
                             createdAt
                             updatedAt
                         }
+                        children {
+                            id
+                            name
+                            text
+                        }
                     }
                     info {
                         totalCount

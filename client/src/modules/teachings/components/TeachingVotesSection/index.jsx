@@ -11,6 +11,7 @@ import state from "modules/teachings/state";
 import feed from "../../state/feed";
 import useOnError from "modules/Core/sub-modules/Dialog/hooks/useOnError";
 import styles from "./styles.module.scss";
+import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 
 const VoteItem = ({ text, score, id }) => (
     <Container className={styles.voteItem}>
@@ -92,7 +93,7 @@ const TeachingVotesSection = ({ teachingId, votes, className }) => {
                 </Button>
                 <VoteInput
                     teachingId={teachingId}
-                    buttonChildren={<span className={styles.actionIcon}>👍</span>}
+                    buttonChildren={<span className={styles.actionIcon}> ⚖️ </span>}
                     buttonProps={{
                         className: styles.actionButton,
                         title: "Add vote"
