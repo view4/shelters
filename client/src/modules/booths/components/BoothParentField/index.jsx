@@ -45,7 +45,6 @@ const BoothParentField = strappedConnected(
         fetchParent: feed.cells?.fetchEntity.action
     },
     ({ fetchParent, parentId, parent, kind, onChange, ...props }) => {
-        console.log({ parentId, parent, kind })
         useOnLoad(() => {
             if (parentId) {
                 fetchParent({ id: parentId })

@@ -15,7 +15,7 @@ import styles from "./styles.module.scss";
 import { Header } from "modules/Core/sub-modules/ui-kit/exports";
 
 const CommentItem = ({ text, id }) => (
-    <Container className={styles.commentItem}>
+    <Container lightShadow className={styles.commentItem}>
         <Text>
             <span className={styles.commentAuthor}>you</span> {text}
         </Text>

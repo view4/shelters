@@ -304,13 +304,15 @@ export class MalchutService {
       { text: input.text },
       id,
     );
-    return upsertOne(this.directiveCommentModel, {
+
+    const directiveCommentPayload = {
       directive: input.directiveId,
       comment: comment._id,
-    }, {
-      directive: input.directiveId,
-      comment: comment._id,
-    });
+    }
+
+    await upsertOne(this.directiveCommentModel, directiveCommentPayload, directiveCommentPayload);
+
+    return comment;
   }
 
   // DirectiveVote methods
@@ -321,17 +323,14 @@ export class MalchutService {
       score: input.score
     }, id);
 
-    const directiveVote = await upsert(this.directiveVoteModel, {
+    const directiveVotePayload = {
       directive: input.directiveId,
       vote: vote._id
-    });
+    }
 
-    // Return combined data for the resolver
-    return {
-      ...vote.toObject(),
-      createdAt: directiveVote.createdAt,
-      updatedAt: directiveVote.updatedAt
-    };
+    await upsertOne(this.directiveVoteModel, directiveVotePayload, directiveVotePayload);
+
+    return vote;
   }
 
   async directiveVotes(directiveId: string): Promise<DirectiveVote[]> {

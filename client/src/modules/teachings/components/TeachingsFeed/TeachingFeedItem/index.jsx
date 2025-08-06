@@ -20,26 +20,8 @@ const TeachingExpandableOptions = ({ id }) => (
     />
 );
 
-const MOCK_CHILDREN = [
-    {
-        name: "Child 1",
-        text: "Child 1 text",
-        id: "1",
-    },
-    {
-        name: "Child 2",
-        text: "Child 2 text",
-        id: "2",
-    },
-    {
-        name: "Child 3",
-        text: "Child 3 text",
-        id: "3",
-    },
-];
-
 const SubteachingCard = ({ name, text, id, comments, votes }) => (
-    <Card className={styles.subteachingContainer} p1>
+    <Card lightShadow className={styles.subteachingContainer} p1>
         <Container>
             <Title>{name}</Title>
             <Text>{text}</Text>
@@ -93,7 +75,8 @@ export default ({ name, text, id, comments, votes, children }) => {
                 <TeachingExpandableOptions id={id} />
             </Container>
             <Text>{text}</Text>
-            <Container>
+            <Container className={styles.subteachingsContainer}>
+                <Title>subteachings</Title>
                 {(children).map((child) => (
                     <SubteachingCard key={child.id} {...child} />
                 ))}

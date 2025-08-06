@@ -62,18 +62,7 @@ export class MalchutResolver {
     @Args('input') input: DirectiveVoteInput,
     @Args('id', { nullable: true }) id?: string,
   ) {
-    const vote = await this.malchutService.upsertDirectiveVote(user?.id, input, id);
-
-    // Return flattened structure to match GraphQL schema
-    return {
-      id: vote._id,
-      directiveId: input.directiveId,
-      text: vote.text,
-      score: vote.score,
-      user: vote.user,
-      createdAt: vote.createdAt,
-      updatedAt: vote.updatedAt
-    };
+    return this.malchutService.upsertDirectiveVote(user?.id, input, id);
   }
 
   @Mutation(() => Booth)
