@@ -7,17 +7,19 @@ import TeachingVotesSection from "../../TeachingVotesSection";
 import { Card, ExpandableOptions, Title } from "modules/Core/sub-modules/ui-kit/exports";
 import TeachingFormButton from "../../TeachingFormButton";
 import EditTeachingButton from "../../TeachingFormButton/EditTeachingButton";
+import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
 import styles from "./styles.module.scss";
 
 const TeachingExpandableOptions = ({ id }) => (
     <ExpandableOptions
         horizontal
         options={[
-            { Component: EditTeachingButton, props: { id, text: "edit" } },
-            { Component: TeachingFormButton, props: { parentId: id, text: "add subteaching" } },
+            { Component: withFocusedBoothId(EditTeachingButton), props: { id, text: "edit" } },
+            { Component: withFocusedBoothId(TeachingFormButton), props: { parentId: id, text: "add subteaching" } },
         ]}
     />
-)
+);
+
 const MOCK_CHILDREN = [
     {
         name: "Child 1",
@@ -34,9 +36,9 @@ const MOCK_CHILDREN = [
         text: "Child 3 text",
         id: "3",
     },
-]
+];
 
-const SubteachingCard = ({ name, text, id }) => (
+const SubteachingCard = ({ name, text, id, comments, votes }) => (
     <Card className={styles.subteachingContainer} p1>
         <Container>
             <Title>{name}</Title>
@@ -48,14 +50,14 @@ const SubteachingCard = ({ name, text, id }) => (
                 <Container className={styles.interactionGroup}>
                     <TeachingCommentsSection
                         teachingId={id}
-                        comments={[]}
+                        comments={comments}
                     />
                 </Container>
                 {/* Votes */}
                 <Container className={styles.interactionGroup}>
                     <TeachingVotesSection
                         teachingId={id}
-                        votes={[]}
+                        votes={votes}
                     />
                 </Container>
             </Container>
@@ -64,7 +66,7 @@ const SubteachingCard = ({ name, text, id }) => (
 )
 
 // COULD DO: Enable Edit here  
-export default ({ name, text, id, comments, votes, children = MOCK_CHILDREN }) => {
+export default ({ name, text, id, comments, votes, children }) => {
     return (
         <ExpandableFeedItem
             name={name}
@@ -92,7 +94,7 @@ export default ({ name, text, id, comments, votes, children = MOCK_CHILDREN }) =
             </Container>
             <Text>{text}</Text>
             <Container>
-                {(MOCK_CHILDREN).map((child) => (
+                {(children).map((child) => (
                     <SubteachingCard key={child.id} {...child} />
                 ))}
             </Container>

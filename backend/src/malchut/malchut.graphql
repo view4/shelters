@@ -1,5 +1,5 @@
 type Query {
-  directives(boothId: String, feedParams: FeedParams): DirectiveFeed
+  directives(boothId: String, parentId: String, feedParams: FeedParams): DirectiveFeed
   directive(id: ID!): Directive
 }
 

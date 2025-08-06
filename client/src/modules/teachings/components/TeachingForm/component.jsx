@@ -8,7 +8,6 @@ import { InputLabel } from "modules/Core/sub-modules/ui-kit/components/Input";
 import styles from "./styles.module.scss";
 
 const ParentTeachingFieldComponent = ({ parent, value }) => {
-    console.log({ parent, value })
     if (parent) {
         return (
             <Container>

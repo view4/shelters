@@ -1,3 +1,4 @@
+import cx from "classnames";
 import { useCallback } from "react";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
@@ -12,14 +13,15 @@ import feed from "../../state/feed";
 import useOnError from "modules/Core/sub-modules/Dialog/hooks/useOnError";
 import styles from "./styles.module.scss";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
+import { Header } from "modules/Core/sub-modules/ui-kit/exports";
 
 const VoteItem = ({ text, score, id }) => (
-    <Container className={styles.voteItem}>
+    <Container className={cx(styles.voteItem, score > 0 ? styles.positive : styles.negative)}>
         <Container className={styles.voteContent}>
             <Container className={styles.voteHeader}>
                 <Text className={styles.voteAuthor}>you</Text>
                 <Container className={styles.voteScore}>
-                    <Text className={styles.voteScoreText}>+{score}</Text>
+                    <Text className={styles.voteScoreText}>{score > 0 ? '+' : ''}{score}</Text>
                 </Container>
             </Container>
             <Text className={styles.voteText}>{text}</Text>
@@ -88,7 +90,7 @@ const TeachingVotesSection = ({ teachingId, votes, className }) => {
                     disabled={votesCount === 0}
                 >
                     <Text className={styles.countText}>
-                        {votesCount} vote{votesCount !== 1 ? 's' : ''} (+{totalScore})
+                        {votesCount} vote{votesCount !== 1 ? 's' : ''} ({totalScore > 0 ? '+' : ''}{totalScore})
                     </Text>
                 </Button>
                 <VoteInput
@@ -107,7 +109,13 @@ const TeachingVotesSection = ({ teachingId, votes, className }) => {
                 onClose={closeVotesModal}
                 bodyClassName={styles.votesModal}
             >
-                <Title>Votes ({votesCount}) - Total Score: +{totalScore}</Title>
+                <Header className={styles.header} >
+                    <Container maxWidth m1 flex spaceBetween alignCenter>
+                        <Title>Votes ({votesCount})</Title>
+                        <Text m1>Total Score: +{totalScore}</Text>
+                    </Container>
+                </Header>
+
                 <Container className={styles.votesModalList}>
                     <Feed.Component
                         feed={votes}

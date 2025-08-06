@@ -42,6 +42,19 @@ export default new MiddlewareModule({
                             id
                             name
                             text
+                            comments {
+                                id
+                                text
+                                createdAt
+                                updatedAt
+                            }
+                            votes {
+                                id
+                                text
+                                score
+                                createdAt
+                                updatedAt
+                            }
                         }
                     }
                     info {
