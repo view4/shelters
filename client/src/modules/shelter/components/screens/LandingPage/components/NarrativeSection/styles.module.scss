@@ -1,0 +1,188 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 1.5rem;
+  background: $grey7;
+  border-top: 1px solid $grey10;
+}
+
+.narrativeSection {
+  width: 100%;
+}
+
+.contentWrapper {
+  max-width: 90rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.headerSection {
+  margin-bottom: 4rem;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: $grey90;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  
+  @media (min-width: 48rem) {
+    font-size: 3.75rem;
+  }
+  
+  @media (min-width: 64rem) {
+    font-size: 4.5rem;
+  }
+}
+
+.decorativeDivider {
+  width: 6rem;
+  height: 0.125rem;
+  background: linear-gradient(90deg, #6366f1, #dc2626, #8b5cf6);
+  margin: 0 auto;
+  border-radius: 0.0625rem;
+}
+
+.narrativeContent {
+  // max-width: 64rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.narrativeParagraph {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: $grey72;
+  line-height: 1.6;
+  text-align: left;
+  
+  @media (min-width: 48rem) {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  @media (min-width: 64rem) {
+    font-size: 1.875rem;
+    line-height: 1.7;
+  }
+}
+
+.highlightedWord {
+  font-weight: 400;
+  font-style: italic;
+  margin: 0 0.25rem;
+  position: relative;
+  display: inline;
+}
+
+.soulHighlight {
+  color: #6366f1;
+  font-size: 1.5rem;
+  
+  @media (min-width: 48rem) {
+    font-size: 1.875rem;
+  }
+  
+  @media (min-width: 64rem) {
+    font-size: 2.25rem;
+  }
+}
+
+.qualityHighlight {
+  color: #dc2626;
+  font-size: 1.25rem;
+  
+  @media (min-width: 48rem) {
+    font-size: 1.5rem;
+  }
+  
+  @media (min-width: 64rem) {
+    font-size: 1.875rem;
+  }
+}
+
+.depthHighlight {
+  color: #8b5cf6;
+  font-size: 1.25rem;
+  
+  @media (min-width: 48rem) {
+    font-size: 1.5rem;
+  }
+  
+  @media (min-width: 64rem) {
+    font-size: 1.875rem;
+  }
+}
+
+.sheltersHighlight {
+  color: #6366f1;
+  font-size: 1.875rem;
+  font-style: normal;
+  
+  @media (min-width: 48rem) {
+    font-size: 2.25rem;
+  }
+  
+  @media (min-width: 64rem) {
+    font-size: 2.75rem;
+  }
+}
+
+.meaningHighlight {
+  color: #8b5cf6;
+  font-size: 1.875rem;
+  font-style: normal;
+  
+  @media (min-width: 48rem) {
+    font-size: 2.25rem;
+  }
+  
+  @media (min-width: 64rem) {
+    font-size: 2.75rem;
+  }
+}
+
+.calloutContainer {
+  margin-top: 2rem;
+  
+  @media (min-width: 48rem) {
+    margin-top: 3rem;
+  }
+}
+
+.calloutBox {
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.05), rgba(220, 38, 38, 0.05), rgba(139, 92, 246, 0.05));
+  border-radius: 1.5rem;
+  padding: 2rem;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  
+  @media (min-width: 48rem) {
+    padding: 3rem;
+    border-radius: 2rem;
+  }
+}
+
+.calloutText {
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: italic;
+  color: $grey90;
+  line-height: 1.6;
+  
+  @media (min-width: 48rem) {
+    font-size: 1.875rem;
+  }
+  
+  @media (min-width: 64rem) {
+    font-size: 2.5rem;
+    line-height: 1.7;
+  }
+}

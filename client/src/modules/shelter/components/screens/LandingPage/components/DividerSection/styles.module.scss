@@ -1,0 +1,61 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid $grey10;
+}
+
+.dividerSection {
+  width: 100%;
+  background-color: $grey3;
+}
+
+.contentWrapper {
+  max-width: 48rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.headerSection {
+  margin-bottom: 3rem;
+}
+
+.sectionHeader {
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: $grey90;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  
+  @media (min-width: 48rem) {
+    font-size: 3rem;
+  }
+}
+
+.decorativeDivider {
+  width: 4rem;
+  height: 0.25rem;
+  background-color: #6366f1;
+  margin: 0 auto;
+  border-radius: 0.125rem;
+}
+
+.bodySection {
+  max-width: 50rem;
+  margin: 7rem auto;
+}
+
+.bodyText {
+  font-size: 1.125rem;
+  color: $grey72;
+  line-height: 1.8;
+  text-align: center;
+  
+  @media (min-width: 48rem) {
+    font-size: 1.25rem;
+  }
+}
