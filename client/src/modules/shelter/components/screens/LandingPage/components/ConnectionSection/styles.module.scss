@@ -28,7 +28,7 @@
   font-weight: 300;
   color: $grey90;
   margin-bottom: 1.5rem;
-  
+
   @media (min-width: 48rem) {
     font-size: 3rem;
   }
@@ -50,7 +50,7 @@
   border: $grey3;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
   margin-bottom: 4rem;
-  
+
   @media (min-width: 48rem) {
     padding: 2.5rem;
     border-radius: 2rem;
@@ -84,11 +84,11 @@
   color: $grey90;
   font-size: 1rem;
   transition: all 0.3s ease;
-  
+
   &::placeholder {
     color: $grey50;
   }
-  
+
   &:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(218, 165, 32, 0.4);
@@ -154,7 +154,7 @@
   flex-direction: column;
   gap: 1rem;
   align-items: center;
-  
+
   @media (min-width: 48rem) {
     flex-direction: row;
     justify-content: center;
@@ -199,41 +199,65 @@
   }
 }
 
-.loginButton, .registerButton {
+.loginButton,
+.registerButton {
   position: relative;
   width: 100%;
-  max-width: 12rem;
-  padding: 1rem 1.5rem;
-  border: 1px solid rgba(99, 102, 241, 0.3);
+  max-width: 16rem;
+  padding: 1rem 2rem;
+  border: 2px solid transparent;
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(0.5rem);
   cursor: pointer;
   transition: all 0.3s ease;
-  
+  font-weight: 500;
+  font-size: 1rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  color: white;
+
   @media (min-width: 48rem) {
     width: auto;
-    min-width: 8rem;
+    min-width: 10rem;
+    max-width: 14rem;
   }
 
   &:hover {
-    background: rgba(99, 102, 241, 0.1);
-    border-color: #6366f1;
-    transform: scale(1.02);
+    transform: scale(1.05);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   }
 }
 
 .loginButton {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #6366f1;
   color: #6366f1;
+
+  &:hover {
+    background: #6366f1;
+    color: white;
+  }
+
+  .buttonText {
+    color: #6366f1;
+  }
+
+
 }
 
 .registerButton {
-  background: linear-gradient(90deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
-  color: #8b5cf6;
-  
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  color: white;
+  border-color: transparent;
+
   &:hover {
-    background: linear-gradient(90deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+    background: linear-gradient(90deg, #4f46e5, #7c3aed);
+    transform: scale(1.05);
   }
+
+  .buttonText {
+    color: white;
+  }
+
+
 }
 
 .boothsButton {
@@ -246,10 +270,9 @@
 .buttonText {
   position: relative;
   z-index: 10;
-  color: inherit;
   font-weight: 500;
   font-size: 1rem;
-  color: white ;
+
 }
 
 .quoteSection {
@@ -261,7 +284,7 @@
   color: $grey72;
   font-style: italic;
   line-height: 1.6;
-  
+
   @media (min-width: 48rem) {
     font-size: 1.25rem;
   }
@@ -270,7 +293,7 @@
 // Callout box styles
 .calloutContainer {
   margin-bottom: 3rem;
-  
+
   @media (min-width: 48rem) {
     margin-bottom: 4rem;
   }
@@ -281,7 +304,7 @@
   border-radius: 1.5rem;
   padding: 1rem 1.5rem;
   border: 1px solid rgba(99, 102, 241, 0.2);
-  
+
   @media (min-width: 48rem) {
     // padding: 3rem;
     border-radius: 2rem;
@@ -294,11 +317,11 @@
   font-style: italic;
   color: $grey90;
   line-height: 1.6;
-  
+
   @media (min-width: 48rem) {
     font-size: 1.875rem;
   }
-  
+
   @media (min-width: 64rem) {
     font-size: 2rem;
     line-height: 1.7;
@@ -318,11 +341,11 @@
   font-size: 1.875rem;
   font-style: normal;
   margin: 0 0.75rem;
-  
+
   @media (min-width: 48rem) {
     font-size: 2.25rem;
   }
-  
+
   @media (min-width: 64rem) {
     font-size: 2.25rem;
   }
@@ -332,11 +355,11 @@
   color: #8b5cf6;
   font-size: 1.875rem;
   font-style: normal;
-  
+
   @media (min-width: 48rem) {
     font-size: 2.25rem;
   }
-  
+
   @media (min-width: 64rem) {
     font-size: 2.25rem;
   }

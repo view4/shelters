@@ -2,7 +2,6 @@ import c from "classnames";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import Button from "modules/Core/sub-modules/ui-kit/components/Button";
-import Link from "modules/Core/sub-modules/ui-kit/components/Link";
 import styles from "./styles.module.scss";
 
 
@@ -37,21 +36,21 @@ const Header = ({ isAuthed }) => {
 
                     {/* Navigation Links */}
                     <Container className={styles.navLinks}>
-                        <Link href="#home" className={styles.navLink}>
+                        <a href="#home" className={styles.navLink}>
                             Home
-                        </Link>
-                        <Link href="#features" className={styles.navLink}>
+                        </a>
+                        <a href="#features" className={styles.navLink}>
                             Features
-                        </Link>
-                        <Link href="#essentials" className={styles.navLink}>
+                        </a>
+                        <a href="#essentials" className={styles.navLink}>
                             Essentials
-                        </Link>
-                        <Link href="#narrative" className={styles.navLink}>
+                        </a>
+                        <a href="#narrative" className={styles.navLink}>
                             Story
-                        </Link>
-                        <Link href="#connect" className={styles.navLink}>
+                        </a>
+                        <a href="#connect" className={styles.navLink}>
                             Connect
-                        </Link>
+                        </a>
 
                         {/* Authentication-based buttons */}
                         {!isAuthed ? (

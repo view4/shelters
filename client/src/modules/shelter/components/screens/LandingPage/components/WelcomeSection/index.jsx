@@ -9,7 +9,7 @@ import styles from "./styles.module.scss";
 
 const WelcomeSection = () => {
     return (
-        <Container id="welcome" className={c(styles.section, styles.welcomeSection)}>
+        <Container id="home" className={c(styles.section, styles.welcomeSection)}>
             <Container className={styles.contentWrapper}>
                 <Container className={styles.gridContainer}>
                     {/* Left Content */}
