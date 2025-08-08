@@ -31,13 +31,15 @@ class MigrationRunner {
     }
 
     console.log('🔌 Connecting to MongoDB...');
-    await mongoose.connect(mongoUrl, {
+    const connection = await mongoose.connect(mongoUrl, {
       serverSelectionTimeoutMS: 5000,
     });
 
-    this.dbConnection = mongoose.connection;
-    this.migrationModel = mongoose.model('DBMigration', DbMigrationSchema);
+    this.dbConnection = connection.connection;
+    this.migrationModel = this.dbConnection.model('DBMigration', DbMigrationSchema);
+    
     console.log('✅ Connected to MongoDB');
+    console.log('✅ Database connection established:', !!this.dbConnection);
   }
 
   async disconnect(): Promise<void> {
@@ -135,6 +137,10 @@ class MigrationRunner {
 
   async runMigration(scriptName: string): Promise<void> {
     console.log(`🚀 Running migration: ${scriptName}`);
+    // check connection to db and if not then throw error? 
+    if (!this.dbConnection) {
+      throw new Error('Database connection not established');
+    }
     
     const migrations = await this.loadMigrationScripts();
     const migration = migrations.find(m => m.name === scriptName);

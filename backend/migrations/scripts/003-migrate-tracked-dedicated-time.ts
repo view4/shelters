@@ -7,13 +7,67 @@
 
 import * as mongoose from 'mongoose';
 
+/**
+ * Get TrackedTime schema for migration
+ */
+function getTrackedTimeSchema(): mongoose.Schema {
+  return new mongoose.Schema({
+    name: String,
+    text: String,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    mins: Number,
+    dedicatedTime: { type: mongoose.Schema.Types.ObjectId, ref: 'DedicatedTime' }
+  }, { timestamps: true });
+}
+
+/**
+ * Get TrackedDedicatedTime schema for migration
+ */
+function getTrackedDedicatedTimeSchema(): mongoose.Schema {
+  const schema = new mongoose.Schema({
+    trackedTime: { type: mongoose.Schema.Types.ObjectId, ref: 'TrackedTime', required: true },
+    dedicatedTime: { type: mongoose.Schema.Types.ObjectId, ref: 'DedicatedTime', required: true }
+  }, { timestamps: true });
+
+  // Add compound index for efficient queries
+  schema.index({ trackedTime: 1, dedicatedTime: 1 }, { unique: true });
+  
+  return schema;
+}
+
 export default async function migrate(db: mongoose.Connection) {
   console.log('🔧 Migrating tracked-dedicated-time relationships');
   
+  // List all db collection names for debugging
+  const collections = await db.db.listCollections().toArray();
+  console.log("collections", collections.map(c => c.name));
+  
   try {
-    // Get models from the database connection
-    const TrackedDedicatedTimeModel = db.model('TrackedDedicatedTime');
-    const TrackedTimeModel = db.model('TrackedTime');
+    // Register models with schemas
+    let TrackedDedicatedTimeModel;
+    let TrackedTimeModel;
+
+    try {
+      // Try to get existing model
+      TrackedDedicatedTimeModel = db.model('TrackedDedicatedTime');
+      console.log('📄 Using existing TrackedDedicatedTime model');
+    } catch (error) {
+      // Model doesn't exist, create it
+      console.log('📄 Creating new TrackedDedicatedTime model...');
+      TrackedDedicatedTimeModel = db.model('TrackedDedicatedTime', getTrackedDedicatedTimeSchema());
+    }
+
+    try {
+      // Try to get existing model  
+      TrackedTimeModel = db.model('TrackedTime');
+      console.log('📄 Using existing TrackedTime model');
+    } catch (error) {
+      // Model doesn't exist, create it
+      console.log('📄 Creating new TrackedTime model...');
+      TrackedTimeModel = db.model('TrackedTime', getTrackedTimeSchema());
+    }
+
+    console.log('✅ Models registered successfully');
 
     // Check if TrackedDedicatedTime collection exists, create it if not
     const collections = await db.db.listCollections({ name: 'trackeddedicatedtimes' }).toArray();
