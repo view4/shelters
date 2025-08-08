@@ -17,10 +17,11 @@ const Screen = ({
     footer,
     backLink,
     forwardLink,
+    HeaderComponent=Header,
     ...props
 }) => (
     <Container className={cx(styles.container, className)} {...props}>
-        <Header shouldRender={Boolean(header || headerChildren)} title={header} children={headerChildren} />
+        <HeaderComponent shouldRender={Boolean(header || headerChildren)} title={header} children={headerChildren} />
         {/* <P4PHeader
             span
             shouldRender={Boolean(headerProps?.children || header)}
