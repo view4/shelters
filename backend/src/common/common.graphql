@@ -23,3 +23,12 @@ type Stamps {
   completed: String
   focused: String
 }
+
+type Vote {
+  id: ID!
+  text: String!
+  score: Int!
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+}

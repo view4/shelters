@@ -16,6 +16,7 @@ export default new CoreModule({
         upsertComment: state.upsertComment,
         upsertBooth: state.upsertBooth,
         setFilters: feed.cells?.setFilters,
+        upsertVote: state.upsertVote,
     },
     routes: {
         "/teachings/create": withParams(CreateTeachingsBoothScreen)

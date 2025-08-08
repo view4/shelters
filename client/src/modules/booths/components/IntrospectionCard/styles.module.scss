@@ -1,15 +1,23 @@
 @import "src/modules/Core/styles/variables.scss";
 
+$cardHeaderHeight: 4rem;
+
 .cardHeader {
   h2 {
     font-size: 1.5rem;
   }
   border-bottom: 1px solid $grey36;
-  padding-inline: 1rem;;
+  padding-inline: 1rem;
+  height: $cardHeaderHeight;
+  position: absolute;
 }
 
 .card {
   transition: all 0.5s ease-in-out;
+  position: relative;
+  .cardContentContainer {
+    margin-top: $cardHeaderHeight;
+  }
 
   &.focusedCard {
     // potential focused card UI
@@ -20,11 +28,20 @@
     height: 75vh;
     max-height: unset;
     top: 12.5vh;
-    box-shadow: 0px 0px 72px #808080;
+    box-shadow: 0px 0px 72px $grey18;
     position: absolute;
-    // border-image: linear-gradient(180deg, #ff6b6b, #6ba5ff, #8b1a34) 1;
-    // border-bottom: 3px solid;
-    // border-width: 2px;
-    // border-radius: 2rem;
   }
+}
+
+.collapsibleCard {
+  height: 50rem;
+  .cardHeader {
+    cursor: pointer;
+  }
+  &.collapsed:not(.focusedCard) {
+    height: $cardHeaderHeight;
+    overflow: hidden;
+
+  }
+  transition: all 0.5s ease-in-out;
 }

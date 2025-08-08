@@ -16,5 +16,12 @@ export default {
             name: "upsertComment",
             requestHandler: middleware.ops.upsertComment
         }
+    ),
+    upsertVote: createEntityCell(
+        TEACHINGS,
+        {
+            name: "upsertVote",
+            requestHandler: middleware.ops.upsertVote
+        }
     )
 }

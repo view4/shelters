@@ -1,11 +1,12 @@
 type Query {
-  directives(boothId: String, feedParams: FeedParams): DirectiveFeed
+  directives(boothId: String, parentId: String, feedParams: FeedParams): DirectiveFeed
   directive(id: ID!): Directive
 }
 
 type Mutation {
   upsertDirective(input: DirectiveInput, id: String): Directive!
   upsertDirectiveComment(input: DirectiveCommentInput, id: String): DirectiveComment!
+  upsertDirectiveVote(input: DirectiveVoteInput, id: String): DirectiveVote!
   upsertMalchutBooth(id: String, input: BoothInput): Booth
 }
 
@@ -38,13 +39,25 @@ type Directive {
   createdAt: String!
   updatedAt: String!
   comments: [DirectiveComment]
+  votes: [DirectiveVote]
   children: [Directive]
+  votingScore: Int
 }
 
 type DirectiveComment {
   id: ID!
   directiveId: ID!
   text: String!
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type DirectiveVote {
+  id: ID!
+  directiveId: ID!
+  text: String!
+  score: Int!
   user: ID!
   createdAt: String!
   updatedAt: String!
@@ -60,4 +73,10 @@ input DirectiveInput {
 input DirectiveCommentInput {
   directiveId: ID!
   text: String!
+}
+
+input DirectiveVoteInput {
+  directiveId: ID!
+  text: String!
+  score: Int!
 }
