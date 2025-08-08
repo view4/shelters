@@ -65,7 +65,6 @@ export default strappedConnected(
         fetchEntity: feed.cells?.fetchEntity.action,
     },
     ({ roadmap, id, fetchEntity }) => {
-        console.log("roadmap", roadmap, id)
         useOnLoad(
             () => fetchEntity({ id }),
             !Boolean(roadmap?.id),
