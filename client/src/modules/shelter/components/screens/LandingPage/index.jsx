@@ -1,10 +1,8 @@
-import c from "classnames";
 import cells from "modules/auth/state";
 import Screen from "modules/Core/sub-modules/ui-kit/components/Screen";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Footer from "modules/Core/sub-modules/ui-kit/components/layout/Footer";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
-import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import Link from "modules/Core/sub-modules/ui-kit/components/Link";
 import WelcomeSection from "./components/WelcomeSection";
@@ -14,6 +12,7 @@ import NarrativeSection from "./components/NarrativeSection";
 import ConnectionSection from "./components/ConnectionSection";
 import DividerSection from "./components/DividerSection";
 import Header from "./components/Header";
+import { OPENING_INTENTION_COPY, INTRA_INTENTION_COPY } from "./consts";
 import styles from "./styles.module.scss";
 
 const LINKS = [
@@ -61,15 +60,17 @@ const LandingPage = ({ isAuthed }) => {
         >
             <WelcomeSection />
             <DividerSection
-                header="Why Shelters?"
-                body="In our rush to optimize and quantify every moment, we often lose touch with the qualitative richness of our experiences. Shelters invites you to slow down and attune to the deeper currents of your daily life—not just what you did, but how present you were, what meaning emerged, and how aligned your actions felt with your truest self."
+                header={false}
+                // header="Why Shelters?"
+                body={OPENING_INTENTION_COPY.TEXT}
             />
             <FeaturesSection />
             <EssentialsSection />
             <NarrativeSection />
             <DividerSection
-                header="Begin Your Journey"
-                body="Thank you for taking the time to explore Shelters. We believe that meaningful growth happens when we create space for reflection and intentional living."
+                header={false}
+                // header="Begin Your Journey"
+                body={INTRA_INTENTION_COPY.TEXT}
             />
             <ConnectionSection isAuthed={isAuthed} />
             <SheltersFooter />

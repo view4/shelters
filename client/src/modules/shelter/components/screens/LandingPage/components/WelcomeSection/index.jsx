@@ -3,7 +3,7 @@ import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import Button from "modules/Core/sub-modules/ui-kit/components/Button";
-import { ReactComponent as WelcomeBg } from "modules/shelter/assets/welcome_bg_cleaned.svg";
+import { GENERAL_COPY, WELCOME_COPY } from "../../consts";
 import ShelterImage from "modules/shelter/assets/shelter.png";
 import styles from "./styles.module.scss";
 
@@ -16,24 +16,30 @@ const WelcomeSection = () => {
                     <Container className={styles.leftContent}>
                         {/* Brand Name */}
                         <Title className={styles.brandTitle}>
-                            Shelters
+                            {GENERAL_COPY.NAME}
                         </Title>
 
                         {/* Headline */}
-                        <Title Element="h2" className={styles.headline}>
-                            A sacred space for mindful time and meaningful moments
-                        </Title>
+                        <Container  alignCenter>
+                            <Title Element="h2" className={styles.headline}>
+                                {WELCOME_COPY.HEADLINE}
+                            </Title>
+                            <Text className={styles.headlineSuffix}>{WELCOME_COPY.HEADLINE_SUFFIX}</Text>
+                        </Container>
+
 
                         {/* Subtext */}
                         <Text className={styles.subtext}>
-                            Track not just your time, but the depth and intention behind each
-                            moment. Discover patterns that align with your deepest values.
+                            {WELCOME_COPY.SUBTEXT}
                         </Text>
 
                         {/* CTA Button */}
                         <Container className={styles.ctaContainer}>
-                            <Button to="/retreat" className={styles.ctaButton}>
-                                <Text className={styles.ctaText}>Begin Your Journey</Text>
+                            <Button onClick={() => {
+                                // scroll into fiew the #get-going section
+                                document.getElementById("get-going")?.scrollIntoView({ behavior: "smooth" });
+                            }} className={styles.ctaButton}>
+                                <Text className={styles.ctaText}>{WELCOME_COPY.CTA}</Text>
                             </Button>
                         </Container>
                     </Container>
@@ -47,7 +53,7 @@ const WelcomeSection = () => {
                 </Container>
 
                 {/* Scroll indicator */}
-                <Container className={styles.scrollIndicator}>
+                <Container mb3 className={styles.scrollIndicator}>
                     <svg
                         className={styles.scrollIcon}
                         fill="none"
@@ -61,7 +67,7 @@ const WelcomeSection = () => {
                             d="M19 14l-7 7m0 0l-7-7m7 7V3"
                         />
                     </svg>
-                    
+
                 </Container>
             </Container>
         </Container>

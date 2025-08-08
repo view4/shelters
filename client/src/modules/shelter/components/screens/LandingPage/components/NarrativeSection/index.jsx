@@ -3,49 +3,53 @@ import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import styles from "./styles.module.scss";
+import { BACKGROUND_COPY } from "../../consts";
 
 const NarrativeSection = () => {
+    // Function to parse text and apply bold black styling to text wrapped in --
+    const parseTextWithHighlights = (text) => {
+        if (!text.includes('--')) {
+            return text;
+        }
+
+        const parts = text.split(/(--[^-]+--)/g);
+        
+        return parts.map((part, index) => {
+            if (part.startsWith('--') && part.endsWith('--')) {
+                // Remove the -- markers and apply bold black styling
+                const highlightText = part.slice(2, -2);
+                
+                return (
+                    <span 
+                        key={index} 
+                        className={styles.boldHighlight}
+                    >
+                        {highlightText}
+                    </span>
+                );
+            }
+            return part;
+        });
+    };
+
     return (
-        <Container id="narrative" className={c(styles.section, styles.narrativeSection)}>
+        <Container id="background" className={c(styles.section, styles.narrativeSection)}>
             <Container className={styles.contentWrapper}>
                 {/* Header Section */}
                 <Container className={styles.headerSection}>
                     <Title Element="h3" className={styles.sectionTitle}>
-                        The Heart of the Matter
+                        {BACKGROUND_COPY.HEADING}
                     </Title>
                     <Container className={styles.decorativeDivider} />
                 </Container>
 
                 {/* Main Narrative Content */}
                 <Container className={styles.narrativeContent}>
-                    <Text className={styles.narrativeParagraph}>
-                        We live in an age of endless optimization, where every moment is
-                        measured, every habit tracked, every outcome quantified. Yet
-                        something essential is missing:
-                        <Text Element="span" className={c(styles.highlightedWord, styles.soulHighlight)}>
-                            the soul
+                    {BACKGROUND_COPY.TEXT.map((paragraph, index) => (
+                        <Text key={index} className={styles.narrativeParagraph}>
+                            {parseTextWithHighlights(paragraph)}
                         </Text>
-                        of our experience.
-                    </Text>
-
-                    <Text className={styles.narrativeParagraph}>
-                        Most time-tracking tools treat us like machines—focused on
-                        efficiency, productivity, and measurable outcomes. But what about the
-                        <Text Element="span" className={c(styles.highlightedWord, styles.qualityHighlight)}>
-                            quality
-                        </Text>
-                        of our presence? The
-                        <Text Element="span" className={c(styles.highlightedWord, styles.depthHighlight)}>
-                            depth
-                        </Text>
-                        of our engagement?
-                    </Text>
-
-                    <Text className={styles.narrativeParagraph}>
-                        What about the sacred pause between one moment and the next,
-                        where wisdom lives and intention is born? We've lost touch with the art of mindful living—not because we don't want it,
-                        but because our tools don't support it.
-                    </Text>
+                    ))}
                 </Container>
             </Container>
         </Container>

@@ -4,6 +4,7 @@ import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import styles from "./styles.module.scss";
+import { GENERAL_COPY } from "../../consts";
 
 const ConnectionSection = ({ isAuthed }) => {
     // Commented out form state and handlers
@@ -27,19 +28,22 @@ const ConnectionSection = ({ isAuthed }) => {
     // };
 
     return (
-        <Container id="connect" className={c(styles.section, styles.connectionSection)}>
+        <Container id="get-going" className={c(styles.section, styles.connectionSection)}>
             <Container className={styles.contentWrapper}>
                 {/* Callout Box */}
                 <Container className={styles.calloutContainer}>
                     <Container className={styles.calloutBox}>
                         <Text className={styles.calloutText}>
-                            <Text Element="span" className={c(styles.highlightedWord, styles.sheltersHighlight)}>
+                            {/* <Text Element="span" className={c(styles.highlightedWord, styles.sheltersHighlight)}>
                                 Shelters
-                            </Text>
-                            was born from this longing—to bridge the gap between measurement and
-                            <Text Element="span" className={c(styles.highlightedWord, styles.meaningHighlight)}>
+                            </Text> */}
+                            {GENERAL_COPY.NAME + " "} 
+
+                            was born from the longing to bridge the gap between measurement and
+                            meaning.
+                            {/* <Text Element="span" className={c(styles.highlightedWord, styles.meaningHighlight)}>
                                 meaning
-                            </Text>
+                            </Text> */}
                         </Text>
                     </Container>
                 </Container>
@@ -125,11 +129,11 @@ const ConnectionSection = ({ isAuthed }) => {
                 </Container> */}
 
                 {/* Inspiring Quote */}
-                <Container className={styles.quoteSection}>
+                {/* <Container className={styles.quoteSection}>
                     <Text className={styles.inspiringQuote}>
                         "Your time is sacred. Your attention is precious. Let Shelters be your gentle companion."
                     </Text>
-                </Container>
+                </Container> */}
             </Container>
         </Container>
     );

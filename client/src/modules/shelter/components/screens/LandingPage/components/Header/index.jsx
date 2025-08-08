@@ -3,6 +3,7 @@ import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import styles from "./styles.module.scss";
+import { GENERAL_COPY } from "../../consts";
 
 
 const Header = ({ isAuthed }) => {
@@ -20,10 +21,6 @@ const Header = ({ isAuthed }) => {
                                 {/* Central sacred space */}
                                 <rect x="18" y="18" width="6" height="4" stroke="white" stroke-width="1" fill="none" />
                                 
-                                {/* Meditation cushions/stones */}
-                                {/* <circle cx="15" cy="20" r="1.5" stroke="white" stroke-width="1" fill="none" opacity="0.7" />
-                                <circle cx="25" cy="20" r="1.5" stroke="white" stroke-width="1" fill="none" opacity="0.7" /> */}
-                                
                                 {/* Sacred flame/light at the peak */}
                                 <path d="M20 10 L19 8 Q20 7 21 8 L20 10" stroke="white" stroke-width="1" fill="white" opacity="0.8" />
                                 
@@ -31,12 +28,12 @@ const Header = ({ isAuthed }) => {
                                 <line x1="20" y1="14" x2="20" y2="30" stroke="white" stroke-width="1" opacity="0.6" />
                             </svg>
                         </Container>
-                        <Text className={styles.logoText}>Shelters</Text>
+                        <Text className={styles.logoText}>{GENERAL_COPY.NAME}</Text>
                     </Container>
 
                     {/* Navigation Links */}
                     <Container className={styles.navLinks}>
-                        <a href="#home" className={styles.navLink}>
+                        {/* <a href="#home" className={styles.navLink}>
                             Home
                         </a>
                         <a href="#features" className={styles.navLink}>
@@ -50,7 +47,14 @@ const Header = ({ isAuthed }) => {
                         </a>
                         <a href="#connect" className={styles.navLink}>
                             Connect
-                        </a>
+                        </a> */}
+                        {
+                            GENERAL_COPY.LINKS.map((link) => (
+                                <a href={`#${link.link}`} className={styles.navLink}>
+                                    {link.name}
+                                </a>
+                            ))
+                        }
 
                         {/* Authentication-based buttons */}
                         {!isAuthed ? (

@@ -30,7 +30,8 @@
   font-weight: 300;
   color: $grey90;
   margin-bottom: 1.5rem;
-  
+  text-align: left;
+
   @media (min-width: 48rem) {
     font-size: 2.5rem;
   }
@@ -40,7 +41,6 @@
   width: 6rem;
   height: 0.125rem;
   background: linear-gradient(90deg, #6366f1, #dc2626, #8b5cf6);
-  margin: 0 auto;
   border-radius: 0.0625rem;
 }
 
@@ -48,7 +48,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
-  
+
   @media (min-width: 48rem) {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -70,6 +70,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+
   & h4 {
     margin: 0;
   }

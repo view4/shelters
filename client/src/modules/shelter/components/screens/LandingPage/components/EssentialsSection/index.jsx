@@ -3,6 +3,7 @@ import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import styles from "./styles.module.scss";
+import { NATURE_COPY } from "../../consts";
 
 const MEANINGFUL_ESSENTIALS = [
     // Left Column
@@ -59,25 +60,30 @@ const EssentialItem = ({ title, description, dotColor }) => (
 
 const EssentialsSection = () => {
     return (
-        <Container id="essentials" className={c(styles.section, styles.essentialsSection)}>
+        <Container id="nature" className={c(styles.section, styles.essentialsSection)}>
             <Container className={styles.contentWrapper}>
                 {/* Header Section */}
                 <Container className={styles.headerSection}>
                     <Title Element="h3" className={styles.sectionTitle}>
-                        What Sets Us Apart
+                        {NATURE_COPY.HEADING}
                     </Title>
                     <Container className={styles.decorativeDivider} />
                 </Container>
 
                 {/* Two-Column Grid */}
                 <Container className={styles.essentialsGrid}>
-                    {MEANINGFUL_ESSENTIALS.map((column, columnIndex) => (
-                        <Container key={columnIndex} className={styles.essentialsColumn}>
-                            {column.map((essential, index) => (
+                    {/* {NATURE_COPY.INSIGHTS.map((column, columnIndex) => ( */}
+                        <Container className={styles.essentialsColumn}>
+                            {NATURE_COPY.INSIGHTS.slice(0, 2).map((essential, index) => (
                                 <EssentialItem key={index} {...essential} />
                             ))}
                         </Container>
-                    ))}
+                        <Container className={styles.essentialsColumn}>
+                            {NATURE_COPY.INSIGHTS.slice(2, 6).map((essential, index) => (
+                                <EssentialItem key={index} {...essential} />
+                            ))}
+                        </Container>
+                    {/* ))} */}
                 </Container>
             </Container>
         </Container>
