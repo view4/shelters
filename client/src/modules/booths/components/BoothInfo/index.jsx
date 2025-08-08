@@ -18,7 +18,7 @@ export default withFocusedBoothId(strappedConnected(
     },
     {},
     ({ booth, boothId }) => ({
-        features: useMemo(() => ([
+        features: useMemo(() => booth &&([
             {
                 name: "Booth Name",
                 content: booth?.name
@@ -27,7 +27,7 @@ export default withFocusedBoothId(strappedConnected(
                 name: "Booth Description",
                 content: booth?.text
             },
-            booth.parent && {
+            booth?.parent && {
                 name: "Parent Booth",
                 content: <BoothParentCard boothId={boothId} />
             },

@@ -28,6 +28,9 @@ const Component = ({ id: boothId }) => {
                 parentId={boothId}
                 kind={BOOTH_KINDS.MALCHUT}
                 title="Sub-Booths"
+                collapsible
+                defaultCollapsed
+
             />
         </BoothScreen>
     )

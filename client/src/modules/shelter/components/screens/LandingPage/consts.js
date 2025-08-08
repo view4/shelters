@@ -28,14 +28,23 @@ export const WELCOME_COPY = {
     HEADLINE: `"For a seven day period you shall live in booths"`,
     HEADLINE_SUFFIX: "(leviticus 23:40)",
     // SUBTEXT: "Here to support your journey with Life, to support the pursuit for liberation",
-    SUBTEXT: "Providing structure to support your journey with Life, and the pursuit for liberation",
+    SUBTEXT: "Providing structure to support your journey with Life and your pursuit for liberation",
     // SUBTEXT: "Your time is sacred. Your attention is precious. Let Shelters be your gentle companion.",
     CTA: "Begin Your Journey",
 }
 
 export const OPENING_INTENTION_COPY = {
-    TEXT: "I want to provide a space, rich with peace, posied to help you connect with what you believe. I want to start cultivating a community of people living meaningfully, so we can take steps into the unknown together 🙂"
+    TEXT: "Let's provide a space rich with peace and posied to help connecting with belief. Let's cultivate a community of people living meaningfully and take steps into the unknown together 🙂"
 }
+
+// cool svg? was cycles.. 
+/*
+
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 1.5-5 6-5 4.5 0 6 3 6 5 2-1 2.5-3.5 2.5-3.5a8 8 0 01-5.843 11.157z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18v3" />
+                </svg>
+*/
 
 export const FEATURES_COPY = {
     HEADING: "Core Features",
@@ -64,7 +73,7 @@ export const FEATURES_COPY = {
         },
         {
             name: "Roadmapping",
-            description: "Outline the path to your success, broken down sustainably",
+            description: "Outline the path to your success and break it down sustainably",
             inscription: "And you shall inscribe them upon the doorposts of your house and upon your gates.",
             emblem: (
                 <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -77,12 +86,24 @@ export const FEATURES_COPY = {
             name: "Cycling",
             description: "Organise your work into iterative, flexible flows to support your journey",
             inscription: "Six days you may do your work, but on the seventh day you shall rest, in order that the ox and your donkey shall rest, and your maidservant's son and the stranger shall be refreshed.",
-            emblem: (
-
-
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 1.5-5 6-5 4.5 0 6 3 6 5 2-1 2.5-3.5 2.5-3.5a8 8 0 01-5.843 11.157z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18v3" />
+                        emblem: (
+                <svg width="60" height="60" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    {/* First arrow - right half circle (clockwise) with gap */}
+                    <path d="M20 9 Q27 9 27 16 Q27 23 20 23" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                    <path d="M18 7 L20 9 L18 11" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    
+                    {/* Second arrow - left half circle (clockwise) with gap */}
+                    <path d="M20 25 Q13 25 13 16 Q13 7 20 7" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                    <path d="M22 27 L20 25 L22 23" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    
+                    {/* Center dot for balance */}
+                    <circle cx="20" cy="16" r="1.5" stroke="white" strokeWidth="1" fill="white" opacity="0.6" />
+                    
+                    {/* Subtle motion indicators */}
+                    <g stroke="white" strokeWidth="1" opacity="0.3">
+                        <path d="M24 12 Q26 12 26 14" strokeLinecap="round" />
+                        <path d="M16 20 Q14 20 14 18" strokeLinecap="round" />
+                    </g>
                 </svg>
             ),
             bg: "from-spiritual-blue-to-spiritual-purple"
@@ -90,7 +111,8 @@ export const FEATURES_COPY = {
         },
         {
             name: "Journalling",
-            description: "Have a space to introspect and express yourself meaningfully.",
+            // description: "Have a space to introspect and express yourself meaningfully.",
+            description: "Reflect, introspect, express youself freely",
             inscription: "And you shall speak of them...",
             emblem: (
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -179,12 +201,13 @@ export const NATURE_COPY = {
         {
             title: "Selfhood",
             // THE SACRED NATURE OF THE SOUL
-            description: "Each person harbours the depth of a world, sacred and unique, use this space to cultivate your relationship with yourself.",
+            description: "Each person has access to infinite depth. Each person, sacred and unique, use this space to cultivate your relationship with yourself.",
             dotColor: "purple"
         },
         {
             title: "Value-Driven",
-            description: "Grounded and rooted in meaning, and values, so that collectively we can intentionally align with the service of Life.",
+            // description: "Grounded and rooted in meaning, and values, so that collectively we can intentionally align with the service of Life.",
+            description: "Intrinsically linked with values and meaning, so that collectively we can intentionally align with the service of Life.",
             dotColor: "blue"
         },
 
@@ -196,12 +219,14 @@ export const NATURE_COPY = {
 export const BACKGROUND_COPY = {
     HEADING: "Background",
     TEXT: [
-        "The pursuit for personal liberation and independence, the means to --live meaningfully-- is often lonely, unsupported and scary.",
-        "Existing tools felt rooted in the need for productivity, more than the need for meaning. People are not machines - quantified growth is not better than qualified growth. --The journey should not be neglected. --",
-        "The festival of --sukkot commemorates dwelling in booths--, temporary shelters, when leaving Egypt. The instruction to continue to dwell in booths each year is a reminder that the journey of liberation  and meaning takes place in the transient present, often incomplete, --not ideal, but real--, rooted in the sacred journey with Life.",
-        "Incomplete, less robust, more rough around the edges, the cultivation of a space rooted in faith began inspired by sukkot and the nature of transience and rugged growth.",
+        "The pursuit for personal liberation and independence i.e. the means to --live meaningfully-- is often lonely, unsupported and scary.",
+        "When exploring existing tools, they prioritised productivity over meaning, but we are not machines and quantified growth is not better than qualified growth. --We shouldn't neglect the journey. --",
+        // "Existing tools felt rooted in the need for productivity, more than the need for meaning. People are not machines - quantified growth is not better than qualified growth. --The journey should not be neglected. --",
+        "The festival of --sukkot commemorates dwelling in booths--, temporary shelters, whilst in the desert leaving Egypt. The instruction to continue to dwell in booths each year is a reminder that the journey of liberation and meaning takes place in the transient present, today, and --although incomplete, and not ideal, the journey of liberating personal growth is real, sacred and inherently ours.--",
+        "Incomplete, less robust and more --rough around the edges--, the cultivation of a space rooted in faith began inspired by sukkot and the nature of transience and --rugged growth--.",
     ]
 }
 export const INTRA_INTENTION_COPY = {
-    TEXT: "Whilst this space is still being built, the core of the project exists, and you are welcome to participate in the journey and join the pursuit of meaning. Incompletion is certain \n \n  the unknown awaits \n \n let the future you cherish the next step you take ❤️",
+    // TEXT: "Whilst this space is still being built, the core of the project exists, and you are welcome to participate in the journey and join the pursuit of meaning. Incompletion is certain \n \n  the unknown awaits \n \n let the future you cherish the next step you take ❤️",
+    TEXT: "The core of the project exists, even though the space is still being created. You are welcome to participate in the journey, to explore, to grow, and to join the pursuit of meaning. \n \n Certainly incomplete \n\n but \n \n  the unknown awaits \n \n and let the future you cherish the next step you take \n \n ❤️"
 }

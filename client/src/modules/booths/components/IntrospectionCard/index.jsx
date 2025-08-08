@@ -1,4 +1,5 @@
 import cx from "classnames";
+import { useMemo } from "react";
 import strapped from "modules/Core/higher-order-components/strapped";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
@@ -7,7 +8,6 @@ import { Focus, Minimise } from "modules/Core/sub-modules/ui-kit/components/indi
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
 import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
-import { useMemo } from "react";
 import withRecursiveRender from "modules/Core/higher-order-components/withRecursiveRender";
 import styles from "./styles.module.scss";
 
@@ -74,7 +74,7 @@ const IntrospectionCard  = strapped(
                 close,
                 toggle,
                 onClick: onHeaderPress
-            }))
+            }), [title, isOpen, actions, open, close, toggle, onHeaderPress])
         }
     },
     { withIsOpen: true }

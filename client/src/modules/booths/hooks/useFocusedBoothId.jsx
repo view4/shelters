@@ -5,5 +5,5 @@ import { useParams } from "react-router-dom"
 export default () => {
     const params = useParams();
     const focusedBoothId = useSelector((state) => state.booths.focusedBooth?.id);
-    return useMemo(() => params?.id ?? params?.boothId ?? focusedBoothId, [params?.id, params?.boothId, focusedBoothId]);
+    return useMemo(() => params?.boothId ?? focusedBoothId, [params?.boothId, focusedBoothId]);
 }

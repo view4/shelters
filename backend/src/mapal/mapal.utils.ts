@@ -103,7 +103,25 @@ export const aggregateFeature = (model: Model<any>, id: ID) =>  aggregate(model,
         foreignField: 'feature',
         as: 'comments',
         pipeline: [
-          { $addFields: { id: '$_id' } }
+          {
+            $lookup: {
+              from: 'comments',
+              localField: 'comment',
+              foreignField: '_id',
+              as: 'commentData'
+            }
+          },
+          { $unwind: '$commentData' },
+          {
+            $addFields: {
+              id: '$_id',
+              commentId: '$comment',
+              text: '$commentData.text',
+              user: '$commentData.user',
+              createdAt: '$createdAt',
+              updatedAt: '$updatedAt'
+            }
+          },
         ]
       }
     },

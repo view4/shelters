@@ -22,12 +22,11 @@ const RightPanelComponent = ({ parent, gridRow }) => (
 
 
 const Component = ({ name, text, id, tabs, rightProps, stamps, refetch, parent }) => (
-    <BoothScreen boothId={id} RightPanelComponent={RightPanelComponent} rightProps={rightProps}>
-
+    <BoothScreen RightPanelComponent={RightPanelComponent} rightProps={rightProps}>
         <Container maxHeight>
             <Card className={styles.headerCard} maxWidth relative >
                 <Container>
-                    <Title>{name}</Title>
+                    <Title>{name} {id}</Title>
                 </Container>
                 <Container>
                     <Text>{text}</Text>
@@ -66,6 +65,7 @@ export default strappedConnected(
         fetchEntity: feed.cells?.fetchEntity.action,
     },
     ({ roadmap, id, fetchEntity }) => {
+        console.log("roadmap", roadmap, id)
         useOnLoad(
             () => fetchEntity({ id }),
             !Boolean(roadmap?.id),
@@ -76,7 +76,7 @@ export default strappedConnected(
             id: childId,
             parentId: id,
             parent: { id, name: roadmap?.name }
-        })), [roadmap?.childrenIds?.length]);
+        })), [roadmap?.childrenIds?.length, id]);
 
         return {
             name: roadmap?.name,
@@ -85,7 +85,7 @@ export default strappedConnected(
             stamps: roadmap?.stamps,
             rightProps: useMemo(() => ({
                 parent: roadmap?.parent,
-            }), [roadmap?.parent]),
+            }), [roadmap?.parent, id]),
             tabs: useMemo(() => [
                 {
                     title: 'Gateways',
@@ -96,7 +96,7 @@ export default strappedConnected(
                         />
                     </Container>
                 },
-            ], [roadmap?.children, feed]),
+            ], [roadmap?.children, feed, id]),
             refetch: useCallback(() => fetchEntity({ id }), [fetchEntity, id]),
         }
     }

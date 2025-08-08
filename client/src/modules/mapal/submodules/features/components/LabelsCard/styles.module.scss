@@ -3,6 +3,8 @@
 .labelsCard {
   height: auto;
   min-height: 200px;
+  max-width: 90%;
+  border-color: $grey50;
   button {
     position: absolute;
     bottom: 1rem;
@@ -12,7 +14,6 @@
 
 .labelItem {
   padding: 0.5rem 0;
-  border-bottom: 1px solid $grey10;
   
   &:last-child {
     border-bottom: none;

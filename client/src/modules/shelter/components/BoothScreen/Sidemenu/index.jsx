@@ -9,13 +9,13 @@ import { useIsOpen } from "modules/Core/hooks/useIsOpen";
 import Chevron from "modules/Core/sub-modules/ui-kit/components/Chevron";
 import { links, WITH_PARAMS_PREFIX } from "./const";
 import SidemenuLink from "./SidemenuLink";
+import useFocusedBoothId from "modules/booths/hooks/useFocusedBoothId";
 import styles from "./styles.module.scss"
 
 
 const Sidemenu = ({ header = "Booths" }) => {
     const { isOpen, toggle } = useIsOpen(true);
-    const params = useParams();
-    const boothId = params.boothId ?? params.id;
+    const boothId = useFocusedBoothId()
     const location = useLocation();
 
     const renderLink = useCallback((link) => {

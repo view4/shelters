@@ -26,7 +26,7 @@ const LabelsCard = strappedConnected(Card,
             className: styles.labelsCard,
             actions: [{ Component: AddLabelButton, featureId }],
             children:
-                <Container flex col center maxWidth gap1>
+                <Container flex center maxWidth gap1 p3 m1>
                     {labels?.length ? labels.map(label => (
                         <Container key={label.id} className={styles.labelItem} flex row spaceBetween alignCenter>
                             <Tag
@@ -40,7 +40,7 @@ const LabelsCard = strappedConnected(Card,
                     <AddLabelButton text={"Add label"} featureId={featureId} />
                 </Container>
             ,
-            flex: true, center: true, justifyCenter: true,
+            flex: true, center: true, justifyCenter: true, lightShadow: true
         }
     }
 );
