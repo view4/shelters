@@ -12,8 +12,8 @@ export default new MiddlewareModule({
             }
         `,
     fetchFeed: `
-            query trackedTimes($feedParams: FeedParams, $dedicatedTimeId: String) {
-                feed: trackedTimes(feedParams: $feedParams, dedicatedTimeId: $dedicatedTimeId) {
+            query trackedTimes($feedParams: FeedParams, $dedicatedTimeId: String, $search: String) {
+                feed: trackedTimes(feedParams: $feedParams, dedicatedTimeId: $dedicatedTimeId, search: $search) {
                     entities {
                         id
                         mins

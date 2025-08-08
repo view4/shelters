@@ -1,5 +1,5 @@
 import "./App.css";
-import "./modules/Core/styles/ui-kit.css";
+import "./modules/Core/sub-modules/ui-kit/ui-kit.css";
 import booths from "modules/booths";
 import { BrowserRouter, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -16,6 +16,10 @@ import payments from "modules/payments";
 import membership from "modules/membership";
 import shelter from "modules/shelter";
 import timemapper from "modules/timemapper";
+import mapal from "modules/mapal";
+import features from "modules/mapal/submodules/features";
+import teachings from "modules/teachings";
+import UIKit from "modules/Core/sub-modules/ui-kit";
 
 const { store, rootRender, routes } = init([
   booths,
@@ -30,7 +34,11 @@ const { store, rootRender, routes } = init([
   payments,
   membership,
   shelter,
-  timemapper
+  timemapper,
+  mapal,
+  features,
+  teachings,
+  UIKit,
 ]);
 
 const RootWrapper = () => {

@@ -1,0 +1,28 @@
+{
+  "key": "Features",
+  "name": "Features",
+  "path": "Features",
+  "section": "general",
+  "intro": "A container component that presents a collection of capabilities or highlights. It offers a clear, flexible structure for showcasing tools, values, or offerings in a way that feels coherent and meaningful.",
+  "principles": [
+    "clarity",
+    "organization",
+    "containment",
+    "harmony",
+    "meaningful expression",
+    "adaptability",
+    "separation of concerns"
+  ],
+  "demo": {
+    "props": {
+      "features": [
+        { "name": "Feature 1", "content": "First feature description" },
+        { "name": "Feature 2", "content": "Second feature description" }
+      ]
+    }
+  },
+  "notes": "The Features component is ideal for presenting grouped ideas, values, or abilities in a digestible and structured way. It helps emphasize the integrity of each feature while keeping them connected in purpose.",
+  "status": "stable",
+  "tags": ["layout", "display", "grouping", "presentation"],
+  "lastUpdated": "2025-07-24"
+}

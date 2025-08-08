@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose';
 import { User } from 'src/auth/schemas/user.schema';
 import { ObjectType } from '@nestjs/graphql';
 import { Stamps, StampsSchema } from 'src/common/schemas/stamps.schema';
+import { BoothKind } from './booths.schema.consts';
 
 export type BoothDocument = mongoose.HydratedDocument<Booth>;
 
@@ -17,6 +18,9 @@ export class Booth {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Booth' })
+  parent: Booth;
 
   @Prop({ type: StampsSchema })
   stamps: Stamps

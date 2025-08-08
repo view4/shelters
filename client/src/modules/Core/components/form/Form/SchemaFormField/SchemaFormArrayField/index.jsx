@@ -1,10 +1,10 @@
-import Container from "modules/Core/components/ui-kit/Container"
+import Container from "modules/Core/sub-modules/ui-kit/components/Container"
 import { useCallback, useMemo } from "react";
-import Text from "modules/Core/components/ui-kit/Text";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import SchemaForm from "../../SchemaForm";
-import { InputLabel } from "modules/Core/components/ui-kit/Input";
+import { InputLabel } from "modules/Core/sub-modules/ui-kit/components/Input";
 import styles from "./styles.module.scss";
-import ExpandableCard from "modules/Core/components/ui-kit/Card/ExpandableCard";
+import ExpandableCard from "modules/Core/sub-modules/ui-kit/components/Card/ExpandableCard";
 
 const defaultRenderValueItem = (val, index, options) => {
     if (options?.expandable) return (

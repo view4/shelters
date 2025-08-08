@@ -1,0 +1,40 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.parentCard {
+    max-width: 100%;
+    min-height: 120px;
+    border: 1px solid $grey18;
+    background-color: $white18;
+    padding: 1rem;
+}
+
+.parentTitle {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $ocean_blue;
+    margin: 0;
+}
+
+.parentName {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: $grey72;
+    margin: 0;
+}
+
+.parentText {
+    font-size: 0.9rem;
+    color: $grey90;
+    line-height: 1.4;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.noParent {
+    color: $grey72;
+    font-style: italic;
+    text-align: center;
+} 

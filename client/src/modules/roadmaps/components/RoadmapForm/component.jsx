@@ -1,7 +1,7 @@
-import Modal from 'modules/Core/components/ui-kit/Modal';
+import Modal from 'modules/Core/sub-modules/ui-kit/components/Modal';
 import SchemaForm from "modules/Core/components/form/Form/SchemaForm";
-import Title from 'modules/Core/components/ui-kit/Title';
-import Container from 'modules/Core/components/ui-kit/Container';
+import Title from 'modules/Core/sub-modules/ui-kit/components/Title';
+import Container from 'modules/Core/sub-modules/ui-kit/components/Container';
 
 export default ({ isOpen, close, title= "Add Roadmap", schema, initialState, onSubmit, ...props }) => {
     return (

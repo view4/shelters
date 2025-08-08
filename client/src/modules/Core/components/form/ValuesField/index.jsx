@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
-import Button from "modules/Core/components/ui-kit/Button";
-import ExpandableCard, { ExpandableCardComponent } from "modules/Core/components/ui-kit/Card/ExpandableCard";
-import Container from "modules/Core/components/ui-kit/Container";
-import Input, { InputLabel } from "modules/Core/components/ui-kit/Input";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
+import ExpandableCard, { ExpandableCardComponent } from "modules/Core/sub-modules/ui-kit/components/Card/ExpandableCard";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Input, { InputLabel } from "modules/Core/sub-modules/ui-kit/components/Input";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
-import Title from "../../ui-kit/Title";
-import ConditionalContainer from "../../ui-kit/ConditionalContainer";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import ConditionalContainer from "modules/Core/sub-modules/ui-kit/components/ConditionalContainer";
 import styles from './styles.module.scss';
 import ValuesSelectionModal from "./ValuesSelectionModal";
 

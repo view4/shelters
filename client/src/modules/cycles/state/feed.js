@@ -1,7 +1,20 @@
+import { compact } from 'lodash'
 import FeedModule from "modules/Core/core-modules/FeedModule";
 import { CYCLES } from "../consts";
 import middleware from "../middleware";
-import { createSelector } from "@reduxjs/toolkit";
+
+export const extractGateways = cycle => {
+  // TODO: extract children here...
+  return compact([
+    cycle?.a,
+    cycle?.b,
+    cycle?.c,
+    cycle?.d,
+    cycle?.e,
+    cycle?.f,
+    cycle?.sabbatical?.gateway,
+  ])
+}
 
 
 export default new FeedModule({
@@ -12,25 +25,6 @@ export default new FeedModule({
     },
     fetchFeedCell: {
       requestHandler: middleware.ops.fetchFeed,
-    },
-    fetchEntityCell: {
-      requestHandler: middleware.ops.fetchEntity,
-      idKey: "boothId",
-      successCell: {
-        reducer: (state, action) => {
-          state.isLoading = false;
-          state.cycle = action.payload;
-        },
-      },
-      parseRes: res => res?.currentCycle,
-      selector: createSelector(
-        (state) => state[CYCLES]?.cycle,
-        (cycle) => cycle
-      ),
-      selectGateway: (orderKey) => createSelector(
-        (state) => state[CYCLES]?.cycle,
-        (cycle) => cycle[orderKey]
-      )
     },
   },
 });

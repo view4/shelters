@@ -1,6 +1,6 @@
 import { all, takeEvery, takeLatest } from "redux-saga/effects";
 
-import { createSlice, progenitorsToReducers } from "./utils";
+import { createSlice, progenitorsToReducers, progenitorsToSagas } from "./utils";
 
 class CoreModuleState {
   constructor({ name, initialState, cells = {} }) {
@@ -32,15 +32,9 @@ class CoreModuleState {
   }
 
   *getSagas() {
-    yield all(
-      Object.entries(this.cells)?.map(([name, progenitor]) => {
-        if (!progenitor.sagas) return null;
-        return takeLatest(
-          `${this.coreModuleName}/${name}`,
-          progenitor.sagas.latest
-        );
-      })
-    );
+    const sagas = progenitorsToSagas(this.coreModuleName, this.cells);
+    yield all(sagas)
+
   }
 }
 

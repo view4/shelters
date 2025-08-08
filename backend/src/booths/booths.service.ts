@@ -1,11 +1,13 @@
 import { Injectable, Inject, forwardRef } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Booth, BoothDocument } from "./schema/booth.schema";
-import mongoose, { Model, Types } from "mongoose";
-import { aggregateFeed, count, create, filterOne, upsert, upsertOne } from "src/common/utils/db";
+import mongoose, { Model } from "mongoose";
+import { aggregate, count, create, filterOne, upsert, upsertOne } from "src/common/utils/db";
 import { compactObject } from "src/common/utils/object";
 import { FeedParams, ID } from "src/common/types";
 import { MembershipService } from "src/auth/membership.service";
+import { BoothInput } from "./booths.resolver";
+import { BoothsFilter, aggregateBooths } from "./booths.utils";
 
 @Injectable()
 export class BoothsService {
@@ -15,21 +17,13 @@ export class BoothsService {
     ) { }
     FREE_TIER_BOOTH_COUNT = 1;
 
-    async booths(userId: ID, feedParams?: FeedParams, pipeline: any[] = []) {
-        // await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);
-        return aggregateFeed(
-            this.boothModel,
-            {
-                sort: { createdAt: -1 },
-                match: { user: new mongoose.Types.ObjectId(userId) },
-                ...feedParams
-            },
-            pipeline
-        );
+    async booths(filter: BoothsFilter, feedParams?: FeedParams, pipeline: any[] = []) {
+        // await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);        
+        return aggregateBooths(this.boothModel, filter, feedParams, pipeline);
     }
 
     async activeBooths(userId: ID) {
-        return this.booths(userId, {
+        return this.booths({userId}, {
             match: {
                 user: new mongoose.Types.ObjectId(userId),
                 'stamps.completed': { $eq: null },
@@ -47,10 +41,72 @@ export class BoothsService {
 
     async booth(userId: ID, id: string) {
         await this.validateMembership(userId, this.FREE_TIER_BOOTH_COUNT + 1);
-        return filterOne(this.boothModel, {
-            _id: new mongoose.Types.ObjectId(id),
-            user: new mongoose.Types.ObjectId(userId)
-        });
+        const [booth] = await aggregate(this.boothModel, [
+            {
+                $match: {
+                    _id: new mongoose.Types.ObjectId(id),
+                    user: new mongoose.Types.ObjectId(userId)
+                }
+            },
+            {
+                $limit: 1
+            },
+            {
+                $lookup: {
+                    from: 'booths',
+                    localField: 'parent',
+                    foreignField: '_id',
+                    as: 'parent',
+                    pipeline: [
+                        {
+                            $addFields: {
+                                id: '$_id',
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                $lookup: {
+                    // COULDDO: better way of utilising repeated pipeline segments
+                    from: 'mapalbooths',
+                    localField: '_id',
+                    foreignField: 'booth',
+                    as: 'mapal',
+                    pipeline: [
+                        {
+                            $addFields: {
+                                id: '$_id',
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                $lookup: {
+                    from: 'malchutbooths',
+                    localField: '_id',
+                    foreignField: 'booth',
+                    as: 'malchut',
+                    pipeline: [
+                        {
+                            $addFields: {
+                                id: '$_id',
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                $addFields: {
+                    parent: { $first: '$parent' },
+                    mapal: { $first: '$mapal' },
+                    malchut: { $first: '$malchut' },
+                    id: '$_id'
+                }
+            }
+        ])
+        return booth;
     }
 
     async validateMembership(userId: ID, count = this.FREE_TIER_BOOTH_COUNT) {
@@ -63,9 +119,10 @@ export class BoothsService {
         }
     }
 
-    async upsertBooth(userId, input: any, id?: string) {
+    async upsertBooth(userId: ID, input: BoothInput, id?: string) {
         if (!id) await this.validateMembership(userId);
-        input.user = userId;
+        input["user"] = userId;
+        if (input.parentId) input["parent"] = new mongoose.Types.ObjectId(input.parentId);
         if (!id) return create(this.boothModel, input);
         return upsertOne(this.boothModel, input, compactObject({ _id: id, user: id && userId }));
     }
@@ -89,8 +146,8 @@ export class BoothsService {
         return upsert(this.boothModel, { user: userId }, boothId);
     }
 
-    async checkBoothIsFocused( booth) {
-        if (!booth.stamps.focused) return false;
+    async checkBoothIsFocused(booth) {
+        if (!booth?.stamps?.focused) return false;
         const focusedBooth = await this.focusedBooth(booth.user);
         return focusedBooth?._id.equals(booth._id);
     }

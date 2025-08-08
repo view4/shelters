@@ -1,9 +1,9 @@
 import { useCallback } from "react";
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Form from "../index.jsx";
 import useSchemaFormFields from "../hooks/useSchemaFormFields.jsx";
-import ConditionalContainer from "modules/Core/components/ui-kit/ConditionalContainer/index.jsx";
-import Title from "modules/Core/components/ui-kit/Title/index.js";
+import ConditionalContainer from "modules/Core/sub-modules/ui-kit/components/ConditionalContainer/index.jsx";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title/index.js";
 import styles from "./styles.module.scss";
 
 const SchemaForm = ({ schema, initialState = {}, onSubmit, options, clearStateOnSubmit = true, ...props }) => {

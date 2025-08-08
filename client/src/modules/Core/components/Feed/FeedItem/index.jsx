@@ -1,13 +1,13 @@
 import React, { useMemo } from "react";
 import cx from "classnames";
 import { noop } from "lodash";
-import Container from "modules/Core/components/ui-kit/Container";
-import Title from "modules/Core/components/ui-kit/Title";
-import Text from "../../ui-kit/Text";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import { formatDate } from "modules/Core/utils/date";
 import styles from "./styles.module.scss";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
-import ConditionalContainer from "../../ui-kit/ConditionalContainer";
+import ConditionalContainer from "modules/Core/sub-modules/ui-kit/components/ConditionalContainer";
 
 const FeedItem = ({ name, text, createdAt, onClick = noop, className, header = true, textProps, children, headerChildren = null, shouldRenderText, ...props }) => {
    const date = useMemo(() => formatDate(createdAt), [createdAt]);

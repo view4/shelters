@@ -1,0 +1,110 @@
+type Query {
+  features(boothId: String, parentId: String, feedParams: FeedParams): FeatureFeed
+  feature(id: ID!): Feature
+  boothLabels(boothId: String!): [FeatureLabel!]!
+}
+
+type Mutation {
+  upsertFeature(input: FeatureInput, id: String): Feature!
+  upsertFeatureVote(input: FeatureVoteInput, id: String): FeatureVote!
+  upsertFeatureComment(input: FeatureCommentInput, id: String): FeatureComment!
+  stampFeature(id: String, key: String): Feature
+  upsertMapalBooth(id: String, input: BoothInput): Booth
+  addFeatureLabel(input: FeatureLabelInput): Feature
+  removeFeatureLabel(featureLabelId: String): Boolean
+}
+
+type MapalBooth {
+  id: String
+  booth: String
+}
+
+type FeatureFeed {
+  entities: [Feature]
+  info: FeedInfo
+}
+
+type CurrentStamp {
+  key: String
+  value: String
+}
+
+type FeatureStamps {
+  focused: String
+  prospective: String
+  committed: String
+  commenced: String
+  deployed: String
+  accepted: String
+}
+
+type Feature {
+  id: ID!
+  name: String!
+  text: String!
+  stamps: FeatureStamps
+  currentStamp: CurrentStamp
+  boothId: ID
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+  comments: [FeatureComment]
+  votes: [FeatureVote]
+  labels: [FeatureLabel]
+  children: [Feature]
+  parent: Feature
+  votingScore: Int
+}
+
+type FeatureVote {
+  id: ID!
+  featureId: ID!
+  text: String!
+  score: Int!
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type FeatureComment {
+  id: ID!
+  featureId: ID!
+  text: String!
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type FeatureLabel {
+  id: ID!
+  featureId: ID!
+  labelId: ID!
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+  name: String
+}
+
+input FeatureInput {
+  name: String!
+  text: String!
+  boothId: ID
+  parentId: String
+}
+
+input FeatureVoteInput {
+  featureId: ID!
+  text: String!
+  score: Int!
+}
+
+input FeatureCommentInput {
+  featureId: ID!
+  text: String!
+}
+
+input FeatureLabelInput {
+  featureId: ID!
+  labelId: ID
+  name: String
+}

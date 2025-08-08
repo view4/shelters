@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 import cx from 'classnames';
-import Container from "modules/Core/components/ui-kit/Container"
-import Input from "modules/Core/components/ui-kit/Input"
+import Container from "modules/Core/sub-modules/ui-kit/components/Container"
+import Input from "modules/Core/sub-modules/ui-kit/components/Input"
 import strapped from "modules/Core/higher-order-components/strapped";
 import { COMPONENT_TYPE_TREE } from "./const";
-import Card from "modules/Core/components/ui-kit/Card";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import styles from "./styles.module.scss"
 import withRecursiveRender from "modules/Core/higher-order-components/withRecursiveRender";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
@@ -18,11 +18,13 @@ const SchemaFormField = ({
     highlightable = true,
     cardless,
     userGuideKey,
+    wrapperClassName,
     ...props
 }) => (
     <Wrapper 
         className={cx(
             styles.container,
+            wrapperClassName,
             {
                 [styles.card]: !cardless,
                 [styles[type]]: type,

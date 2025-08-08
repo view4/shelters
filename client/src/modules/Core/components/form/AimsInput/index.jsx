@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
-import Container from "../../ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
-import { InputLabel } from "../../ui-kit/Input";
-import AddCard from "../../ui-kit/Card/AddCard";
+import { InputLabel } from "modules/Core/sub-modules/ui-kit/components/Input";
+import AddCard from "modules/Core/sub-modules/ui-kit/components/Card/AddCard";
 import EditableAimsCard from "./EditableAimsCard";
 import InputCard from "./InputCard";
 

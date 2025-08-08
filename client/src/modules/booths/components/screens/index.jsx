@@ -1,5 +1,5 @@
 import BoothScreen from "modules/shelter/components/BoothScreen";
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import RoadmapsFeed from "modules/roadmaps/components/RoadmapsFeed";
 import AddRoadmapButton from "modules/roadmaps/components/AddRoadmapButton";
 import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
@@ -7,7 +7,7 @@ import BoothScheduleTab from "../BoothScheduleTab";
 import BoothEntriesTab from "../BoothEntriesTab";
 import BoothActiveCycletab from "../BoothActiveCycletab";
 import BoothInfo from "../BoothInfo";
-import Card from "modules/Core/components/ui-kit/Card";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import BoothPastCyclesTab from "../BoothPastCyclesTab";
 import BoothProspectiveCycles from "../BoothProspectiveCycles";
 import styles from "./styles.module.scss";
@@ -27,7 +27,7 @@ export const BoothDedicatedTimeScreen = ({ boothId }) => {
     return (
         <BoothScreen boothId={boothId}>
             <Card maxHeight>
-                <Container  flex row alignCenter maxWidth>
+                <Container flex row alignCenter maxWidth>
                     <DedicatedTimeFeed className={styles.dedicatedTimeFeedContainer} boothId={boothId} />
                 </Container>
                 <BoothScheduleTab />
@@ -62,12 +62,12 @@ const cyclesTabs = [
 export const BoothCyclesScreen = ({ boothId }) => {
     return (
         <BoothScreen boothId={boothId}>
-            <Card 
-                className={styles.cyclesCard} 
-                tabs={cyclesTabs} 
-                maxHeight 
-                lightShadow 
-                maxWidth 
+            <Card
+                className={styles.cyclesCard}
+                tabs={cyclesTabs}
+                maxHeight
+                lightShadow
+                maxWidth
             />
         </BoothScreen>
     )

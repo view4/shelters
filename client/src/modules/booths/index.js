@@ -35,7 +35,7 @@ export default new CoreModule({
     "/create": withSecureRoute(CreateBoothScreen),
     "/": withSecureRoute(ActiveBoothScreen),
     "/booths": withSecureRoute(BoothsScreen),
-    "/booths/:id": withParams(BoothScreen),
+    "/booths/:boothId": withParams(BoothScreen),
     "/roadmaps": withFocusedBoothId(BoothRoadmapsScreen),
     "/cycles": withFocusedBoothId(BoothCyclesScreen),
     "/entries": withFocusedBoothId(BoothEntriesScreen),

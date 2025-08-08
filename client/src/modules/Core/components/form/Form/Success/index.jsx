@@ -1,9 +1,9 @@
-import Container from "modules/Core/components/ui-kit/Container"
-import Title from "modules/Core/components/ui-kit/Title";
-import RedirectButton from "modules/Core/components/ui-kit/RedirectButton";
-import { Thumbs } from "modules/Core/components/ui-kit/indicators";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container"
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import RedirectButton from "modules/Core/sub-modules/ui-kit/components/RedirectButton";
+import { Thumbs } from "modules/Core/sub-modules/ui-kit/components/indicators";
 import styles from "./styles.module.scss";
-import Card from "modules/Core/components/ui-kit/Card";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 
 const Success = ({ text, redirect, redirectText }) => (
     <Container center flex col className={styles.container} maxWidth maxHeight>

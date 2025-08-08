@@ -1,16 +1,16 @@
 import { useCallback, useMemo } from "react";
-import Container from "modules/Core/components/ui-kit/Container";
-import Button from "modules/Core/components/ui-kit/Button";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/roadmaps/state/feed";
 import Feed from "modules/Core/components/Feed";
-import RoadmapFeedItem, { GatewayExpandableOptions } from "../../RoadmapFeedItem";
-import Card from "modules/Core/components/ui-kit/Card";
-import Title from "modules/Core/components/ui-kit/Title";
-import Text from "modules/Core/components/ui-kit/Text";
+import RoadmapFeedItem, { ChildGatewayFeedItem, GatewayExpandableOptions } from "../../RoadmapFeedItem";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
 import { STAMPS } from "modules/Core/consts";
-import Stamps from "modules/Core/components/ui-kit/Stamps";
+import Stamps from "modules/Core/sub-modules/ui-kit/components/Stamps";
 import BoothScreen from "modules/shelter/components/BoothScreen";
 import styles from "./styles.module.scss";
 
@@ -21,13 +21,12 @@ const RightPanelComponent = ({ parent, gridRow }) => (
 )
 
 
-const Component = ({ name, text, id, tabs, widgetProps, rightProps, stamps, refetch, parent }) => (
-    <BoothScreen boothId={id} RightPanelComponent={RightPanelComponent} rightProps={rightProps}>
-
+const Component = ({ name, text, id, tabs, rightProps, stamps, refetch, parent }) => (
+    <BoothScreen RightPanelComponent={RightPanelComponent} rightProps={rightProps}>
         <Container maxHeight>
             <Card className={styles.headerCard} maxWidth relative >
                 <Container>
-                    <Title>{name}</Title>
+                    <Title>{name} {id}</Title>
                 </Container>
                 <Container>
                     <Text>{text}</Text>
@@ -71,33 +70,32 @@ export default strappedConnected(
             !Boolean(roadmap?.id),
             [id]
         )
-        const feed = useMemo(() => roadmap?.children?.map(child => ({
-            ...child,
+
+        const feed = useMemo(() => roadmap?.childrenIds?.map(childId => ({
+            id: childId,
             parentId: id,
             parent: { id, name: roadmap?.name }
-        })), [roadmap?.children?.length]);
+        })), [roadmap?.childrenIds?.length, id]);
 
         return {
             name: roadmap?.name,
             text: roadmap?.text,
-            gateways: roadmap?.gateways,
-            children: roadmap?.children,
             parent: roadmap?.parent,
             stamps: roadmap?.stamps,
             rightProps: useMemo(() => ({
                 parent: roadmap?.parent,
-            }), [roadmap?.parent]),
+            }), [roadmap?.parent, id]),
             tabs: useMemo(() => [
                 {
                     title: 'Gateways',
                     Component: () => <Container>
                         <Feed.Component
                             feed={feed}
-                            ItemComponent={RoadmapFeedItem}
+                            ItemComponent={ChildGatewayFeedItem}
                         />
                     </Container>
                 },
-            ], [roadmap?.children, feed]),
+            ], [roadmap?.children, feed, id]),
             refetch: useCallback(() => fetchEntity({ id }), [fetchEntity, id]),
         }
     }

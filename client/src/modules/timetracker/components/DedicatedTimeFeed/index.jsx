@@ -1,17 +1,17 @@
 import cx from "classnames";
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/timetracker/state/feed";
 import { useMemo } from "react";
 import AllocateTimeButton from "../AllocateTimeButton";
-import Card from "modules/Core/components/ui-kit/Card";
-import Features from "modules/Core/components/ui-kit/Features";
-import ExpandableOptions from "modules/Core/components/ui-kit/ExpandableOptions";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Features from "modules/Core/sub-modules/ui-kit/components/Features";
+import ExpandableOptions from "modules/Core/sub-modules/ui-kit/components/ExpandableOptions";
 import Feed from "modules/Core/components/Feed";
-import Feature from "modules/Core/components/ui-kit/Feature";
-import RedirectButton from "modules/Core/components/ui-kit/RedirectButton";
-import ProgressBar from "modules/Core/components/ui-kit/ProgressBar";
+import Feature from "modules/Core/sub-modules/ui-kit/components/Feature";
+import RedirectButton from "modules/Core/sub-modules/ui-kit/components/RedirectButton";
+import ProgressBar from "modules/Core/sub-modules/ui-kit/components/ProgressBar";
 import TrackTimeButton from "modules/timetracker/submodules/trackedTime/components/TrackTimeButton";
 import styles from "./styles.module.scss";
 import strapped from "modules/Core/higher-order-components/strapped";
@@ -122,19 +122,23 @@ export const TrackedTimeFeatures = ({ trackedTime, totalMins, }) =>
         }}
     />
 
-const FeedItemComponent = ({
+export const FeedItemComponent = ({
     name,
     trackedTime,
     mins,
     totalMins,
     children,
-    id
+    id,
+    onClick,
+    className,
+    headerChildren
 }) => (
     <Card
-        className={styles.container}
+        className={cx(styles.container, className)}
         header={name}
+        onClick={onClick}
         headerProps={{
-            children:
+            children: headerChildren ? headerChildren :
                 <ExpandableOptions
                     options={[
                         {

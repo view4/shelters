@@ -1,10 +1,10 @@
-import Screen from "modules/Core/components/ui-kit/Screen";
-import Container from "modules/Core/components/ui-kit/Container";
-import Title from "modules/Core/components/ui-kit/Title";
-import Button from "modules/Core/components/ui-kit/Button";
+import Screen from "modules/Core/sub-modules/ui-kit/components/Screen";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import cells from "modules/auth/state";
-import Features from "modules/Core/components/ui-kit/Features";
+import Features from "modules/Core/sub-modules/ui-kit/components/Features";
 import { SheltersFooter } from "../LandingPage";
 import styles from "./styles.module.scss";
 

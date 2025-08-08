@@ -1,0 +1,17 @@
+.screen {
+    & > div > div:last-child {
+        max-width: 0rem;
+    }
+    & > div > div:nth-child(2) {
+        width: -webkit-fill-available;
+        min-width: 72vw;
+        right: 5vw;
+        position: absolute;
+        padding: 1rem;
+        height: -webkit-fill-available;
+    }
+}
+
+.introspectionCard {
+    height: 50vh;
+}

@@ -1,5 +1,5 @@
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
-import Button from "modules/Core/components/ui-kit/Button";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/cycles/state/feed";
 

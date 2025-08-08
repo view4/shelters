@@ -1,0 +1,25 @@
+{
+    "key": "Loader",
+    "name": "Loader",
+    "path": "Loader",
+    "section": "feedback",
+    "intro": "A visual indicator used to communicate that something is in progress, reminding us that incompletion is part of the process.",
+    "principles": [
+      "valuing the journey",
+      "embracing incompleteness",
+      "providing feedback",
+      "soft interruption"
+    ],
+    "demo": {
+      "props": {
+        "loading": true,
+        "size": 40,
+        "color": "primary"
+      }
+    },
+    "notes": "Use Loader when you want to signal activity without demanding attention. It reinforces that it's okay for something to be temporarily unresolved, and gently invites patience.",
+    "status": "stable",
+    "tags": ["loading", "feedback", "progress", "placeholder"],
+    "lastUpdated": "2025-07-24"
+  }
+  

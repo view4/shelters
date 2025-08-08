@@ -5,8 +5,8 @@ export default new MiddlewareModule({
     name: TIMETRACKER,
     operations: {
         create: `
-            mutation upsertDedicatedTime($input: DedicatedTimeInput, $id: String) {
-                entity: upsertDedicatedTime(input: $input, id: $id) {
+            mutation dedicateTime($input: DedicatedTimeInput, $id: String) {
+                entity: dedicateTime(input: $input, id: $id) {
                     id
                 }
             }
@@ -24,8 +24,8 @@ export default new MiddlewareModule({
             }
         `,
         fetchFeed: `
-            query dedicatedTimes($feedParams: FeedParams, $boothId: String, $parentId: String) {
-                feed: dedicatedTimes(feedParams: $feedParams, boothId: $boothId, parentId: $parentId) {
+            query dedicatedTimes($feedParams: FeedParams, $boothId: String, $parentId: String, $search: String) {
+                feed: dedicatedTimes(feedParams: $feedParams, boothId: $boothId, parentId: $parentId, search: $search) {
                     entities {
                         id
                         name

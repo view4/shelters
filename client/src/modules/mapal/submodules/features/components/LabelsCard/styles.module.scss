@@ -1,0 +1,21 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.labelsCard {
+  height: auto;
+  min-height: 200px;
+  max-width: 90%;
+  border-color: $grey50;
+  button {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
+
+.labelItem {
+  padding: 0.5rem 0;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+} 

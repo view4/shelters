@@ -1,15 +1,54 @@
 import { initCell } from "modules/Core/core-modules/CoreModuleState/utils/cells";
 import { CYCLES } from "../consts";
-import feed from "./feed";
+import feed, { extractGateways } from "./feed";
 import { call, put, select } from "redux-saga/effects";
 import middleware from "../middleware";
 import { onSuccess } from "modules/Core/sub-modules/Dialog/state/cells";
+import roadmapsState from "modules/roadmaps/state";
+import { createSelector } from "@reduxjs/toolkit";
+
+const fetchCycleCell = initCell(CYCLES, {
+  name: "fetchCycle",
+  reducer: (state, { payload }) => {
+    state.isLoading = true;
+  },
+  selectors: {
+    activeCycle: createSelector(
+      (state) => ({ entities: state.entities, activeCycleId: state.activeCycleId }),
+      ({ entities, activeCycleId }) => {
+        return entities[activeCycleId]
+      }
+    ),
+    cycle: createSelector(
+      (state) => state.entities,
+      (entities, id) => entities[id]
+    ),
+    isLoading: (state) => state.isLoading,
+  },
+  sagas: {
+    latest: function* ({ payload: { boothId } }) {
+      const result = yield call(middleware.ops.fetchEntity, { boothId });
+      if (!result.currentCycle.id) throw new Error("Failed to fetch cycle");
+      const cycleGateways = extractGateways(result.currentCycle);
+      yield put(roadmapsState.setEntities.action(cycleGateways));
+      return result.currentCycle;
+    },
+    onCellSuccess: true    
+  },
+  successCell: {
+    reducer: (state, { payload }) => {
+      state.isLoading = false;
+      state.entities[payload.id] = payload;
+      state.activeCycleId = payload.id; //TODO: change if able to focus on single cell differently
+    },
+  },
+});
 
 const addGatewayToActiveCycle = initCell(CYCLES, {
   name: "addGatewayToActiveCycle",
   sagas: {
     latest: function* ({ payload: { gatewayId, orderKey } }) {
-      const cycle = yield select(feed.cells.fetchEntity.selector);
+      const cycle = yield select(fetchCycleCell.selectors.activeCycle);
 
       if (!orderKey) {
         const res = yield call(middleware.ops.addGatewayToCycle, { gatewayId });
@@ -24,8 +63,9 @@ const addGatewayToActiveCycle = initCell(CYCLES, {
         );
       }
       yield put(onSuccess("Gateway added to cycle"));
-      yield put(feed.cells.fetchEntity.action({ boothId: cycle?.boothId }));
+      yield put(fetchCycleCell.action({ boothId: cycle?.boothId }));
     },
+    onCellSuccess: true
   },
 });
 
@@ -55,7 +95,7 @@ export default {
     name: "reorderCycleGateway",
     sagas: {
       latest: function* ({ payload: { orderKey, newOrderKey } }) {
-        const cycle = yield select(feed.cells.fetchEntity.selector);
+        const cycle = yield select(fetchCycleCell.selectors.activeCycle);
         const payload = {
           [orderKey]: cycle[newOrderKey]?.id || null,
           [newOrderKey]: cycle[orderKey]?.id || null,
@@ -63,7 +103,7 @@ export default {
         yield put(
           feed.cells.createEntity.action({ input: payload, id: cycle.id })
         );
-        yield put(feed.cells.fetchEntity.action({ boothId: cycle?.boothId }));
+        yield put(fetchCycleCell.action({ boothId: cycle?.boothId }));
       },
     },
   }),
@@ -71,15 +111,15 @@ export default {
     name: "removeGatewayFromActiveCycle",
     sagas: {
       latest: function* ({ payload: { orderKey } }) {
-        const cycle = yield select(feed.cells.fetchEntity.selector);
+        const cycle = yield select(fetchCycleCell.selectors.activeCycle);
         const payload = {
           [orderKey]: null,
         };
         yield put(
           feed.cells.createEntity.action({ input: payload, id: cycle.id })
         );
-        yield put(feed.cells.fetchEntity.action({ boothId: cycle?.boothId }));
-      },
+        yield put(fetchCycleCell.action({ boothId: cycle?.boothId }));
+      },  
     },
   }),
   focusCycle: initCell(CYCLES, {
@@ -94,4 +134,5 @@ export default {
       },
     },
   }),
+  fetchCycle: fetchCycleCell,
 };

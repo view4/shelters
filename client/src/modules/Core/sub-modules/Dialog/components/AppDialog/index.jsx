@@ -1,8 +1,8 @@
 import { isString } from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { useCallback, useEffect, useMemo } from "react"
-import Dialog from "modules/Core/components/ui-kit/Dialog"
-import Link from "modules/Core/components/ui-kit/Link"
+import Dialog from "modules/Core/sub-modules/ui-kit/components/Dialog"
+import Link from "modules/Core/sub-modules/ui-kit/components/Link"
 import dialog from "../../state/cells/dialog"
 import { useIsOpen } from "modules/Core/hooks/useIsOpen"
 import { onCloseDialog } from "../../state/cells"

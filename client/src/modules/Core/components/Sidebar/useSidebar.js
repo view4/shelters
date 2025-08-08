@@ -4,9 +4,8 @@ import { useIsOpen } from "modules/Core/hooks/useIsOpen";
 import Sidebar from "./index";
 import { CHEVRON_RIGHT_CX } from "modules/Core/styles/consts";
 import SidebarItems from "./SidebarItems";
-import RedirectButton from "../ui-kit/RedirectButton";
-// import AuthLinks from "modules/Auth/components/AuthLinks";
-import Container from "../ui-kit/Container";
+import RedirectButton from "modules/Core/sub-modules/ui-kit/components/RedirectButton";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import styles from "./styles.module.scss";
 
 export default ({ children, className, links, ...props } = {}) => {

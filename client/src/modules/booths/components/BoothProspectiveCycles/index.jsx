@@ -2,9 +2,9 @@ import withFocusedBoothId from "modules/booths/higher-order-components/withFocus
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import cFeed from "modules/cycles/state/feed";
 import CyclesFeed from "modules/cycles/components/CyclesFeed";
-import Button from "modules/Core/components/ui-kit/Button";
-import Container from "modules/Core/components/ui-kit/Container";
-import Card from "modules/Core/components/ui-kit/Card";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import styles from "./styles.module.scss";
 
 

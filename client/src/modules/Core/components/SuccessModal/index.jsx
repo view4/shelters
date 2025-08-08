@@ -1,6 +1,6 @@
 import React from 'react'
-import Container from '../ui-kit/Container';
-import Modal from "../ui-kit/Modal";
+import Container from 'modules/Core/sub-modules/ui-kit/components/Container';
+import Modal from "modules/Core/sub-modules/ui-kit/components/Modal";
 import styles from "./styles.module.scss"
 
 const SuccessModal = ({text, onClose, isOpen}) => {

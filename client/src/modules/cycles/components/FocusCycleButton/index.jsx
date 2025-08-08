@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import Button from "modules/Core/components/ui-kit/Button";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import cells from "modules/cycles/state/index";
 

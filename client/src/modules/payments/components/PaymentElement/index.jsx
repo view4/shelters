@@ -1,5 +1,5 @@
-import NextButton from 'modules/Core/components/ui-kit/Button/NextButton';
-import Container from 'modules/Core/components/ui-kit/Container';
+import NextButton from 'modules/Core/sub-modules/ui-kit/components/Button/NextButton';
+import Container from 'modules/Core/sub-modules/ui-kit/components/Container';
 import useOnError from 'modules/Core/sub-modules/Dialog/hooks/useOnError';
 import useOnSuccess from 'modules/Core/sub-modules/Dialog/hooks/useOnSuccess';
 import usePayment from 'modules/payments/hooks/usePayment';

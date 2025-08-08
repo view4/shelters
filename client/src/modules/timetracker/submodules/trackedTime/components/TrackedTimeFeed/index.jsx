@@ -1,24 +1,34 @@
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/timetracker/submodules/trackedTime/state/feed";
 import { useMemo, useCallback } from "react";
-import Card from "modules/Core/components/ui-kit/Card";
-import Features from "modules/Core/components/ui-kit/Features";
-import ExpandableOptions from "modules/Core/components/ui-kit/ExpandableOptions";
-import Button from "modules/Core/components/ui-kit/Button";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Features from "modules/Core/sub-modules/ui-kit/components/Features";
+import ExpandableOptions from "modules/Core/sub-modules/ui-kit/components/ExpandableOptions";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import styles from "./styles.module.scss";
 import TrackTimeButton from "../TrackTimeButton";
 
 const Component = feed.FeedComponent;
 
-const FeedItemComponent = ({
+export const FeedItemComponent = ({
     name,
     mins,
     text,
     onRemove,
-    id
+    id,
+    children,
+    className,
+    onClick
 }) => (
-    <Card header={name}>
+    <Card 
+        header={name}
+        headerProps={{
+            style: { fontSize: '1rem' }
+        }}
+        className={className}
+        onClick={onClick}
+    >
         <ExpandableOptions
             options={[
                 {
@@ -42,6 +52,7 @@ const FeedItemComponent = ({
                 alignCenter: true
             }}
         />
+        {children}
     </Card>
 )
 

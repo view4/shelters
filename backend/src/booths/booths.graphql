@@ -1,5 +1,5 @@
 type Query {
-  booths(feedParams: FeedParams): BoothFeed
+  booths(kind: String, parentId: String, feedParams: FeedParams): BoothFeed
   booth(id: String!): Booth
   focusedBooth: Booth
   activeBooths: BoothFeed
@@ -23,9 +23,14 @@ type Booth {
   createdAt: String
   stamps: Stamps
   isFocused: Boolean
+  mapalId: String
+  mapal: MapalBooth
+  malchut: MalchutBooth
+  parent: Booth
 }
 
 input BoothInput {
   name: String
   text: String
+  parentId: String
 }

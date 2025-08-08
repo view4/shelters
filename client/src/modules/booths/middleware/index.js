@@ -29,14 +29,25 @@ export default new MiddlewareModule({
             }
         `,
     fetchFeed: `
-          query booths($feedParams: FeedParams, ) {
-            feed: booths(feedParams: $feedParams) {
+          query booths($feedParams: FeedParams, $kind: String, $parentId: String) {
+            feed: booths(feedParams: $feedParams, kind: $kind, parentId: $parentId) {
               entities {
                 id
                 name
                 text
                 ${STAMPS_FRAGMENT}
                 createdAt
+                parent {
+                  id
+                  name
+                  text
+                }
+                mapal {
+                  id
+                }
+                malchut {
+                  id
+                }
               }
             }
           }
@@ -60,6 +71,17 @@ export default new MiddlewareModule({
               text
               ${STAMPS_FRAGMENT}
               isFocused
+              parent {
+                  id
+                  name
+                  text
+              }
+              mapal {
+                id
+              }
+              malchut {
+                id
+              }
             }
           }
     `,

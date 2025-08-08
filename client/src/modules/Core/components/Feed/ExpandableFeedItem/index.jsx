@@ -1,10 +1,10 @@
-import { ExpandableCardComponent } from 'modules/Core/components/ui-kit/Card/ExpandableCard';
-import Container from 'modules/Core/components/ui-kit/Container';
-import Text from 'modules/Core/components/ui-kit/Text';
+import { ExpandableCardComponent } from 'modules/Core/sub-modules/ui-kit/components/Card/ExpandableCard';
+import Container from 'modules/Core/sub-modules/ui-kit/components/Container';
+import Text from 'modules/Core/sub-modules/ui-kit/components/Text';
 import styles from "./styles.module.scss";
 import React from 'react';
-import Button from '../../ui-kit/Button';
-import ConditionalContainer from '../../ui-kit/ConditionalContainer';
+import Button from 'modules/Core/sub-modules/ui-kit/components/Button';
+import ConditionalContainer from 'modules/Core/sub-modules/ui-kit/components/ConditionalContainer';
 import strapped from 'modules/Core/higher-order-components/strapped';
 import { useIsOpen } from 'modules/Core/hooks/useIsOpen';
 

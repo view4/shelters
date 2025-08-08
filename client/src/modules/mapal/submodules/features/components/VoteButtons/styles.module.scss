@@ -1,0 +1,35 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.button {
+    padding: 0.5rem;
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.selected {
+        background: $ocean_blue72;
+        border-color: $ocean_blue72;
+        color: white;
+
+        &:hover {
+            background: darken($ocean_blue72, 5%);
+        }
+    }
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+} 

@@ -2,7 +2,7 @@ import { noop } from "lodash";
 import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
 import useFeed from "modules/Core/hooks/useFeed";
-import { OverlayLoader } from "../ui-kit/Loader";
+import { OverlayLoader } from "modules/Core/sub-modules/ui-kit/components/Loader";
 import FeedItem from "./FeedItem";
 import LoadMore from "./LoadMore";
 

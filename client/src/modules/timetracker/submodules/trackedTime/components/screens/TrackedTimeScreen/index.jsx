@@ -1,13 +1,12 @@
 import { useCallback, useMemo } from "react";
-import Card from "modules/Core/components/ui-kit/Card";
-import Container from "modules/Core/components/ui-kit/Container";
-import Screen from "modules/Core/components/ui-kit/Screen"
-import Title from "modules/Core/components/ui-kit/Title";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import allocateTimeFeed from "modules/timetracker/state/feed";
 import feed from "modules/timetracker/submodules/trackedTime/state/feed";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected"
 import TrackedTimeFeed from "modules/timetracker/submodules/trackedTime/components/TrackedTimeFeed";
-import Text from "modules/Core/components/ui-kit/Text";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
 import { DedicatedTimeOptions, TrackedTimeFeatures } from "modules/timetracker/components/DedicatedTimeFeed";
 import styles from "./styles.module.scss";

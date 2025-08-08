@@ -1,13 +1,13 @@
 import cx from "classnames";
-import Container from "modules/Core/components/ui-kit/Container";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/cycles/state/feed";
 import { useCallback, useMemo } from "react";
-import CycleGatewayCard, { SabbaticalGatewayCard } from "../CycleGatewayCard";
-import ConditionalContainer from "modules/Core/components/ui-kit/ConditionalContainer";
+import CycleGatewayCard from "../CycleGatewayCard";
+import ConditionalContainer from "modules/Core/sub-modules/ui-kit/components/ConditionalContainer";
 import FocusCycleButton from "../FocusCycleButton";
 import styles from "./styles.module.scss";
-import Title from "modules/Core/components/ui-kit/Title";
+import SabbaticalGatewayCard from "modules/cycles/components/CycleGatewayCard/SabbaticalGatewayCard/component"
 import { onSuccess } from "modules/Core/sub-modules/Dialog/state/cells";
 
 const ItemComponent = ({ className, onCreateSuccess, displayFocus, onFocusCallback, ...item }) => (

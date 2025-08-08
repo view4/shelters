@@ -1,5 +1,5 @@
-import Container from "../../ui-kit/Container"
-import ExternalScreen from "../../ui-kit/Screen/ExternalScreen";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container"
+import ExternalScreen from "modules/Core/sub-modules/ui-kit/components/Screen/ExternalScreen";
 import html from "./html";
 import styles from "./styles.module.scss";
 

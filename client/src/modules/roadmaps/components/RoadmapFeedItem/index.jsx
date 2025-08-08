@@ -1,21 +1,21 @@
 import { useCallback } from "react";
 import cx from "classnames";
 import ExpandableFeedItem from "modules/Core/components/Feed/ExpandableFeedItem";
-import Container from "modules/Core/components/ui-kit/Container";
-import Text from "modules/Core/components/ui-kit/Text";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import AddGatewayButton from "../AddGatewayButton";
 import Feed from "modules/Core/components/Feed";
 import AddGatewayToCycleButton from "../AddGatewayToCycleButton";
-import ExpandableOptions from "modules/Core/components/ui-kit/ExpandableOptions";
+import ExpandableOptions from "modules/Core/sub-modules/ui-kit/components/ExpandableOptions";
 import EditGatewayButton from "../EditGatewayButton";
 import ViewRoadmapButton from "../ViewRoadmapButton";
 import StampGatewayButton from "../StampGatewayButton";
 import { STAMPS } from "modules/Core/consts";
-import Stamps from "modules/Core/components/ui-kit/Stamps";
+import Stamps from "modules/Core/sub-modules/ui-kit/components/Stamps";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/roadmaps/state/feed";
-import Title from "modules/Core/components/ui-kit/Title";
-import Button from "modules/Core/components/ui-kit/Button";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import styles from "./styles.module.scss";
 
 
@@ -46,7 +46,7 @@ export const TitleWithStamps = ({ title, stamps }) => (
     </Container>
 )
 
-const RoadmapFeedItem = ({ text, name, stamps, children, id, parentId, refetchGateway, className, parent, parentName, headerChildren }) => (
+const RoadmapFeedItem = ({ text, name, stamps, children,childrenIds, id, parentId, refetchGateway, className, parent, parentName, headerChildren }) => (
     <ExpandableFeedItem
         className={cx(
             styles.container,
@@ -79,8 +79,8 @@ const RoadmapFeedItem = ({ text, name, stamps, children, id, parentId, refetchGa
         </Container  >
         <Container col flex flexEnd alignCenter maxWidth>
             <Feed.Component
-                feed={children}
-                ItemComponent={RoadmapFeedItem}
+                feed={childrenIds?.map(id => ({ id }))}
+                ItemComponent={ChildGatewayFeedItem}
                 className={styles.childFeedItem}
             />
         </Container>
@@ -106,6 +106,25 @@ export const SelectableGatewayFeedItem = ({ onSelect, ...props }) => (
             </Container>
         }
     />
+)
+
+export const ChildGatewayFeedItem = strappedConnected(
+    RoadmapFeedItem, 
+    {gateway: (state, { id }) => feed.cells.fetchEntity.selector(id)(state)},
+    {
+        refetchGateway: (id) => feed.cells.fetchEntity.action({ id }),
+    }, 
+    ({ gateway, refetchGateway, parent, parentId }) => ({
+        text: gateway?.name,
+        name: gateway?.name,
+        stamps: gateway?.stamps,
+        childrenIds: gateway?.childrenIds,
+        id: gateway?.id,
+        parentId: gateway?.parentId,
+        refetchGateway: useCallback(() => refetchGateway(gateway?.id), [refetchGateway, gateway?.id]),
+        parent: parent ?? gateway?.parentId,
+        parentName: parent?.name ?? gateway?.parentName,
+    })
 )
 
 export default strappedConnected(

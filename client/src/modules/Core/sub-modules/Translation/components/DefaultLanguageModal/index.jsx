@@ -1,8 +1,8 @@
-import Container from "modules/Core/components/ui-kit/Container";
-import Modal from "modules/Core/components/ui-kit/Modal";
-import Title from "modules/Core/components/ui-kit/Title";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Modal from "modules/Core/sub-modules/ui-kit/components/Modal";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import languages from "../../consts/languages";
-import Input from "modules/Core/components/ui-kit/Input";
+import Input from "modules/Core/sub-modules/ui-kit/components/Input";
 import styles from "./styles.module.scss"
 
 const DefaultLanguageModal = ({isOpen, close, setLanguage, language}) => {

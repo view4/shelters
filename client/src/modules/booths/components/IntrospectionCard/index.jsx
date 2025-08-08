@@ -1,22 +1,34 @@
 import cx from "classnames";
+import { useMemo } from "react";
 import strapped from "modules/Core/higher-order-components/strapped";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
-import Title from "modules/Core/components/ui-kit/Title";
-import Button from "modules/Core/components/ui-kit/Button";
-import { Focus, Minimise } from "modules/Core/components/ui-kit/indicators";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
+import { Focus, Minimise } from "modules/Core/sub-modules/ui-kit/components/indicators";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import withRecursiveRender from "modules/Core/higher-order-components/withRecursiveRender";
 import styles from "./styles.module.scss";
-import Card from "modules/Core/components/ui-kit/Card";
-import Container from "modules/Core/components/ui-kit/Container";
 
-const CardHeader = ({ title, isOpen, toggle }) => (
-    <Container className={styles.cardHeader} flex spaceBetween maxWidth alignCenter>
+const CardHeader = ({ title, isOpen, toggle, actions, onClick }) => (
+    <Container 
+        className={styles.cardHeader} 
+        flex 
+        spaceBetween 
+        maxWidth 
+        alignCenter
+        onClick={onClick}
+    >
         <Container>
             <Title>
                 {title}
             </Title>
         </Container>
-        <Container>
+        <Container onClick={e => e.stopPropagation()}>
+            {actions?.map(({ Component = Button, ...props }, index) => (
+                <Component key={index} {...props} />
+            ))}
             <Button onClick={toggle}>
                 {isOpen ? <Minimise /> : <Focus />}
             </Button>
@@ -27,12 +39,13 @@ const CardHeader = ({ title, isOpen, toggle }) => (
 // TODO: improve the UI of this please...
 const Placeholder = withShouldRender(() => <Card className={styles.card} />)
 
-const Component = ({ children, className, title, isOpen, open, close, toggle, ...props }) => (
+const Component = ({ children, onHeaderPress, className, actions, title, isOpen, open, close, toggle, headerProps, ...props }) => (
     <>
         <Card
-            className={cx(styles.card, className, { [styles.focusedCard]: isOpen })}
+            className={cx(styles.card, className, { [styles.focusedCard]: isOpen, 'focused': isOpen })}
             HeaderComponent={CardHeader}
-            headerProps={{ title, isOpen, open, close, toggle }}
+            contentClassName={styles.cardContentContainer}
+            headerProps={headerProps}
             {...props}
         >
             {children}
@@ -42,9 +55,9 @@ const Component = ({ children, className, title, isOpen, open, close, toggle, ..
 )
 
 
-export default strapped(
+const IntrospectionCard  = strapped(
     Component,
-    ({ title,}) => {
+    ({ title, onHeaderPress, actions }) => {
         const { isOpen, open, close, toggle } = useIsOpen();
 
         return {
@@ -52,8 +65,40 @@ export default strapped(
             isOpen,
             open,
             close,
-            toggle
+            toggle,
+            headerProps: useMemo(() => ({
+                title,
+                isOpen,
+                actions,
+                open,
+                close,
+                toggle,
+                onClick: onHeaderPress
+            }), [title, isOpen, actions, open, close, toggle, onHeaderPress])
         }
     },
     { withIsOpen: true }
+)
+
+const CollapsibleIntrospectionCard = strapped(
+    IntrospectionCard,
+    ({ actions, defaultCollapsed = false }) => {
+        const { isOpen: isCollapsed, open: collapse, close: uncollapse, toggle: toggleCollapse } = useIsOpen(defaultCollapsed);
+
+        return {
+            onHeaderPress: toggleCollapse,
+            className: cx(
+                styles.collapsibleCard,
+                { [styles.collapsed]: isCollapsed }
+            )
+        }
+    },
+    { withIsOpen: true }
+)
+
+export default withRecursiveRender(
+    {
+        collapsible: CollapsibleIntrospectionCard
+    },
+    IntrospectionCard
 )

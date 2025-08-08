@@ -1,19 +1,7 @@
 import MiddlewareModule from "modules/Core/core-modules/MiddlewareModule";
 import { CYCLES } from "../consts";
 import { STAMPS_FRAGMENT } from "modules/Core/consts/graphql";
-
-const GATEWAY_FRAGMENT = `
-    {
-        name
-        text
-        id 
-        ${STAMPS_FRAGMENT}
-        parent {
-            name
-            id
-        }
-    }
-`;
+import { GATEWAY_FRAGMENT } from "modules/roadmaps/middleware";
 
 const CYCLE_FRAGMENT = `                    
                     name 
@@ -34,23 +22,23 @@ const CYCLE_FRAGMENT = `
 `;
 
 export default new MiddlewareModule({
-  name: CYCLES,
-  operations: {
-    create: `
+    name: CYCLES,
+    operations: {
+        create: `
             mutation upsertCycle($input: CycleInput, $id: String) {
                 upsertCycle(input: $input, id: $id) {
                     id
                 }
             }
         `,
-    completeCycle: `
+        completeCycle: `
             mutation completeCycle($id: String) {
                 completeCycle(id: $id) {
                     id
                 }
             } 
         `,
-    fetchFeed: `
+        fetchFeed: `
             query cycles($feedParams: FeedParams, $boothId: String, $isCompleted: Boolean, $isForthcoming: Boolean ) {
                 feed: cycles(feedParams: $feedParams, boothId: $boothId, isCompleted: $isCompleted, isForthcoming: $isForthcoming) {
                     entities {
@@ -59,31 +47,31 @@ export default new MiddlewareModule({
                 }    
             }
         `,
-    fetchEntity: `
+        fetchEntity: `
             query currentCycle($boothId: String) {
                 currentCycle(boothId: $boothId) {
                     ${CYCLE_FRAGMENT}
                 }
             }
         `,
-    addGatewayToCycle: `
+        addGatewayToCycle: `
             mutation addGatewayToCycle($cycleId: String, $gatewayId: String) {
                 addGatewayToCycle(cycleId: $cycleId, gatewayId: $gatewayId) {
                     id
                 }
             }
         `,
-    focusCycle: `
+        focusCycle: `
         mutation focusCycle($id: String) {
             focusCycle(id: $id) {
                 id
             }
         }
     `,
-  },
-  operationsConfig: {
-    fetchEntity: {
-      paramsParser: ({ id = null }) => ({ boothId: id }),
     },
-  },
+    operationsConfig: {
+        // fetchEntity: {
+        //     paramsParser: ({ id = null }) => ({ boothId: id }),
+        // },
+    },
 });

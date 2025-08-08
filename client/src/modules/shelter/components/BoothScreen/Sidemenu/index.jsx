@@ -1,21 +1,21 @@
 import cx from "classnames"
 import { useLocation } from "react-router-dom";
-import Container from "modules/Core/components/ui-kit/Container";
-import Link from "modules/Core/components/ui-kit/Link";
-import Title from "modules/Core/components/ui-kit/Title";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Link from "modules/Core/sub-modules/ui-kit/components/Link";
+import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
-import Chevron from "modules/Core/components/ui-kit/Chevron";
+import Chevron from "modules/Core/sub-modules/ui-kit/components/Chevron";
 import { links, WITH_PARAMS_PREFIX } from "./const";
 import SidemenuLink from "./SidemenuLink";
+import useFocusedBoothId from "modules/booths/hooks/useFocusedBoothId";
 import styles from "./styles.module.scss"
 
 
 const Sidemenu = ({ header = "Booths" }) => {
     const { isOpen, toggle } = useIsOpen(true);
-    const params = useParams();
-    const boothId = params.boothId ?? params.id;
+    const boothId = useFocusedBoothId()
     const location = useLocation();
 
     const renderLink = useCallback((link) => {

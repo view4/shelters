@@ -8,3 +8,27 @@ input FeedParams {
   search: String
   segment: [Int]
 }
+
+type Label {
+  id: ID!
+  name: String!
+  user: ID!
+  stamps: Stamps
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Stamps {
+  commenced: String
+  completed: String
+  focused: String
+}
+
+type Vote {
+  id: ID!
+  text: String!
+  score: Int!
+  user: ID!
+  createdAt: String!
+  updatedAt: String!
+}
