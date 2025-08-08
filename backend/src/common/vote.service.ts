@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Vote } from './schemas/vote.schema';
-import { upsert } from './utils/db';
+import { fetchOne, upsert } from './utils/db';
 import { ID } from './types';
 
 export interface VoteInput {
@@ -21,6 +21,6 @@ export class VoteService {
     }
 
     async getVote(id: string): Promise<Vote> {
-        return this.voteModel.findById(id).exec();
+        return fetchOne(this.voteModel, id);
     }
 }

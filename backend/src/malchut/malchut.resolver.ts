@@ -13,7 +13,7 @@ import { BoothInput } from 'src/booths/booths.resolver';
 
 @Resolver(() => Directive)
 export class MalchutResolver {
-  constructor(private readonly malchutService: MalchutService) {}
+  constructor(private readonly malchutService: MalchutService) { }
 
   @Query(() => Directive)
   @UseGuards(AuthGuard)
@@ -29,9 +29,10 @@ export class MalchutResolver {
   async directives(
     @SessionUser() user: SessionUserT,
     @Args('boothId', { type: () => String }) boothId: string,
+    @Args('parentId', { type: () => String, nullable: true }) parentId: string,
     @Args('feedParams', { nullable: true }) feedParams?: any,
   ) {
-    return this.malchutService.directives(boothId, feedParams);
+    return this.malchutService.directives(boothId, parentId, feedParams);
   }
 
   @Mutation(() => Directive)
@@ -57,22 +58,11 @@ export class MalchutResolver {
   @Mutation(() => DirectiveVote)
   @UseGuards(AuthGuard)
   async upsertDirectiveVote(
-    @SessionUser() user: SessionUserT,  
+    @SessionUser() user: SessionUserT,
     @Args('input') input: DirectiveVoteInput,
     @Args('id', { nullable: true }) id?: string,
   ) {
-    const vote = await this.malchutService.upsertDirectiveVote(user?.id, input, id);
-    
-    // Return flattened structure to match GraphQL schema
-    return {
-      id: vote._id,
-      directiveId: input.directiveId,
-      text: vote.text,
-      score: vote.score,
-      user: vote.user,
-      createdAt: vote.createdAt,
-      updatedAt: vote.updatedAt
-    };
+    return this.malchutService.upsertDirectiveVote(user?.id, input, id);
   }
 
   @Mutation(() => Booth)

@@ -12,9 +12,10 @@ import state from "modules/teachings/state";
 import feed from "../../state/feed";
 import useOnError from "modules/Core/sub-modules/Dialog/hooks/useOnError";
 import styles from "./styles.module.scss";
+import { Header } from "modules/Core/sub-modules/ui-kit/exports";
 
 const CommentItem = ({ text, id }) => (
-    <Container className={styles.commentItem}>
+    <Container lightShadow className={styles.commentItem}>
         <Text>
             <span className={styles.commentAuthor}>you</span> {text}
         </Text>
@@ -103,12 +104,25 @@ const TeachingCommentsSection = ({ teachingId, comments, className }) => {
                 onClose={closeCommentsModal}
                 bodyClassName={styles.commentsModal}
             >
-                <Title>Comments ({commentsCount})</Title>
+                <Header 
+                    title={`Comments (${commentsCount})`}  
+                    className={styles.commentsModalHeader}
+                />
                 <Container className={styles.commentsModalList}>
                     <Feed.Component
                         feed={comments}
                         ItemComponent={CommentItem}
                     />
+                    <Container flex center lightShadow className={styles.commentsModalFooter}>
+                        <CommentInput
+                            teachingId={teachingId}
+                            buttonChildren={"+"}
+                            buttonProps={{
+                                className: styles.actionButton,
+                                title: "Add comment"
+                            }}
+                        />
+                    </Container>
                 </Container>
             </Modal>
         </Container>

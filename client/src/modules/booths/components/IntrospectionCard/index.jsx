@@ -7,16 +7,25 @@ import { Focus, Minimise } from "modules/Core/sub-modules/ui-kit/components/indi
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
 import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import { useMemo } from "react";
+import withRecursiveRender from "modules/Core/higher-order-components/withRecursiveRender";
 import styles from "./styles.module.scss";
 
-const CardHeader = ({ title, isOpen, toggle, actions }) => (
-    <Container className={styles.cardHeader} flex spaceBetween maxWidth alignCenter>
+const CardHeader = ({ title, isOpen, toggle, actions, onClick }) => (
+    <Container 
+        className={styles.cardHeader} 
+        flex 
+        spaceBetween 
+        maxWidth 
+        alignCenter
+        onClick={onClick}
+    >
         <Container>
             <Title>
                 {title}
             </Title>
         </Container>
-        <Container>
+        <Container onClick={e => e.stopPropagation()}>
             {actions?.map(({ Component = Button, ...props }, index) => (
                 <Component key={index} {...props} />
             ))}
@@ -30,12 +39,13 @@ const CardHeader = ({ title, isOpen, toggle, actions }) => (
 // TODO: improve the UI of this please...
 const Placeholder = withShouldRender(() => <Card className={styles.card} />)
 
-const Component = ({ children, className, actions, title, isOpen, open, close, toggle, ...props }) => (
+const Component = ({ children, onHeaderPress, className, actions, title, isOpen, open, close, toggle, headerProps, ...props }) => (
     <>
         <Card
-            className={cx(styles.card, className, { [styles.focusedCard]: isOpen })}
+            className={cx(styles.card, className, { [styles.focusedCard]: isOpen, 'focused': isOpen })}
             HeaderComponent={CardHeader}
-            headerProps={{ title, isOpen, actions, open, close, toggle }}
+            contentClassName={styles.cardContentContainer}
+            headerProps={headerProps}
             {...props}
         >
             {children}
@@ -45,9 +55,9 @@ const Component = ({ children, className, actions, title, isOpen, open, close, t
 )
 
 
-export default strapped(
+const IntrospectionCard  = strapped(
     Component,
-    ({ title, }) => {
+    ({ title, onHeaderPress, actions }) => {
         const { isOpen, open, close, toggle } = useIsOpen();
 
         return {
@@ -55,8 +65,40 @@ export default strapped(
             isOpen,
             open,
             close,
-            toggle
+            toggle,
+            headerProps: useMemo(() => ({
+                title,
+                isOpen,
+                actions,
+                open,
+                close,
+                toggle,
+                onClick: onHeaderPress
+            }))
         }
     },
     { withIsOpen: true }
+)
+
+const CollapsibleIntrospectionCard = strapped(
+    IntrospectionCard,
+    ({ actions, defaultCollapsed = false }) => {
+        const { isOpen: isCollapsed, open: collapse, close: uncollapse, toggle: toggleCollapse } = useIsOpen(defaultCollapsed);
+
+        return {
+            onHeaderPress: toggleCollapse,
+            className: cx(
+                styles.collapsibleCard,
+                { [styles.collapsed]: isCollapsed }
+            )
+        }
+    },
+    { withIsOpen: true }
+)
+
+export default withRecursiveRender(
+    {
+        collapsible: CollapsibleIntrospectionCard
+    },
+    IntrospectionCard
 )

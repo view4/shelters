@@ -20,6 +20,9 @@ const Component = ({ id: boothId }) => {
                 className={styles.introspectionCard}
                 title="Booth Info"
                 boothId={boothId}
+                defaultCollapsed
+                collapsible
+                lightShadow
             >
                 <BoothInfo boothId={boothId} />
             </IntrospectionCard>
@@ -27,7 +30,10 @@ const Component = ({ id: boothId }) => {
                 parentId={boothId}
                 kind={BOOTH_KINDS.MALCHUT}
                 title="Sub-Teaching Booths"
+                defaultCollapsed
                 className={styles.introspectionCard}
+                collapsible
+                lightShadow
             />
             <IntrospectionCard
                 title="Teachings"
@@ -35,6 +41,8 @@ const Component = ({ id: boothId }) => {
                 maxWidth
                 maxHeight
                 className={styles.introspectionCard}
+                collapsible
+                lightShadow
                 actions={[{ Component: TeachingFormButton, boothId }]}
             >
                 <TeachingsFeed boothId={boothId} />

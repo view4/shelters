@@ -12,7 +12,6 @@ import { aggregate, aggregateFeed, filter, filterOne, upsert, upsertOne } from '
 import mongoose from 'mongoose';
 import { CommentsService } from 'src/entries/comments.service';
 import { VoteService } from 'src/common/vote.service';
-import { Vote } from 'src/common/schemas/vote.schema';
 import { DirectiveInput } from './schema/directive-inputs.schema';
 
 @Injectable()
@@ -33,8 +32,11 @@ export class MalchutService {
     return upsert(this.directiveModel, data, id);
   }
 
-  async directives(boothId?: string, feedParams?: any) {
-    const match = boothId ? { booth: new mongoose.Types.ObjectId(boothId) } : {};
+  async directives(boothId?: string, parentId?: string, feedParams?: any) {
+    const match: any = { parent: null };
+    if (boothId) match.booth = new mongoose.Types.ObjectId(boothId);
+    if (parentId) match.parent = new mongoose.Types.ObjectId(parentId);
+
     return aggregateFeed(
       this.directiveModel,
       feedParams,
@@ -101,11 +103,77 @@ export class MalchutService {
             as: 'children',
             pipeline: [
               {
+                $lookup: {
+                  from: 'directivecomments',
+                  localField: '_id',
+                  foreignField: 'directive',
+                  as: 'directiveComments'
+                }
+              },
+              {
+                $lookup: {
+                  from: 'comments',
+                  localField: 'directiveComments.comment',
+                  foreignField: '_id',
+                  as: 'comments',
+                  pipeline: [
+                    {
+                      $addFields: {
+                        id: '$_id',
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                $lookup: {
+                  from: 'directivevotes',
+                  localField: '_id',
+                  foreignField: 'directive',
+                  as: 'directiveVotes',
+                  pipeline: [
+                    {
+                      $lookup: {
+                        from: 'votes',
+                        localField: 'vote',
+                        foreignField: '_id',
+                        as: 'voteData'
+                      }
+                    },
+                    { $unwind: '$voteData' },
+                    {
+                      $addFields: {
+                        id: '$_id',
+                        directiveId: '$directive',
+                        text: '$voteData.text',
+                        score: '$voteData.score',
+                        user: '$voteData.user',
+                        createdAt: '$createdAt',
+                        updatedAt: '$updatedAt'
+                      }
+                    }
+                  ]
+                }
+              },
+              {
                 $addFields: {
                   id: '$_id',
-                  boothId: '$booth'
+                  boothId: '$booth',
+                  votes: '$directiveVotes',
+                  totalComments: {
+                    $size: '$comments'
+                  },
+                  votingScore: {
+                    $reduce: {
+                      input: '$directiveVotes',
+                      initialValue: 0,
+                      in: { $add: ['$$value', '$$this.score'] }
+                    }
+                  }
                 }
               }
+
+
             ]
           }
         },
@@ -236,13 +304,15 @@ export class MalchutService {
       { text: input.text },
       id,
     );
-    return upsertOne(this.directiveCommentModel, {
+
+    const directiveCommentPayload = {
       directive: input.directiveId,
       comment: comment._id,
-    }, {
-      directive: input.directiveId,
-      comment: comment._id,
-    });
+    }
+
+    await upsertOne(this.directiveCommentModel, directiveCommentPayload, directiveCommentPayload);
+
+    return comment;
   }
 
   // DirectiveVote methods
@@ -253,17 +323,14 @@ export class MalchutService {
       score: input.score
     }, id);
 
-    const directiveVote = await upsert(this.directiveVoteModel, {
+    const directiveVotePayload = {
       directive: input.directiveId,
       vote: vote._id
-    });
+    }
 
-    // Return combined data for the resolver
-    return {
-      ...vote.toObject(),
-      createdAt: directiveVote.createdAt,
-      updatedAt: directiveVote.updatedAt
-    };
+    await upsertOne(this.directiveVoteModel, directiveVotePayload, directiveVotePayload);
+
+    return vote;
   }
 
   async directiveVotes(directiveId: string): Promise<DirectiveVote[]> {

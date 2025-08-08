@@ -38,6 +38,24 @@ export default new MiddlewareModule({
                             createdAt
                             updatedAt
                         }
+                        children {
+                            id
+                            name
+                            text
+                            comments {
+                                id
+                                text
+                                createdAt
+                                updatedAt
+                            }
+                            votes {
+                                id
+                                text
+                                score
+                                createdAt
+                                updatedAt
+                            }
+                        }
                     }
                     info {
                         totalCount
