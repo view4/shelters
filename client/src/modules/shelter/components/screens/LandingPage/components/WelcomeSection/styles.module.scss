@@ -25,6 +25,7 @@
   grid-template-columns: 1fr;
   gap: 4rem;
   align-items: center;
+  padding: 0 2rem;
 
   @media (min-width: 48rem) {
     grid-template-columns: 1fr 1fr;
@@ -55,10 +56,18 @@
   line-height: 1.4;
   color: $grey90;
   margin-bottom: 1rem;
+  display: flex;
+  font-style: italic;
 
   @media (min-width: 48rem) {
     font-size: 2.5rem;
   }
+}
+
+.headlineSuffix {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: $grey72;
 }
 
 .subtext {
@@ -81,7 +90,8 @@ button.ctaButton {
   position: relative;
   display: inline-block;
   padding: 1rem 3rem;
-  background: linear-gradient(90deg, #6366f1, #dc2626, #8b5cf6);
+  background: linear-gradient(90deg, #6366f1, #dc2626, #8b5cf6, );
+
   color: white;
   font-weight: 500;
   font-size: 1.125rem;
@@ -92,6 +102,9 @@ button.ctaButton {
   cursor: pointer;
   overflow: hidden;
   padding: 0.5rem 3rem;
+  width: 100%;
+  // max-width: 36rem;
+  margin: 0 auto;
 
 
   &:hover {
