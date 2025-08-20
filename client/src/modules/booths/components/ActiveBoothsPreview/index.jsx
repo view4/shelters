@@ -50,7 +50,7 @@ const ActiveBoothsPreview = ({ activeBooths = [], onBoothClick, isOpen, containe
             >
                 <Container onMouseLeave={onClose} className={styles.previewContainer}>
                     <Container className={styles.boothsContainer}>
-                        {[...activeBooths, ...activeBooths, ...activeBooths]?.map(booth => (
+                        {activeBooths?.map(booth => (
                             <Card
                                 key={booth.id}
                                 className={cx(styles.boothCard, { [styles.focused]: booth.isFocused })}
