@@ -15,7 +15,12 @@ const BoothsLink = ({ ...props }) => {
                 text="Booths"
                 {...props}
             >
-                <ActiveBoothsPreview onClose={() => setIsOpen(false)} isOpen={isOpen} containerElement={containerRef.current} />
+                <ActiveBoothsPreview 
+                    onClose={() => setIsOpen(false)} 
+                    isOpen={isOpen} 
+                    containerElement={containerRef.current} 
+                    onBoothClick={() => setIsOpen(false)}
+                />
             </SidemenuLink>
         </>
     )

@@ -3,8 +3,7 @@ import { useLocation } from "react-router-dom";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Link from "modules/Core/sub-modules/ui-kit/components/Link";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
-import { useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useCallback, useMemo } from "react";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
 import Chevron from "modules/Core/sub-modules/ui-kit/components/Chevron";
 import { links, WITH_PARAMS_PREFIX } from "./const";
@@ -33,6 +32,11 @@ const Sidemenu = ({ header = "Booths" }) => {
         )
     }, [location.pathname, boothId])
 
+    const onHeaderTo = useMemo(() => {
+        if (!boothId) return "/"
+        return `/booths/${boothId}`
+    }, [boothId])
+
     return (
         <Container
             relative
@@ -40,7 +44,7 @@ const Sidemenu = ({ header = "Booths" }) => {
             className={cx(styles.container, { [styles.closed]: !isOpen, [styles.open]: isOpen })}
         >
             <Container className={cx(styles.header, { [styles.active]: location.pathname === "/" })} relative>
-                <Link to="/">
+                <Link to={onHeaderTo}>
                     <Title>{header}</Title>
                 </Link>
                 <Container className={styles.toggleContainer}>

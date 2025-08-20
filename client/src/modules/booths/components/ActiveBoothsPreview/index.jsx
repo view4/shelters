@@ -14,13 +14,14 @@ import { OpenInNew } from "modules/Core/sub-modules/ui-kit/components/indicators
 import Modal from "modules/Core/sub-modules/ui-kit/components/Modal";
 import styles from "./styles.module.scss";
 
-const ActiveBoothsPreview = ({ activeBooths, onBoothClick, isOpen, containerElement, onClose }) => {
+const ActiveBoothsPreview = ({ activeBooths = [], onBoothClick, isOpen, containerElement, onClose }) => {
     const [previewBooth, setPreviewBooth] = useState(null);
     const previewTimeoutRef = useRef(null);
 
     const handlePreviewHover = (booth) => {
         previewTimeoutRef.current = setTimeout(() => {
             setPreviewBooth(booth);
+            onClose();
         }, 2000);
     };
 
@@ -30,6 +31,8 @@ const ActiveBoothsPreview = ({ activeBooths, onBoothClick, isOpen, containerElem
 
     const handleOpenNewTab = (boothId) => {
         window.open(`/booths/${boothId}`, '_blank');
+        onClose();
+        if (previewTimeoutRef.current) clearTimeout(previewTimeoutRef.current);
     };
 
     return (
@@ -46,8 +49,8 @@ const ActiveBoothsPreview = ({ activeBooths, onBoothClick, isOpen, containerElem
                 BackdropComponent={() => null}
             >
                 <Container onMouseLeave={onClose} className={styles.previewContainer}>
-                    <Container className={styles.boothsContainer} mb3>
-                        {activeBooths?.map(booth => (
+                    <Container className={styles.boothsContainer}>
+                        {[...activeBooths, ...activeBooths, ...activeBooths]?.map(booth => (
                             <Card
                                 key={booth.id}
                                 className={cx(styles.boothCard, { [styles.focused]: booth.isFocused })}
