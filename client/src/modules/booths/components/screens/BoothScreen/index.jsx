@@ -13,8 +13,8 @@ const ComponentTree = withRecursiveRender({
 export default strappedConnected(
     ComponentTree,
     {
-         mapal: (state, { focusedBoothId, id }) => feed.cells?.fetchEntity.selectField(id ?? focusedBoothId, "mapal")(state),
-         malchut: (state, { focusedBoothId, id }) => feed.cells?.fetchEntity.selectField(id ?? focusedBoothId, "malchut")(state)
+         mapal: (state, { focusedBoothId, boothId }) => feed.cells?.fetchEntity.selectField(boothId ?? focusedBoothId, "mapal")(state),
+         malchut: (state, { focusedBoothId, boothId }) => feed.cells?.fetchEntity.selectField(boothId ?? focusedBoothId, "malchut")(state)
     },
     {},
     ({ mapal, malchut, id, focusedBoothId}) => {

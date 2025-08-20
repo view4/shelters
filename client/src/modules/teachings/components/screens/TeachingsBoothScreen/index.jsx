@@ -8,8 +8,7 @@ import TeachingFormButton from "../../TeachingFormButton";
 import { BOOTH_KINDS } from "modules/booths/consts";
 import styles from "./styles.module.scss";
 
-const Component = ({ id: boothId }) => {
-    console.log("TEACHINGs booth screen", boothId)
+const Component = ({ boothId }) => {
     return (
         <BoothScreen
             className={styles.screen}

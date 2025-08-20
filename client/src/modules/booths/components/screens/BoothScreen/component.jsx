@@ -14,7 +14,6 @@ import SubBoothsCard from "../../SubBoothsCard";
 import { BOOTH_KINDS } from "modules/booths/consts";
 import styles from "./styles.module.scss";
 
-
 const tabs = [
     {
         title: "Time schedule",
@@ -40,36 +39,35 @@ const BoothTimeIntrospectionCard = ({ boothId, ...props }) => {
     )
 }
 
-export default ({ focusedBoothId, id = focusedBoothId }) => (
+export default ({ focusedBoothId, boothId = focusedBoothId }) => (
     <BoothScreen
         tripanel
-        boothId={id}
+        boothId={boothId}
         RightPanelComponent={Fragment}
     >
         <Container className={styles.container}>
             <Container>
-                <BoothTimeIntrospectionCard boothId={id} />
+                <BoothTimeIntrospectionCard boothId={boothId} />
                 <IntrospectionCard className={styles.card} title="Cycle" maxWidth maxHeight>
                     <Cycle />
                 </IntrospectionCard>
                 <IntrospectionCard className={styles.card} title="Roadmaps" maxWidth maxHeight>
                     <Container maxWidth maxHeight flex col alignCenter>
-                        <RoadmapsFeed boothId={id} />
-                        <AddRoadmapButton boothId={id} />
+                        <RoadmapsFeed boothId={boothId} />
+                        <AddRoadmapButton boothId={boothId} />
                     </Container>
                 </IntrospectionCard>
                 <IntrospectionCard className={styles.card} title="Entries" maxWidth maxHeight>
-                    <AddEntryButton className={styles.entriesButton} boothId={id} />
-                    <EntriesFeed boothId={id} />
+                    <AddEntryButton className={styles.entriesButton} boothId={boothId} />
+                    <EntriesFeed boothId={boothId} />
                 </IntrospectionCard>
             </Container>
             <Container>
                 <SubBoothsCard
-                    parentId={id}
+                    parentId={boothId}
                     kind={BOOTH_KINDS.MALCHUT}
                 />
             </Container>
         </Container>
-
     </BoothScreen>
 )
