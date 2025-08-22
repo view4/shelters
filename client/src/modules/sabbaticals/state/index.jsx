@@ -2,7 +2,7 @@ import { initCell } from "modules/Core/core-modules/CoreModuleState/utils/cells"
 import { SABBATICALS } from "../consts";
 import middleware from "../middleware";
 import { call, put, select } from "redux-saga/effects";
-import feed from "modules/cycles/state/feed";
+import cyclesState from "modules/cycles/state";
 
 export default {
     completeSabbatical: initCell(SABBATICALS, {
@@ -15,9 +15,9 @@ export default {
                     { startNewCycle: true }
                 )
 
-                const cycle = yield select(feed.cells.fetchEntity.selector);
+                const cycle = yield select(cyclesState.fetchCycle.selectors.activeCycle);
 
-                yield put(feed.cells.fetchEntity.action({
+                yield put(cyclesState.fetchCycle.action({
                     boothId: cycle?.boothId
                 }));
                 

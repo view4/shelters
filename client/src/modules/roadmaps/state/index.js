@@ -16,7 +16,6 @@ export default {
     name: "setEntities",
     reducer: (state, action) => {
       const entities = processEntities(action.payload);
-      console.log("entities", entities);
       state.entities = merge({}, state.entities, arrayToObject(entities));
     }
   })

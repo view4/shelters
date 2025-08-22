@@ -8,18 +8,17 @@ import { CYCLE_GATEWAY_KEYS } from "modules/cycles/consts";
 import SabbaticalGateway from "./SabbaticalGatewayCard/component"
 import RoadmapFeedItem from "modules/roadmaps/components/RoadmapFeedItem";
 import withGatewayCardWrapper from "./withGatewayCardWrapper";
-import component, { EmptyGatewayCard } from "./component";
+import component, { EmptyGatewayCard, GatewayCardTitle } from "./component";
+
+const FeedItem = ({ name, gateway, gatewayId, id = gatewayId, orderKey, onCreateSuccess, ...props }) => {
+    if(!id) return <EmptyGatewayCard onCreateSuccess={onCreateSuccess} cycleId={props.cycleId} orderKey={orderKey} empty />
+    return <RoadmapFeedItem TitleComponent={GatewayCardTitle} {...gateway} id={id} name={gateway?.name ?? name} {...props} />
+}
 
 const C = withRecursiveRender({
     sabbatical: SabbaticalGateway,
     empty: withGatewayCardWrapper(EmptyGatewayCard),
-    feedItem: ({ name, id, orderKey, onCreateSuccess, ...props }) => (
-        <>
-            {
-                Boolean(id) ? <RoadmapFeedItem id={id} name={name} {...props} /> : <EmptyGatewayCard onCreateSuccess={onCreateSuccess} cycleId={props.cycleId} orderKey={orderKey} empty />
-            }
-        </>
-    )
+    feedItem: FeedItem
 }, withGatewayCardWrapper(component));
 
 export default strappedConnected(

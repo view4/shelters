@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import cx from "classnames";
 import ExpandableFeedItem from "modules/Core/components/Feed/ExpandableFeedItem";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
@@ -17,6 +17,7 @@ import feed from "modules/roadmaps/state/feed";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import styles from "./styles.module.scss";
+import { Completed, CrossHairs, DottedCrossHairs } from "modules/Core/sub-modules/ui-kit/components/indicators";
 
 
 export const GatewayExpandableOptions = ({ name, id, text, stamps, refetchGateway, refetchId, parent, view = true }) => (
@@ -34,19 +35,31 @@ export const GatewayExpandableOptions = ({ name, id, text, stamps, refetchGatewa
     />
 )
 
-export const TitleWithStamps = ({ title, stamps }) => (
+export const StampIndicator = ({ stamps }) => {
+    const indicator = useMemo(() => {
+        if (stamps?.[STAMPS.COMMENCED] && stamps?.[STAMPS.COMPLETED]) return <Completed height={1.5} width={1.5} className={styles.completed} />
+        if (stamps?.[STAMPS.COMMENCED]) return <DottedCrossHairs height={1.5} width={1.5} className={styles.dottedCrossHairs} />
+        return <CrossHairs height={1.5} width={1.5} className={styles.crossHairs} />;
+    }, [stamps])
+    return <Container flex alignCenter className={styles.stampIndicator}>
+        {indicator}
+    </Container>
+}
 
-    <Container flex spaceBetween maxWidth>
-        <Title className={styles.title} Element="h4">{title}</Title>
-        <Stamps stamps={[
-            stamps?.[STAMPS.COMMENCED] && { stamp: "Commenced", timestamp: null },
-            stamps?.[STAMPS.COMPLETED] && { stamp: "Completed", timestamp: null }
-        ]} />
-
+export const TitleWithStamps = ({ title, stamps, className, appendage }) => (
+    <Container className={cx(styles.titleContainer, className)} flex spaceBetween maxWidth>
+        <Title className={cx(styles.title)} Element="h4">{title}</Title>
+        <Container flex alignCenter>
+            {appendage}
+            <Stamps stamps={[
+                stamps?.[STAMPS.COMMENCED] && { stamp: "Commenced", timestamp: stamps?.[STAMPS.COMMENCED] },
+                stamps?.[STAMPS.COMPLETED] && { stamp: "Completed", timestamp: stamps?.[STAMPS.COMPLETED] }
+            ]} />
+        </Container>
     </Container>
 )
 
-const RoadmapFeedItem = ({ text, name, stamps, children,childrenIds, id, parentId, refetchGateway, className, parent, parentName, headerChildren }) => (
+const RoadmapFeedItem = ({ text, name, stamps, TitleComponent = TitleWithStamps, children, childrenIds, id, parentId, refetchGateway, className, parent, parentName, headerChildren }) => (
     <ExpandableFeedItem
         className={cx(
             styles.container,
@@ -58,7 +71,7 @@ const RoadmapFeedItem = ({ text, name, stamps, children,childrenIds, id, parentI
         headerProps={{
             children: headerChildren
         }}
-        label={<TitleWithStamps title={name} stamps={stamps} />}
+        label={<TitleComponent title={name} stamps={stamps} parent={parent} />}
         size={"xlg"}
     >
         <Container flex flexEnd>
@@ -109,13 +122,13 @@ export const SelectableGatewayFeedItem = ({ onSelect, ...props }) => (
 )
 
 export const ChildGatewayFeedItem = strappedConnected(
-    RoadmapFeedItem, 
-    {gateway: (state, { id }) => feed.cells.fetchEntity.selector(id)(state)},
+    RoadmapFeedItem,
+    { gateway: (state, { id }) => feed.cells.fetchEntity.selector(id)(state) },
     {
         refetchGateway: (id) => feed.cells.fetchEntity.action({ id }),
-    }, 
+    },
     ({ gateway, refetchGateway, parent, parentId }) => ({
-        text: gateway?.name,
+        text: gateway?.text,
         name: gateway?.name,
         stamps: gateway?.stamps,
         childrenIds: gateway?.childrenIds,

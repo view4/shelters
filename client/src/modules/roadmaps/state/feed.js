@@ -12,17 +12,20 @@ export const flatten = entity => compactObject({
 })
 
 export const processEntities = (entities = []) => {
-  // TODO: handle parent as well.... but I think for current scope let's handle for children..
-  return entities.reduce((entities, entity) => {
-    if (!entity?.children?.length) return [...entities, entity];
-    return [
-      ...entities,
-      flatten(entity),
-      ...entity.children
-    ]
-
-  }, [])
+  return entities.reduce((entities, entity) => ([
+    ...entities,
+    ...flattenGateways(entity)
+  ]), []).map(flatten)
 };
+
+// recursive flattening of entities/children, return an array of all gateways, processing infinitely if there is children.
+const flattenGateways = (entity) => {
+  if (!entity?.children?.length) return [entity];
+  return entity?.children?.reduce((flattened, child) => ([
+    ...flattened,
+    ...flattenGateways(child)
+  ]), [entity])
+}
 
 export default new FeedModule({
   name: ROADMAPS,
@@ -36,8 +39,8 @@ export default new FeedModule({
         // TODO: decide whether to allow a new param like additionalOnSucccessStateReduction kinda thing or, maybe to have the success as a separate fcuntion and then to call from there.. :) 
         // I think second option is good for now... 
         reducer: (state, { payload: { renewStream, renewEntities, ...payload } }) => {
+          const newStreamIds = payload?.entities?.map(entity => entity.id) ?? []
           const entities = processEntities(payload?.entities)
-          const newStreamIds = payload?.entities?.map?.(entity => entity.id) ?? []
           state.feedIsLoading = false;
           state.stream = renewStream ? newStreamIds : unique([
             ...state.stream,
@@ -54,10 +57,7 @@ export default new FeedModule({
       successCell: {
         reducer: (state, { payload: { overwrite, ...entity } }) => {
           state.isLoading = false;
-          const entities = [
-            flatten(entity),
-            ...entity.children
-          ]
+          const entities = processEntities([entity]);
           state.entities = merge({}, state.entities, arrayToObject(entities))
           state.focusedEntityId = entity?.id // doesn't this just make sense....
         },
