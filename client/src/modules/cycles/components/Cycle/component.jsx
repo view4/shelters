@@ -20,7 +20,7 @@ export default ({ cycle, boothId, fetch }) => {
             cycleId={cycle?.id}
             orderKey={key}
             gatewayId={key === "sabbatical" ? cycle?.sabbatical?.gateway?.id : cycle?.[key]?.id ?? null} />
-    )), [boothId, fetch, cycle]);
+    )), [boothId, fetch, cycle, cycle?.id]);
     return (
         <Container className={styles.container}>
             {children}

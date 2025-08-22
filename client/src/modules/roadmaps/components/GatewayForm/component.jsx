@@ -33,7 +33,7 @@ export default ({ isOpen, close, schema, title = "Add Gateway", onSelectGateway,
     }, {
         title: "Gateways",
         Component: () =>  withFocusedBoothId(CyclelessFeed)({ onSelect: onSelectGateway })
-    }]), [initialState]);
+    }]), [initialState, onSelectGateway, onSubmit]);
 
     const { header, content } = useTabs(tabs)
 

@@ -26,7 +26,7 @@ const Component = ({ name, text, id, tabs, rightProps, stamps, refetch, parent }
         <Container maxHeight>
             <Card className={styles.headerCard} maxWidth relative >
                 <Container>
-                    <Title>{name} {id}</Title>
+                    <Title>{name}</Title>
                 </Container>
                 <Container>
                     <Text>{text}</Text>
@@ -67,7 +67,7 @@ export default strappedConnected(
     ({ roadmap, id, fetchEntity }) => {
         useOnLoad(
             () => fetchEntity({ id }),
-            !Boolean(roadmap?.id),
+            true,
             [id]
         )
 

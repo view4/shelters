@@ -23,6 +23,9 @@ import Minimise from '@mui/icons-material/Minimize';
 import Close from '@mui/icons-material/Close';
 import Visibility from '@mui/icons-material/Visibility';
 import OpenInNew from '@mui/icons-material/OpenInNew';
+import DottedCrossHairs from '@mui/icons-material/GpsFixed';
+import CrossHairs from '@mui/icons-material/GpsNotFixed';
+import Completed from '@mui/icons-material/TaskAlt';
 
 export {
     Flag,
@@ -50,4 +53,7 @@ export {
     Close,
     Visibility,
     OpenInNew,
+    CrossHairs,
+    DottedCrossHairs,
+    Completed,
 };

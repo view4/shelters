@@ -8,7 +8,7 @@ import SubBoothsCard from "modules/booths/components/SubBoothsCard";
 import { BOOTH_KINDS } from "modules/booths/consts";
 import styles from "./styles.module.scss";
 
-const Component = ({ id: boothId }) => {
+const Component = ({ boothId }) => {
     return (
         <BoothScreen className={styles.screen} boothId={boothId}>
             <IntrospectionCard

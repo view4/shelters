@@ -55,7 +55,7 @@ export default strappedConnected(
                 name,
                 text,
                 parentId: parent?.id,
-            }), gatewayId, callback), [create, gatewayId]),
+            }), gatewayId, callback), [create, gatewayId, callback]),
             schema,
             initialState: useMemo(() => compactObject({
                 ...initialState,

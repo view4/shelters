@@ -17,6 +17,9 @@ export const GATEWAY_FRAGMENT = `
         }
         children {
             ${GATEWAY_FIELDS_FRAGMENT}
+            children {
+                ${GATEWAY_FIELDS_FRAGMENT}
+            }
         }
     }
 `

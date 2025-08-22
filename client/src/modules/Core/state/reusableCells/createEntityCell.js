@@ -37,9 +37,6 @@ export default (moduleName, { requestHandler, parseRes = defaultParseRes, onErro
             },
             sagas: {
                 latest: function* ({ payload: { callback, id, ...payload } }) {
-                    console.log('on success saga being called here...')
-                    console.log("payload", payload)
-                    console.log('onSuccess', onSuccess)
                     if (onSuccess) yield onSuccess(...args)
                 }
             }

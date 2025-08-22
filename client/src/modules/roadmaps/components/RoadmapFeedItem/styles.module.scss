@@ -3,23 +3,23 @@
 .container {
   width: 90%;
   margin-top: 2rem;
-  & > div:first-child {
+
+  &>div:first-child {
     margin-bottom: unset;
     cursor: pointer;
   }
+
   &:not(.childFeedItem) {
     height: 5.4rem;
     margin: 1rem auto;
 
-    & > div:first-child {
+    &>div:first-child {
       height: 5.4rem;
       max-height: unset;
-      h4 {
-        font-size: 1.5rem;
-      }
     }
   }
-  & > div:not(:first-child) {
+
+  &>div:not(:first-child) {
     padding: unset;
   }
 
@@ -31,9 +31,70 @@
 
 .options {
   width: 100%;
-  & > div button {
+
+  &>div button {
     font-size: 0.72rem;
     padding: 0rem 0.5rem !important;
     margin: 0.25rem;
+  }
+}
+
+
+.stampIndicator {
+  margin: 0rem 1rem;
+  display: flex;
+
+  svg {
+    height: 1.75rem;
+    width: 1.75rem;
+  }
+
+  .completed {
+    color: $ocean_blue;
+
+    &:hover {
+      color: purple;
+      transform: rotate(0deg);
+    }
+  }
+
+  .dottedCrossHairs {
+    color: $grey72;
+    transition: all 0.5s ease;
+    transform: rotate(45deg);
+    cursor: pointer;
+
+    &:hover {
+      color: $ocean_blue;
+      transform: rotate(0deg);
+
+      &:after {
+        content: "Complete!";
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: $ocean_blue;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  .crossHairs {
+    color: $grey72;
+    transition: all 0.5s ease;
+    transform: rotate(45deg);
+    cursor: pointer;
+
+    &:hover {
+      color: $ocean_blue;
+      transform: rotate(0deg);
+    }
+
+    &:after {
+      content: "Commenced";
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: $ocean_blue;
+      margin-left: 0.5rem;
+    }
   }
 }

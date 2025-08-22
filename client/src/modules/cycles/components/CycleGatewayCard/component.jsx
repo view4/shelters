@@ -12,14 +12,20 @@ import { STAMPS } from "modules/Core/consts";
 import Stamps from "modules/Core/sub-modules/ui-kit/components/Stamps";
 import EditGatewayButton from "modules/roadmaps/components/EditGatewayButton";
 import ExpandableOptions from "modules/Core/sub-modules/ui-kit/components/ExpandableOptions";
-import  { TitleWithStamps } from "modules/roadmaps/components/RoadmapFeedItem";
+import { TitleWithStamps } from "modules/roadmaps/components/RoadmapFeedItem";
 import ChildGateway from "./CycleChildGatewayItem"
+import { Title } from "modules/Core/sub-modules/ui-kit/exports";
 import styles from "./styles.module.scss";
 
 export const EmptyGatewayCard = ({ cycleId, orderKey, onCreateSuccess }) => {
     const dispatch = useDispatch();
     const onSuccess = useCallback((result) => {
-        dispatch(cells.addGatewayToCycle.action({ gatewayId: result.id, orderKey, cycleId, callback: () => onCreateSuccess() }))
+        dispatch(cells.addGatewayToCycle.action({ 
+            gatewayId: result.id, 
+            orderKey, 
+            cycleId, 
+            callback: () => onCreateSuccess()
+        }))
     }, [cycleId, orderKey, onCreateSuccess]);
     return (
         <Card className={styles.emptyCard}>
@@ -35,12 +41,21 @@ export const EmptyGatewayCard = ({ cycleId, orderKey, onCreateSuccess }) => {
     )
 };
 
-export default ({ gateway = {}, children, refetch, remove, className, ...props }) => {
+export const GatewayCardTitle = ({ title,  name = title, parent, stamps, appendage }) => (
+    <Container maxWidth>
+        {parent?.name && <Title text={parent?.name} Element="h4" className={styles.parentText} />}
+        
+        <TitleWithStamps className={styles.title} title={name} stamps={stamps} appendage={appendage} />
+    </Container>
+)
+
+export default ({ gateway = {}, children, refetch, remove, className, headerProps, ...props }) => {
     const stamps = useMemo(() => Object.entries(gateway?.stamps ?? {})?.map(([key, value]) => (value && { text: key?.toLowerCase(), timestamp: value })), [gateway?.stamps]);
     return (
         <ExpandableCard
             className={cx(styles.gateway, className)}
-            title={<TitleWithStamps title={gateway.name} stamps={gateway.stamps} />}
+            openClassName={styles.open}
+            title={<GatewayCardTitle {...headerProps} name={gateway.name} parent={gateway.parent} stamps={gateway.stamps} />}
             size={"lg"} {...props}>
             <ExpandableOptions
                 className={styles.options}
