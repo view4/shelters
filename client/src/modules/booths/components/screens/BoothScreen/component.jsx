@@ -12,7 +12,9 @@ import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
 import SubBoothsCard from "../../SubBoothsCard";
 import { BOOTH_KINDS } from "modules/booths/consts";
+import FeatureWrapper from "modules/Core/components/FeatureWrapper";
 import styles from "./styles.module.scss";
+
 
 const tabs = [
     {
@@ -62,12 +64,15 @@ export default ({ focusedBoothId, boothId = focusedBoothId }) => (
                     <EntriesFeed boothId={boothId} />
                 </IntrospectionCard>
             </Container>
-            <Container>
-                <SubBoothsCard
-                    parentId={boothId}
-                    kind={BOOTH_KINDS.MALCHUT}
-                />
-            </Container>
+            <FeatureWrapper featureKey="malchut">
+                <Container>
+                    <SubBoothsCard
+                        parentId={boothId}
+                        kind={BOOTH_KINDS.MALCHUT}
+                    />
+                </Container>
+            </FeatureWrapper>
+
         </Container>
-    </BoothScreen>
+    </BoothScreen >
 )
