@@ -1,0 +1,29 @@
+{
+    "title": "Sukkot Release",
+    "releaseDate": "2025-09-15",
+    "features": [
+        {
+            "name": "Feature 1",
+            "description": "Feature 1 description"
+        },
+        {
+            "name": "Feature 2",
+            "description": "Feature 2 description"
+        }
+    ],
+    "narrative": "This is a narrative about the release, somewhere there is space for improvement, better, and meaning there..",
+    "links": [
+        {
+            "name": "See Landing Page",
+            "url": "/shelter"
+        },
+        {
+            "name": "Create an account",
+            "url": "/register"
+        },
+        {
+            "name": "Leave some feedback",
+            "url": "/feedback"
+        }
+    ]
+}

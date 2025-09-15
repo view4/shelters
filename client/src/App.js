@@ -19,6 +19,7 @@ import timemapper from "modules/timemapper";
 import mapal from "modules/mapal";
 import features from "modules/mapal/submodules/features";
 import teachings from "modules/teachings";
+import releases from "modules/releases";
 import UIKit from "modules/Core/sub-modules/ui-kit";
 
 const { store, rootRender, routes } = init([
@@ -38,6 +39,7 @@ const { store, rootRender, routes } = init([
   mapal,
   features,
   teachings,
+  releases,
   UIKit,
 ]);
 
