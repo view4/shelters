@@ -7,9 +7,9 @@ export default strappedConnected(
     ReleaseScreen,
     {},
     {},
-    ({releaseKey}) => {
-        const {title, releaseDate, features, links} = useMemo(() => getReleaseContent(releaseKey), [releaseKey]);
-        
+    ({ releaseKey }) => {
+        const { title, releaseDate, features, links } = useMemo(() => getReleaseContent(releaseKey), [releaseKey]);
+
         return {
             title,
             releaseDate,

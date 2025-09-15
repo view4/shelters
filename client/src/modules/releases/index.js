@@ -1,6 +1,8 @@
 import CoreModule from "modules/Core/core-modules/CoreModule";
 import { RELEASES } from "./consts";
 import feed from "./state/feed";
+import withParams from "modules/Core/higher-order-components/withParams";
+import ReleaseScreen from "./components/screens/ReleaseScreen";
 
 export default new CoreModule({
   name: RELEASES,
@@ -14,5 +16,7 @@ export default new CoreModule({
     fetchEntity: feed.cells.fetchEntity,
     removeEntity: feed.cells?.removeEntity,
   },
-  routes: {},
+  routes: {
+    "/releases/:releaseKey": withParams(ReleaseScreen),
+  },
 });
