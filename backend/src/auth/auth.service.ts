@@ -36,13 +36,14 @@ export class AuthService {
     const authenticatorUser = await this.firebaseService.verifyToken(token);
     let user = await this.getUserByAuthenticatorId(authenticatorUser.uid);
     // if no user then could register user with the setUser field...
-    if (!user) (user = await this.setUser(authenticatorUser.uid, { authenticatorId: authenticatorUser.uid, email: authenticatorUser.email }));
+    if (!user) (user = await this.setUser(authenticatorUser.uid, { authenticatorId: authenticatorUser.uid, email: authenticatorUser.email, authenticatorProviderKey: authenticatorUser.firebase.sign_in_provider ?? null }));
     return {
       email: authenticatorUser.email,
       authenticatorId: authenticatorUser.uid,
       id: user._id,
       authTime: authenticatorUser.auth_time,
       roles: user.roles,
+      authenticatorProviderKey: user.authenticatorProviderKey,
     }
   }
 }
