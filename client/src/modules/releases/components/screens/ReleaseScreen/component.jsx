@@ -165,7 +165,8 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                             <Container className={styles.intentionContainer}>
                                 <Container className={styles.intentionBox}>
                                     <Text className={styles.intentionText}>
-                                        Feel free to explore this space, the tools created and to enjoy doing so ❤️ ❤️
+                                        Feel free to explore this space, the tools created and to enjoy doing so 
+                                         ❤️ ❤️
                                         {/* You are welcome to join the journey and explore the space which has been created so far, with the relevant tools and enjoy doing so. Feedback is appreciated, and even though this place is incomplete, I hope you still find it meaningful ❤️ ❤️  */}
                                     </Text>
                                 </Container>

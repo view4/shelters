@@ -3,6 +3,7 @@ import { RELEASES } from "./consts";
 import feed from "./state/feed";
 import withParams from "modules/Core/higher-order-components/withParams";
 import ReleaseScreen from "./components/screens/ReleaseScreen";
+import FeedbackScreen from "./components/screens/FeedbackScreen";
 
 export default new CoreModule({
   name: RELEASES,
@@ -17,6 +18,7 @@ export default new CoreModule({
     removeEntity: feed.cells?.removeEntity,
   },
   routes: {
+    "/releases/feedback": FeedbackScreen,
     "/releases/:releaseKey": withParams(ReleaseScreen),
   },
 });

@@ -3,11 +3,7 @@
     "releaseDate": "6th October 2025",
     "features": [
         {
-            "name": "Roadmapping",
-            "description": "Feature 1 description"
-        },
-        {
-            "name": "Time Management Tools",
+            "name": "Cyclical task management system",
             "description": "Feature 2 description"
         },
         {
@@ -15,7 +11,11 @@
             "description": "Feature 1 description"
         },
         {
-            "name": "Cyclical task management system",
+            "name": "Roadmapping",
+            "description": "Feature 1 description"
+        },
+        {
+            "name": "Time Management Tools",
             "description": "Feature 2 description"
         }
     ],
