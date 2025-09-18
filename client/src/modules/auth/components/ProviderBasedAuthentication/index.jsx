@@ -5,19 +5,32 @@ import Text from 'modules/Core/sub-modules/ui-kit/components/Text';
 import strappedConnected from 'modules/Core/higher-order-components/strappedConnected';
 import cells from 'modules/auth/state';
 import { providerBasedAuthentication } from 'modules/auth/utils';
+import { graphqlClient } from 'modules/Core/middleware';
+import useOnSuccess from 'modules/Core/sub-modules/Dialog/hooks/useOnSuccess';
 
-const ProviderBasedAuthentication = ({ providerKey = 'google', text, onSuccess, validateToken }) => {
+const ProviderBasedAuthentication = ({ providerKey = 'google', text, onSuccess, mode, validateToken }) => {
+    const success = useOnSuccess();
     const onClick = useCallback(async () => {
         try {
             const user = await providerBasedAuthentication(providerKey);
+            console.log(user)
+
+            if (mode === "register") {
+                success("Successfully registered");
+            } else {
+                success("Successfully logged in");
+            }
             if (user) {
-                validateToken({ user });
-                onSuccess?.(user);
+                console.log("inside validate")
+                console.log(onSuccess)
+                graphqlClient.setAuthToken(user.accessToken);
+                validateToken({ user, callback: () => onSuccess?.(user) });
             }
         } catch (e) {
+            console.log(e)
             // provider util already handles specific errors
         }
-    }, [providerKey, onSuccess, validateToken]);
+    }, [providerKey, onSuccess, validateToken, mode]);
 
     return (
         <Button onClick={onClick} className={"provider-auth-btn"}>

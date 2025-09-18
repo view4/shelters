@@ -27,6 +27,8 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login", className, login, r
     }, [initialMode, isOpen]);
 
     const onSuccess = useCallback((res) => {
+        console.log("on success being called..")
+        console.log(res)
         if (res) {
             nav("/.");
             onClose?.();
@@ -44,7 +46,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login", className, login, r
     return (
         <Modal isOpen={isOpen} onClose={onClose} bodyClassName={c(styles.body, className)}>
             <Container className={styles.container}>
-                <Card className={styles.card}>
+                <Card HeaderComponent={Container} headerProps={{ children: mode === "login" ? "Login" : "Register", className: styles.header }} className={styles.card}>
                     <Container className={styles.form}>
                         <Input label="Email" value={email} onChange={setEmail} />
                         <Input label="Password" value={password} onChange={setPassword} type="password" />
@@ -73,7 +75,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login", className, login, r
                         <span className={styles.rule} />
                     </Container>
                     <Container className={styles.providersRow}>
-                        <ProviderBasedAuthentication providerKey="google" onSuccess={onSuccess} />
+                        <ProviderBasedAuthentication providerKey="google" mode={mode} onSuccess={onSuccess} />
                     </Container>
                 </Card>
             </Container>

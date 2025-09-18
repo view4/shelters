@@ -8,10 +8,10 @@ const { validateToken } = cells;
 
 export default (Component) => (props) => {
     const isAuthed = useSelector(validateToken.selectors.isAuthed)
+    const isAuthenticating = useSelector(validateToken.selectors.isAuthenticating)
     const nav = useNavigate()
     if (isAuthed) return <Component {...props} />
-    return <>
-        {/* Maybe add some custom copy/text here */}
+    return !isAuthenticating && <>
         <AuthModal
             isOpen={true}
             onClose={() => { }}
