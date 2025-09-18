@@ -1,0 +1,40 @@
+{
+    "title": "Sukkot Release",
+    "releaseDate": "6th October 2025",
+    "features": [
+        {
+            "name": "Cyclical task management system",
+            "description": "Feature 2 description"
+        },
+        {
+            "name": "Journalling",
+            "description": "Feature 1 description"
+        },
+        {
+            "name": "Roadmapping",
+            "description": "Feature 1 description"
+        },
+        {
+            "name": "Time Management Tools",
+            "description": "Feature 2 description"
+        }
+    ],
+    "narrative": "This is a narrative about the release, somewhere there is space for improvement, better, and meaning there..\n\nThis is a narrative about the release, somewhere there is space for improvement, better, and meaning there..",
+    "links": [
+        {
+            "name": "Create an account",
+            "text": "Create an account",
+            "url": "/register"
+        },
+        {
+            "name": "See Landing Page",
+            "text": "See Landing Page",
+            "url": "/shelter"
+        },
+        {
+            "name": "Leave some feedback",
+            "text": "Leave some feedback",
+            "url": "/releases/feedback"
+        }
+    ]
+}
