@@ -8,6 +8,8 @@ import { providerBasedAuthentication } from 'modules/auth/utils';
 import { graphqlClient } from 'modules/Core/middleware';
 import useOnSuccess from 'modules/Core/sub-modules/Dialog/hooks/useOnSuccess';
 
+// COULD DO: Add greater abstraction, i.e. to allow more providers and to wrap some of this as well. e.g. function like get icon button by provider key etc.. 
+
 const ProviderBasedAuthentication = ({ providerKey = 'google', text, onSuccess, mode, validateToken }) => {
     const success = useOnSuccess();
     const onClick = useCallback(async () => {
