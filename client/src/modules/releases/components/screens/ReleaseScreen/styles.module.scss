@@ -9,12 +9,13 @@
     // border: 1px solid #000;
     height: 100vh;
     width: 100vw;
+
     // padding: 1rem;
     .section {
         // grid-column: span 1;
         // grid-row: span 1;
         border-radius: 0rem;
-        border: 1px solid $grey10;
+        border: 1px solid transparent;
 
         opacity: 0;
         animation: fadeIn 0.5s ease-in-out forwards;
@@ -22,7 +23,7 @@
         margin: unset;
 
         &.welcomeSection {
-            & > div:first-child {
+            &>div:first-child {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -36,6 +37,7 @@
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
+
                 img {
                     width: 18rem;
                     height: 18rem;
@@ -63,17 +65,20 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+
                 &:first-child {
                     width: 75%;
                 }
+
                 &:last-child {
                     width: 25%;
                 }
+
                 // align-items: center;
 
             }
         }
-        
+
         &:nth-child(1) {
             grid-column: 1;
             grid-row: 1;
@@ -81,16 +86,19 @@
 
 
         }
+
         &:nth-child(2) {
             grid-column: 1;
             grid-row: 2;
             animation-delay: 1.5s;
         }
+
         &:nth-child(3) {
             grid-column: 2;
             grid-row: 1;
             animation-delay: 2.5s;
         }
+
         &:nth-child(4) {
             grid-column: 2;
             grid-row: 2;
@@ -98,8 +106,9 @@
         }
 
         &.featuresSection {
-            & > div {
+            &>div {
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
             }
@@ -109,398 +118,210 @@
                 width: -webkit-fill-available;
                 padding: 0.25rem 0.75rem;
                 height: 4rem;
+                z-index: 3; // keep header above blobs
+
             }
 
             .featuresImageContainer {
                 position: absolute;
                 right: 1rem;
                 top: 0rem;
+
                 img {
                     max-height: 7rem;
                     max-width: 7rem;
                 }
             }
 
-            .featuresContainer {
-                margin-top: 4rem;
-                // height: 75%;
-                // height: 50%;
-                // width: 72%;
-                // margin: auto;
-                // grid which fits as many as children as it has got? 
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(2, 1fr);
-                grid-gap: 1rem;
-                justify-items: center;
-                align-items: center;
-                .featureContainer {
-                    flex: 1;
-                    position: relative;
-                    overflow: visible;
-                    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 50%, rgba(240,240,240,0.12) 100%);
-                    backdrop-filter: blur(15px);
-                    clip-path: polygon(
-                        8% 2%, 
-                        92% 5%, 
-                        96% 15%, 
-                        98% 35%, 
-                        95% 60%, 
-                        92% 85%, 
-                        88% 97%, 
-                        12% 95%, 
-                        5% 88%, 
-                        2% 65%, 
-                        4% 40%, 
-                        6% 18%
-                    );
-                    padding: 1rem;
-                    box-shadow: 
-                        0 8px 32px rgba(0,0,0,0.12),
-                        inset 0 1px 0 rgba(255,255,255,0.3),
-                        inset 0 -1px 0 rgba(0,0,0,0.1),
-                        0 4px 16px rgba(0,0,0,0.08);
-                    
-                    // Add a visible doodley border using after pseudo-element
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        top: -6px;
-                        left: -6px;
-                        right: -6px;
-                        bottom: -6px;
-                        background: linear-gradient(45deg, 
-                            #ff6b6b 0%, 
-                            #ff8cc8 25%, 
-                            #74c0fc 50%, 
-                            #69db7c 75%, 
-                            #ffd43b 100%);
-                        clip-path: polygon(
-                            8% 2%, 
-                            92% 5%, 
-                            96% 15%, 
-                            98% 35%, 
-                            95% 60%, 
-                            92% 85%, 
-                            88% 97%, 
-                            12% 95%, 
-                            5% 88%, 
-                            2% 65%, 
-                            4% 40%, 
-                            6% 18%
-                        );
-                        z-index: -2;
-                        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-                        
-                    }
-                    
-                    h2 {
-                        margin: unset;
-                        margin-top: 0.5rem;
-                        position: relative;
-                        z-index: 2;
-                    }
-                    height: 7rem;
-                    width: 18rem;
-                    cursor: pointer;
-                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+            .featuresDecorations {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                z-index: 0;
 
-                    &:hover {
-                        transform: translateY(-4px) scale(1.02);
-                        box-shadow: 
-                            0 12px 40px rgba(0,0,0,0.2),
-                            inset 0 2px 0 rgba(255,255,255,0.4),
-                            inset 0 -2px 0 rgba(0,0,0,0.15),
-                            0 6px 20px rgba(0,0,0,0.12);
-                        backdrop-filter: blur(20px);
-                    }
-
-                    &:nth-child(2n):hover {
-                        transform: translateY(-4px) scale(1.02) rotate(1deg);
-                    }
-
-                    &:nth-child(3n):hover {
-                        transform: translateY(-4px) scale(1.02) rotate(-0.8deg);
-                    }
-
-                    &:nth-child(4n):hover {
-                        transform: translateY(-4px) scale(1.02) rotate(1.2deg);
-                    }
-
-                    &:nth-child(5n):hover {
-                        transform: translateY(-4px) scale(1.02) rotate(-1deg);
-                    }
-
-                    // Abstract shape decorations using pseudo-elements
-                    &::before {
-                        content: '';
-                        position: absolute;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50% 20% 60% 30%;
-                        background: linear-gradient(45deg, rgba(255,107,107,0.3), rgba(255,182,193,0.3));
-                        top: -10px;
-                        right: -10px;
-                        transform: rotate(45deg);
-                        z-index: 1;
-                    }
-
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 30% 70% 40% 60%;
-                        background: linear-gradient(135deg, rgba(135,206,235,0.3), rgba(173,216,230,0.3));
-                        bottom: -5px;
-                        left: -8px;
-                        transform: rotate(-25deg);
-                        z-index: 1;
-                    }
-
-                    // Different border styles for each card using nth-child
-                    &:nth-child(2n) {
-                        clip-path: polygon(
-                            12% 3%, 
-                            88% 8%, 
-                            94% 18%, 
-                            97% 40%, 
-                            93% 65%, 
-                            89% 88%, 
-                            85% 96%, 
-                            15% 92%, 
-                            7% 85%, 
-                            3% 60%, 
-                            6% 35%, 
-                            9% 15%
-                        );
-                        transform: rotate(0.5deg);
-                        
-                        &::before {
-                            background: linear-gradient(60deg, 
-                                rgba(144,238,144,0.9) 0%, 
-                                rgba(255,255,255,0.7) 30%, 
-                                rgba(152,251,152,0.9) 60%, 
-                                rgba(200,255,200,0.8) 100%);
-                            clip-path: polygon(
-                                12% 3%, 
-                                88% 8%, 
-                                94% 18%, 
-                                97% 40%, 
-                                93% 65%, 
-                                89% 88%, 
-                                85% 96%, 
-                                15% 92%, 
-                                7% 85%, 
-                                3% 60%, 
-                                6% 35%, 
-                                9% 15%
-                            );
-                        }
-                    }
-
-                    &:nth-child(3n) {
-                        clip-path: polygon(
-                            10% 5%, 
-                            90% 2%, 
-                            98% 20%, 
-                            95% 45%, 
-                            98% 70%, 
-                            88% 92%, 
-                            82% 98%, 
-                            18% 95%, 
-                            2% 82%, 
-                            5% 55%, 
-                            2% 30%, 
-                            8% 8%
-                        );
-                        transform: rotate(-0.3deg);
-                        
-                        &::before {
-                            background: linear-gradient(-45deg, 
-                                rgba(221,160,221,0.9) 0%, 
-                                rgba(255,255,255,0.7) 25%, 
-                                rgba(238,130,238,0.9) 50%, 
-                                rgba(255,182,193,0.8) 100%);
-                            clip-path: polygon(
-                                10% 5%, 
-                                90% 2%, 
-                                98% 20%, 
-                                95% 45%, 
-                                98% 70%, 
-                                88% 92%, 
-                                82% 98%, 
-                                18% 95%, 
-                                2% 82%, 
-                                5% 55%, 
-                                2% 30%, 
-                                8% 8%
-                            );
-                        }
-                    }
-
-                    &:nth-child(4n) {
-                        clip-path: polygon(
-                            15% 1%, 
-                            85% 6%, 
-                            96% 22%, 
-                            99% 38%, 
-                            94% 62%, 
-                            91% 80%, 
-                            86% 94%, 
-                            14% 99%, 
-                            4% 86%, 
-                            1% 62%, 
-                            6% 38%, 
-                            9% 14%
-                        );
-                        transform: rotate(0.8deg);
-                        
-                        &::before {
-                            background: linear-gradient(120deg, 
-                                rgba(64,224,208,0.9) 0%, 
-                                rgba(255,255,255,0.8) 35%, 
-                                rgba(175,238,238,0.9) 70%, 
-                                rgba(135,206,235,0.8) 100%);
-                            clip-path: polygon(
-                                15% 1%, 
-                                85% 6%, 
-                                96% 22%, 
-                                99% 38%, 
-                                94% 62%, 
-                                91% 80%, 
-                                86% 94%, 
-                                14% 99%, 
-                                4% 86%, 
-                                1% 62%, 
-                                6% 38%, 
-                                9% 14%
-                            );
-                        }
-                    }
-
-                    &:nth-child(5n) {
-                        clip-path: polygon(
-                            6% 4%, 
-                            94% 1%, 
-                            99% 16%, 
-                            96% 42%, 
-                            99% 68%, 
-                            92% 86%, 
-                            84% 99%, 
-                            16% 96%, 
-                            1% 84%, 
-                            4% 58%, 
-                            1% 32%, 
-                            8% 16%
-                        );
-                        transform: rotate(-0.6deg);
-                        
-                        &::before {
-                            background: linear-gradient(200deg, 
-                                rgba(255,165,0,0.9) 0%, 
-                                rgba(255,255,255,0.7) 40%, 
-                                rgba(255,215,0,0.9) 80%, 
-                                rgba(255,239,154,0.8) 100%);
-                            clip-path: polygon(
-                                6% 4%, 
-                                94% 1%, 
-                                99% 16%, 
-                                96% 42%, 
-                                99% 68%, 
-                                92% 86%, 
-                                84% 99%, 
-                                16% 96%, 
-                                1% 84%, 
-                                4% 58%, 
-                                1% 32%, 
-                                8% 16%
-                            );
-                        }
-                    }
-
-                    // Different shapes for each card using nth-child
-                    &:nth-child(2n)::before {
-                        border-radius: 40% 60% 30% 70%;
-                        background: linear-gradient(45deg, rgba(144,238,144,0.3), rgba(152,251,152,0.3));
-                        width: 35px;
-                        height: 35px;
-                        top: 10px;
-                        right: 5px;
-                        transform: rotate(-30deg);
-                    }
-
-                    &:nth-child(2n)::after {
-                        border-radius: 60% 40% 70% 30%;
-                        background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,239,154,0.3));
-                        width: 25px;
-                        height: 25px;
-                        bottom: 15px;
-                        left: 15px;
-                        transform: rotate(60deg);
-                    }
-
-                    &:nth-child(3n)::before {
-                        border-radius: 20% 80% 50% 50%;
-                        background: linear-gradient(45deg, rgba(221,160,221,0.3), rgba(238,130,238,0.3));
-                        width: 45px;
-                        height: 25px;
-                        top: 5px;
-                        right: 10px;
-                        transform: rotate(15deg);
-                    }
-
-                    &:nth-child(3n)::after {
-                        border-radius: 80% 20% 30% 70%;
-                        background: linear-gradient(135deg, rgba(255,165,0,0.3), rgba(255,192,203,0.3));
-                        width: 20px;
-                        height: 35px;
-                        bottom: 5px;
-                        left: 5px;
-                        transform: rotate(-45deg);
-                    }
-
-                    &:nth-child(4n)::before {
-                        border-radius: 70% 30% 20% 80%;
-                        background: linear-gradient(45deg, rgba(64,224,208,0.3), rgba(175,238,238,0.3));
-                        width: 30px;
-                        height: 40px;
-                        top: -5px;
-                        right: 15px;
-                        transform: rotate(75deg);
-                    }
-
-                    &:nth-child(4n)::after {
-                        border-radius: 50% 50% 80% 20%;
-                        background: linear-gradient(135deg, rgba(255,99,71,0.3), rgba(255,160,122,0.3));
-                        width: 40px;
-                        height: 20px;
-                        bottom: 10px;
-                        left: 20px;
-                        transform: rotate(30deg);
-                    }
-
-                    // Add some squiggly lines using box-shadow
-                    &:nth-child(odd) {
-                        box-shadow: 
-                            inset 2px 2px 0 rgba(255,255,255,0.1),
-                            inset -1px -1px 0 rgba(0,0,0,0.05),
-                            0 4px 15px rgba(0,0,0,0.1);
-                    }
-
-                    &:nth-child(even) {
-                        box-shadow: 
-                            inset -2px 2px 0 rgba(255,255,255,0.1),
-                            inset 1px -1px 0 rgba(0,0,0,0.05),
-                            0 4px 15px rgba(0,0,0,0.1);
-                    }
-    
+                .decoration {
+                    position: absolute;
+                    opacity: 0.5;
+                    filter: grayscale(85%);
+                    animation-name: float;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: ease-in-out;
                 }
             }
 
+            .featuresContent {
+                // Responsive, floating blob layout (smaller with more variation)
+
+                --blob-width-lg: clamp(7rem, 10vw, 20rem);
+                --blob-width-md: clamp(6rem, 8vw, 16rem);
+                --blob-width-sm: clamp(5rem, 6vw, 14rem);
+                --blob-size-lg: clamp(5rem, 7vw, 14rem);
+                --blob-size-md: clamp(4rem, 6vw, 12rem);
+                --blob-size-sm: clamp(3rem, 5vw, 10rem);
+
+                position: relative;
+                // margin-top: 4rem; // clear header row
+                width: -webkit-fill-available;
+                height: -webkit-fill-available;
+                padding: 1rem 0;
+                display: flex;
+                flex-direction: column;
+                margin-top: 3rem;
+
+                .featuresTitle {
+                    margin-bottom: 1rem;
+                    margin-left: 1.5rem;
+                    font-size: 1.75rem;
+                }
+
+
+
+                & * {
+                    z-index: 10;
+                }
+
+                .featuresContainer {
+                    margin-top: 1rem;
+
+                    .feature {
+                        position: absolute;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        text-align: center;
+                        color: $grey;
+                        mix-blend-mode: multiply;
+                        padding: 1rem;
+                        cursor: pointer;
+                        isolation: isolate;
+                        border: 3px solid $grey72;
+                        padding: 1rem 1.5rem;
+                        // margin-bottom: 2rem;
+                        top: 36%;
+                        // 
+                        // white bg with 80% opacity
+                        background: #ffffffcc;
+
+                        h2 {
+                            margin: 0;
+                            line-height: 1.25;
+                            font-size: 1.25rem;
+                            ;
+                        }
+
+                        &:nth-child(1) {
+                            // top: 36%;
+                            left: 3%;
+                            width: var(--blob-width-md);
+                            height: var(--blob-size-md);
+                            border-style: dashed;
+                            // background: linear-gradient(45deg, rgba(#c41e3a, 0.90), rgba(#aa336a, 0.78));
+                            border-radius: 65% 35% 40% 60% / 55% 45% 60% 40%;
+                            transform: rotate(14deg) translateY(3rem);
+                            z-index: 1;
+                            animation: float 7s ease-in-out infinite;
+                            animation: backgroundMove 3s ease infinite;
+                        }
+
+                        &:nth-child(2) {
+                            // top: 36%;
+                            left: 25%;
+                            width: var(--blob-width-lg);
+                            height: var(--blob-size-lg);
+                            border-style: double;
+                            // background: linear-gradient(135deg, rgba(#6ba5ff, 0.40), rgba(#4682b4, 0.30));
+                            border-radius: 28% 72% 58% 42% / 42% 58% 38% 62%;
+                            transform: rotate(-18deg) translateY(1rem);
+                            z-index: 1;
+                            animation: float 9s ease-in-out infinite reverse;
+                            animation: backgroundMove 3s ease infinite;
+                        }
+
+                        &:nth-child(3) {
+                            // top: 54%;
+                            right: 25%;
+                            width: var(--blob-width-md);
+                            height: var(--blob-size-md);
+                            border-style: dotted;
+                            // background: linear-gradient(90deg, rgba(#aa336a, 0.38), rgba(#6ba5ff, 0.28));
+                            border-radius: 72% 28% 48% 52% / 48% 52% 58% 42%;
+                            transform: rotate(10deg) translateY(3rem);
+                            z-index: 1;
+                            animation: float 8s ease-in-out infinite;
+                            animation: backgroundMove 3s ease infinite;
+                        }
+
+                        &:nth-child(4) {
+                            // top: 36%;
+                            right: 3%;
+                            width: var(--blob-width-md);
+                            height: var(--blob-size-md);
+                            border-style: ridge;
+                            border-radius: 54% 46% 40% 60% / 62% 38% 58% 42%;
+                            transform: rotate(22deg) translateY(1rem);
+                            z-index: 1;
+                            animation: float 7.5s ease-in-out infinite;
+                            animation: backgroundMove 3s ease infinite;
+                        }
+                    }
+
+
+                    @media (max-width: 1024px) {
+                        .feature:nth-child(1) {
+                            left: 7%;
+                            top: 1rem;
+                        }
+
+                        .feature:nth-child(2) {
+                            left: 10%;
+                            bottom: 10%;
+                        }
+
+                        .feature:nth-child(3) {
+                            right: 8%;
+                            bottom: 10%;
+                        }
+
+                        .feature:nth-child(4) {
+                            right: 20%;
+                            top: 20%;
+                        }
+                    }
+
+                    @media (max-width: 768px) {
+                        height: auto;
+                        min-height: 20rem;
+
+                        .feature {
+                            position: relative;
+                            margin: 0.75rem auto;
+                            width: clamp(9rem, 64vw, 14rem);
+                            height: clamp(9rem, 64vw, 14rem);
+                            left: unset;
+                            right: unset;
+                            top: unset;
+                            bottom: unset;
+                        }
+
+                        .feature:nth-child(1) {
+                            transform: translateX(-6%) rotate(12deg);
+                        }
+
+                        .feature:nth-child(2) {
+                            transform: translateX(4%) rotate(-16deg);
+                        }
+
+                        .feature:nth-child(3) {
+                            transform: translateX(-2%) rotate(10deg);
+                        }
+
+                        .feature:nth-child(4) {
+                            transform: translateX(6%) rotate(14deg);
+                        }
+                    }
+                }
+            }
         }
-
-
     }
 }
 
@@ -511,12 +332,12 @@
     padding: 2rem;
     max-width: 400px;
     margin: auto;
-    
+
     h1 {
         color: #ff6b6b;
         margin-bottom: 1rem;
     }
-    
+
     p {
         margin-bottom: 1.5rem;
         line-height: 1.6;
@@ -527,186 +348,278 @@
 .narrativeSection {
     position: relative;
     // overflow: visible;
-    
+    h2 {
+        font-size: 1.75rem;
+        margin-left: 2rem;
+        text-align: left;
+        z-index: 2;
+        position: relative;
+    }
     .narrativeContainer {
         position: relative;
         padding: 2rem;
+        height: -webkit-fill-available;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        // Sukkah background image (left-bottom, subtle)
+        &::before {
+            content: "";
+            position: absolute;
+            left: -3%;
+            bottom: 3%;
+            width: clamp(10rem, 12vw, 18rem);
+            height: clamp(10rem, 12vw, 18rem);
+            background-image: url("../../../assets/sukkah-wip.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            filter: grayscale(100%);
+            opacity: 0.22;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        // Four species background image (subtle, grayscale)
+        &::after {
+            content: "";
+            position: absolute;
+            right: 3%;
+            top: 7%;
+            width: clamp(10rem, 12vw, 18rem);
+            height: clamp(10rem, 12vw, 18rem);
+            background-image: url("../../../assets/four-species.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            filter: grayscale(100%);
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
     }
-    
+
     .narrativeText {
-        font-size: 1.4rem;
-        font-weight: 600;
-        line-height: 1.8;
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 1.25;
         color: #2d3748;
         position: relative;
         z-index: 2;
-        max-width: 80%;
-        margin: 0 auto;
-
+        max-width: 90%;
+        margin: 0 2rem;
+        text-align: left;
     }
-    
+
     // Doodle decorations for narrative section
     .narrativeDoodle1 {
         position: absolute;
-        top: -10px;
-        left: 10%;
+        top: 90%;
+        right: 18%;
         width: 60px;
         height: 60px;
-        background: linear-gradient(45deg, rgba(255,107,107,0.4), rgba(255,182,193,0.3));
+        background: #e5e7eb; // gray-200
+        border: 2px solid #a0aec0; // gray-400
         border-radius: 60% 40% 30% 70%;
         transform: rotate(25deg);
         z-index: 1;
         animation: float 6s ease-in-out infinite;
     }
-    
+
     .narrativeDoodle2 {
         position: absolute;
-        bottom: -15px;
-        right: 15%;
+        bottom: 3rem;
+        right: 72%;
         width: 45px;
         height: 45px;
-        background: linear-gradient(135deg, rgba(135,206,235,0.4), rgba(173,216,230,0.3));
+        background: #edf2f7; // gray-100
+        border: 2px dashed #a0aec0; // gray-400
         border-radius: 30% 70% 60% 40%;
         transform: rotate(-35deg);
         z-index: 1;
         animation: float 8s ease-in-out infinite reverse;
     }
-    
+
     .narrativeDoodle3 {
         position: absolute;
-        top: 50%;
-        right: 5%;
+        top: 18%;
+        left: 18%;
         width: 35px;
         height: 50px;
-        background: linear-gradient(90deg, rgba(144,238,144,0.4), rgba(152,251,152,0.3));
+        background: #f7fafc; // gray-50
+        border: 2px dotted #a0aec0; // gray-400
         border-radius: 80% 20% 40% 60%;
         transform: rotate(15deg);
         z-index: 1;
         animation: float 7s ease-in-out infinite;
+    }
+
+    .narrativeDoodle4 {
+        position: absolute;
+        top: 36%;
+        left: 54%;
+        width: 55px;
+        height: 55px;
+        background: #e2e8f0; // gray-200
+        border: 2px double #a0aec0; // gray-400
+        border-radius: 50% 50% 60% 40% / 40% 60% 50% 50%;
+        transform: rotate(-10deg);
+        z-index: 1;
+        animation: float 9s ease-in-out infinite;
     }
 }
 
 // Links Section Styles
 .linksSection {
     position: relative;
-    // overflow: visible;
-    
+
+    &::before {
+        content: "";
+        position: absolute;
+        right: 3%;
+        top: 6%;
+        width: clamp(10rem, 12vw, 18rem);
+        height: clamp(10rem, 12vw, 18rem);
+        background-image: url("../../../assets/path.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        filter: grayscale(100%);
+        opacity: 0.2;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: 3%;
+        bottom: 3%;
+        width: clamp(10rem, 12vw, 18rem);
+        height: clamp(10rem, 12vw, 18rem);
+        background-image: url("../../../assets/sukkah-rejoicing.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        filter: grayscale(100%);
+        opacity: 0.22;
+        pointer-events: none;
+        z-index: 0;
+    }
+
     .linksContainer {
         padding: 2rem;
         text-align: center;
     }
-    
+
     .welcomeTextContainer {
         margin-bottom: 2.5rem;
-        
+
         .welcomeTitle {
-            font-size: 2rem;
+            font-size: 1.75rem;
+            text-align: left;
+            margin-left: 2rem;
             font-weight: 700;
             color: #2d3748;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-        
+
         .welcomeSubtext {
             font-size: 1.1rem;
             color: #718096;
             font-weight: 500;
         }
     }
-    
+
     .buttonsContainer {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1.5rem;
         max-width: 900px;
-        margin: 0 auto;
+        // margin: 0 auto;
+        margin-top: 1.5rem;
     }
-    
+
     .funkyButton {
         position: relative;
-        padding: 1rem 1.5rem;
-        border: none;
-        border-radius: 2rem;
-        font-size: 1.1rem;
-        font-weight: 600;
+        padding: 0.5rem 0.75rem;
+        // border-radius: 2rem;
+        font-size: 1.5rem; // larger text
+        font-weight: 800; // bolder text
+        letter-spacing: 0.02em;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.25s ease;
         overflow: hidden;
         min-height: 60px;
-        
-        &::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            z-index: -1;
-            border-radius: 2rem;
-            transition: all 0.3s ease;
-        }
-        
+        z-index: 10;
+        color: black;
+        font-weight: 600;
+        background: white;
+        border-color: silver;
+        border-width: 0.25rem;
+        border-radius: 3rem;
+
+        text-shadow: 0 0.05rem 0 rgba(0, 0, 0, 0.25);
+        box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.18);
+
+
+
         &:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: translateY(-0.15rem) scale(1.01);
+            box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.18);
+            filter: brightness(1.03);
+            border-color: #7a5f33;
         }
-        
-        // First button - Coral blob
+
+        &:active {
+            transform: translateY(0);
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.14);
+        }
+
+        &:focus-visible {
+            outline: 2px dashed #9d7a44;
+            outline-offset: 2px;
+        }
+
+        // Variant 1 — abstract, silver border
         &.funkyButton1 {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
-            color: #2d3748;
-            clip-path: polygon(10% 0%, 90% 5%, 95% 25%, 100% 50%, 95% 75%, 85% 95%, 15% 100%, 0% 80%, 5% 50%, 0% 20%);
-            
-            &::before {
-                background: linear-gradient(135deg, #ff6b6b 0%, #ff8cc8 100%);
-                clip-path: polygon(10% 0%, 90% 5%, 95% 25%, 100% 50%, 95% 75%, 85% 95%, 15% 100%, 0% 80%, 5% 50%, 0% 20%);
-            }
+            border-style: dashed;
+            border-radius: 54% 36% 18% 90% / 54% 36% 72% 18%;
         }
-        
-        // Second button - Blue organic
+
+        // Variant 2 — abstract, silver border (double)
         &.funkyButton2 {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            color: #2d3748;
-            clip-path: polygon(5% 15%, 85% 0%, 100% 20%, 95% 45%, 100% 70%, 90% 90%, 10% 95%, 0% 75%, 5% 45%, 0% 25%);
-            
-            &::before {
-                background: linear-gradient(135deg, #74c0fc 0%, #ff8cc8 100%);
-                clip-path: polygon(5% 15%, 85% 0%, 100% 20%, 95% 45%, 100% 70%, 90% 90%, 10% 95%, 0% 75%, 5% 45%, 0% 25%);
-            }
+            border-style: double;
+            // border-radius: 72% 36% 54% 72% / 36% 54% 72% 36%;
+
+            // clip-path: polygon(10% 10%, 24% 6%, 46% 8%, 66% 6%, 82% 12%, 92% 26%, 94% 44%, 90% 62%, 94% 82%, 78% 94%, 56% 96%, 34% 94%, 18% 96%, 8% 84%, 6% 66%, 8% 44%);
+            // background: linear-gradient(180deg, #e0b882 0%, #b27a3b 100%);
         }
-        
-        // Third button - Green squiggly
+
+        // Variant 3 — abstract, darker bronze border
         &.funkyButton3 {
-            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
-            color: #2d3748;
-            clip-path: polygon(15% 5%, 90% 10%, 95% 30%, 90% 55%, 95% 80%, 80% 95%, 20% 90%, 5% 70%, 10% 40%, 5% 20%);
-            
-            &::before {
-                background: linear-gradient(135deg, #69db7c 0%, #51cf66 100%);
-                clip-path: polygon(15% 5%, 90% 10%, 95% 30%, 90% 55%, 95% 80%, 80% 95%, 20% 90%, 5% 70%, 10% 40%, 5% 20%);
-            }
+            border-style: dotted;
+            // border-radius: 72% 54% 54% 18% / 90% 18% 36% 18%;
+
+            // clip-path: polygon(12% 12%, 28% 6%, 52% 8%, 70% 10%, 86% 18%, 94% 34%, 92% 54%, 90% 72%, 84% 88%, 66% 94%, 44% 96%, 26% 92%, 14% 86%, 8% 70%, 8% 50%, 10% 30%);
         }
-        
-        // Upcoming button - Special golden design
+
+        // Upcoming button — darker bronze border, subtle glow
         &.upcomingButton {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            color: #2d3748;
-            clip-path: polygon(8% 12%, 88% 2%, 98% 22%, 92% 48%, 98% 75%, 85% 88%, 12% 98%, 2% 78%, 8% 52%, 2% 25%);
-            position: relative;
-            
-            &::before {
-                background: linear-gradient(135deg, #ffd43b 0%, #ff922b 100%);
-                clip-path: polygon(8% 12%, 88% 2%, 98% 22%, 92% 48%, 98% 75%, 85% 88%, 12% 98%, 2% 78%, 8% 52%, 2% 25%);
-            }
-            
+            border-style: groove;
+            border-radius: 90% 10% 54% 72% / 54% 18% 90% 18%;
+
+            // clip-path: polygon(9% 12%, 26% 6%, 48% 8%, 68% 6%, 86% 12%, 94% 26%, 96% 48%, 92% 70%, 86% 88%, 68% 94%, 46% 96%, 24% 94%, 12% 88%, 6% 70%, 6% 48%, 8% 28%);
+            // background: linear-gradient(180deg, #e5bf8b 0%, #bf8a4a 100%);
+
             &::after {
                 content: '✨';
                 position: absolute;
-                top: 10px;
-                right: 15px;
+                top: 0.6rem;
+                right: 0.9rem;
                 font-size: 1.2rem;
                 animation: sparkle 2s ease-in-out infinite;
             }
@@ -717,40 +630,40 @@
 // Upcoming Changes Drawer Styles
 .upcomingContent {
     padding: 1rem 0;
-    
+
     .upcomingList {
         margin-top: 1.5rem;
         display: flex;
         flex-direction: column;
         gap: 1rem;
     }
-    
+
     .upcomingItem {
         padding: 1.5rem;
         border-radius: 1rem;
-        background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.9) 100%);
-        border: 1px solid rgba(226,232,240,0.8);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.9) 100%);
+        border: 1px solid rgba(226, 232, 240, 0.8);
         position: relative;
-        
+
         h4 {
             color: #2d3748;
             margin-bottom: 0.5rem;
             font-size: 1.2rem;
         }
-        
+
         p {
             color: #4a5568;
             line-height: 1.6;
             margin-bottom: 0.5rem;
         }
-        
+
         .upcomingDate {
             color: #667eea;
             font-weight: 600;
             font-size: 0.9rem;
             margin: 0;
         }
-        
+
         &::before {
             content: '';
             position: absolute;
@@ -772,6 +685,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -779,21 +693,48 @@
 }
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px) rotate(0deg);
     }
+
     50% {
         transform: translateY(-10px) rotate(5deg);
     }
 }
 
 @keyframes sparkle {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
         transform: scale(1);
     }
+
     50% {
         opacity: 0.7;
         transform: scale(1.2);
+    }
+}
+
+.intentionBox {
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.5), rgba(220, 38, 38, 0.5), rgba(139, 92, 246, 0.5));
+    border-radius: 1.5rem;
+    padding: 0.5rem;
+    border: 1px solid rgba(99, 102, 241, 0.75);
+    // border: 3px solid red;
+    margin-top: 3rem;
+
+    @media (min-width: 48rem) {
+        // padding: 3rem;
+        border-radius: 2rem;
+    }
+
+    p {
+        font-size: 1rem;
+        color: white;
+        font-weight: 600;
+        line-height: 1.25;
     }
 }

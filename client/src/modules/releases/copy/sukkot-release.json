@@ -19,17 +19,17 @@
             "description": "Feature 2 description"
         }
     ],
-    "narrative": "This is a narrative about the release, somewhere there is space for improvement, better, and meaning there..\n\nThis is a narrative about the release, somewhere there is space for improvement, better, and meaning there..\n\n This is a narrative about the release, somewhere there is space for improvement, better, and meaning there..",
+    "narrative": "This is a narrative about the release, somewhere there is space for improvement, better, and meaning there..\n\nThis is a narrative about the release, somewhere there is space for improvement, better, and meaning there..",
     "links": [
-        {
-            "name": "See Landing Page",
-            "text": "See Landing Page",
-            "url": "/shelter"
-        },
         {
             "name": "Create an account",
             "text": "Create an account",
             "url": "/register"
+        },
+        {
+            "name": "See Landing Page",
+            "text": "See Landing Page",
+            "url": "/shelter"
         },
         {
             "name": "Leave some feedback",
