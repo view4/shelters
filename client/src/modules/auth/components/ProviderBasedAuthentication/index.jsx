@@ -13,7 +13,6 @@ const ProviderBasedAuthentication = ({ providerKey = 'google', text, onSuccess, 
     const onClick = useCallback(async () => {
         try {
             const user = await providerBasedAuthentication(providerKey);
-            console.log(user)
 
             if (mode === "register") {
                 success("Successfully registered");
@@ -21,8 +20,6 @@ const ProviderBasedAuthentication = ({ providerKey = 'google', text, onSuccess, 
                 success("Successfully logged in");
             }
             if (user) {
-                console.log("inside validate")
-                console.log(onSuccess)
                 graphqlClient.setAuthToken(user.accessToken);
                 validateToken({ user, callback: () => onSuccess?.(user) });
             }

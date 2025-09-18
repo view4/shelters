@@ -27,8 +27,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login", className, login, r
     }, [initialMode, isOpen]);
 
     const onSuccess = useCallback((res) => {
-        console.log("on success being called..")
-        console.log(res)
         if (res) {
             nav("/.");
             onClose?.();
