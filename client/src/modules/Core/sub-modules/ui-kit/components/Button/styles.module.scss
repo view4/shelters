@@ -17,6 +17,17 @@ button.btn_base {
   }
 }
 
+button.link {
+  padding: unset;
+  margin: unset;
+  font-size: unset;
+  font-weight: 500;
+  &:hover {
+    opacity: 0.9;
+    background-color: unset;
+  }
+}
+
 button.grey {
   color: $grey;
   opacity: 0.9;

@@ -47,9 +47,16 @@ export default new MiddlewareModule({
                 }    
             }
         `,
-        fetchEntity: `
+        fetchCurrentcycle: `
             query currentCycle($boothId: String) {
                 currentCycle(boothId: $boothId) {
+                    ${CYCLE_FRAGMENT}
+                }
+            }
+        `,
+        fetchEntity: `
+            query cycle($id: String) {
+                entity: cycle(id: $id) {
                     ${CYCLE_FRAGMENT}
                 }
             }

@@ -1,5 +1,6 @@
 type Query {
   currentCycle(boothId: String): Cycle
+  cycle(id: String): Cycle
   cycles(
     boothId: String
     isCompleted: Boolean

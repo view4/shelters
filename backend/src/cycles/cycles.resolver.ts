@@ -50,17 +50,28 @@ export class CyclesResolver {
         return this.cyclesService.currentCycle(user?.id, boothId);
     }
 
+    @UseGuards(AuthGuard)
+    @Query()
+    async cycle(
+        @SessionUser() user: SessionUserT,
+        @Args('id') id: string
+    ) {
+        return this.cyclesService.cycle(user?.id, id);
+    }
+
     @Mutation()
     async completeCycle(@Args('id') id: string) {
         return this.cyclesService.completeCycle(id);
     }
 
+    @UseGuards(AuthGuard)
     @Mutation()
     async upsertCycle(
+        @SessionUser() user: SessionUserT,
         @Args('input') input: CycleInput,
         @Args('id', { type: () => String }) id?: string
     ) {
-        return this.cyclesService.upsertCycle(input, id);
+        return this.cyclesService.upsertCycle(user?.id, input, id);
     }
 
     @UseGuards(AuthGuard)

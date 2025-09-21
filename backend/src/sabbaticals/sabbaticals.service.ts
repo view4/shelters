@@ -30,7 +30,7 @@ export class SabbaticalsService {
         await this.cyclesService.completeCurrentCycle(userId);
         if (shouldStartNewCycle) {
             const booth = await this.boothsService.focusedBooth(userId);
-            await this.cyclesService.upsertCycle({ activateCycle: true, boothId: booth._id });
+            await this.cyclesService.upsertCycle(userId, { activateCycle: true, boothId: booth._id });
         }
         return true
     }

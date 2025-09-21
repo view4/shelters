@@ -2,6 +2,7 @@ import c from "classnames";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import Button from "modules/Core/sub-modules/ui-kit/components/Button";
+import AuthenticationButton from "modules/auth/components/AuthenticationButton";
 import styles from "./styles.module.scss";
 import { GENERAL_COPY } from "../../consts";
 
@@ -59,12 +60,12 @@ const Header = ({ isAuthed }) => {
                         {/* Authentication-based buttons */}
                         {!isAuthed ? (
                             <Container className={styles.authButtons}>
-                                <Button to="/register" className={styles.authButton}>
+                                <AuthenticationButton className={styles.authButton} authMode="register">
                                     Register
-                                </Button>
-                                <Button to="/login" className={styles.authButton}>
+                                </AuthenticationButton>
+                                <AuthenticationButton className={styles.authButton} authMode="login">
                                     Login
-                                </Button>
+                                </AuthenticationButton>
                             </Container>
                         ) : (
                             <Button to="/booths" className={styles.boothsButton}>

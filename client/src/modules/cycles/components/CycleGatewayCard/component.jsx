@@ -20,17 +20,17 @@ import styles from "./styles.module.scss";
 export const EmptyGatewayCard = ({ cycleId, orderKey, onCreateSuccess }) => {
     const dispatch = useDispatch();
     const onSuccess = useCallback((result) => {
-        dispatch(cells.addGatewayToCycle.action({ 
-            gatewayId: result.id, 
-            orderKey, 
-            cycleId, 
+        dispatch(cells.addGatewayToCycle.action({
+            gatewayId: result.id,
+            orderKey,
+            cycleId,
             callback: () => onCreateSuccess()
         }))
     }, [cycleId, orderKey, onCreateSuccess]);
     return (
         <Card className={styles.emptyCard}>
             <Container flex spaceBetween alignCenter >
-                <Text>Empty</Text>
+                <Text>Empty </Text>
                 <AddGatewayButton
                     cycleId={cycleId}
                     onSuccess={onSuccess}
@@ -41,10 +41,9 @@ export const EmptyGatewayCard = ({ cycleId, orderKey, onCreateSuccess }) => {
     )
 };
 
-export const GatewayCardTitle = ({ title,  name = title, parent, stamps, appendage }) => (
+export const GatewayCardTitle = ({ title, name = title, parent, stamps, appendage }) => (
     <Container maxWidth>
         {parent?.name && <Title text={parent?.name} Element="h4" className={styles.parentText} />}
-        
         <TitleWithStamps className={styles.title} title={name} stamps={stamps} appendage={appendage} />
     </Container>
 )

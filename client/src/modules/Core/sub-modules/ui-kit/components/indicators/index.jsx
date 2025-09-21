@@ -26,6 +26,7 @@ import OpenInNew from '@mui/icons-material/OpenInNew';
 import DottedCrossHairs from '@mui/icons-material/GpsFixed';
 import CrossHairs from '@mui/icons-material/GpsNotFixed';
 import Completed from '@mui/icons-material/TaskAlt';
+import TriDots from '@mui/icons-material/MoreVert';
 
 export {
     Flag,
@@ -56,4 +57,5 @@ export {
     CrossHairs,
     DottedCrossHairs,
     Completed,
+    TriDots,
 };

@@ -16,7 +16,6 @@ export default ({ cycle, boothId, fetch }) => {
     const children = useMemo(() => CYCLE_GATEWAY_KEYS.map(key => (
         <CycleGatewayCard
             boothId={boothId}
-            onCreateSuccess={() => fetch({ boothId })}
             cycleId={cycle?.id}
             orderKey={key}
             gatewayId={key === "sabbatical" ? cycle?.sabbatical?.gateway?.id : cycle?.[key]?.id ?? null} />

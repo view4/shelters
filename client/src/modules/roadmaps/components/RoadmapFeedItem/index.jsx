@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import cx from "classnames";
 import ExpandableFeedItem from "modules/Core/components/Feed/ExpandableFeedItem";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
@@ -16,8 +17,8 @@ import strappedConnected from "modules/Core/higher-order-components/strappedConn
 import feed from "modules/roadmaps/state/feed";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import Button from "modules/Core/sub-modules/ui-kit/components/Button";
-import styles from "./styles.module.scss";
 import { Completed, CrossHairs, DottedCrossHairs } from "modules/Core/sub-modules/ui-kit/components/indicators";
+import styles from "./styles.module.scss";
 
 
 export const GatewayExpandableOptions = ({ name, id, text, stamps, refetchGateway, refetchId, parent, view = true }) => (
@@ -46,20 +47,28 @@ export const StampIndicator = ({ stamps }) => {
     </Container>
 }
 
-export const TitleWithStamps = ({ title, stamps, className, appendage }) => (
-    <Container className={cx(styles.titleContainer, className)} flex spaceBetween maxWidth>
-        <Title className={cx(styles.title)} Element="h4">{title}</Title>
-        <Container flex alignCenter>
-            {appendage}
-            <Stamps stamps={[
-                stamps?.[STAMPS.COMMENCED] && { stamp: "Commenced", timestamp: stamps?.[STAMPS.COMMENCED] },
-                stamps?.[STAMPS.COMPLETED] && { stamp: "Completed", timestamp: stamps?.[STAMPS.COMPLETED] }
-            ]} />
-        </Container>
-    </Container>
-)
+export const TitleWithStamps = ({ title, stamps, className, appendage, cycle }) => {
+    const nav = useNavigate();
+    const onCycleClick = useCallback(() => {
+        nav(`/cycles/${cycle?.id}`);
+    }, [cycle, nav]);
 
-const RoadmapFeedItem = ({ text, name, stamps, TitleComponent = TitleWithStamps, children, childrenIds, id, parentId, refetchGateway, className, parent, parentName, headerChildren }) => (
+    return (
+        <Container className={cx(styles.titleContainer, className)} flex spaceBetween maxWidth>
+            <Title className={cx(styles.title)} Element="h4">{title}</Title>
+            <Container flex alignCenter>
+                {appendage}
+                <Stamps stamps={[
+                    stamps?.[STAMPS.COMMENCED] && { stamp: "Commenced", timestamp: stamps?.[STAMPS.COMMENCED] },
+                    stamps?.[STAMPS.COMPLETED] && { stamp: "Completed", timestamp: stamps?.[STAMPS.COMPLETED] },
+                    cycle && { stamp: "Added to cycle", timestamp: null, nature: 'golden', onClick: onCycleClick }
+                ]} />
+            </Container>
+        </Container>
+    )
+}
+
+const RoadmapFeedItem = ({ text, name, stamps, cycle, TitleComponent = TitleWithStamps, children, childrenIds, id, parentId, refetchGateway, className, parent, parentName, headerChildren }) => (
     <ExpandableFeedItem
         className={cx(
             styles.container,
@@ -71,7 +80,7 @@ const RoadmapFeedItem = ({ text, name, stamps, TitleComponent = TitleWithStamps,
         headerProps={{
             children: headerChildren
         }}
-        label={<TitleComponent title={name} stamps={stamps} parent={parent} />}
+        label={<TitleComponent title={name} stamps={stamps} parent={parent} cycle={cycle} />}
         size={"xlg"}
     >
         <Container flex flexEnd>
@@ -132,11 +141,13 @@ export const ChildGatewayFeedItem = strappedConnected(
         name: gateway?.name,
         stamps: gateway?.stamps,
         childrenIds: gateway?.childrenIds,
+        cycle: gateway?.cycle,
         id: gateway?.id,
         parentId: gateway?.parentId,
         refetchGateway: useCallback(() => refetchGateway(gateway?.id), [refetchGateway, gateway?.id]),
         parent: parent ?? gateway?.parentId,
         parentName: parent?.name ?? gateway?.parentName,
+
     })
 )
 
