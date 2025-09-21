@@ -5,7 +5,7 @@ import withRecursiveRender from "modules/Core/higher-order-components/withRecurs
 import state from "modules/cycles/state";
 import feed from "modules/cycles/state/feed";
 import component, { Placeholder } from "./component";
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 
 export default withFocusedBoothId(strappedConnected(
     withRecursiveRender({ ['cycle']: component, ['placeholder']: Placeholder }, Fragment),
@@ -19,10 +19,6 @@ export default withFocusedBoothId(strappedConnected(
         fetchEntity: feed.cells.fetchEntity.action
     },
     ({ boothId, fetchCurrentCycle, currentCycle, cycle, id, fetchEntity, isLoading }) => {
-        console.log("BOOTH ID", boothId)
-        console.log("ID", id)
-        console.log("CURRENT CYCLE", currentCycle)
-        console.log("CYCLE", cycle)
         useOnLoad(
             () => fetchCurrentCycle({ boothId }),
             Boolean(boothId &&  !id),
@@ -37,7 +33,7 @@ export default withFocusedBoothId(strappedConnected(
 
 
         return {
-            cycle: currentCycle || cycle,
+            cycle: useMemo(() => id ? cycle : currentCycle, [currentCycle, cycle, id]),
             isLoading,
             placeholder: !id && !currentCycle && !cycle
         }

@@ -4,7 +4,6 @@ import Cycle from "../../Cycle";
 import FocusCycleButton from "../../FocusCycleButton";
 import styles from "./styles.module.scss"
 
-
 const ViewCycle = ({ cycle, id }) => {
     return (
         <BoothScreen boothId={cycle?.boothId}>
@@ -12,7 +11,6 @@ const ViewCycle = ({ cycle, id }) => {
                 header={"Cycle"}
                 options={[
                     { Component: FocusCycleButton, props: { cycleId: id } },
-                    // { text: "View Cycle", props: {to: `/cycles/${id}`} }
                 ]}
             />
             <Cycle id={id} />

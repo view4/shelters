@@ -5,7 +5,7 @@ import middleware from "../middleware";
 import { call, put, select } from 'redux-saga/effects';
 import roadmapsState from 'modules/roadmaps/state';
 import { selectFeedFilters, selectFeedParams } from 'modules/Core/core-modules/FeedModule/selectors';
-import { FETCH_FEED } from 'modules/Core/state/consts';
+import { FETCH_ENTITY, FETCH_FEED } from 'modules/Core/state/consts';
 import { putSuccess } from 'modules/Core/state/utils';
 
 export const extractGateways = cycle => {
@@ -29,6 +29,13 @@ export default new FeedModule({
     },
     fetchEntityCell: {
       requestHandler: middleware.ops.fetchEntity,
+      sagas: {
+        latest: function* ({ payload }) {
+          const result = yield call(middleware.ops.fetchEntity, { id: payload?.id });
+          yield put(roadmapsState.setEntities.action(extractGateways(result?.entity)));
+          yield putSuccess(CYCLES, FETCH_ENTITY, { ...result?.entity, overwrite: payload?.overwrite })
+        }
+      }
     },
     fetchFeedCell: {
       requestHandler: middleware.ops.fetchFeed,
