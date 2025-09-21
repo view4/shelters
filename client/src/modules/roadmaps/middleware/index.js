@@ -15,11 +15,21 @@ export const GATEWAY_FRAGMENT = `
         parent {
             ${GATEWAY_FIELDS_FRAGMENT}
         }
+        cycle {
+            id    
+        }
         children {
             ${GATEWAY_FIELDS_FRAGMENT}
+            cycle {
+                id
+            }
             children {
                 ${GATEWAY_FIELDS_FRAGMENT}
+                cycle {
+                    id
+                }
             }
+
         }
     }
 `
