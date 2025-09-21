@@ -24,8 +24,11 @@ const FeedItem = ({ name, text, id, createdAt }) => (
     >
         <ExpandableOptions
             horizontal
+            tridot
+            optionsOrigin="right"
             options={[
                 { Component: EditEntryButton, props: { entryId: id } },
+                { text: "View", props: { to: `/entries/${id}` } },
             ]} />
         <Text>
             {text}

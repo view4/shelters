@@ -33,6 +33,8 @@ export default new MiddlewareModule({
                 id
                 name
                 text
+                createdAt
+                boothId: booth
                 ${STAMPS_FRAGMENT}
             }
         }

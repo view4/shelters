@@ -4,12 +4,13 @@ import RoadmapsFeed from "modules/roadmaps/components/RoadmapsFeed";
 import AddRoadmapButton from "modules/roadmaps/components/AddRoadmapButton";
 import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
 import BoothScheduleTab from "../BoothScheduleTab";
-import BoothEntriesTab from "../BoothEntriesTab";
+import BoothEntriesTab, { SearchComponent } from "../BoothEntriesTab";
 import BoothActiveCycletab from "../BoothActiveCycletab";
 import BoothInfo from "../BoothInfo";
 import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import BoothPastCyclesTab from "../BoothPastCyclesTab";
 import BoothProspectiveCycles from "../BoothProspectiveCycles";
+import BoothsScreenHeader from "modules/shelter/components/BoothScreen/BoothScreenHeader";
 import styles from "./styles.module.scss";
 
 export const BoothRoadmapsScreen = ({ boothId }) => {
@@ -39,6 +40,13 @@ export const BoothDedicatedTimeScreen = ({ boothId }) => {
 export const BoothEntriesScreen = ({ boothId }) => {
     return (
         <BoothScreen boothId={boothId}>
+            <BoothsScreenHeader
+                className={styles.header}
+                header="Entries"
+                options={[
+                    { Component: SearchComponent, props: { className: styles.searchComponent } }
+                ]}
+            />
             <BoothEntriesTab boothId={boothId} />
         </BoothScreen>
     )

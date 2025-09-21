@@ -1,6 +1,8 @@
 import CoreModule from "modules/Core/core-modules/CoreModule";
 import { ENTRIES } from "./consts";
 import feed from "./state/feed";
+import withParams from "modules/Core/higher-order-components/withParams";
+import ViewEntryScreen from "./components/screens/ViewEntryScreen";
 
 export default new CoreModule({
   name: ENTRIES,
@@ -14,5 +16,6 @@ export default new CoreModule({
     fetchEntity: feed.cells?.fetchEntity,
   },
   routes: {
+    "/entries/:id": withParams(ViewEntryScreen),
   },
 });
