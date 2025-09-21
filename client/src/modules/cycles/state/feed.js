@@ -27,6 +27,9 @@ export default new FeedModule({
     createEntityCell: {
       requestHandler: middleware.ops.create,
     },
+    fetchEntityCell: {
+      requestHandler: middleware.ops.fetchEntity,
+    },
     fetchFeedCell: {
       requestHandler: middleware.ops.fetchFeed,
       sagas: {

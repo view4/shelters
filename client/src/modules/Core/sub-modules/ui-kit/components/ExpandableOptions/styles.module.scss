@@ -1,3 +1,46 @@
 .container {
   overflow: hidden;
 }
+
+.tridot {
+  height: 3rem;
+
+  &.horizontal {
+    display: flex;
+
+  }
+
+  &>div {
+    display: flex;
+    width: 0rem;
+    overflow: hidden;
+    transition: 1s all;
+    align-items: center;
+    overflow-x: scroll;
+    height: 3rem;
+
+  }
+  &.optionsOriginRight {
+    flex-direction: row-reverse;
+  }
+  &.optionsOriginLeft {
+    flex-direction: row;
+  }
+  &.open {
+    &>div {
+      width: 90%;
+      // border-color: blue;
+    }
+    & > button svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  &.horizontal {
+    &>button {
+      & svg {
+        transition: 0.75s all;
+      }
+    }
+  }
+}

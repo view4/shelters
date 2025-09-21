@@ -29,6 +29,7 @@ export class RoadmapsService {
     };
 
     async aggregateFeed(feedParams: FeedParams, pipeline = []) {
+
         const p = [
             connect(
                 "gateways",
@@ -56,9 +57,41 @@ export class RoadmapsService {
                     }
                 ]
             ),
+            {
+                $lookup: {
+                    from: "cycles",
+                    let: { gId: "$_id" },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $or: [
+                                        { $eq: ["$a", "$$gId"] },
+                                        { $eq: ["$b", "$$gId"] },
+                                        { $eq: ["$c", "$$gId"] },
+                                        { $eq: ["$d", "$$gId"] },
+                                        { $eq: ["$e", "$$gId"] },
+                                        { $eq: ["$f", "$$gId"] }
+                                    ]
+                                }
+                            }
+                        },
+                        { $addFields: { id: "$_id" } }
+                    ],
+                    as: "cycles"
+                }
+            },
+            {
+                $addFields: {
+                    cycle: { $arrayElemAt: ["$cycles", 0] }
+                }
+            },
             ...pipeline
         ]
-        return aggregateFeed(this.roadmapModel, feedParams, p);
+        const res = await aggregateFeed(this.roadmapModel, feedParams, p);
+        console.log("")
+        console.log(JSON.stringify(res, null, 2));
+        return res;
     }
 
     async gateway(id: ID) {
@@ -83,7 +116,37 @@ export class RoadmapsService {
                 createdAt: -1
             },
         }
-        const pipeline = [];
+        const pipeline = [
+            {
+                $lookup: {
+                    from: "cycles",
+                    let: { gId: "$_id" },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $or: [
+                                        { $eq: ["$a", "$$gId"] },
+                                        { $eq: ["$b", "$$gId"] },
+                                        { $eq: ["$c", "$$gId"] },
+                                        { $eq: ["$d", "$$gId"] },
+                                        { $eq: ["$e", "$$gId"] },
+                                        { $eq: ["$f", "$$gId"] }
+                                    ]
+                                }
+                            }
+                        },
+                        { $addFields: { id: "$_id" } }
+                    ],
+                    as: "cycles"
+                }
+            },
+            {
+                $addFields: {
+                    cycle: { $arrayElemAt: ["$cycles", 0] }
+                }
+            },
+        ];
         // TODO: change to be like a more generic deep search, and cycleless is something layered on top of this - so for example - usaage in parent gateway search works as well. 
         if (isCycleless) {
             delete params['match']
@@ -91,6 +154,7 @@ export class RoadmapsService {
                 ...lookupCycless(boothId, search)
             )
         }
+        console.log(JSON.stringify(pipeline, null, 2));
         return aggregateFeed(
             this.gatewayModel,
             params,

@@ -9,11 +9,24 @@ import FocusCycleButton from "../FocusCycleButton";
 import SabbaticalGatewayCard from "modules/cycles/components/CycleGatewayCard/SabbaticalGatewayCard/component"
 import { onSuccess } from "modules/Core/sub-modules/Dialog/state/cells";
 import styles from "./styles.module.scss";
+import { ExpandableOptions } from "modules/Core/sub-modules/ui-kit/exports";
 
 const regularGatewayKeys = ["a", "b", "c", "d", "e", "f"]
 
 const ItemComponent = ({ className, onCreateSuccess, displayFocus, onFocusCallback, ...item }) => (
     <Container className={cx(styles.container, className)} bg1 p1 flex col center>
+        <Container>
+            <Container maxWidth flex flexEnd>
+                <ExpandableOptions
+                    tridot
+                    options={[
+                        { Component: FocusCycleButton, props: { cycleId: item.id, className: styles.focusButton, callback: onFocusCallback } },
+                        { text: "View Cycle", props: {to: `/cycles/${item.id}`} }
+                    ]} 
+                    optionsOrigin="right"
+                />
+            </Container>
+        </Container>
         {
             regularGatewayKeys.map(key => (
                 <CycleGatewayCard
@@ -26,9 +39,9 @@ const ItemComponent = ({ className, onCreateSuccess, displayFocus, onFocusCallba
             ))
         }
         <SabbaticalGatewayCard gateway={item?.sabbatical?.gateway} />
-        <ConditionalContainer flex m1 mt3 flexEnd shouldRender={Boolean(displayFocus)} className={styles.focusContainer}>
+        {/* <ConditionalContainer flex m1 mt3 flexEnd shouldRender={Boolean(displayFocus)} className={styles.focusContainer}>
             <FocusCycleButton cycleId={item.id} className={styles.focusButton} callback={onFocusCallback} />
-        </ConditionalContainer>
+        </ConditionalContainer> */}
     </Container>
 )
 

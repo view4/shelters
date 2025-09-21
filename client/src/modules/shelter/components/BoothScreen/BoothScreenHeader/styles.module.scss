@@ -1,0 +1,69 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    height: 10rem;
+
+    .appendagesContainer {
+        height: -webkit-fill-available;
+        width: 100%;
+        align-items: center;
+        position: relative;
+        justify-content: center;
+    }
+
+    .iIndicator {
+        border: 1px solid $grey72;
+        border-radius: 100%;
+        font-size: 1rem;
+        font-weight: 700;
+        height: 1.5rem;
+        width: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-self: flex-start;
+        position: absolute;
+        left: 0.125rem;
+        top: 0.75rem;
+        z-index: 1;
+        cursor: pointer;
+        // give italics and a sexy kind of font for it to be like handwrittenish 
+        font-style: italic;
+        font-family: 'Cursive', cursive;
+        font-weight: 700;
+        // center the letter/text correctly please
+        justify-content: center;
+        align-items: center;
+        &:after {
+            content: "i";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transform: translateX(-0.09rem) translateY(-0.09rem);
+        }
+
+    }
+    button {
+        padding: unset;
+    }
+
+
+    .title {
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+    }
+}

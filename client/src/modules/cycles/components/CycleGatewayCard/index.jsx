@@ -28,7 +28,7 @@ export default strappedConnected(
     },
     {
         reorder: cells.reorderCycleGateway.action,
-        refetch: state.fetchCycle.action,
+        refetch: state.fetchCurrentCycle.action,
         remove: cells.removeGatewayFromActiveCycle.action
     },
     ({ orderKey, gateway, reorder, refetch, boothId, remove, feedItem }) => ({

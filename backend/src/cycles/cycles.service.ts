@@ -72,6 +72,11 @@ export class CyclesService {
         return result[0];
     }
 
+    async cycle(userId: ID, id: ID) {
+        const res = await this.cycles({ feedParams: { match: { _id: new mongoose.Types.ObjectId(id) } } });
+        return res?.entities?.[0];
+    }
+
     async forthcomingCycle(boothId: ID) {
         const result = await aggregate(
             this.cycleModel,
@@ -90,8 +95,8 @@ export class CyclesService {
         return result[0];
     }
 
-    async cycles({ boothId, isForthcoming, isCompleted }) {
-        const match = { booth: new mongoose.Types.ObjectId(boothId) };
+    async cycles({ boothId = null, isForthcoming = false, isCompleted = false, feedParams = {} }) {
+        const match = { booth: boothId && new mongoose.Types.ObjectId(boothId) };
         const sort = { 'stamps.commenced': -1 }
         if (isForthcoming) {
             match['stamps.completed'] = null;
@@ -109,10 +114,10 @@ export class CyclesService {
         }
         return aggregateFeed(
             this.cycleModel,
-            {},
+            feedParams,
             [
                 {
-                    $match: match
+                    $match: compactObject(match)
                 },
                 ...this.buildPipeline(boothId),
                 { $sort: compactObject(sort) },
@@ -171,7 +176,7 @@ export class CyclesService {
         if (!cycleId) return this.addGatewayToCurrentCycle(userId, gatewayId);
     }
 
-    async upsertCycle(input: CycleInput, id?: string) {
+    async upsertCycle(userId: ID, input: CycleInput, id?: string) {
         if (!id && input.activateCycle) {
             const forthcomingCycle = await this.forthcomingCycle(input.boothId);
             id = forthcomingCycle?._id;
@@ -190,6 +195,7 @@ export class CyclesService {
         return upsert(this.cycleModel, {
             ...input,
             booth: input.boothId,
+            user: new mongoose.Types.ObjectId(userId),
         }, id);
     }
 

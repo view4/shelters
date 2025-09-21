@@ -50,6 +50,7 @@ type Gateway {
   booth: String
   stamps: Stamps
   parent: Gateway
+  cycle: Cycle
 }
 
 type Roadmap {

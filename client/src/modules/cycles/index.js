@@ -2,6 +2,8 @@ import CoreModule from "modules/Core/core-modules/CoreModule";
 import { CYCLES } from "./consts";
 import feed from "./state/feed";
 import cells from "./state/index";
+import ViewCycle from "./components/screens/ViewCycle";
+import withParams from "modules/Core/higher-order-components/withParams";
 
 export default new CoreModule({
   name: CYCLES,
@@ -17,7 +19,10 @@ export default new CoreModule({
     setFilters: feed.cells?.setFilters,
     addGatewayToCycle: cells.addGatewayToCycle,
     focusCycle: cells.focusCycle,
-    fetchCycle: cells.fetchCycle,
+    fetchCurrentCycle: cells.fetchCurrentCycle,
+    fetchEntity: feed.cells?.fetchEntity,
   },
-  routes: {},
+  routes: {
+    "/cycles/:id": withParams(ViewCycle)
+  },
 });
