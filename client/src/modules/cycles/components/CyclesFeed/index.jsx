@@ -21,8 +21,8 @@ const ItemComponent = ({ className, onCreateSuccess, displayFocus, onFocusCallba
                     tridot
                     options={[
                         { Component: FocusCycleButton, props: { cycleId: item.id, className: styles.focusButton, callback: onFocusCallback } },
-                        { text: "View Cycle", props: {to: `/cycles/${item.id}`} }
-                    ]} 
+                        { text: "View Cycle", props: { to: `/cycles/${item.id}` } }
+                    ]}
                     optionsOrigin="right"
                 />
             </Container>
@@ -39,9 +39,6 @@ const ItemComponent = ({ className, onCreateSuccess, displayFocus, onFocusCallba
             ))
         }
         <SabbaticalGatewayCard gateway={item?.sabbatical?.gateway} />
-        {/* <ConditionalContainer flex m1 mt3 flexEnd shouldRender={Boolean(displayFocus)} className={styles.focusContainer}>
-            <FocusCycleButton cycleId={item.id} className={styles.focusButton} callback={onFocusCallback} />
-        </ConditionalContainer> */}
     </Container>
 )
 

@@ -31,11 +31,9 @@
         top: 0.75rem;
         z-index: 1;
         cursor: pointer;
-        // give italics and a sexy kind of font for it to be like handwrittenish 
         font-style: italic;
         font-family: 'Cursive', cursive;
         font-weight: 700;
-        // center the letter/text correctly please
         justify-content: center;
         align-items: center;
         &:after {

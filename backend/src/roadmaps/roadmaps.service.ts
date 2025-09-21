@@ -89,8 +89,6 @@ export class RoadmapsService {
             ...pipeline
         ]
         const res = await aggregateFeed(this.roadmapModel, feedParams, p);
-        console.log("")
-        console.log(JSON.stringify(res, null, 2));
         return res;
     }
 
@@ -154,7 +152,6 @@ export class RoadmapsService {
                 ...lookupCycless(boothId, search)
             )
         }
-        console.log(JSON.stringify(pipeline, null, 2));
         return aggregateFeed(
             this.gatewayModel,
             params,

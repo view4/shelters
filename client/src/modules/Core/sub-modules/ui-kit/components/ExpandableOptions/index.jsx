@@ -27,30 +27,30 @@ const ExpandableOptions = ({ options, className, label, optionsContainerClassNam
             </Button>
 
             <Container className={cx(styles.optionsContainer, optionsContainerClassName)}>
-                {compact(options).map(({ text, onClick, Component = Button, props }) => (
-                    <Component key={text} onClick={onClick} {...props}>{text}</Component>
-                ))
+                {
+                    compact(options).map(({ text, onClick, Component = Button, props }) => (
+                        <Component key={text} onClick={onClick} {...props}>{text}</Component>
+                    ))
                 }
-                {/* {JSON.stringify(options)} */}
             </Container>
         </Container>
     )
 };
 
-const TriDotsOptions = ({ 
-    options, 
-    className, 
-    label, 
-    optionsContainerClassName, 
-    openClassName, 
-    OpenIndicator = TriDots, 
-    CloseIndicator = RemoveCircle, 
-    horizontal=true,
+const TriDotsOptions = ({
+    options,
+    className,
+    label,
+    optionsContainerClassName,
+    openClassName,
+    OpenIndicator = TriDots,
+    CloseIndicator = RemoveCircle,
+    horizontal = true,
     optionsOrigin = 'right'
- }) => (
+}) => (
     <ExpandableOptions
         options={options}
-        className={cx(styles.tridot, { 
+        className={cx(styles.tridot, {
             [styles.horizontal]: horizontal,
             [styles.optionsOriginRight]: optionsOrigin === 'right',
             [styles.optionsOriginLeft]: optionsOrigin === 'left'
