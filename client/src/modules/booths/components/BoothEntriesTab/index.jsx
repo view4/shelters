@@ -11,12 +11,13 @@ import feed from "modules/entries/state/feed";
 import ExpandableOptions from "modules/Core/sub-modules/ui-kit/components/ExpandableOptions";
 import styles from "./styles.module.scss";
 
-const SearchComponent = strappedConnected(
-    ({ value, onChange }) => (<>
+export const SearchComponent = strappedConnected(
+    ({ value, onChange, className }) => (<>
         <Input
             value={value}
             onChange={onChange}
             placeholder="Search entries"
+            className={className}
         />
     </>),
     {},
@@ -38,21 +39,11 @@ const SearchComponent = strappedConnected(
             onChange: setSearch
         }
     }
-
 )
 
 const BoothEntriesTab = ({ boothId, }) => {
     return (
         <Container className={styles.container} flex col>
-            <Container fullWidth p1 flex flexEnd >
-                <ExpandableOptions 
-                    horizontal
-                    className={styles.options}
-                    options={[
-                        { Component: SearchComponent }
-                    ]}
-                />
-            </Container>
             <Card className={styles.card}>
                 <AddEntryButton boothId={boothId} />
             </Card>

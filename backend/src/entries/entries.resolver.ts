@@ -4,7 +4,6 @@ import { FeedParams } from "src/common/types";
 
 export type EntryInput = {
     boothId?: string;
-    // parentId?: string;
     text?: string;
     name?: string;
 }
@@ -28,7 +27,6 @@ export class EntriesResolver {
         @Args('feedParams') feedParams?: FeedParams,
         @Args('boothId') boothId?: string,
         @Args('search') search?: string,
-        // @Args('parentId') parentId?: string
     ) {
         return this.entrysService.entries(boothId, search,feedParams);
     }

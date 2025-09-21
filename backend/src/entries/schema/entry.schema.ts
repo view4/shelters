@@ -7,7 +7,6 @@ import { Stamps, StampsSchema } from 'src/common/schemas/stamps.schema';
 
 export type EntryDocument = mongoose.HydratedDocument<Entry>;
 
-
 @ObjectType()
 @Schema({ timestamps: true })
 export class Entry {
