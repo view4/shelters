@@ -2,24 +2,17 @@
 
 .container {
     display: flex;
-    // justify-content: space-between;
-    // align-items: center;
     padding: 0.5rem 1rem;
     height: 10rem;
 
     .titleContainer {
         margin-top: 1rem;
         align-items: center;
-
     }
 
     .titleAppendagesContainer {
         height: -webkit-fill-available;
-        // width: 100%;
-        // width: -webkit-fill-available;
-        // align-items: center;
         position: relative;
-        // justify-content: flex-end;
     }
 
     .iIndicator {
@@ -72,8 +65,6 @@
     }
 
     .subheadingContainer {
-        // padding: 0.5rem 1rem;
-        // background-color: $grey18;
         width: 100%;
         padding: 0rem 0.5rem;
     }
