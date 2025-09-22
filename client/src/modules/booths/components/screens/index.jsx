@@ -12,6 +12,7 @@ import BoothPastCyclesTab from "../BoothPastCyclesTab";
 import BoothProspectiveCycles from "../BoothProspectiveCycles";
 import BoothsScreenHeader from "modules/shelter/components/BoothScreen/BoothScreenHeader";
 import styles from "./styles.module.scss";
+import { ENTRIES } from "../InfoComponent/lib/keys";
 
 export const BoothRoadmapsScreen = ({ boothId }) => {
     return (
@@ -43,6 +44,7 @@ export const BoothEntriesScreen = ({ boothId }) => {
             <BoothsScreenHeader
                 className={styles.header}
                 header="Entries"
+                infoKey={ENTRIES.index}
                 options={[
                     { Component: SearchComponent, props: { className: styles.searchComponent } }
                 ]}

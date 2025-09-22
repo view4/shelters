@@ -28,7 +28,7 @@ const ConnectionSection = ({ isAuthed }) => {
     // };
 
     return (
-        <Container id="get-going" className={c(styles.section, styles.connectionSection)}>
+        <Container id="connect" className={c(styles.section, styles.connectionSection)}>
             <Container className={styles.contentWrapper}>
                 {/* Callout Box */}
                 <Container className={styles.calloutContainer}>
@@ -37,10 +37,11 @@ const ConnectionSection = ({ isAuthed }) => {
                             {/* <Text Element="span" className={c(styles.highlightedWord, styles.sheltersHighlight)}>
                                 Shelters
                             </Text> */}
-                            {GENERAL_COPY.NAME + " "} 
+                            {/* {GENERAL_COPY.NAME + " "} 
 
                             was born from the longing to bridge the gap between measurement and
-                            meaning.
+                            meaning. */}
+                            {GENERAL_COPY.CONNECTION_TEXT}
                             {/* <Text Element="span" className={c(styles.highlightedWord, styles.meaningHighlight)}>
                                 meaning
                             </Text> */}

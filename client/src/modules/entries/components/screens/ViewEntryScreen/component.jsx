@@ -1,6 +1,8 @@
 import c from "classnames";
 import BoothScreen from "modules/shelter/components/BoothScreen";
 import BoothScreenHeader from "modules/shelter/components/BoothScreen/BoothScreenHeader";
+// import { ENTRIES } from "modules/entries/consts";
+import {ENTRIES } from "modules/booths/components/InfoComponent/lib/keys";
 import { Text, Card, ConditionalContainer, Button, TextAreaInput, Container } from "modules/Core/sub-modules/ui-kit/exports";
 import { formatDateTime } from "modules/Core/sub-modules/ui-kit/components/Date";
 import styles from "./styles.module.scss"
@@ -32,6 +34,7 @@ const ViewEntryScreen = ({
             header={name}
             options={[{ text: "Edit", props: { onClick: openEditMode } }]}
             subheading={formatDateTime(createdAt)}
+            infoKey={ENTRIES.view}
         />
         <Card onDoubleClick={handleCardDoubleClick} className={styles.card}>
             <ConditionalContainer shouldRender={isEditMode} maxWidth maxHeight flex col>

@@ -38,7 +38,7 @@ export { default as DetailsSection } from './components/DetailsSection';
 export { default as DirectionalActions } from './components/DirectionalActions';
 export { default as Attachment } from './components/Attachment';
 export { default as ConditionalContainer } from './components/ConditionalContainer';
-
+export { default as DrawerDialogue } from './components/DrawerDialogue';
 // Layout components
 export * from './components/layout';
 

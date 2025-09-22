@@ -1,0 +1,12 @@
+{
+    "entries": {
+        "index": {
+            "title": "Entries",
+            "content": "Entries are the core of the booth. They are the content that is displayed in the booth."
+        },
+        "view-entry": {
+            "title": "Entry",
+            "content": "Entry is the content that is displayed in the booth."
+        }
+    }
+}

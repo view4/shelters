@@ -36,7 +36,7 @@ export const SheltersFooter = () => (
     <Footer>
         <Container flex spaceBetween alignCenter p1 maxHeight>
             <Text>
-                Shelters Project
+                {/* Shelters Project */}
             </Text>
             <Container flex>
                 {LINKS.map((link, index) => (

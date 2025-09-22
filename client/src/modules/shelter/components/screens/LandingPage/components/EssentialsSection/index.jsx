@@ -5,45 +5,6 @@ import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import styles from "./styles.module.scss";
 import { NATURE_COPY } from "../../consts";
 
-const MEANINGFUL_ESSENTIALS = [
-    // Left Column
-    [
-        {
-            title: "Privacy as Sacred Trust",
-            description: "Your inner world is sacred. We use end-to-end encryption and never sell your data. Your journey belongs to you alone.",
-            dotColor: "blue"
-        },
-        {
-            title: "Beyond Optimization",
-            description: "We're not here to make you more productive. We're here to help you live more consciously, love more deeply, and align more authentically.",
-            dotColor: "purple"
-        },
-        {
-            title: "Wisdom Over Data",
-            description: "Every metric serves meaning. Every number tells a story. We transform raw data into personal wisdom and spiritual insight.",
-            dotColor: "blue"
-        }
-    ],
-    // Right Column
-    [
-        {
-            title: "Community of Hearts",
-            description: "Connect with fellow travelers on the path of conscious living. Share insights, offer support, and learn from each other's journeys.",
-            dotColor: "purple"
-        },
-        {
-            title: "Gentle Technology",
-            description: "Our design honors your nervous system. Soft colors, mindful interactions, and peaceful interfaces that invite presence rather than addiction.",
-            dotColor: "crimson"
-        },
-        {
-            title: "Earth-Conscious Impact",
-            description: "We're committed to carbon neutrality and donate a portion of proceeds to environmental and social justice causes.",
-            dotColor: "crimson"
-        }
-    ]
-];
-
 const EssentialItem = ({ title, description, dotColor }) => (
     <Container className={styles.essentialItem}>
         <Container className={styles.titleContainer}>
@@ -60,7 +21,7 @@ const EssentialItem = ({ title, description, dotColor }) => (
 
 const EssentialsSection = () => {
     return (
-        <Container id="nature" className={c(styles.section, styles.essentialsSection)}>
+        <Container id="qualities" className={c(styles.section, styles.essentialsSection)}>
             <Container className={styles.contentWrapper}>
                 {/* Header Section */}
                 <Container className={styles.headerSection}>
@@ -74,12 +35,12 @@ const EssentialsSection = () => {
                 <Container className={styles.essentialsGrid}>
                     {/* {NATURE_COPY.INSIGHTS.map((column, columnIndex) => ( */}
                         <Container className={styles.essentialsColumn}>
-                            {NATURE_COPY.INSIGHTS.slice(0, 2).map((essential, index) => (
+                            {NATURE_COPY.INSIGHTS.slice(0, 3).map((essential, index) => (
                                 <EssentialItem key={index} {...essential} />
                             ))}
                         </Container>
                         <Container className={styles.essentialsColumn}>
-                            {NATURE_COPY.INSIGHTS.slice(2, 6).map((essential, index) => (
+                            {NATURE_COPY.INSIGHTS.slice(3, 7).map((essential, index) => (
                                 <EssentialItem key={index} {...essential} />
                             ))}
                         </Container>

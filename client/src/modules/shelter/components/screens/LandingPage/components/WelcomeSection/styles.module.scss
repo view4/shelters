@@ -40,7 +40,7 @@
 
 .brandTitle {
   font-size: 3rem;
-  font-weight: 300;
+  font-weight: 600;
   letter-spacing: 0.05em;
   color: $grey90;
   margin-bottom: 0.5rem;
@@ -50,9 +50,36 @@
   }
 }
 
+.asterisk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  line-height: 1;
+  color: $ocean_blue72;
+  cursor: pointer;
+  user-select: none;
+  margin-left: 0.25rem;
+  transform: translateY(-1rem);
+}
+
+div:has( >div  .namePopover) {
+  transform: translateY(-3rem) translateX(1rem);
+}
+
+.namePopover {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+.namePopoverText {
+  font-size: 1.25rem;
+  color: $grey90;
+}
+
 .headline {
   font-size: 1.875rem;
-  font-weight: 300;
+  font-weight: 600;
   line-height: 1.4;
   color: $grey90;
   margin-bottom: 1rem;
@@ -71,13 +98,14 @@
 }
 
 .subtext {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: $grey72;
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  // padding: 0 0.5rem;
 
   @media (min-width: 48rem) {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
 }
 
