@@ -32,8 +32,6 @@ export const InfoComponent = ({ onClick }) => {
                 title={title}
                 subtitle={subtitle}
                 children={content}
-            // actions={actions}
-            // children={children}
             />
         </>
     )

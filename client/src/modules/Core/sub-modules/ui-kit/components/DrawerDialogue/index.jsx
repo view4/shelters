@@ -17,7 +17,8 @@ const DrawerDialogue = ({
     actions,
     hasCancel = true,
     origin = "bottom",
-    size = "md"
+    size = "md",
+    className
 }) => {
     return (
         <Dialog
@@ -33,6 +34,7 @@ const DrawerDialogue = ({
                     width: size === "sm" ? "min(32.5rem, 94vw)" : size === "md" ? "min(42.5rem, 94vw)" : "min(57.5rem, 96vw)",
                 },
             }}
+            className={className}
         >
             <DialogTitle sx={{ position: 'relative' }}>
                 {title}
