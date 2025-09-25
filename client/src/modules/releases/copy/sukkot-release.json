@@ -3,23 +3,24 @@
     "releaseDate": "6th October 2025",
     "features": [
         {
-            "name": "Cyclical task management system",
-            "description": "Feature 2 description"
+            "name": "Cyclical Task Management",
+            "description": "Organise your responsibilities into recurring cycles, helping you return, reflect and grow. Each cycle naturally includes a break/sabbatical to help you balance work and play. \n\n\n The Etrog (fruit of the hadar tree), typically relates to the heart and fragrance, it's a symbol of wholeness and Life's fleeting transicence. This can correlate to the cycle's flowing/transeit rhythm and it's complete, cyclical, nature."
         },
         {
             "name": "Journalling",
-            "description": "Feature 1 description"
+            "description": "Capture your reflections, feelings, and consciousness as part of your ongoing journey. Just as prayer is carried by the lips, journalling gives voice to the inner soul, letting what is within fid shape through language. \n\n\n The willow (aravah), often associated with lips, may correlate with this Journalling feature where both are connected to the deep power of personal expression."
         },
         {
             "name": "Roadmapping",
-            "description": "Feature 1 description"
+            "description": "Set pathways for your goals and growth, making the next steps not just visible, but achievale by breaking them down into tangible and realistic milestones. \n\n\n The lulav (palm frond), is associated with the spine, the structure that holds us uprght and straight. In the same way, roadmaps provide a backbone for our journeys, giving structure and direct support to that growth remains tangible and within reach."
         },
         {
-            "name": "Time Management Tools",
-            "description": "Feature 2 description"
+            "name": "Time Management",
+            "description": "Structure your hours and days, creating space for what matters most. Being in command of one's time is a key way to living freely and purposefully. \n\n\n The hadas (myrtle), associated with the eyes, reflects vision and clarity. In the same way, mindful timekeeping helps us to plan and move forward in alignment with one's vision, intention and unity of being."
         }
     ],
-    "narrative": "This is a narrative about the release, somewhere there is space for improvement, better, and meaning there..\n\nThis is a narrative about the release, somewhere there is space for improvement, better, and meaning there..",
+    "narrative": "Yes! Of course this is incomplete, and in the process of being built. That's the whole point. Because, so are you. \n\n The festival of sukkot commemorates dwelling in booths, temporary shelters, whilst in the desert leaving Egypt. The instruction to dwell in booths each year is a reminder that the journey of liberation continues into the transient present. The pursuit for liberating personal growth is real, sacred and inherently ours. \n\n This release offers tools to help you build, dismantle, and rebuild structures that support your growth and creativity.",
+    "intentionalText": "I am happy to share this space with you, please explore and experience it with an open mind noting that this space and the basic tools are still in a relatively early stage",
     "links": [
         {
             "name": "Create an account",
@@ -29,12 +30,41 @@
         {
             "name": "See Landing Page",
             "text": "See Landing Page",
-            "url": "/shelter"
+            "url": "/homepage"
         },
         {
             "name": "Leave some feedback",
             "text": "Leave some feedback",
             "url": "/releases/feedback"
+        }
+    ],
+    "upcomingFeatures": [
+        {
+            "name": "Time Mapping Enhancements",
+            "description": "Addition of a calendar like feature which helps better to schedule/organise one's activities, alongside gateway related time-tracking and hopefully some UI enhancements."
+        },
+        {
+            "name": "Active Subscriptions",
+            "description": "Membership subscriptions allow for multiple booths and access to moore features, whilst subscription fees can help support sustainable growth for the project."
+        },
+        {
+            "name": "Project Management Booths",
+            "description": "Project management booths offer a less transient space dedicated towards helping you manage meaningful longer term projects."
+        },
+        {
+            "name": "Teachings Booths",
+            "description": "Teaching Booths offer a space dedicated towards providing moral grounding, or directional insight, on specific subject matters to help users live in alignment with meaning, belief, faith. "
+        }
+    ],
+    "prospectiveFeatures": [
+        {
+            "name": "Shared Booths"
+        }, 
+        {
+            "name": "Booths Mobile App"
+        },
+        {
+            "name": "AI Integration"
         }
     ]
 }

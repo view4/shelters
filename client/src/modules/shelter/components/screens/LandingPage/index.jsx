@@ -18,7 +18,7 @@ import styles from "./styles.module.scss";
 const LINKS = [
     {
         label: "homepage",
-        to: "/shelter"
+        to: "/homepage"
 
     },
     {

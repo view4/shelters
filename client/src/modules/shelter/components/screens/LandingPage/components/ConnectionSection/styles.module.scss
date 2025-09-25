@@ -162,42 +162,42 @@
   }
 }
 
-.boothsButton {
-  position: relative;
-  width: 100%;
-  max-width: 24rem;
-  margin: 0 auto;
-  padding: 1rem 2rem;
-  background: linear-gradient(90deg, #6366f1, #dc2626, #8b5cf6);
-  border: none;
-  border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  overflow: hidden;
+// .boothsButton {
+//   position: relative;
+//   width: 100%;
+//   max-width: 24rem;
+//   margin: 0 auto;
+//   padding: 1rem 2rem;
+//   background: linear-gradient(90deg, #6366f1, #dc2626, #8b5cf6);
+//   border: none;
+//   border-radius: 1rem;
+//   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   overflow: hidden;
 
-  &:hover {
-    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15);
-    transform: scale(1.05);
+//   &:hover {
+//     box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15);
+//     transform: scale(1.05);
 
-    &::after {
-      opacity: 1;
-    }
-  }
+//     &::after {
+//       opacity: 1;
+//     }
+//   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, #8b5cf6, #6366f1);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 1rem;
-  }
-}
+//   &::after {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: linear-gradient(90deg, #8b5cf6, #6366f1);
+//     opacity: 0;
+//     transition: opacity 0.3s ease;
+//     border-radius: 1rem;
+//   }
+// }
 
 .loginButton,
 .registerButton {
@@ -260,21 +260,21 @@
 
 }
 
-.boothsButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
+// .boothsButton {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 0.5rem;
+// }
 
-.buttonText {
-  position: relative;
-  z-index: 10;
-  font-weight: 500;
-  font-size: 1rem;
-  color: white;
+// .buttonText {
+//   position: relative;
+//   z-index: 10;
+//   font-weight: 500;
+//   font-size: 1rem;
+//   color: white;
 
-}
+// }
 
 .quoteSection {
   margin-top: 4rem;
@@ -364,4 +364,37 @@
   @media (min-width: 64rem) {
     font-size: 2.25rem;
   }
+}
+
+button.releasesButton, button.boothsButton {
+  width: 100%;
+  max-width: 24rem;
+  // margin: 0 auto;
+  opacity: 0.75;
+
+  &:hover {
+    opacity: 0.9;
+    color: white !important;
+    font-size: 1.125rem;
+    font-weight: 500;
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #6366f1, #dc2626, #8b5cf6);
+
+  }
+
+  // set background opacity to 50% through the background colour property, maybe change the colours used 
+  // set the opacity to 0.5
+  // background: linear-gradient(90deg, rgba(99, 102, 241, 0.5), rgba(220, 38, 38, 0.5), rgba(139, 92, 246, 0.5));
+
+  background: linear-gradient(90deg, #6366f1, #dc2626, #8b5cf6);
+
+  color: white !important;
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.75s ease;
+  margin: 1rem;
 }

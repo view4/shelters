@@ -75,7 +75,7 @@ const SkachSVG = () => {
     )
 }
 
-const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasError, releaseKey }) => {
+const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasError, releaseKey, intentionalText }) => {
     const [isUpcomingDrawerOpen, setIsUpcomingDrawerOpen] = useState(false);
     const [activeFeature, setActiveFeature] = useState(null);
 
@@ -111,8 +111,14 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                     <Container className={styles.sectionColumn}>
                         <Title>{title}</Title>
                         <Text className={styles.date}>{releaseDate}</Text>
-                        <Text className={styles.subText}> A digital space dedicated to improving your with Life.</Text>
-                        {/* confirm / verify / judge on usage of 'Life' here... */}
+                        <Container mt1 />
+                        <Container  >
+                            <Text italic className={styles.subText}> For a seven day period you shall live in booths...<Text className={styles.subText}>(Leviticus 23:40)</Text></Text>
+                        </Container>
+                        <Text mt1> A digital space dedicated towards supporting your pursuit for liberation and personal growth.</Text>
+                        {/* <Text className={styles.subText}> A digital space dedicated to improving your with Life.</Text> */}
+                        {/* <Text className={styles.subText}>An intentional and supportive space dedicated towards helping your pursuit for liberation and personal growth.</Text> */}
+
                     </Container>
                     <Container className={styles.sectionColumn}>
                         <Container className={styles.imageContainer}>
@@ -165,8 +171,7 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                             <Container className={styles.intentionContainer}>
                                 <Container className={styles.intentionBox}>
                                     <Text className={styles.intentionText}>
-                                        Feel free to explore this space, the tools created and to enjoy doing so 
-                                         ❤️ ❤️
+                                        {intentionalText}
                                         {/* You are welcome to join the journey and explore the space which has been created so far, with the relevant tools and enjoy doing so. Feedback is appreciated, and even though this place is incomplete, I hope you still find it meaningful ❤️ ❤️  */}
                                     </Text>
                                 </Container>
@@ -177,23 +182,35 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                         <Container className={styles.buttonsContainer}>
                             <Button
                                 className={cx(styles.funkyButton, styles.funkyButton1)}
-                                text="Create an account"
+                                text="Begin your journey"
                                 to="/register"
                             />
                             <Button
                                 className={cx(styles.funkyButton, styles.funkyButton2)}
-                                text="See Landing Page"
-                                to="/shelter"
+                                text="Learn more"
+                                to="/homepage"
                             />
                             <Button
                                 className={cx(styles.funkyButton, styles.upcomingButton)}
-                                text="View what's coming next"
+                                text="Check out what's next!"
                                 onClick={() => setIsUpcomingDrawerOpen(true)}
                             />
                             <Button
                                 className={cx(styles.funkyButton, styles.funkyButton3)}
-                                text="Leave some feedback"
+                                text="Share your thoughts"
                                 to="/releases/feedback"
+                            />
+                            <Button
+                                modal
+                                className={cx(styles.funkyButton, styles.funkyButton3)}
+                                text="Subscribe now!"
+                                // modal={{
+                                //     title: "Subscribe now!",
+                                //     description: "Subscribe to our newsletter to get the latest updates and news about the release.",
+                                //     onConfirm: () => {
+                                //         console.log("Subscribe now!");
+                                //     }
+                                // }}
                             />
                         </Container>
                     </Container>

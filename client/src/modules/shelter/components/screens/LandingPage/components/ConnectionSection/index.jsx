@@ -60,7 +60,7 @@ const ConnectionSection = ({ isAuthed }) => {
                                     className={styles.boothsButton}
                                 >
                                     <Text className={styles.buttonText}>
-                                        to booths  {"    "} → 
+                                        Visit Your Booths
                                     </Text>
                                 </Button>
                             </Container>
@@ -85,6 +85,13 @@ const ConnectionSection = ({ isAuthed }) => {
                                 </Button>
                             </Container>
                         )}
+                        <Button
+                            to="/releases/sukkot"
+                            className={styles.releasesButton}
+                            mt3
+                        >
+                            View Latest Release Notes
+                        </Button>
                     </Container>
                 </Container>
 
