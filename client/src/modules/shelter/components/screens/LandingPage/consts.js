@@ -27,8 +27,10 @@ export const GENERAL_COPY = {
         }
     ],
     // CONNECTION_TEXT: "May the future you cherish your next steps."
-    CONNECTION_TEXT: "What will your next steps be?"
+    // CONNECTION_TEXT: "What will your next steps be?"
+    // CONNECTION_TEXT: "Lets stay connected!"
     // "What next steps will you take?"
+    CONNECTION_TEXT: "Start your journey!"
 }
 
 export const WELCOME_COPY = {
@@ -46,7 +48,7 @@ export const WELCOME_COPY = {
 
 export const OPENING_INTENTION_COPY = {
     // TEXT: "Let's provide a space rich with peace and posied to help connecting with belief. Let's cultivate a community of people living meaningfully and take steps into the unknown together 🙂"
-    TEXT: "Booths began with the intention of providing a digital space to help nurture the transient journey with Life in a meaningful and enriching manner, and not purely based on achieving optimal efficiency or productivity."
+    TEXT: "Booths began with the intention of providing a digital space to help nurture the transient journey with Life, and is not purely based on achieving optimal efficiency or productivity."
     // Booths began with the intention of providing a digital space to help nurture the transient journey with Life in a meaningful and enriching manner, and not purely based on achieving optimal efficiency or productivity.
 
 }
@@ -169,8 +171,8 @@ export const FEATURES_COPY = {
             bg: "from-spiritual-crimson-to-spiritual-blue"
         },
         {
-            name: "More Features",
-            description: "More features are in development and should be coming soon...",
+            name: "Coming Soon...",
+            description: "More features are currently in development!",
             // emblem: (
             //     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             //         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -316,8 +318,8 @@ Incomplete, less robust and more rough around the edges, the cultivation of a sp
 export const BACKGROUND_COPY = {
     HEADING: "The Journey So Far",
     TEXT: [
-        `Most tools today are built for productivity and efficiency. But people are not machines, and growth cannot be measured only in numbers.`,
-        `In pursuit of meaning and value-orientated systems this space was created with the intention of facilitating --liberating personal growth.-- For several months this project has been used privately and has already provided tangible utility and joy.`,
+        `Most tools today are built for productivity and efficiency. But __we__ people are not machines, and growth cannot be measured only in numbers.`,
+        `In pursuit of meaning and value-orientated systems this space was created with the intention of facilitating --liberating personal growth.-- __For several months__ This project has been fun and meaningful to use, maybe it will be for you too.`,
         `Growth is a process. So, although incomplete, less robust and --rough around the edges-- this project offers --a space rooted in meaning-- and --inspired by the nature of transience-- and --rugged growth!-- `
     ],
 
@@ -332,7 +334,8 @@ export const BACKGROUND_COPY = {
 export const INTRA_INTENTION_COPY = {
     // TEXT: "Whilst this space is still being built, the core of the project exists, and you are welcome to participate in the journey and join the pursuit of meaning. Incompletion is certain \n \n  the unknown awaits \n \n let the future you cherish the next step you take ❤️",
     // TEXT: "The core of the project exists, even though the space is still being created. You are welcome to participate in the journey, to explore, to grow, and to join the pursuit of meaning. \n \n Certainly incomplete \n\n but \n \n  the unknown awaits \n \n and let the future you cherish the next step you take \n \n ❤️"
-    TEXT: "You are welcome to explore and experience this space with an open mind, please know that some features may be premature and (beautifully) incomplete!"
+    // TEXT: "You are welcome to explore and experience this space with an open mind, please know that some features may be premature and (beautifully) incomplete!"
+    TEXT: "You are welcome to explore and sign up if you'd like to. Explore with an open mind, aware this is still a work in progress!"
     // May the future you cherish the next steps you take, even as the unknown awaits. You are welcome to explore and experience this space which is still very much in a state of GROWTH and intentional journeying.
 // 
 }

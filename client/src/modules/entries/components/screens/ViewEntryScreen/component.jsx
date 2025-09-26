@@ -1,8 +1,7 @@
 import c from "classnames";
 import BoothScreen from "modules/shelter/components/BoothScreen";
 import BoothScreenHeader from "modules/shelter/components/BoothScreen/BoothScreenHeader";
-// import { ENTRIES } from "modules/entries/consts";
-import {ENTRIES } from "modules/booths/components/InfoComponent/lib/keys";
+import { ENTRIES } from "modules/booths/components/InfoComponent/lib/keys";
 import { Text, Card, ConditionalContainer, Button, TextAreaInput, Container } from "modules/Core/sub-modules/ui-kit/exports";
 import { formatDateTime } from "modules/Core/sub-modules/ui-kit/components/Date";
 import styles from "./styles.module.scss"
@@ -19,7 +18,7 @@ const ViewEntryScreen = ({
     closeEditMode,
     draftText,
     setDraftText,
-    handleCardDoubleClick 
+    handleCardDoubleClick
 }) => (
     <BoothScreen
         boothId={boothId}

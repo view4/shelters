@@ -41,7 +41,6 @@ const ConnectionSection = ({ isAuthed }) => {
 
                             was born from the longing to bridge the gap between measurement and
                             meaning. */}
-                            {GENERAL_COPY.CONNECTION_TEXT}
                             {/* <Text Element="span" className={c(styles.highlightedWord, styles.meaningHighlight)}>
                                 meaning
                             </Text> */}
@@ -51,6 +50,11 @@ const ConnectionSection = ({ isAuthed }) => {
 
                 {/* Authentication Buttons Card */}
                 <Container className={styles.formCard}>
+                    <Title>
+                    {GENERAL_COPY.CONNECTION_TEXT}
+
+                    </Title>
+
                     <Container className={styles.formContainer}>
                         {isAuthed ? (
                             /* If authenticated, show Booths button */

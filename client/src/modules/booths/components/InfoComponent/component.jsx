@@ -14,15 +14,14 @@ const useInfoLib = (key) => {
     const { title, subtitle, content } = useMemo(() => get(lib, key), [key]);
     if (!title || !content) window.alert('No title, subtitle, or content found for key: ' + key);
 
-    console.log(title, subtitle, content);
     return { title, subtitle, content };
 }
 
 
 
-export const InfoComponent = ({ onClick }) => {
+export const InfoComponent = ({ infoKey, onClick }) => {
     const { isOpen, open, close } = useIsOpen()
-    const { title, subtitle, content } = useInfoLib(keys.ENTRIES.index);
+    const { title, subtitle, content } = useInfoLib(infoKey);
     return (
         <>
             <InfoIndicator onClick={open} />

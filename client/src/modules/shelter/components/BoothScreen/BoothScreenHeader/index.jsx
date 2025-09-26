@@ -16,7 +16,7 @@ const BoothsScreenHeader = ({ header, options, subheading, className, infoKey })
                 {header}
             </Title>
             <Container className={styles.titleAppendagesContainer} col flex>
-                <Info key={infoKey} shouldRender={Boolean(infoKey)} />
+                <Info infoKey={infoKey} shouldRender={Boolean(infoKey)} />
                 <Options optionsOrigin="left" tridot options={options} shouldRender={Boolean(options?.length)} />
             </Container>
         </Container>

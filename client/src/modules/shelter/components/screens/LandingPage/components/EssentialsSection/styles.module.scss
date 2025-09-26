@@ -6,23 +6,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8rem 1.5rem;
+  // padding: 8rem 1.5rem;
+  padding: 4rem 1.5rem;
   background: $grey3;
   border-top: 1px solid $grey10;
+  max-height: 100vh;
+  position: relative;
 }
 
 .essentialsSection {
   width: 100%;
+  max-height: 100vh;
 }
 
 .contentWrapper {
-  max-width: 80rem;
+  width: -webkit-fill-available;
   margin: 0 auto;
+  max-width: 80vw;
 }
 
 .headerSection {
   text-align: center;
-  margin-bottom: 5rem;
+  // margin-bottom: 2rem;
 }
 
 .sectionTitle {
@@ -44,69 +49,114 @@
   border-radius: 0.0625rem;
 }
 
-.essentialsGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-
-  @media (min-width: 48rem) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+// Floating doodles canvas, mirroring ReleaseScreen narrative doodles
+.doodlesCanvas {
+  position: relative;
+  // height: vh;
+  // max-width: 80rem;
+  margin: 0 auto;
+  overflow: visible;
+  height: 90vh;
 }
 
-.essentialsColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.essentialItem {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.titleContainer {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  & h4 {
-    margin: 0;
-  }
-}
-
-.dotIndicator {
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.dot-blue {
-  background-color: #6366f1;
-}
-
-.dot-purple {
-  background-color: #8b5cf6;
-}
-
-.dot-crimson {
-  background-color: #dc2626;
-}
-
-
-
-.essentialTitle {
-  font-size: 1.25rem;
-  font-weight: 500;
+.doodle {
+  position: absolute;
+  min-width: 7rem;
+  max-width: 18rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.86);
+  border: 0.1875rem solid $grey36;
+  border-radius: 56% 44% 38% 62% / 52% 48% 58% 42%;
   color: $grey90;
-  margin-bottom: 0.75rem;
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+  --tilt: 0deg;
+  animation-name: floatMove;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  will-change: transform;
+  backdrop-filter: blur(2px);
+  isolation: isolate;
+
+  &:focus-visible {
+    outline: 0.125rem dashed #a0aec0;
+    outline-offset: 0.25rem;
+  }
+
+  .doodleTitle {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: $grey90;
+    text-align: center;
+  }
+
+  .doodleDescription {
+    font-size: 1.25rem;
+    color: $grey72;
+    line-height: 1.6;
+    margin-top: 0.5rem;
+    max-height: 0;
+    opacity: 0;
+    overflow: scroll;
+    transition: max-height 220ms ease, opacity 180ms ease;
+    max-width: 75%;
+    text-align: center;
+    // ensure the scroll is hidden 
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
+
+  }
 }
 
-.essentialDescription {
-  font-size: 1rem;
-  color: $grey72;
-  line-height: 1.6;
-  margin-top: 0.5rem;
+.expanded {
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.16);
+  padding: 3rem;
+
+  .doodleDescription {
+    opacity: 1;
+    max-height: 12rem;
+    max-width: 90%;
+  }
+}
+
+// Variation per index for visual diversity
+.doodle:nth-child(1) { border-style: dashed; border-radius: 65% 35% 40% 60% / 55% 45% 60% 40%; --tilt: 8deg; }
+.doodle:nth-child(2) { border-style: double; border-radius: 28% 72% 58% 42% / 42% 58% 38% 62%; --tilt: -12deg; }
+.doodle:nth-child(3) { border-style: dotted; border-radius: 72% 28% 48% 52% / 48% 52% 58% 42%; --tilt: 10deg; }
+.doodle:nth-child(4) { border-style: ridge;  border-radius: 54% 46% 40% 60% / 62% 38% 58% 42%; --tilt: 16deg; }
+.doodle:nth-child(5) { border-style: groove; border-radius: 40% 60% 52% 48% / 60% 40% 50% 50%; --tilt: -6deg; }
+.doodle:nth-child(6) { border-style: dashed; border-radius: 58% 42% 60% 40% / 44% 56% 42% 58%; --tilt: 6deg; }
+.doodle:nth-child(7) { border-style: dotted; border-radius: 50% 50% 60% 40% / 40% 60% 50% 50%; --tilt: -10deg; }
+
+@keyframes floatMove {
+  0%, 100% { transform: translate(0, 0) rotate(var(--tilt)); }
+  // 25% { transform: translate(-2rem, -2rem) rotate(calc(var(--tilt) + 2deg)); }
+  // 50% { transform: translate(2rem, -1rem) rotate(calc(var(--tilt) + 4deg)); }
+  // 75% { transform: translate(1rem, 2rem) rotate(calc(var(--tilt) + 1deg)); }
+  25% { transform: translate(-1rem, -1rem) rotate(calc(var(--tilt) + 2deg)); }
+  50% { transform: translate(1rem, -0.5rem) rotate(calc(var(--tilt) + 4deg)); }
+  75% { transform: translate(0.5rem, 1rem) rotate(calc(var(--tilt) + 1deg)); }
+
+}
+
+@media (max-width: 48rem) {
+  .doodlesCanvas {
+    height: auto;
+    min-height: 36rem;
+  }
+
+  .doodle {
+    position: static;
+    margin: 1rem auto;
+    width: clamp(14rem, 86vw, 24rem);
+    animation: floatMove 8s ease-in-out infinite;
+  }
 }

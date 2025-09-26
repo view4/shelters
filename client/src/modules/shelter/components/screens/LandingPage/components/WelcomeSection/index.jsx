@@ -7,6 +7,7 @@ import Button from "modules/Core/sub-modules/ui-kit/components/Button";
 import Popover from "modules/Core/sub-modules/ui-kit/components/Popover";
 import { GENERAL_COPY, WELCOME_COPY } from "../../consts";
 import ShelterImage from "modules/shelter/assets/shelter.png";
+import ScrollNext from "../ScrollNext";
 import styles from "./styles.module.scss";
 
 const Asterisk = () => {
@@ -47,9 +48,9 @@ const Asterisk = () => {
                 isOpen={isOpen}
                 onClose={scheduleClose}
                 anchorElement={anchorRef.current}
-                verticalOrigin="top"
-                horizontalOrigin="right"
-                placement="right"
+                // verticalOrigin="top"
+                // horizontalOrigin="right"
+                // placement="right"
                 bodyClassName={styles.namePopoverBody}
                 BackdropComponent={() => null}
 
@@ -115,22 +116,7 @@ const WelcomeSection = () => {
                 </Container>
 
                 {/* Scroll indicator */}
-                <Container mb3 className={styles.scrollIndicator}>
-                    <svg
-                        className={styles.scrollIcon}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={1.5}
-                            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                        />
-                    </svg>
-
-                </Container>
+                <ScrollNext toId="features" />
             </Container>
         </Container>
     );

@@ -12,6 +12,8 @@ import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
 import SubBoothsCard from "../../SubBoothsCard";
 import { BOOTH_KINDS } from "modules/booths/consts";
+import BoothsScreenHeader from "modules/shelter/components/BoothScreen/BoothScreenHeader"
+import { BOOTHS } from "../../InfoComponent/lib/keys"
 import styles from "./styles.module.scss";
 
 const tabs = [
@@ -45,8 +47,13 @@ export default ({ focusedBoothId, boothId = focusedBoothId }) => (
         boothId={boothId}
         RightPanelComponent={Fragment}
     >
+
         <Container className={styles.container}>
-            <Container>
+            <BoothsScreenHeader
+                header="Booth home"
+                infoKey={BOOTHS.homescreen}
+            />
+            <Container className={styles.cardsContainer}>
                 <BoothTimeIntrospectionCard boothId={boothId} />
                 <IntrospectionCard className={styles.card} title="Cycle" maxWidth maxHeight>
                     <Cycle />

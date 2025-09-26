@@ -61,14 +61,15 @@
   user-select: none;
   margin-left: 0.25rem;
   transform: translateY(-1rem);
+  padding: 0.5rem;
 }
 
 div:has( >div  .namePopover) {
-  transform: translateY(-3rem) translateX(1rem);
+  transform: translateY(-2.5rem) translateX(1rem);
 }
 
 .namePopover {
-  padding: 0.5rem 0.75rem;
+  padding: 0.25rem 0.75rem;
   cursor: pointer;
 }
 
@@ -172,7 +173,7 @@ button.ctaButton {
   justify-content: center;
 
   @media (min-width: 64rem) {
-    justify-content: flex-end;
+    // justify-content: flex-end;
   }
 }
 
@@ -184,9 +185,12 @@ button.ctaButton {
 .illustration {
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.1));
-  opacity: 0.75;
-  transform: scale(1.1) rotate(-3deg);
+  filter: drop-shadow(0.75rem 0.75rem 0.75rem $grey90);
+  // filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.1));
+  // filter: grayscale(500%);
+  opacity: 0.5;
+  transform: scale(1.25) rotate(-3deg);
+
 }
 
 .scrollIndicator {

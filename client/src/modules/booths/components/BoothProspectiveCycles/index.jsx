@@ -9,7 +9,7 @@ import styles from "./styles.module.scss";
 
 
 const ProspectiveCycles = ({ boothId, createForthcomingCycle }) => (
-    <Container className={styles.drawerContainer} p3>
+    <Container className={styles.drawerContainer}>
         <CyclesFeed 
             className={styles.cyclesFeed} 
             boothId={boothId} 
