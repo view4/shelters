@@ -9,7 +9,7 @@ export default new CoreModule({
   initialState: {},
   cells: {},
   routes: {
-    "/shelter": LandingPage,
+    "/homepage": LandingPage,
     "/contact": ContactPage,
     "/policies": PoliciesPage,
   },

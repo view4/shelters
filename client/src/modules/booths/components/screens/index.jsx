@@ -11,11 +11,17 @@ import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import BoothPastCyclesTab from "../BoothPastCyclesTab";
 import BoothProspectiveCycles from "../BoothProspectiveCycles";
 import BoothsScreenHeader from "modules/shelter/components/BoothScreen/BoothScreenHeader";
+import { ENTRIES, ROADMAPS, TIME_MAPPING, CYCLES } from "../InfoComponent/lib/keys";
 import styles from "./styles.module.scss";
 
 export const BoothRoadmapsScreen = ({ boothId }) => {
     return (
         <BoothScreen boothId={boothId}>
+            <BoothsScreenHeader
+                className={styles.header}
+                header="Roadmaps"
+                infoKey={ROADMAPS.index}
+            />
             <Container maxHeight maxWidth column alignCenter flex >
                 <RoadmapsFeed boothId={boothId} />
                 <AddRoadmapButton boothId={boothId} />
@@ -27,6 +33,11 @@ export const BoothRoadmapsScreen = ({ boothId }) => {
 export const BoothDedicatedTimeScreen = ({ boothId }) => {
     return (
         <BoothScreen boothId={boothId}>
+            <BoothsScreenHeader
+                className={styles.header}
+                header="Dedicated Time"
+                infoKey={TIME_MAPPING.index}
+            />
             <Card maxHeight>
                 <Container flex row alignCenter maxWidth>
                     <DedicatedTimeFeed className={styles.dedicatedTimeFeedContainer} boothId={boothId} />
@@ -43,6 +54,7 @@ export const BoothEntriesScreen = ({ boothId }) => {
             <BoothsScreenHeader
                 className={styles.header}
                 header="Entries"
+                infoKey={ENTRIES.index}
                 options={[
                     { Component: SearchComponent, props: { className: styles.searchComponent } }
                 ]}
@@ -70,13 +82,20 @@ const cyclesTabs = [
 export const BoothCyclesScreen = ({ boothId }) => {
     return (
         <BoothScreen boothId={boothId}>
-            <Card
-                className={styles.cyclesCard}
-                tabs={cyclesTabs}
-                maxHeight
-                lightShadow
-                maxWidth
-            />
+            <Container maxHeight>
+                <BoothsScreenHeader
+                    className={styles.header}
+                    header="Cycles"
+                    infoKey={CYCLES.index}
+                />
+                <Card
+                    className={styles.cyclesCard}
+                    tabs={cyclesTabs}
+                    lightShadow
+                    borderless
+                    maxWidth
+                /></Container>
+
         </BoothScreen>
     )
 }

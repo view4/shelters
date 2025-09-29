@@ -1,15 +1,2 @@
 @import "src/modules/Core/styles/variables.scss";
 
-.iIndicator {
-    border: 1px solid $grey72;
-    border-radius: 100%;
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.2rem 0.72rem;
-    cursor: pointer;
-    transition: 0.36s all;
-    &:hover {
-        background-color: $grey10;
-        color: #fff;
-    }
-}

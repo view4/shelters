@@ -8,7 +8,7 @@ export default strappedConnected(
     {},
     {},
     ({ releaseKey }) => {
-        const { title, releaseDate, features, narrative, links } = useMemo(() => getReleaseContent(releaseKey) ?? {}, [releaseKey]);
+        const { title, releaseDate, features, narrative, links, intentionalText, upcomingFeatures, prospectiveFeatures } = useMemo(() => getReleaseContent(releaseKey) ?? {}, [releaseKey]);
 
         return {
             hasError: !title?.length,
@@ -16,7 +16,10 @@ export default strappedConnected(
             releaseDate,
             features,
             narrative,
-            links
+            links,
+            intentionalText,
+            upcomingFeatures,
+            prospectiveFeatures
         }
     }
 )

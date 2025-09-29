@@ -1,14 +1,19 @@
 import cx from "classnames"
-import { Button, Card, Container, Feature, Screen, Text, Title, Modal, Drawer } from "modules/Core/sub-modules/ui-kit/exports"
+import { Button, Card, Container, Feature, Screen, Text, Title, Modal, Drawer, DrawerDialogue } from "modules/Core/sub-modules/ui-kit/exports"
 import ShelterImage from "modules/shelter/assets/shelter.png";
 import SpeciesImage from "modules/releases/assets/four-species.png"
 import Etrog from "modules/releases/assets/etrog.png"
 import Lulav from "modules/releases/assets/lulav.png"
 import Myrtle from "modules/releases/assets/myrtle.png"
 import Willow from "modules/releases/assets/willow.png"
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import styles from "./styles.module.scss"
-/*
+import { AuthenticationButton } from "modules/auth/components";
+import useAuth from "modules/auth/hooks/useAuth";
+import { AUTH_MODES } from "modules/auth/components/AuthenticationButton";
+import staticJSON from "../../../copy/sukkot-release.json"
+const { upcomingFeatures, prospectiveFeatures } = staticJSON;
+/*c
 
         background-image: url('data:image/svg+xml;utf8,\
   <svg xmlns="http://www.w3.org/2000/svg" width="240" height="56" viewBox="0 0 240 56">\
@@ -75,9 +80,170 @@ const SkachSVG = () => {
     )
 }
 
-const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasError, releaseKey }) => {
+
+const tabs = [
+    {
+        title: "In Progress",
+        Component: () => <Container className={styles.upcomingFeaturesTextContainer} p1>
+            {/* <Title>In Progress</Title> */}
+            <Container mt1 />
+            <Text>
+                The following features are currently in development, either already started or comissioned.
+            </Text>
+            <Container mt1 />
+
+            <Container>
+                {upcomingFeatures.map((feature) => (
+                    <Feature className={styles.upcomingFeature} key={feature.name} name={feature.name} card content={feature.description} />
+                ))}
+            </Container>
+        </Container>
+    },
+    {
+        title: "Prospective",
+        Component: () => <Container p1>
+            {/* <Title>Prospective Features</Title> */}
+            <Container mt1 />
+
+            <Text>These features are potential future features that we may consider adding in the future.</Text>
+            <Container mt1 />
+
+            <Container>
+                {prospectiveFeatures.map((feature) => (
+                    <Feature className={styles.prospectiveFeature} key={feature.name} name={feature.name} content={feature.description} card />
+                ))}
+            </Container>
+        </Container>
+    }
+]
+const UpcomingModal = ({ isOpen, onClose }) => {
+    // const { header, content } = useTabs([{
+    //     title: "In Progress",
+    //     Component: () => <Container>
+    //         <Title>In Progress</Title>
+    //         <Text>These features are currently in progress and will be released in the future.</Text>
+    //         <Container>
+    //             {upcomingFeatures.map((feature) => (
+    //                 <Feature key={feature.name} name={feature.name} description={feature.description} />
+    //             ))}
+    //         </Container>
+    //     </Container>
+    // }, {
+    //     title: "Upcoming",
+    //     Component: () => <Container>
+    //         <Title>Upcoming</Title>
+    //         <Text>These features are potential future features that we may consider adding in the future.</Text>
+    //         <Container>
+    //             {prospectiveFeatures.map((feature) => (
+    //                 <Feature key={feature.name} name={feature.name} description={feature.description} />
+    //             ))}
+    //         </Container>
+    //     </Container>
+    // }]);
+
+    return (
+        <Modal isOpen={isOpen} onClose={onClose} borderless>
+            <Card
+                className={styles.upcomingFeaturesCard}
+                // contentClassName={styles.upcoingFeaturesContent} 
+                tabs={tabs}
+                tabProps={{ activeTabIndex: 0 }}
+                headerProps={{
+                    className: styles.upcomingFeaturesHeader
+                }}
+                borderless
+            />
+        </Modal>
+    )
+}
+const emojis = [
+    {
+        emoji: "🍋",
+        top: "18%",
+        left: "18%",
+        animationDuration: "9s"
+    },
+    {
+        emoji: "🌾",
+        top: "72%",
+        left: "72%",
+        animationDuration: "10s"
+    },
+    {
+        emoji: "🛖",
+        top: "36%",
+        left: "72%",
+        animationDuration: "10s"
+    },
+    {
+        emoji: "🌴",
+        top: "90%",
+        left: "36%",
+        animationDuration: "10s"
+    },
+    {
+        emoji: "🌿",
+        top: "54%",
+        left: "54%",
+        animationDuration: "10s"
+    },
+    {
+        emoji: "⛺",
+        top: "72%",
+        left: "36%",
+        animationDuration: "10s"
+    },
+    {
+        emoji: "🍂",
+        top: "54%",
+        left: "18%",
+        animationDuration: "10s"
+    },
+    {
+        emoji: "༄",
+        top: "90%",
+        left: "90%",
+        animationDuration: "10s"
+    },
+    {
+        emoji: "🍷",
+        top: "18%",
+        left: "54%",
+        animationDuration: "10s"
+    },
+    {
+        emoji: "🎋",
+        top: "18%",
+        left: "90%",
+        animationDuration: "10s"
+    },
+    {
+        emoji: "🏜️",
+        top: "36%",
+        left: "36%",
+        animationDuration: "10s"
+    },
+    {
+        emoji: "🛤️",
+        top: "54%",
+        left: "90%",
+        animationDuration: "10s"
+    },
+    {
+        emoji: "🎉",
+        top: "90%",
+        left: "18%",
+        animationDuration: "10s"
+    }
+
+]
+
+const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasError, releaseKey, intentionalText }) => {
     const [isUpcomingDrawerOpen, setIsUpcomingDrawerOpen] = useState(false);
+    const [isSubscribitionModalOpen, setIsSubscribitionModalOpen] = useState(false);
     const [activeFeature, setActiveFeature] = useState(null);
+    const { isAuthed } = useAuth();
+    const [isHomepageHover, setIsHomepageHover] = useState(false);
 
     // Fixed decorative placements near corners
     const decorations = [
@@ -111,8 +277,14 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                     <Container className={styles.sectionColumn}>
                         <Title>{title}</Title>
                         <Text className={styles.date}>{releaseDate}</Text>
-                        <Text className={styles.subText}> A digital space dedicated to improving your with Life.</Text>
-                        {/* confirm / verify / judge on usage of 'Life' here... */}
+                        <Container mt1 />
+                        <Container  >
+                            <Text italic className={styles.subText}> For a seven day period you shall live in booths...<Text className={styles.subText}>(Leviticus 23:40)</Text></Text>
+                        </Container>
+                        <Text mt1> A digital space dedicated towards supporting your pursuit for liberation and personal growth.</Text>
+                        {/* <Text className={styles.subText}> A digital space dedicated to improving your with Life.</Text> */}
+                        {/* <Text className={styles.subText}>An intentional and supportive space dedicated towards helping your pursuit for liberation and personal growth.</Text> */}
+
                     </Container>
                     <Container className={styles.sectionColumn}>
                         <Container className={styles.imageContainer}>
@@ -159,47 +331,89 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                     </Container>
                 </Card>
                 <Card className={cx(styles.section, styles.linksSection)}>
+                    <Container className={styles.bgEmojiContainer}>
+                        {/* {[
+                            "🍋", "🌾", "🛖", "🌴", "🌿", "⛺", "🍂", "༄", "🍷", "🎋", "🏜️", "🛤️", "🎉"
+                        ].map((emoji, index) => (
+                            <span
+                                key={index}
+                                className={styles.emoji}
+                                style={{ 
+                                    // randomise in a way where there is going to be a general spread please... 
+                                    top: (Math.random() * 100) + "%",
+                                    left: (Math.random() * 100) + "%",
+
+                                    animationDuration: Math.random() * 10 + 5 + "s"
+                                }}
+                            >{emoji}</span>
+                        ))} */}
+                        {emojis.map((emoji, index) => (
+                            <span
+                                key={index}
+                                className={styles.emoji}
+                                style={{
+                                    top: emoji.top,
+                                    left: emoji.left,
+                                    animationDuration: emoji.animationDuration
+                                }}
+                            >{emoji.emoji}</span>
+                        ))}
+                    </Container>
                     <Container className={styles.linksContainer}>
                         <Container className={styles.welcomeTextContainer}>
-
                             <Container className={styles.intentionContainer}>
                                 <Container className={styles.intentionBox}>
                                     <Text className={styles.intentionText}>
-                                        Feel free to explore this space, the tools created and to enjoy doing so 
-                                         ❤️ ❤️
-                                        {/* You are welcome to join the journey and explore the space which has been created so far, with the relevant tools and enjoy doing so. Feedback is appreciated, and even though this place is incomplete, I hope you still find it meaningful ❤️ ❤️  */}
+                                        {intentionalText}
                                     </Text>
                                 </Container>
                             </Container>
                         </Container>
-
-
                         <Container className={styles.buttonsContainer}>
-                            <Button
-                                className={cx(styles.funkyButton, styles.funkyButton1)}
-                                text="Create an account"
-                                to="/register"
-                            />
-                            <Button
-                                className={cx(styles.funkyButton, styles.funkyButton2)}
-                                text="See Landing Page"
-                                to="/shelter"
-                            />
-                            <Button
-                                className={cx(styles.funkyButton, styles.upcomingButton)}
-                                text="View what's coming next"
-                                onClick={() => setIsUpcomingDrawerOpen(true)}
-                            />
-                            <Button
-                                className={cx(styles.funkyButton, styles.funkyButton3)}
-                                text="Leave some feedback"
-                                to="/releases/feedback"
-                            />
+                            <Container className={styles.primaryButtons}>
+                                {!isAuthed && <AuthenticationButton
+                                    className={cx(styles.funkyButton, styles.funkyButton2)}
+                                    text={"Begin your Journey"}
+                                    authMode={AUTH_MODES.REGISTER}
+                                    fullWidth
+                                />}
+                                {isAuthed && <AuthenticationButton
+                                    className={cx(styles.funkyButton, styles.funkyButton2)}
+                                    text="Continue your Journey"
+                                    to={"/"}
+                                    fullWidth
+                                />}
+                                <Button
+                                    className={cx(styles.funkyButton, styles.funkyButton2)}
+                                    text={isHomepageHover ? "Visit homepage" : "Learn more"}
+                                    to="/homepage"
+                                    onMouseEnter={() => setIsHomepageHover(true)}
+                                    onMouseLeave={() => setIsHomepageHover(false)}
+                                    fullWidth
+                                />
+                            </Container>
+                            <Container className={styles.secondaryButtons}>
+                                <Button
+                                    className={cx(styles.funkyButton, styles.upcomingButton)}
+                                    text="What's next!"
+                                    onClick={() => setIsUpcomingDrawerOpen(true)}
+                                />
+                                <Button
+                                    className={cx(styles.funkyButton, styles.funkyButton3)}
+                                    text="Share feedback"
+                                    to="/releases/feedback"
+                                />
+                                <Button
+                                    onClick={() => setIsSubscribitionModalOpen(true)}
+                                    className={cx(styles.funkyButton, styles.funkyButton3)}
+                                    text="Subscribe now!"
+                                />
+                            </Container>
                         </Container>
                     </Container>
                 </Card>
 
-                <Drawer
+                {/* <Drawer
                     isOpen={isUpcomingDrawerOpen}
                     close={() => setIsUpcomingDrawerOpen(false)}
                     header="What's Coming Next"
@@ -226,8 +440,24 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                             </Card>
                         </Container>
                     </Container>
-                </Drawer>
-                <Drawer
+                </Drawer> */}
+                <UpcomingModal isOpen={isUpcomingDrawerOpen} onClose={() => setIsUpcomingDrawerOpen(false)} />
+                <DrawerDialogue
+
+                    isOpen={!!activeFeature}
+                    onClose={() => setActiveFeature(null)}
+                    className={styles.featureDrawer}
+                    title={activeFeature?.name || 'Feature'}
+                    children={activeFeature?.description || 'No description yet. More details coming soon.'}
+                />
+                <DrawerDialogue
+                    isOpen={isSubscribitionModalOpen}
+                    onClose={() => setIsSubscribitionModalOpen(false)}
+                    className={styles.featureDrawer}
+                    title="Subscribe now!"
+                    children={<Text>Subscribe to our newsletter to get the latest updates and news about the release.</Text>}
+                />
+                {/* <Drawer
                     isOpen={!!activeFeature}
                     close={() => setActiveFeature(null)}
                     header={activeFeature?.name || 'Feature'}
@@ -241,7 +471,7 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                             <Text>No description yet. More details coming soon.</Text>
                         )}
                     </Container>
-                </Drawer>
+                </Drawer> */}
             </Container>
         </Screen>
     )

@@ -3,7 +3,13 @@ import Button from 'modules/Core/sub-modules/ui-kit/components/Button';
 import { useIsOpen } from 'modules/Core/hooks/useIsOpen';
 import AuthModal from 'modules/auth/components/AuthModal';
 
-const AuthenticationButton = ({ children, text, authMode = 'login', ...buttonProps }) => {
+
+export const AUTH_MODES = {
+    LOGIN: 'login',
+    REGISTER: 'register'
+}
+
+const AuthenticationButton = ({ children, text, authMode = AUTH_MODES.LOGIN, ...buttonProps }) => {
     const controls = useIsOpen(false);
 
     return (

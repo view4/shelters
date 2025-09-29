@@ -1,7 +1,7 @@
 @import "src/modules/Core/styles/variables.scss";
 
 .section {
-  height: 100vh;
+  // height: 100vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -47,15 +47,27 @@
 .bodySection {
   max-width: 72rem;
   margin: 7rem auto;
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.18), rgba(220, 38, 38, 0.18), rgba(139, 92, 246, 0.18));
+  border-radius: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-image: linear-gradient(90deg, rgba(99, 102, 241, 0.2), rgba(220, 38, 38, 0.2), rgba(139, 92, 246, 0.2));
+  border: 0.25rem solid rgba(99, 102, 241, 0.2);
+
 }
 
 .bodyText {
-  font-size: 1.5rem;
-  color: $grey72;
+  font-size: 1.75rem;
+  color: $grey90;
+  font-weight: 500;
   line-height: 1.8;
   text-align: center;
+  font-size: 1.25rem;
+  font-weight: 300;
+  font-style: italic;
+  color: $grey90;
+  line-height: 1.6;
   
   @media (min-width: 48rem) {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
 }

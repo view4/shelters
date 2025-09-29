@@ -21,3 +21,12 @@
         height: 2.5rem;
     }
 }
+
+.cyclesCard {
+    height: -webkit-fill-available;
+    overflow-y: scroll;
+}
+
+.cyclesCard > div {
+    // border: 3px solid blue;
+}

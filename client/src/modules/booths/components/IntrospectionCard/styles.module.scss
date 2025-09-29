@@ -27,7 +27,7 @@ $cardHeaderHeight: 4rem;
     background-color: white;
     width: 54vw;
     height: 75vh;
-    max-height: unset;
+    max-height: unset !important;
     top: 12.5vh;
     box-shadow: 0px 0px 72px $grey18;
     position: absolute;
