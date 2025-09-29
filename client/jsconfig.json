@@ -5,6 +5,9 @@
         "paths": {
             "common": [
                 "src/modules/Core"
+            ],
+            "config/*": [
+                "config/*"
             ]
         }
     }

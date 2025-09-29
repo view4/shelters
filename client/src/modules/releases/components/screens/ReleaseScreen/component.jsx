@@ -278,10 +278,11 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                         <Title>{title}</Title>
                         <Text className={styles.date}>{releaseDate}</Text>
                         <Container mt1 />
-                        <Container  >
-                            <Text italic className={styles.subText}> For a seven day period you shall live in booths...<Text className={styles.subText}>(Leviticus 23:40)</Text></Text>
+                        <Container className={styles.kadeshTextContainer}>
+                            <Text italic className={styles.kadeshText}> For a seven day period you shall live in booths...<span>(Leviticus 23:40)</span></Text>
+                            {/* <Text className={styles.subText}></Text> */}
                         </Container>
-                        <Text mt1> A digital space dedicated towards supporting your pursuit for liberation and personal growth.</Text>
+                        {/* <Text mt1> A digital space dedicated towards supporting your pursuit for liberation and personal growth.</Text> */}
                         {/* <Text className={styles.subText}> A digital space dedicated to improving your with Life.</Text> */}
                         {/* <Text className={styles.subText}>An intentional and supportive space dedicated towards helping your pursuit for liberation and personal growth.</Text> */}
 
@@ -332,21 +333,6 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                 </Card>
                 <Card className={cx(styles.section, styles.linksSection)}>
                     <Container className={styles.bgEmojiContainer}>
-                        {/* {[
-                            "🍋", "🌾", "🛖", "🌴", "🌿", "⛺", "🍂", "༄", "🍷", "🎋", "🏜️", "🛤️", "🎉"
-                        ].map((emoji, index) => (
-                            <span
-                                key={index}
-                                className={styles.emoji}
-                                style={{ 
-                                    // randomise in a way where there is going to be a general spread please... 
-                                    top: (Math.random() * 100) + "%",
-                                    left: (Math.random() * 100) + "%",
-
-                                    animationDuration: Math.random() * 10 + 5 + "s"
-                                }}
-                            >{emoji}</span>
-                        ))} */}
                         {emojis.map((emoji, index) => (
                             <span
                                 key={index}
