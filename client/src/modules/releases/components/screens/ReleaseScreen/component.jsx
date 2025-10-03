@@ -117,29 +117,6 @@ const tabs = [
     }
 ]
 const UpcomingModal = ({ isOpen, onClose }) => {
-    // const { header, content } = useTabs([{
-    //     title: "In Progress",
-    //     Component: () => <Container>
-    //         <Title>In Progress</Title>
-    //         <Text>These features are currently in progress and will be released in the future.</Text>
-    //         <Container>
-    //             {upcomingFeatures.map((feature) => (
-    //                 <Feature key={feature.name} name={feature.name} description={feature.description} />
-    //             ))}
-    //         </Container>
-    //     </Container>
-    // }, {
-    //     title: "Upcoming",
-    //     Component: () => <Container>
-    //         <Title>Upcoming</Title>
-    //         <Text>These features are potential future features that we may consider adding in the future.</Text>
-    //         <Container>
-    //             {prospectiveFeatures.map((feature) => (
-    //                 <Feature key={feature.name} name={feature.name} description={feature.description} />
-    //             ))}
-    //         </Container>
-    //     </Container>
-    // }]);
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} borderless>
@@ -176,7 +153,6 @@ const emojis = [
         animationDuration: "10s"
     },
     {
-        emoji: "🌴",
         top: "90%",
         left: "36%",
         animationDuration: "10s"
@@ -199,12 +175,12 @@ const emojis = [
         left: "18%",
         animationDuration: "10s"
     },
-    {
-        emoji: "༄",
-        top: "90%",
-        left: "90%",
-        animationDuration: "10s"
-    },
+    // {
+    //     emoji: "༄",
+    //     top: "90%",
+    //     left: "90%",
+    //     animationDuration: "10s"
+    // },
     {
         emoji: "🍷",
         top: "18%",
@@ -230,9 +206,11 @@ const emojis = [
         animationDuration: "10s"
     },
     {
-        emoji: "🎉",
+        // emoji: "🎉",
         top: "90%",
         left: "18%",
+        emoji: "🌴",
+
         animationDuration: "10s"
     }
 
@@ -344,6 +322,10 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                     </Container>
                 </Card>
                 <Card className={cx(styles.section, styles.linksSection)}>
+                    <Container
+                        className={styles.linksSpeciesBackground}
+                        style={{ backgroundImage: `url(${SpeciesImage})` }}
+                    />
                     <Container className={styles.bgEmojiContainer}>
                         {emojis.map((emoji, index) => (
                             <span
@@ -358,15 +340,7 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                         ))}
                     </Container>
                     <Container className={styles.linksContainer}>
-                        {/* <Container className={styles.welcomeTextContainer}>
-                            <Container className={styles.intentionContainer}>
-                                <Container className={styles.intentionBox}>
-                                    <Text className={styles.intentionText}>
-                                        {intentionalText}
-                                    </Text>
-                                </Container>
-                            </Container>
-                        </Container> */}
+
                         <TitleWithSubtext
                             className={styles.linksTitle}
                             title="Links"

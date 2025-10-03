@@ -594,6 +594,18 @@
         // background: black
     }
 
+    .linksSpeciesBackground {
+        position: absolute;
+        inset: 0;
+        background-repeat: no-repeat;
+        background-size: 20rem 20rem;
+        background-position: right 3% bottom 3%;
+        opacity: 0.18;
+        filter: grayscale(100%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
     .welcomeTextContainer {
         margin-bottom: 2.5rem;
 
