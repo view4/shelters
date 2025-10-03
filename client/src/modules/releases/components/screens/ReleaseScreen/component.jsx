@@ -2,6 +2,7 @@ import cx from "classnames"
 import { Button, Card, Container, Feature, Screen, Text, Title, Modal, Drawer, DrawerDialogue } from "modules/Core/sub-modules/ui-kit/exports"
 import ShelterImage from "modules/shelter/assets/shelter.png";
 import SpeciesImage from "modules/releases/assets/four-species.png"
+import SukkahDwellingsImage from "modules/releases/assets/sukkah-dwelling.png"
 import Etrog from "modules/releases/assets/etrog.png"
 import Lulav from "modules/releases/assets/lulav.png"
 import Myrtle from "modules/releases/assets/myrtle.png"
@@ -326,7 +327,11 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                         className={styles.linksSpeciesBackground}
                         style={{ backgroundImage: `url(${SpeciesImage})` }}
                     />
-                    <Container className={styles.bgEmojiContainer}>
+                    <Container
+                        className={styles.linksSukkahDwellingsBackground}
+                        style={{ backgroundImage: `url(${SukkahDwellingsImage})` }}
+                    />
+                    {/* <Container className={styles.bgEmojiContainer}>
                         {emojis.map((emoji, index) => (
                             <span
                                 key={index}
@@ -338,7 +343,7 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                                 }}
                             >{emoji.emoji}</span>
                         ))}
-                    </Container>
+                    </Container> */}
                     <Container className={styles.linksContainer}>
 
                         <TitleWithSubtext

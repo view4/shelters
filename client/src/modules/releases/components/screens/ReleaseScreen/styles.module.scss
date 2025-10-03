@@ -429,7 +429,7 @@
             bottom: 3%;
             width: clamp(10rem, 12vw, 18rem);
             height: clamp(10rem, 12vw, 18rem);
-            background-image: url("../../../assets/sukkah-wip.png");
+            background-image: url("../../../assets/tools.png");
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
@@ -447,7 +447,9 @@
             top: 7%;
             width: clamp(10rem, 12vw, 18rem);
             height: clamp(10rem, 12vw, 18rem);
-            background-image: url("../../../assets/four-species.png");
+            // background-image: url("../../../assets/four-species.png");
+            background-image: url("../../../assets/sukkah-wip.png");
+
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
@@ -599,7 +601,19 @@
         inset: 0;
         background-repeat: no-repeat;
         background-size: 20rem 20rem;
-        background-position: right 3% bottom 3%;
+        background-position: right 3% top 3%;
+        opacity: 0.18;
+        filter: grayscale(100%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .linksSukkahDwellingsBackground {
+        position: absolute;
+        inset: 0;
+        background-repeat: no-repeat;
+        background-size: 20rem 20rem;
+        background-position: left 3% bottom 3%;
         opacity: 0.18;
         filter: grayscale(100%);
         pointer-events: none;
@@ -677,7 +691,7 @@
         border-color: silver;
         border-width: 0.25rem;
         border-radius: 3rem;
-        background: linear-gradient(135deg, rgb(36, 144, 270), rgb(224, 36, 36), rgb(144, 90, 270));
+        background: linear-gradient(135deg, rgba(36, 144, 270, 0.75), rgba(224, 36, 36, 0.75), rgba(144, 90, 270, 0.75));
         opacity: 0.75;
         border: 1px solid rgba(99, 102, 241, 0.9);
         color: white;
