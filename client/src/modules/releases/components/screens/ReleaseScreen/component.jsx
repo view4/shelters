@@ -83,7 +83,7 @@ const SkachSVG = () => {
 
 const tabs = [
     {
-        title: "In Progress",
+        title: "Features in progress",
         Component: () => <Container className={styles.upcomingFeaturesTextContainer} p1>
             {/* <Title>In Progress</Title> */}
             <Container mt1 />
@@ -100,7 +100,7 @@ const tabs = [
         </Container>
     },
     {
-        title: "Prospective",
+        title: "Prospective Features",
         Component: () => <Container p1>
             {/* <Title>Prospective Features</Title> */}
             <Container mt1 />
@@ -238,6 +238,19 @@ const emojis = [
 
 ]
 
+const TitleWithSubtext = ({ title, subtext, className }) => {
+    return (
+        <Container className={cx(styles.titleWithSubtext, className)}>
+            <Container className={styles.titleContainer}>
+                <Title className={styles.title}>{title}</Title>
+            </Container>
+            <Container className={styles.subtextContainer}>
+                <Text className={cx(styles.subtext)}>{subtext}</Text>
+            </Container>
+        </Container>
+    )
+}
+
 const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasError, releaseKey, intentionalText }) => {
     const [isUpcomingDrawerOpen, setIsUpcomingDrawerOpen] = useState(false);
     const [isSubscribitionModalOpen, setIsSubscribitionModalOpen] = useState(false);
@@ -247,7 +260,7 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
 
     // Fixed decorative placements near corners
     const decorations = [
-        { src: Etrog, alt: "Etrog", style: { top: "18%", left: "18%", width: "7rem", transform: "rotate(-8deg)", animationDuration: "9s" } },
+        { src: Etrog, alt: "Etrog", style: { top: "18%", left: "18%", width: "7rem", transform: "rotate(-8deg)", animationDuration: "9s", opacity: 0.25 } },
         { src: Lulav, alt: "Lulav", style: { top: "72%", right: "72%", width: "8rem", transform: "rotate(6deg)", animationDuration: "10s" } },
         { src: Myrtle, alt: "Myrtle", style: { bottom: "72%", left: "72%", width: "7rem", transform: "rotate(12deg)", animationDuration: "8s" } },
         { src: Willow, alt: "Willow", style: { bottom: "18%", right: "18%", width: "9rem", transform: "rotate(-10deg)", animationDuration: "11s" } },
@@ -275,17 +288,18 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
             <Container className={cx(styles.container)}>
                 <Card className={cx(styles.section, styles.welcomeSection)}>
                     <Container className={styles.sectionColumn}>
-                        <Title>{title}</Title>
-                        <Text className={styles.date}>{releaseDate}</Text>
-                        <Container mt1 />
+                        <Container className={styles.welcomeHeader}>
+                            <Title>{title}</Title>
+                            <Text className={styles.date}>{releaseDate}</Text>
+                        </Container>
                         <Container className={styles.kadeshTextContainer}>
-                            <Text italic className={styles.kadeshText}> For a seven day period you shall live in booths...<span>(Leviticus 23:40)</span></Text>
+                            <Text italic className={styles.kadeshText}> For a seven day period you shall live in booths...<span>(Leviticus 23:40)</span> </Text>
+
                             {/* <Text className={styles.subText}></Text> */}
                         </Container>
-                        {/* <Text mt1> A digital space dedicated towards supporting your pursuit for liberation and personal growth.</Text> */}
-                        {/* <Text className={styles.subText}> A digital space dedicated to improving your with Life.</Text> */}
-                        {/* <Text className={styles.subText}>An intentional and supportive space dedicated towards helping your pursuit for liberation and personal growth.</Text> */}
-
+                        <Container className={styles.urchatzContainer}>
+                            <Text className={styles.urchatzText}>A digital space that supports the transient journey through Life.</Text>
+                        </Container>
                     </Container>
                     <Container className={styles.sectionColumn}>
                         <Container className={styles.imageContainer}>
@@ -301,10 +315,9 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                             <img key={i} src={d.src} alt={d.alt} className={styles.decoration} style={d.style} />
                         ))}
                     </Container>
-                    {/* <Title>Tools to cultivate your growth</Title> */}
 
                     <Container className={styles.featuresContent}>
-                        <Title className={styles.featuresTitle}>Tools to cultivate your growth</Title>
+                        <TitleWithSubtext title="Digital tools" subtext="Designed to help nurture your development and growth." />
                         <Container className={styles.featuresContainer} relative maxWidth >
                             {features.map((feature, index) => (
                                 <Container
@@ -327,7 +340,6 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                         <Container className={styles.narrativeDoodle2}></Container>
                         <Container className={styles.narrativeDoodle3}></Container>
                         <Container className={styles.narrativeDoodle4}></Container>
-                        <Title>Release Notes:</Title>
                         <Text className={styles.narrativeText}>{narrative}</Text>
                     </Container>
                 </Card>
@@ -346,7 +358,7 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                         ))}
                     </Container>
                     <Container className={styles.linksContainer}>
-                        <Container className={styles.welcomeTextContainer}>
+                        {/* <Container className={styles.welcomeTextContainer}>
                             <Container className={styles.intentionContainer}>
                                 <Container className={styles.intentionBox}>
                                     <Text className={styles.intentionText}>
@@ -354,7 +366,12 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                                     </Text>
                                 </Container>
                             </Container>
-                        </Container>
+                        </Container> */}
+                        <TitleWithSubtext
+                            className={styles.linksTitle}
+                            title="Links"
+                            subtext="Have fun exploring!"
+                        />
                         <Container className={styles.buttonsContainer}>
                             <Container className={styles.primaryButtons}>
                                 {!isAuthed && <AuthenticationButton

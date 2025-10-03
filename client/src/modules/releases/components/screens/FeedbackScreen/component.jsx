@@ -3,6 +3,8 @@ import { Button, Container, Screen, Text, Title, Loader } from "modules/Core/sub
 import { useState } from "react";
 import styles from "./styles.module.scss";
 
+const url = "https://forms.gle/qsecnE5y9qnajyGv9";
+
 const FeedbackScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   
@@ -11,7 +13,7 @@ const FeedbackScreen = () => {
     // Simulate brief loading before opening external link
     setTimeout(() => {
       // Open feedback link in new tab (dummy link for now)
-      window.open("https://example.com/feedback", "_blank", "noopener,noreferrer");
+      window.open(url, "_blank", "noopener,noreferrer");
       setIsLoading(false);
     }, 500);
   };
