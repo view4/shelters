@@ -416,34 +416,6 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                     </Container>
                 </Card>
 
-                {/* <Drawer
-                    isOpen={isUpcomingDrawerOpen}
-                    close={() => setIsUpcomingDrawerOpen(false)}
-                    header="What's Coming Next"
-                    origin="bottom"
-                    size="lg"
-                >
-                    <Container className={styles.upcomingContent}>
-                        <Title level={3}>Upcoming Features & Improvements</Title>
-                        <Container className={styles.upcomingList}>
-                            <Card className={styles.upcomingItem}>
-                                <Title level={4}>Enhanced Analytics Dashboard</Title>
-                                <Text>Get deeper insights into your growth patterns with advanced analytics and personalized recommendations.</Text>
-                                <Text className={styles.upcomingDate}>Coming in December 2025</Text>
-                            </Card>
-                            <Card className={styles.upcomingItem}>
-                                <Title level={4}>Collaborative Spaces</Title>
-                                <Text>Connect with others on similar journeys and create shared goals and accountability partnerships.</Text>
-                                <Text className={styles.upcomingDate}>Coming in January 2026</Text>
-                            </Card>
-                            <Card className={styles.upcomingItem}>
-                                <Title level={4}>Mobile App Release</Title>
-                                <Text>Take your growth tools on the go with our native mobile application for iOS and Android.</Text>
-                                <Text className={styles.upcomingDate}>Coming in February 2026</Text>
-                            </Card>
-                        </Container>
-                    </Container>
-                </Drawer> */}
                 <UpcomingModal isOpen={isUpcomingDrawerOpen} onClose={() => setIsUpcomingDrawerOpen(false)} />
                 <DrawerDialogue
 
@@ -457,24 +429,11 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                     isOpen={isSubscribitionModalOpen}
                     onClose={() => setIsSubscribitionModalOpen(false)}
                     className={styles.featureDrawer}
-                    title="Subscribe now!"
-                    children={<Text>Subscribe to our newsletter to get the latest updates and news about the release.</Text>}
+                    title="Booths Memberships!"
+                    children={(
+                        <Text>Members can access multiple booths, and more (upcoming) features, whilst subscription fees can help support this project to achieve sustainable growth.</Text>
+                )}
                 />
-                {/* <Drawer
-                    isOpen={!!activeFeature}
-                    close={() => setActiveFeature(null)}
-                    header={activeFeature?.name || 'Feature'}
-                    origin="bottom"
-                    size="md"
-                >
-                    <Container className={styles.featureDrawerContent}>
-                        {activeFeature?.description ? (
-                            <Text>{activeFeature.description}</Text>
-                        ) : (
-                            <Text>No description yet. More details coming soon.</Text>
-                        )}
-                    </Container>
-                </Drawer> */}
             </Container>
         </Screen>
     )
