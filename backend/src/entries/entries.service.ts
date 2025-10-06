@@ -15,16 +15,16 @@ export class EntriesService {
     ) { }
 
     async entries(boothId?: ID, search?: string, feedParams?: FeedParams) {
+        const match = compactObject({
+            $or: Boolean(search) ? [
+                { name: { $regex: search, $options: "i" } },
+                { text: { $regex: search, $options: "i" } }
+            ] : null
+        })
+        match['booth'] = boothId ? new mongoose.Types.ObjectId(boothId) : null;
         return this.aggregateFeed(
             {
-                match: compactObject({
-                    booth: boothId && new mongoose.Types.ObjectId(boothId),
-                    $or: Boolean(search) ? [
-                        { name: { $regex: search, $options: "i" } },
-                        { text: { $regex: search, $options: "i" } }
-                    ] : null
-
-                }),
+                match: match,
                 ...feedParams
             }
         )

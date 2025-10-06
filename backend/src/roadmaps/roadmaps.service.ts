@@ -16,14 +16,15 @@ export class RoadmapsService {
     ) { }
 
     async roadmaps(boothId?: ID, parentId?: ID) {
+        const match = compactObject({
+            parent: parentId ? new mongoose.Types.ObjectId(parentId) : {
+                $exists: false,
+            },
+        })
+        match['booth'] = boothId ? new mongoose.Types.ObjectId(boothId) : null;
         return this.aggregateFeed(
             {
-                match: compactObject({
-                    booth: boothId && new mongoose.Types.ObjectId(boothId),
-                    parent: parentId ? new mongoose.Types.ObjectId(parentId) : {
-                        $exists: false,
-                    },
-                })
+                match: match,
             }
         )
     };

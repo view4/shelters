@@ -59,6 +59,7 @@ Feed.Component = ({
     itemProps,
     LoadMoreComponent = LoadMore,
     loadMoreClassName,
+    EmptyComponent,
 }) => (
     <>
         <OverlayLoader loading={loading} />
@@ -72,6 +73,9 @@ Feed.Component = ({
                     onClick={() => onClick(item)}
                 />
             ))
+        }
+        {
+            !feed?.length && EmptyComponent && <EmptyComponent />
         }
         <LoadMoreComponent
             loadMore={loadMore}

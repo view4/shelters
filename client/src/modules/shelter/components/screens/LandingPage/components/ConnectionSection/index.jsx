@@ -50,7 +50,7 @@ const ConnectionSection = ({ isAuthed }) => {
 
                 {/* Authentication Buttons Card */}
                 <Container className={styles.formCard}>
-                    <Title>
+                    <Title className={styles.gradientTitle}>
                     {GENERAL_COPY.CONNECTION_TEXT}
 
                     </Title>

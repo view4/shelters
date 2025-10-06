@@ -39,7 +39,8 @@ const ViewEntryScreen = ({
             <ConditionalContainer shouldRender={isEditMode} maxWidth maxHeight flex col>
                 <TextAreaInput
                     className={c(styles.editorInput)}
-                    value={draftText}
+                    defaultValue={text}
+                    // value={draftText}
                     onChange={setDraftText}
                     rows={8}
                 />

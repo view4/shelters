@@ -10,8 +10,9 @@ export default (Component) => (props) => {
     const isAuthed = useSelector(validateToken.selectors.isAuthed)
     const isAuthenticating = useSelector(validateToken.selectors.isAuthenticating)
     const nav = useNavigate()
+    console.log({ isAuthed, isAuthenticating })
     if (isAuthed) return <Component {...props} />
-    return !isAuthenticating && <>
+    return !isAuthenticating && isAuthed === false && <>
         <AuthModal
             isOpen={true}
             onClose={() => { }}

@@ -1,15 +1,14 @@
+import { useEffect, useMemo } from "react"
 import cx from "classnames"
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected"
 import Screen from "../Screen"
 import Sidemenu from "./Sidemenu"
-import { useMemo } from "react"
 import auth from "modules/auth/state"
 import feed from "modules/booths/state/feed"
 import boothCells from "modules/booths/state/index";
-
-import styles from "./styles.module.scss";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad"
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender"
+import styles from "./styles.module.scss";
 
 export default strappedConnected(
     withShouldRender(Screen),
@@ -34,6 +33,10 @@ export default strappedConnected(
             Boolean(boothId) && !focusedBoothExists && isAuthed,
             [boothId, focusedBoothExists, isAuthed]
         )
+
+        console.log({
+            boothId, focusedBoothId, focusedBoothExists, props
+        })
         return ({
             LeftPanelComponent: Sidemenu,
             tripanel: true,

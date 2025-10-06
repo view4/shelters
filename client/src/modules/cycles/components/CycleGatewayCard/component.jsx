@@ -35,6 +35,8 @@ export const EmptyGatewayCard = ({ cycleId, orderKey, onCreateSuccess }) => {
                     cycleId={cycleId}
                     onSuccess={onSuccess}
                     onSelectGateway={onSuccess}
+                    text="Add Roadmap Step"
+                    formTitle="Add roadmap step to cycle"
                 />
             </Container>
         </Card>
@@ -65,10 +67,13 @@ export default ({ gateway = {}, children, refetch, remove, className, headerProp
                         Component: EditGatewayButton, props: {
                             gatewayId: gateway?.id,
                             onSuccess: refetch,
-                            name: gateway?.name,
-                            text: gateway?.text,
-                            parent: gateway?.parent,
-                            parentName: gateway?.parent?.name
+                            text: "Edit",
+                            parentName: gateway?.parent?.name,
+                            entity: {
+                                name: gateway?.name,
+                                text: gateway?.text,
+                                parent: gateway?.parent,
+                            }
                         }
                     },
                     {
@@ -89,7 +94,7 @@ export default ({ gateway = {}, children, refetch, remove, className, headerProp
                             callback: refetch
                         }
                     },
-                    { Component: AddGatewayButton, props: { parentId: gateway?.id, parentName: gateway?.name, refetchId: gateway?.id } },
+                    { Component: AddGatewayButton, props: { text: "Add Substep", parentId: gateway?.id, parentName: gateway?.name, refetchId: gateway?.id } },
 
                 ]}
             />
