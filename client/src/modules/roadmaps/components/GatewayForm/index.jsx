@@ -36,7 +36,7 @@ export default strappedConnected(
         create: (input, id, callback) => feed.cells.createEntity.action({ input, callback, id }),
         refetch: (id) => feed.cells.fetchEntity.action({ id })
     },
-    ({ create, close, parentId, onSuccess, gatewayId, refetchId, parentName, initialState, refetch }) => {
+    ({ create, close, parentId, onSuccess, gatewayId, refetchId, parentName, initialState, refetch, title }) => {
         const success = useOnSuccess();
         const error = useOnError();
         const callback = useCallback((res) => {
@@ -49,7 +49,7 @@ export default strappedConnected(
         }, [onSuccess, refetchId]);
 
         const parent = useMemo(() => initialState?.parent ? initialState.parent : parentId && { id: parentId, name: parentName }, [initialState?.parent?.id, parentId, parentName])
-
+        console.log({ title, r: title ?? Boolean(parent) ? "Add Roadmap Step": "Add Roadmap" })
         return {
             onSubmit: useCallback(({ name, text, parent }) => create(compactObject({
                 name,
@@ -65,7 +65,9 @@ export default strappedConnected(
                     key: parent?.id,
                     readable: parent?.name,
                 },
-            }), [parent, initialState])
+            }), [parent, initialState]),
+            title: useMemo(() => Boolean(title) ? title : Boolean(parent) ? "Add Roadmap Step": "Add Roadmap", [title, parent])
+
         }
     }
 );

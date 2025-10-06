@@ -21,16 +21,16 @@ export const GENERAL_COPY = {
             fullName: "Journey So Far",
         },
         {
-            name: "Connect",
+            name: "Get Started",
             link: "connect",
-            fullName: "Connect With Booths!",
+            fullName: "Lets Go!",
         }
     ],
     // CONNECTION_TEXT: "May the future you cherish your next steps."
     // CONNECTION_TEXT: "What will your next steps be?"
     // CONNECTION_TEXT: "Lets stay connected!"
     // "What next steps will you take?"
-    CONNECTION_TEXT: "Start your journey!"
+    CONNECTION_TEXT: "start your journey!"
 }
 
 export const WELCOME_COPY = {
@@ -38,7 +38,7 @@ export const WELCOME_COPY = {
     HEADLINE_SUFFIX: "(leviticus 23:40)",
     // SUBTEXT: "Here to support your journey with Life, to support the pursuit for liberation",
     // SUBTEXT: "Providing structure to support your journey with Life and your pursuit for liberation",
-    SUBTEXT: "An intentional and supportive space dedicated towards helping your pursuit for liberation and personal growth.",
+    SUBTEXT: "An intentional and supportive space dedicated towards helping your pursuit for liberating growth and personal development.",
     // An intentional and supportive space to help extend your pursuit for liberation.
 
     // SUBTEXT: "Your time is sacred. Your attention is precious. Let Shelters be your gentle companion.",
@@ -48,8 +48,9 @@ export const WELCOME_COPY = {
 
 export const OPENING_INTENTION_COPY = {
     // TEXT: "Let's provide a space rich with peace and posied to help connecting with belief. Let's cultivate a community of people living meaningfully and take steps into the unknown together 🙂"
-    TEXT: "Booths began with the intention of providing a digital space to help nurture the transient journey with Life, and is not purely based on achieving optimal efficiency or productivity."
+    // TEXT: "Booths began with the intention of providing a digital space to help nurture the transient journey with Life, and is not purely based on achieving optimal efficiency or productivity."
     // Booths began with the intention of providing a digital space to help nurture the transient journey with Life in a meaningful and enriching manner, and not purely based on achieving optimal efficiency or productivity.
+    TEXT: "Digital tools designed to enhance the journey, and not simply maximising efficiency."
 
 }
 
@@ -335,7 +336,7 @@ export const INTRA_INTENTION_COPY = {
     // TEXT: "Whilst this space is still being built, the core of the project exists, and you are welcome to participate in the journey and join the pursuit of meaning. Incompletion is certain \n \n  the unknown awaits \n \n let the future you cherish the next step you take ❤️",
     // TEXT: "The core of the project exists, even though the space is still being created. You are welcome to participate in the journey, to explore, to grow, and to join the pursuit of meaning. \n \n Certainly incomplete \n\n but \n \n  the unknown awaits \n \n and let the future you cherish the next step you take \n \n ❤️"
     // TEXT: "You are welcome to explore and experience this space with an open mind, please know that some features may be premature and (beautifully) incomplete!"
-    TEXT: "You are welcome to explore and sign up if you'd like to. Explore with an open mind, aware this is still a work in progress!"
+    TEXT: "You are welcome to explore and benefit from this app, despite Booths being a work in progress."
     // May the future you cherish the next steps you take, even as the unknown awaits. You are welcome to explore and experience this space which is still very much in a state of GROWTH and intentional journeying.
 // 
 }

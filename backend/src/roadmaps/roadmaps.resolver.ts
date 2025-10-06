@@ -47,6 +47,16 @@ export class RoadmapsResolver {
         @Args('feedParams') feedParams?: FeedParams,
         @Args('search') search?: string,
     ) {
+        if(!boothId) {
+            return {
+                entities: [],
+                info: {
+                    total: 0,
+                    page: 1,
+                    limit: 10
+                }
+            }
+        }
         return this.roadmapsService.gateways({ boothId, parentId, isCycleless, search }, feedParams);
     }
 

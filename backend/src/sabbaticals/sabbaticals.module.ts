@@ -15,7 +15,7 @@ import { AuthModule } from 'src/auth/auth.module';
         ]),
         RoadmapsModule,
         forwardRef(() => CyclesModule),
-        BoothsModule,
+        forwardRef(() => BoothsModule),
         AuthModule
     ],
     providers: [

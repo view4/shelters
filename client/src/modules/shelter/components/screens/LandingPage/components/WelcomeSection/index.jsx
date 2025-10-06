@@ -96,15 +96,6 @@ const WelcomeSection = () => {
                             {WELCOME_COPY.SUBTEXT}
                         </Text>
 
-                        {/* CTA Button */}
-                        {/* <Container className={styles.ctaContainer}>
-                            <Button onClick={() => {
-                                // scroll into fiew the #get-going section
-                                document.getElementById("get-going")?.scrollIntoView({ behavior: "smooth" });
-                            }} className={styles.ctaButton}>
-                                <Text className={styles.ctaText}>{WELCOME_COPY.CTA}</Text>
-                            </Button>
-                        </Container> */}
                     </Container>
 
                     {/* Right Illustration */}

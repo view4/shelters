@@ -8,6 +8,7 @@ import BoothEntriesTab, { SearchComponent } from "../BoothEntriesTab";
 import BoothActiveCycletab from "../BoothActiveCycletab";
 import BoothInfo from "../BoothInfo";
 import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import FeatureWrapper from "modules/Core/components/FeatureWrapper";
 import BoothPastCyclesTab from "../BoothPastCyclesTab";
 import BoothProspectiveCycles from "../BoothProspectiveCycles";
 import BoothsScreenHeader from "modules/shelter/components/BoothScreen/BoothScreenHeader";
@@ -38,11 +39,15 @@ export const BoothDedicatedTimeScreen = ({ boothId }) => {
                 header="Dedicated Time"
                 infoKey={TIME_MAPPING.index}
             />
-            <Card maxHeight>
-                <Container flex row alignCenter maxWidth>
+            <Card borderless >
+                <FeatureWrapper featureKey="time-mappingxx" >
+                    <Container className={styles.mappedTimeContainer}>
+                        <BoothScheduleTab maxHeight />
+                    </Container>
+                </FeatureWrapper>
+                <Container flex col maxWidth >
                     <DedicatedTimeFeed className={styles.dedicatedTimeFeedContainer} boothId={boothId} />
                 </Container>
-                <BoothScheduleTab />
             </Card>
         </BoothScreen>
     )

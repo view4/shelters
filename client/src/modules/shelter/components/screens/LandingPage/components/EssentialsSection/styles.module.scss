@@ -63,10 +63,10 @@
   position: absolute;
   min-width: 7rem;
   max-width: 18rem;
-  padding: 1rem 1.5rem;
+  padding: 3rem 1.5rem;
   background: rgba(255, 255, 255, 0.86);
   border: 0.1875rem solid $grey36;
-  border-radius: 56% 44% 38% 62% / 52% 48% 58% 42%;
+  border-radius: 54% 72% 36% 54% / 54% 36% 54% 72%;
   color: $grey90;
   box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.08);
   cursor: pointer;
@@ -91,6 +91,11 @@
     font-weight: 600;
     color: $grey90;
     text-align: center;
+    transition: font-size 200ms ease;
+  }
+
+  &.expanded .doodleTitle {
+    font-size: 0.9rem;
   }
 
   .doodleDescription {
@@ -104,12 +109,14 @@
     transition: max-height 220ms ease, opacity 180ms ease;
     max-width: 75%;
     text-align: center;
+
     // ensure the scroll is hidden 
     &::-webkit-scrollbar {
       display: none;
     }
-    -ms-overflow-style: none;  
-    scrollbar-width: none; 
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 
   }
 }
@@ -122,28 +129,75 @@
 
   .doodleDescription {
     opacity: 1;
-    max-height: 12rem;
+    max-height: 20rem;
     max-width: 90%;
   }
 }
 
 // Variation per index for visual diversity
-.doodle:nth-child(1) { border-style: dashed; border-radius: 65% 35% 40% 60% / 55% 45% 60% 40%; --tilt: 8deg; }
-.doodle:nth-child(2) { border-style: double; border-radius: 28% 72% 58% 42% / 42% 58% 38% 62%; --tilt: -12deg; }
-.doodle:nth-child(3) { border-style: dotted; border-radius: 72% 28% 48% 52% / 48% 52% 58% 42%; --tilt: 10deg; }
-.doodle:nth-child(4) { border-style: ridge;  border-radius: 54% 46% 40% 60% / 62% 38% 58% 42%; --tilt: 16deg; }
-.doodle:nth-child(5) { border-style: groove; border-radius: 40% 60% 52% 48% / 60% 40% 50% 50%; --tilt: -6deg; }
-.doodle:nth-child(6) { border-style: dashed; border-radius: 58% 42% 60% 40% / 44% 56% 42% 58%; --tilt: 6deg; }
-.doodle:nth-child(7) { border-style: dotted; border-radius: 50% 50% 60% 40% / 40% 60% 50% 50%; --tilt: -10deg; }
+.doodle:nth-child(1) {
+  border-style: dashed;
+  border-radius: 65% 35% 40% 60% / 55% 45% 60% 40%;
+  --tilt: 8deg;
+}
+
+.doodle:nth-child(2) {
+  border-style: double;
+  border-radius: 28% 72% 58% 42% / 42% 58% 38% 62%;
+  --tilt: -12deg;
+}
+
+.doodle:nth-child(3) {
+  border-style: dotted;
+  border-radius: 72% 28% 48% 52% / 48% 52% 58% 42%;
+  --tilt: 10deg;
+}
+
+.doodle:nth-child(4) {
+  border-style: ridge;
+  border-radius: 54% 46% 40% 60% / 62% 38% 58% 42%;
+  --tilt: 16deg;
+}
+
+.doodle:nth-child(5) {
+  border-style: groove;
+  border-radius: 40% 60% 52% 48% / 60% 40% 50% 50%;
+  --tilt: -6deg;
+}
+
+.doodle:nth-child(6) {
+  border-style: dashed;
+  border-radius: 58% 42% 60% 40% / 44% 56% 42% 58%;
+  --tilt: 6deg;
+}
+
+.doodle:nth-child(7) {
+  border-style: dotted;
+  border-radius: 50% 50% 60% 40% / 40% 60% 50% 50%;
+  --tilt: -10deg;
+}
 
 @keyframes floatMove {
-  0%, 100% { transform: translate(0, 0) rotate(var(--tilt)); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(var(--tilt));
+  }
+
   // 25% { transform: translate(-2rem, -2rem) rotate(calc(var(--tilt) + 2deg)); }
   // 50% { transform: translate(2rem, -1rem) rotate(calc(var(--tilt) + 4deg)); }
   // 75% { transform: translate(1rem, 2rem) rotate(calc(var(--tilt) + 1deg)); }
-  25% { transform: translate(-1rem, -1rem) rotate(calc(var(--tilt) + 2deg)); }
-  50% { transform: translate(1rem, -0.5rem) rotate(calc(var(--tilt) + 4deg)); }
-  75% { transform: translate(0.5rem, 1rem) rotate(calc(var(--tilt) + 1deg)); }
+  25% {
+    transform: translate(-1rem, -1rem) rotate(calc(var(--tilt) + 2deg));
+  }
+
+  50% {
+    transform: translate(1rem, -0.5rem) rotate(calc(var(--tilt) + 4deg));
+  }
+
+  75% {
+    transform: translate(0.5rem, 1rem) rotate(calc(var(--tilt) + 1deg));
+  }
 
 }
 

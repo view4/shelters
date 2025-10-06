@@ -14,7 +14,9 @@ import SubBoothsCard from "../../SubBoothsCard";
 import { BOOTH_KINDS } from "modules/booths/consts";
 import BoothsScreenHeader from "modules/shelter/components/BoothScreen/BoothScreenHeader"
 import { BOOTHS } from "../../InfoComponent/lib/keys"
+import FeatureWrapper from "modules/Core/components/FeatureWrapper";
 import styles from "./styles.module.scss";
+
 
 const tabs = [
     {
@@ -34,9 +36,16 @@ const tabs = [
 
 const BoothTimeIntrospectionCard = ({ boothId, ...props }) => {
     const tabProps = useMemo(() => ({ boothId }), [boothId])
+    const fallback = useMemo(() => (
+        <Card maxHeight borderless>
+            <DedicatedTimeFeed col className={styles.dedicatedTimeFeedContainer} boothId={boothId} />
+        </Card>
+    ), [boothId])
     return (
         <IntrospectionCard title="Time schedule" className={styles.card} {...props}>
-            <Card maxHeight borderless tabs={tabs} tabProps={tabProps} />
+            <FeatureWrapper featureKey="time-mapping" fallback={fallback}>
+                <Card maxHeight borderless tabs={tabs} tabProps={tabProps} />
+            </FeatureWrapper>
         </IntrospectionCard>
     )
 }
@@ -69,12 +78,15 @@ export default ({ focusedBoothId, boothId = focusedBoothId }) => (
                     <EntriesFeed boothId={boothId} />
                 </IntrospectionCard>
             </Container>
-            <Container>
-                <SubBoothsCard
-                    parentId={boothId}
-                    kind={BOOTH_KINDS.MALCHUT}
-                />
-            </Container>
+            <FeatureWrapper featureKey="malchut">
+                <Container>
+                    <SubBoothsCard
+                        parentId={boothId}
+                        kind={BOOTH_KINDS.MALCHUT}
+                    />
+                </Container>
+            </FeatureWrapper>
+
         </Container>
-    </BoothScreen>
+    </BoothScreen >
 )

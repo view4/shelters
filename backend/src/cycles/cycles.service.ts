@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Inject, forwardRef } from "@nestjs/common";
 import { Cycle, CycleDocument } from "./schema/cycle.schema";
 import mongoose, { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
@@ -48,7 +48,7 @@ export class CyclesService {
     constructor(
         @InjectModel(Cycle.name) private cycleModel: Model<CycleDocument>,
         private readonly sabbaticalsService: SabbaticalsService,
-        private readonly boothsService: BoothsService
+        @Inject(forwardRef(() => BoothsService)) private readonly boothsService: BoothsService
     ) { }
 
     async currentCycle(userId: ID, boothId: ID) {

@@ -4,13 +4,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { BoothsResolver } from './booths.resolver';
 import { BoothsService } from './booths.service';
 import { AuthModule } from 'src/auth/auth.module';
+import { CyclesModule } from 'src/cycles/cycles.module';
 
 @Module({
     imports: [
         MongooseModule.forFeature([
             { name: Booth.name, schema: BoothSchema },
         ]),
-        forwardRef(() => AuthModule)
+        forwardRef(() => AuthModule),
+        forwardRef(() => CyclesModule)
     ],
     providers: [
         BoothsResolver,

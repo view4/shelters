@@ -11,7 +11,8 @@ export default {
             selector: (state) => state.focusedBooth,
             selectors: {
                 id: (state) => state.focusedBooth?.id,
-                isLoading: (state) => state.isLoading
+                isLoading: (state) => state.isLoading,
+                hasNoFocusedBooths: (state) => state?.focusedBooth == false
             },
             reducer: (state, { payload }) => {
                 state.isLoading = true
@@ -19,15 +20,16 @@ export default {
             sagas: {
                 latest: function* ({ payload }) {
                     const res = yield call(middleware.ops.fetchFocusedBooth);
-                    return res?.focusedBooth
+                    return res?.focusedBooth ?? true
                 },
                 onCellSuccess: true
             },
             successCell: {
                 reducer: (state, { payload }) => {
-                    state.focusedBooth = payload
-                    state.entities[payload.id] = payload
+                    state.focusedBooth = payload?.id ? payload : false
                     state.isLoading = false
+                    if (payload == true) return
+                    state.entities[payload?.id] = payload
                 }
             }
         }

@@ -35,6 +35,16 @@ export class TimetrackerResolver {
         @Args('parentId', { type: () => String }) parentId?: string,
         @Args('search', { type: () => String }) search?: string
     ) {
+        if(!boothId) {
+            return {
+                entities: [],
+                info: {
+                    total: 0,
+                    page: 1,
+                    limit: 10
+                }
+            }
+        }
         const result = await this.service.dedicatedTimes(boothId, parentId);
         return result;
     }

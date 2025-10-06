@@ -4,22 +4,23 @@
     "features": [
         {
             "name": "Cyclical Task Management",
-            "description": "Organise your responsibilities into recurring cycles, helping you return, reflect and grow. Each cycle naturally includes a break/sabbatical to help you balance work and play. \n\n\n The Etrog (fruit of the hadar tree), typically relates to the heart and fragrance, it's a symbol of wholeness and Life's fleeting transicence. This can correlate to the cycle's flowing/transeit rhythm and it's complete, cyclical, nature."
+            "description": "The Etrog (fruit of the hadar tree), typically relates to the heart and fragrance, it's a symbol of wholeness and Life's fleeting transicence. This can correlate to the cycle's flowing/transeit rhythm and it's complete, cyclical, nature. \n\n\n Organise your responsibilities into recurring cycles, helping you return, reflect and grow. Each cycle naturally includes a break/sabbatical to help you balance work and play."
         },
         {
             "name": "Journalling",
-            "description": "Capture your reflections, feelings, and consciousness as part of your ongoing journey. Just as prayer is carried by the lips, journalling gives voice to the inner soul, letting what is within fid shape through language. \n\n\n The willow (aravah), often associated with lips, may correlate with this Journalling feature where both are connected to the deep power of personal expression."
+            "description": "The willow (aravah), often associated with lips, may correlate with this Journalling feature where both are connected to the deep power of personal expression. \n\n\n Capture your reflections, feelings, and consciousness as part of your ongoing journey. Just as prayer is carried by the lips, journalling gives voice to the inner soul, letting what is within find shape through language."
         },
         {
             "name": "Roadmapping",
-            "description": "Set pathways for your goals and growth, making the next steps not just visible, but achievale by breaking them down into tangible and realistic milestones. \n\n\n The lulav (palm frond), is associated with the spine, the structure that holds us uprght and straight. In the same way, roadmaps provide a backbone for our journeys, giving structure and direct support to that growth remains tangible and within reach."
+            "description": "The lulav (palm frond), is associated with the spine, the structure that holds us uprght and straight. In the same way, roadmaps provide a backbone for our journeys, giving structure and direct support to that growth remains tangible and within reach. \n\n\n Set pathways for your goals and growth, making the next steps not just viable, but achievable by breaking them down into tangible and realistic milestones."
         },
         {
             "name": "Time Management",
-            "description": "Structure your hours and days, creating space for what matters most. Being in command of one's time is a key way to living freely and purposefully. \n\n\n The hadas (myrtle), associated with the eyes, reflects vision and clarity. In the same way, mindful timekeeping can help us to plan and move forward in alignment with one's vision, intention and unity of being."
+            "description": "The hadas (myrtle), associated with the eyes, reflects vision and clarity. In the same way, mindful timekeeping can help us to plan and move forward in alignment with one's vision, intention and unity of being. \n\n\n Structure your hours and days, creating space for what matters most. Being in command of one's time is a key way to living freely and purposefully."
         }
     ],
-    "narrative": "Yes! Of course this is incomplete, and in the process of being built. That's the whole point. Because, so are you. \n\n The festival of sukkot commemorates dwelling in booths, temporary shelters, whilst in the desert leaving Egypt. The instruction to dwell in booths each year is a reminder that the journey of liberation continues into the transient present. The pursuit for liberating personal growth is real, sacred and inherently ours. \n\n This release offers tools to help you build, dismantle, and rebuild structures that support your growth and creativity.",
+    "subText": "Digital tools to help your transient journey through Life.",
+    "narrative": "Yes! Of course this is incomplete, and in the process of being built. That's the whole point, because... so are you! \n\n The festival of sukkot commemorates dwelling in booths, temporary shelters, whilst in the desert leaving Egypt. The instruction to dwell in booths each year is a reminder that the journey of liberation continues with the transient present. The pursuit for liberating personal growth is real, sacred and inherently ours. \n\n This release offers tools to help you build, dismantle, and rebuild digital spaces that support your growth and creativity.",
     "intentionalText": "I am happy to share this space with you, please explore and experience it with an open mind noting that this space and the basic tools are still in a relatively early stage",
     "links": [
         {
@@ -59,14 +60,14 @@
     "prospectiveFeatures": [
         {
             "name": "Shared Booths",
-            "description": "Some filler text here.... "
+            "description": "Allowing personal booths to become shared spaces such that we can engage in shared journeys, and shared growth with people we want to grow with."
         },
         {
-            "name": "Booths Mobile App",
-            "description": "Some filler text here.... "
+            "name": "Mobile application",
+            "description": "Adding a mobile app, to allow users to manage their transient journey on the go."
         },
         {
-            "name": "AI Integration",
-            "description": "Some filler text here.... "
-        }
-    ]}
+            "name": "AI enhancements",
+            "description": "AI Integration can help automate or streamline some of the mudane flows to help streamline some of the tedious processes."
+        }    
+        ]}

@@ -35,12 +35,12 @@ export default strappedConnected(
     ({ orderKey, gateway, reorder, refetch, boothId, remove, feedItem, cycleId }) => ({
         empty: !feedItem && !gateway,
         sabbatical: orderKey === "sabbatical",
-        reorder: (moveUp) => reorder({ orderKey, newOrderKey: moveUp ? CYCLE_GATEWAY_KEYS[CYCLE_GATEWAY_KEYS.indexOf(orderKey) - 1] : CYCLE_GATEWAY_KEYS[CYCLE_GATEWAY_KEYS.indexOf(orderKey) + 1] }),
+        reorder: (moveUp) => reorder({ orderKey, cycleId, newOrderKey: moveUp ? CYCLE_GATEWAY_KEYS[CYCLE_GATEWAY_KEYS.indexOf(orderKey) - 1] : CYCLE_GATEWAY_KEYS[CYCLE_GATEWAY_KEYS.indexOf(orderKey) + 1] }),
         hideUp: useMemo(() => orderKey === CYCLE_GATEWAY_KEYS[0], [orderKey]),
         hideDown: useMemo(() => orderKey === CYCLE_GATEWAY_KEYS[CYCLE_GATEWAY_KEYS.length - 2], [orderKey]),
         refetch: useCallback(() => refetch({ id: cycleId }), [refetch, cycleId]),
         onCreateSuccess: useCallback(() => refetch({ id: cycleId }), [cycleId]),
-        remove: useCallback(() => remove({ orderKey }), [orderKey, remove])
+        remove: useCallback(() => remove({ orderKey, cycleId }), [orderKey, remove, cycleId])
 
     })
 )

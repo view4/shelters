@@ -26,10 +26,10 @@ export const GatewayExpandableOptions = ({ name, id, text, stamps, refetchGatewa
         horizontal
         className={styles.options}
         options={[
-            { Component: EditGatewayButton, props: { gatewayId: id, name, text, parent, } },
+            { Component: EditGatewayButton, props: { gatewayId: id, text: "Edit", entity: { name, text, parent } } },
             { Component: AddGatewayToCycleButton, props: { gatewayId: id } },
             view && ({ Component: ViewRoadmapButton, props: { id, className: styles.viewBtn } }),
-            { Component: AddGatewayButton, props: { parentId: id, parentName: name, refetchId } },
+            { Component: AddGatewayButton, props: { parentId: id, parentName: name, refetchId, text: "Add Step" } },
             { Component: StampGatewayButton, props: { stampKey: STAMPS.COMMENCED, gatewayId: id, shouldRender: !stamps?.[STAMPS.COMMENCED], text: "stamp commenced", callback: refetchGateway } },
             { Component: StampGatewayButton, props: { stampKey: STAMPS.COMPLETED, gatewayId: id, text: "stamp completed", shouldRender: !stamps?.[STAMPS.COMPLETED] && Boolean(stamps?.[STAMPS.COMMENCED]), callback: refetchGateway } }
         ]}

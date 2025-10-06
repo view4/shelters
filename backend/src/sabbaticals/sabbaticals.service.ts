@@ -14,7 +14,7 @@ export class SabbaticalsService {
         private readonly gatewayService: RoadmapsService,
         @Inject(forwardRef(() => CyclesService))
         private readonly cyclesService: CyclesService,
-        private readonly boothsService: BoothsService
+        @Inject(forwardRef(() => BoothsService)) private readonly boothsService: BoothsService
     ) { }
 
     async upsertSabbaticalGateway(input: any, id?: string) {
