@@ -4,6 +4,7 @@ import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import styles from "./styles.module.scss";
 import { FEATURES_COPY } from "../../consts";
+import ScrollNext from "../ScrollNext";
 
 
 const FeatureCard = ({ name, description, details, icon, bg, inscription, emblem, className }) => (
@@ -44,6 +45,7 @@ const FeaturesSection = () => {
                     ))}
                 </Container>
             </Container>
+            <ScrollNext toId="qualities" />
         </Container>
     );
 };

@@ -1,11 +1,12 @@
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import component from "../BoothScreen/component";
 import cells from "modules/booths/state/index";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import Screen from "modules/Core/sub-modules/ui-kit/components/Screen";
 import styles from "./styles.module.scss";
 import Loader from "modules/Core/sub-modules/ui-kit/components/Loader";
+import { useNavigate } from "react-router-dom";
 
 const withPlaceholder = (Component, PlaceholderComponent, isEmptyKey = "shouldDisplayPlaceholder") => (props) => {
     const C = useMemo(() => Boolean(props[isEmptyKey]) ? PlaceholderComponent : Component, [PlaceholderComponent, Component, props?.[isEmptyKey]]);
@@ -28,10 +29,18 @@ export default strappedConnected(
     component,
     {
         focusedBoothId: cells.fetchFocusedBooth.selectors.id,
-        isLoading: cells.fetchFocusedBooth.selectors.isLoading
+        isLoading: cells.fetchFocusedBooth.selectors.isLoading,
+        hasNoFocusedBooths: cells.fetchFocusedBooth.selectors.hasNoFocusedBooths
+
     },
     { fetch: cells.fetchFocusedBooth.action },
-    ({  focusedBoothId, isLoading }) => {
+    ({  focusedBoothId, isLoading, hasNoFocusedBooths }) => {
+        const navigate = useNavigate();
+        useEffect(() => {
+            if(hasNoFocusedBooths) {
+                navigate("/booths")
+            }
+        }, [hasNoFocusedBooths])
         return {
             // shouldDisplayPlaceholder: !focusedBoothId && !isLoading
         }

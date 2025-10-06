@@ -1,17 +1,22 @@
 @import "src/modules/Core/styles/variables.scss";
 
 .section {
-  height: 100vh;
+  // height: 100vh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   border-top: 1px solid $grey10;
+  background-image: linear-gradient(90deg, rgba(99, 102, 241, 0.2), rgba(220, 38, 38, 0.2), rgba(139, 92, 246, 0.2));
+  border-image-slice: 1;
+  border-image-width: 1;
+  border-image-outset: 0;
+  border-image-repeat: round;
 }
 
 .dividerSection {
   width: 100%;
-  background-color: $grey3;
+  // background-color: $grey3;
 }
 
 .contentWrapper {
@@ -46,16 +51,23 @@
 
 .bodySection {
   max-width: 72rem;
-  margin: 7rem auto;
+  margin: 3rem auto;
+  // background: linear-gradient(90deg, rgba(99, 102, 241, 0.18), rgba(220, 38, 38, 0.18), rgba(139, 92, 246, 0.18));
+  border-radius: 1.5rem;
+  padding: 1rem 1.5rem;
+  // border: 0.25rem solid rgba(99, 102, 241, 0.2);
+
 }
 
 .bodyText {
-  font-size: 1.5rem;
-  color: $grey72;
-  line-height: 1.8;
+  font-size: 1.75rem;
+  color:  $ocean_blue90;
+  font-weight: 900;
   text-align: center;
-  
+  font-style: italic;
+  line-height: 1;
+
   @media (min-width: 48rem) {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
 }

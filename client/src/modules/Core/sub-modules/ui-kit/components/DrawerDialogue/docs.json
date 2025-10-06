@@ -1,0 +1,28 @@
+{
+    "key": "DrawerDialogue",
+    "name": "Drawer Dialogue",
+    "path": "DrawerDialogue",
+    "section": "general",
+    "intro": "A component intended to be informative to the user in a stylish and basic manner",
+    "principles": [
+      "informative",
+      "clean",
+      "accessible"
+    ],
+    "demo": {
+      "props": {
+        "isOpen": true,
+        "title": "Title",
+        "subtitle": "Subtitle",
+        "actions": [
+          { "text": "Action", "onClick": null }
+        ],
+        "children": "Children Content here... "
+      }
+    },
+    "notes": "",
+    "status": "new",
+    "tags": ["action", "interaction", "primary", "engagement"],
+    "lastUpdated": "2025-09-21"
+  }
+  

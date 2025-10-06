@@ -25,7 +25,6 @@ type EntryFeed {
   info: FeedInfo
 }
 
-
 type Entry {
   id: String
   name: String
@@ -37,6 +36,7 @@ type Entry {
   booth: String
   stamps: Stamps
 }
+
 input EntryInput {
   name: String
   text: String

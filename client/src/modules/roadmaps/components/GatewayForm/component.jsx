@@ -25,13 +25,13 @@ const CyclelessFeed = ({onSelect, boothId}) => {
 
 
 
-export default ({ isOpen, close, schema, title = "Add Gateway", onSelectGateway, onSubmit, initialState }) => {
+export default ({ isOpen, close, schema, title , onSelectGateway, onSubmit, initialState }) => {
 
     const tabs = useMemo(() => ([{
-        title: "Gateway Form",
+        title: "Create New",
         Component: () => <SchemaForm schema={schema} initialState={initialState} onSubmit={onSubmit} />
     }, {
-        title: "Gateways",
+        title: "Select Existing",
         Component: () =>  withFocusedBoothId(CyclelessFeed)({ onSelect: onSelectGateway })
     }]), [initialState, onSelectGateway, onSubmit]);
 

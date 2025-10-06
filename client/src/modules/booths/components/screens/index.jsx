@@ -4,17 +4,25 @@ import RoadmapsFeed from "modules/roadmaps/components/RoadmapsFeed";
 import AddRoadmapButton from "modules/roadmaps/components/AddRoadmapButton";
 import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
 import BoothScheduleTab from "../BoothScheduleTab";
-import BoothEntriesTab from "../BoothEntriesTab";
+import BoothEntriesTab, { SearchComponent } from "../BoothEntriesTab";
 import BoothActiveCycletab from "../BoothActiveCycletab";
 import BoothInfo from "../BoothInfo";
 import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import FeatureWrapper from "modules/Core/components/FeatureWrapper";
 import BoothPastCyclesTab from "../BoothPastCyclesTab";
 import BoothProspectiveCycles from "../BoothProspectiveCycles";
+import BoothsScreenHeader from "modules/shelter/components/BoothScreen/BoothScreenHeader";
+import { ENTRIES, ROADMAPS, TIME_MAPPING, CYCLES } from "../InfoComponent/lib/keys";
 import styles from "./styles.module.scss";
 
 export const BoothRoadmapsScreen = ({ boothId }) => {
     return (
         <BoothScreen boothId={boothId}>
+            <BoothsScreenHeader
+                className={styles.header}
+                header="Roadmaps"
+                infoKey={ROADMAPS.index}
+            />
             <Container maxHeight maxWidth column alignCenter flex >
                 <RoadmapsFeed boothId={boothId} />
                 <AddRoadmapButton boothId={boothId} />
@@ -26,11 +34,20 @@ export const BoothRoadmapsScreen = ({ boothId }) => {
 export const BoothDedicatedTimeScreen = ({ boothId }) => {
     return (
         <BoothScreen boothId={boothId}>
-            <Card maxHeight>
-                <Container flex row alignCenter maxWidth>
+            <BoothsScreenHeader
+                className={styles.header}
+                header="Dedicated Time"
+                infoKey={TIME_MAPPING.index}
+            />
+            <Card borderless >
+                <FeatureWrapper featureKey="time-mappingxx" >
+                    <Container className={styles.mappedTimeContainer}>
+                        <BoothScheduleTab maxHeight />
+                    </Container>
+                </FeatureWrapper>
+                <Container flex col maxWidth >
                     <DedicatedTimeFeed className={styles.dedicatedTimeFeedContainer} boothId={boothId} />
                 </Container>
-                <BoothScheduleTab />
             </Card>
         </BoothScreen>
     )
@@ -39,6 +56,14 @@ export const BoothDedicatedTimeScreen = ({ boothId }) => {
 export const BoothEntriesScreen = ({ boothId }) => {
     return (
         <BoothScreen boothId={boothId}>
+            <BoothsScreenHeader
+                className={styles.header}
+                header="Entries"
+                infoKey={ENTRIES.index}
+                options={[
+                    { Component: SearchComponent, props: { className: styles.searchComponent } }
+                ]}
+            />
             <BoothEntriesTab boothId={boothId} />
         </BoothScreen>
     )
@@ -62,13 +87,20 @@ const cyclesTabs = [
 export const BoothCyclesScreen = ({ boothId }) => {
     return (
         <BoothScreen boothId={boothId}>
-            <Card
-                className={styles.cyclesCard}
-                tabs={cyclesTabs}
-                maxHeight
-                lightShadow
-                maxWidth
-            />
+            <Container maxHeight>
+                <BoothsScreenHeader
+                    className={styles.header}
+                    header="Cycles"
+                    infoKey={CYCLES.index}
+                />
+                <Card
+                    className={styles.cyclesCard}
+                    tabs={cyclesTabs}
+                    lightShadow
+                    borderless
+                    maxWidth
+                /></Container>
+
         </BoothScreen>
     )
 }

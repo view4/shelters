@@ -12,6 +12,8 @@ import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import DedicatedTimeFeed from "modules/timetracker/components/DedicatedTimeFeed";
 import SubBoothsCard from "../../SubBoothsCard";
 import { BOOTH_KINDS } from "modules/booths/consts";
+import BoothsScreenHeader from "modules/shelter/components/BoothScreen/BoothScreenHeader"
+import { BOOTHS } from "../../InfoComponent/lib/keys"
 import FeatureWrapper from "modules/Core/components/FeatureWrapper";
 import styles from "./styles.module.scss";
 
@@ -34,9 +36,16 @@ const tabs = [
 
 const BoothTimeIntrospectionCard = ({ boothId, ...props }) => {
     const tabProps = useMemo(() => ({ boothId }), [boothId])
+    const fallback = useMemo(() => (
+        <Card maxHeight borderless>
+            <DedicatedTimeFeed col className={styles.dedicatedTimeFeedContainer} boothId={boothId} />
+        </Card>
+    ), [boothId])
     return (
         <IntrospectionCard title="Time schedule" className={styles.card} {...props}>
-            <Card maxHeight borderless tabs={tabs} tabProps={tabProps} />
+            <FeatureWrapper featureKey="time-mapping" fallback={fallback}>
+                <Card maxHeight borderless tabs={tabs} tabProps={tabProps} />
+            </FeatureWrapper>
         </IntrospectionCard>
     )
 }
@@ -47,8 +56,13 @@ export default ({ focusedBoothId, boothId = focusedBoothId }) => (
         boothId={boothId}
         RightPanelComponent={Fragment}
     >
+
         <Container className={styles.container}>
-            <Container>
+            <BoothsScreenHeader
+                header="Booth home"
+                infoKey={BOOTHS.homescreen}
+            />
+            <Container className={styles.cardsContainer}>
                 <BoothTimeIntrospectionCard boothId={boothId} />
                 <IntrospectionCard className={styles.card} title="Cycle" maxWidth maxHeight>
                     <Cycle />

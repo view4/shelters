@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="80" viewBox="0 0 400 80" fill="none">
+  <!-- Base beam -->
+  <rect x="0" y="64" width="400" height="6" fill="#1f2937" opacity="0.9"/>
+
+  <!-- Primary chevron bundles -->
+  <g stroke="#0b0b0b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M -20 62 L 0 18 L 20 62"/>
+    <path d="M 20 62 L 40 18 L 60 62"/>
+    <path d="M 60 62 L 80 18 L 100 62"/>
+    <path d="M 100 62 L 120 18 L 140 62"/>
+    <path d="M 140 62 L 160 18 L 180 62"/>
+    <path d="M 180 62 L 200 18 L 220 62"/>
+    <path d="M 220 62 L 240 18 L 260 62"/>
+    <path d="M 260 62 L 280 18 L 300 62"/>
+    <path d="M 300 62 L 320 18 L 340 62"/>
+    <path d="M 340 62 L 360 18 L 380 62"/>
+    <path d="M 380 62 L 400 18 L 420 62"/>
+  </g>
+
+  <!-- Inner strokes for a hand-drawn look -->
+  <g stroke="#111827" stroke-width="3" stroke-linecap="round" opacity="0.9">
+    <path d="M -10 62 L 0 32 L 10 62"/>
+    <path d="M 30 62 L 40 32 L 50 62"/>
+    <path d="M 70 62 L 80 32 L 90 62"/>
+    <path d="M 110 62 L 120 32 L 130 62"/>
+    <path d="M 150 62 L 160 32 L 170 62"/>
+    <path d="M 190 62 L 200 32 L 210 62"/>
+    <path d="M 230 62 L 240 32 L 250 62"/>
+    <path d="M 270 62 L 280 32 L 290 62"/>
+    <path d="M 310 62 L 320 32 L 330 62"/>
+    <path d="M 350 62 L 360 32 L 370 62"/>
+    <path d="M 390 62 L 400 32 L 410 62"/>
+  </g>
+
+  <!-- Light accent strokes for depth -->
+  <g stroke="#6b7280" stroke-width="2" stroke-linecap="round" opacity="0.6">
+    <path d="M -6 60 L 0 40 L 6 60"/>
+    <path d="M 24 60 L 40 40 L 56 60"/>
+    <path d="M 64 60 L 80 40 L 96 60"/>
+    <path d="M 104 60 L 120 40 L 136 60"/>
+    <path d="M 144 60 L 160 40 L 176 60"/>
+    <path d="M 184 60 L 200 40 L 216 60"/>
+    <path d="M 224 60 L 240 40 L 256 60"/>
+    <path d="M 264 60 L 280 40 L 296 60"/>
+    <path d="M 304 60 L 320 40 L 336 60"/>
+    <path d="M 344 60 L 360 40 L 376 60"/>
+    <path d="M 384 60 L 400 40 L 416 60"/>
+  </g>
+</svg>

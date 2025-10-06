@@ -3,6 +3,7 @@ import withRecursiveRender from "modules/Core/higher-order-components/withRecurs
 import cells from "modules/cycles/state";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import state from "modules/cycles/state";
+import feed from "modules/cycles/state/feed";
 import roadmapsFeedState from "modules/roadmaps/state/feed";
 import { CYCLE_GATEWAY_KEYS } from "modules/cycles/consts";
 import SabbaticalGateway from "./SabbaticalGatewayCard/component"
@@ -11,7 +12,7 @@ import withGatewayCardWrapper from "./withGatewayCardWrapper";
 import component, { EmptyGatewayCard, GatewayCardTitle } from "./component";
 
 const FeedItem = ({ name, gateway, gatewayId, id = gatewayId, orderKey, onCreateSuccess, ...props }) => {
-    if(!id) return <EmptyGatewayCard onCreateSuccess={onCreateSuccess} cycleId={props.cycleId} orderKey={orderKey} empty />
+    if (!id) return <EmptyGatewayCard onCreateSuccess={onCreateSuccess} cycleId={props.cycleId} orderKey={orderKey} empty />
     return <RoadmapFeedItem TitleComponent={GatewayCardTitle} {...gateway} id={id} name={gateway?.name ?? name} {...props} />
 }
 
@@ -28,17 +29,18 @@ export default strappedConnected(
     },
     {
         reorder: cells.reorderCycleGateway.action,
-        refetch: state.fetchCycle.action,
+        refetch: feed.cells.fetchEntity.action,
         remove: cells.removeGatewayFromActiveCycle.action
     },
-    ({ orderKey, gateway, reorder, refetch, boothId, remove, feedItem }) => ({
+    ({ orderKey, gateway, reorder, refetch, boothId, remove, feedItem, cycleId }) => ({
         empty: !feedItem && !gateway,
         sabbatical: orderKey === "sabbatical",
-        reorder: (moveUp) => reorder({ orderKey, newOrderKey: moveUp ? CYCLE_GATEWAY_KEYS[CYCLE_GATEWAY_KEYS.indexOf(orderKey) - 1] : CYCLE_GATEWAY_KEYS[CYCLE_GATEWAY_KEYS.indexOf(orderKey) + 1] }),
+        reorder: (moveUp) => reorder({ orderKey, cycleId, newOrderKey: moveUp ? CYCLE_GATEWAY_KEYS[CYCLE_GATEWAY_KEYS.indexOf(orderKey) - 1] : CYCLE_GATEWAY_KEYS[CYCLE_GATEWAY_KEYS.indexOf(orderKey) + 1] }),
         hideUp: useMemo(() => orderKey === CYCLE_GATEWAY_KEYS[0], [orderKey]),
         hideDown: useMemo(() => orderKey === CYCLE_GATEWAY_KEYS[CYCLE_GATEWAY_KEYS.length - 2], [orderKey]),
-        refetch: useCallback(() => refetch({ boothId }), [boothId, refetch]),
-        remove: useCallback(() => remove({ orderKey }), [orderKey, remove])
+        refetch: useCallback(() => refetch({ id: cycleId }), [refetch, cycleId]),
+        onCreateSuccess: useCallback(() => refetch({ id: cycleId }), [cycleId]),
+        remove: useCallback(() => remove({ orderKey, cycleId }), [orderKey, remove, cycleId])
 
     })
 )

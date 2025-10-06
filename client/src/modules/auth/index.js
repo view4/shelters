@@ -12,6 +12,7 @@ export default new CoreModule({
   name: AUTH,
   initialState: {
     isAuthenticated: getToken() ? null : false,
+    isAuthenticating: true
   },
   cells: {
 

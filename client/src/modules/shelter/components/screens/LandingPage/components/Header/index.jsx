@@ -2,8 +2,10 @@ import c from "classnames";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import Button from "modules/Core/sub-modules/ui-kit/components/Button";
+import AuthenticationButton from "modules/auth/components/AuthenticationButton";
 import styles from "./styles.module.scss";
 import { GENERAL_COPY } from "../../consts";
+import ShelterImage from "modules/shelter/assets/shelter.png";
 
 
 const Header = ({ isAuthed }) => {
@@ -14,7 +16,8 @@ const Header = ({ isAuthed }) => {
                     {/* Logo */}
                     <Container className={styles.logoSection}>
                         <Container className={styles.logoIcon}>
-                        <svg width="60" height="60" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                            {/* <img src={ShelterImage} alt="Shelter" /> */}
+                         <svg width="60" height="60" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
                                 {/* Main shelter structure */}
                                 <path d="M12 22 L12 16 L20 12 L28 16 L28 22 L20 26 Z" stroke="white" stroke-width="2" fill="none" />
                                 
@@ -26,9 +29,9 @@ const Header = ({ isAuthed }) => {
                                 
                                 {/* Foundation line */}
                                 <line x1="20" y1="14" x2="20" y2="30" stroke="white" stroke-width="1" opacity="0.6" />
-                            </svg>
+                            </svg> 
                         </Container>
-                        <Text className={styles.logoText}>{GENERAL_COPY.NAME}</Text>
+                        <Text className={styles.name}>{GENERAL_COPY.NAME}</Text>
                     </Container>
 
                     {/* Navigation Links */}
@@ -48,28 +51,31 @@ const Header = ({ isAuthed }) => {
                         <a href="#connect" className={styles.navLink}>
                             Connect
                         </a> */}
-                        {
-                            GENERAL_COPY.LINKS.map((link) => (
-                                <a href={`#${link.link}`} className={styles.navLink}>
-                                    {link.name}
-                                </a>
-                            ))
-                        }
+                        {GENERAL_COPY.LINKS.map((l) => (
+                            <a
+                                key={l.link}
+                                href={`#${l.link}`}
+                                className={styles.navLink}
+                                data-fullname={l.fullName || l.name}
+                            >
+                                {l.name}
+                            </a>
+                        ))}
 
                         {/* Authentication-based buttons */}
                         {!isAuthed ? (
                             <Container className={styles.authButtons}>
-                                <Button to="/register" className={styles.authButton}>
+                                <AuthenticationButton className={styles.authButton} authMode="register">
                                     Register
-                                </Button>
-                                <Button to="/login" className={styles.authButton}>
+                                </AuthenticationButton>
+                                <AuthenticationButton className={styles.authButton} authMode="login">
                                     Login
-                                </Button>
+                                </AuthenticationButton>
                             </Container>
                         ) : (
                             <Button to="/booths" className={styles.boothsButton}>
-                                <Text>Booths</Text>
-                                <svg
+                                <Text>Visit Booths</Text>
+                                {/* <svg
                                     className={styles.arrowIcon}
                                     fill="none"
                                     stroke="currentColor"
@@ -81,7 +87,7 @@ const Header = ({ isAuthed }) => {
                                         strokeWidth={2}
                                         d="M17 8l4 4m0 0l-4 4m4-4H3"
                                     />
-                                </svg>
+                                </svg> */}
                             </Button>
                         )}
                     </Container>

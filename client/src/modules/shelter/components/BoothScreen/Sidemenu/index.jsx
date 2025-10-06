@@ -48,10 +48,10 @@ const Sidemenu = ({ header = "Booths" }) => {
                     <Title>{header}</Title>
                 </Link>
                 <Container className={styles.toggleContainer}>
-                    <Chevron nature='left'
+                    {/* <Chevron nature='left'
                         className={cx(styles.chevron, { [styles.open]: isOpen })}
                         onClick={toggle}
-                    />
+                    /> */}
                 </Container>
             </Container>
             <Container className={styles.links}>

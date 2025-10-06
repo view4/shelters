@@ -5,9 +5,9 @@ import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import styles from "./styles.module.scss";
 import { ConditionalContainer } from "modules/Core/sub-modules/ui-kit/exports";
 
-const DividerSection = ({ 
-    header = "Section Header", 
-    body = "Section body text goes here." 
+const DividerSection = ({
+    header = "Section Header",
+    body = "Section body text goes here."
 }) => {
     return (
         <Container className={c(styles.section, styles.dividerSection)}>
@@ -18,7 +18,7 @@ const DividerSection = ({
                     </Title>
                     <Container className={styles.decorativeDivider} />
                 </ConditionalContainer>
-                
+
                 <Container className={styles.bodySection}>
                     <Text className={styles.bodyText}>
                         {body}

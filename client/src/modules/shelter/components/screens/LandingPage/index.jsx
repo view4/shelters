@@ -18,7 +18,7 @@ import styles from "./styles.module.scss";
 const LINKS = [
     {
         label: "homepage",
-        to: "/shelter"
+        to: "/homepage"
 
     },
     {
@@ -36,7 +36,6 @@ export const SheltersFooter = () => (
     <Footer>
         <Container flex spaceBetween alignCenter p1 maxHeight>
             <Text>
-                Shelters Project
             </Text>
             <Container flex>
                 {LINKS.map((link, index) => (
@@ -61,7 +60,6 @@ const LandingPage = ({ isAuthed }) => {
             <WelcomeSection />
             <DividerSection
                 header={false}
-                // header="Why Shelters?"
                 body={OPENING_INTENTION_COPY.TEXT}
             />
             <FeaturesSection />
@@ -69,7 +67,6 @@ const LandingPage = ({ isAuthed }) => {
             <NarrativeSection />
             <DividerSection
                 header={false}
-                // header="Begin Your Journey"
                 body={INTRA_INTENTION_COPY.TEXT}
             />
             <ConnectionSection isAuthed={isAuthed} />

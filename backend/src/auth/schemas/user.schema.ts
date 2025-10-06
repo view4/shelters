@@ -13,6 +13,9 @@ export class User {
 
   @Prop({ default: [] })
   roles: Array<string>;
+
+  @Prop({ required: false })
+  authenticatorProviderKey: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

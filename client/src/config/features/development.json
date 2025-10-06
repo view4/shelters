@@ -4,5 +4,8 @@
     },
     "malchut": {
         "disabled": true
+    },
+    "time-mapping": {
+        "disabled": true
     }
 }

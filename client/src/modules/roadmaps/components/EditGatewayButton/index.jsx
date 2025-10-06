@@ -5,12 +5,12 @@ import styles from "./styles.module.scss";
 import strapped from 'modules/Core/higher-order-components/strapped';
 import { useMemo } from 'react';
 
-const EditGatewayButton = ({ onSuccess, gatewayId, entity }) => {
+const EditGatewayButton = ({ onSuccess, gatewayId, entity, text = "Edit Gateway" }) => {
     const { open, close, isOpen } = useIsOpen();
     return (
         <>
             <Button className={styles.button} onClick={open}>
-                Edit Gateway
+                {text}
             </Button>
             <GatewayForm
                 title="Edit Gateway"
@@ -25,7 +25,7 @@ const EditGatewayButton = ({ onSuccess, gatewayId, entity }) => {
 }
 
 export default strapped(EditGatewayButton, ({ name, text, parent,}) => ({
-    entity: useMemo(() => ({
-        name, text, parent
-    }), [name, text, parent])
+    // entity: useMemo(() => ({
+    //     name, text, parent
+    // }), [name, text, parent])
 }));

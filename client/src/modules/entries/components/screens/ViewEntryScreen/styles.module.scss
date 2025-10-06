@@ -1,0 +1,48 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.card {
+    cursor: text;
+    height: -webkit-fill-available;
+    max-height: 75vh;
+    padding: 0.5rem;
+    border: 1px solid $grey36;
+    box-shadow: 0.5rem 0.5rem 1rem $grey10;
+    .text {
+        font-size: 1.75rem;
+        line-height: 1.8rem;
+    }
+}
+
+.readText {
+    font-size: 1.25rem;
+}
+
+.editorInput {
+    font-size: 1.75rem;
+    line-height: 1.75rem;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    min-height: 12rem;
+    border: none;
+    outline: none;
+    box-shadow: 1rem 1rem 2rem $grey10;
+    height: 100%;
+}
+
+.actionsRow {
+    margin-top: 0.75rem;
+}
+
+.rightPanelContainer {
+    button {
+        margin: 0.5rem 0.5rem;
+        border: 1px solid $ocean_blue72;
+        &:first-child {
+            border-style: dashed;
+        }
+        &:last-child {
+            margin-bottom: 3rem;
+        }
+    }
+}
+

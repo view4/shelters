@@ -1,6 +1,10 @@
+@import "src/modules/Core/styles/variables.scss";
+
 .headerChildren {
   margin-left: auto;
   margin-right: 1rem;
+  position: absolute;
+  bottom: 1rem
 }
 
 .footer {
@@ -9,13 +13,38 @@
 }
 
 .screen {
-  & > div {
-    & > div:last-child {
+  &>div {
+    &>div:last-child {
       max-width: 0%;
       width: 0% !important;
     }
-    & > div:nth-child(2) {
-        width: 75% !important;
+
+    &>div:nth-child(2) {
+      width: 75% !important;
     }
+  }
+}
+
+
+.emptyCard {
+  border-style: ridge;
+  padding: 4rem 2rem;
+  display: flex;
+  height: 18rem;
+  width: 75%;
+  margin: 0rem 4rem;
+  border: none;
+  box-shadow: 0px 0px 10px $grey36;
+
+  &>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .emptyImage {
+    width: 10rem;
+    height: 10rem;
+    object-fit: contain;
   }
 }

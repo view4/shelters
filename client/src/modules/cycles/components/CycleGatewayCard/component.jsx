@@ -20,31 +20,32 @@ import styles from "./styles.module.scss";
 export const EmptyGatewayCard = ({ cycleId, orderKey, onCreateSuccess }) => {
     const dispatch = useDispatch();
     const onSuccess = useCallback((result) => {
-        dispatch(cells.addGatewayToCycle.action({ 
-            gatewayId: result.id, 
-            orderKey, 
-            cycleId, 
+        dispatch(cells.addGatewayToCycle.action({
+            gatewayId: result.id,
+            orderKey,
+            cycleId,
             callback: () => onCreateSuccess()
         }))
     }, [cycleId, orderKey, onCreateSuccess]);
     return (
         <Card className={styles.emptyCard}>
             <Container flex spaceBetween alignCenter >
-                <Text>Empty</Text>
+                <Text>Empty </Text>
                 <AddGatewayButton
                     cycleId={cycleId}
                     onSuccess={onSuccess}
                     onSelectGateway={onSuccess}
+                    text="Add Roadmap Step"
+                    formTitle="Add roadmap step to cycle"
                 />
             </Container>
         </Card>
     )
 };
 
-export const GatewayCardTitle = ({ title,  name = title, parent, stamps, appendage }) => (
+export const GatewayCardTitle = ({ title, name = title, parent, stamps, appendage }) => (
     <Container maxWidth>
         {parent?.name && <Title text={parent?.name} Element="h4" className={styles.parentText} />}
-        
         <TitleWithStamps className={styles.title} title={name} stamps={stamps} appendage={appendage} />
     </Container>
 )
@@ -66,10 +67,13 @@ export default ({ gateway = {}, children, refetch, remove, className, headerProp
                         Component: EditGatewayButton, props: {
                             gatewayId: gateway?.id,
                             onSuccess: refetch,
-                            name: gateway?.name,
-                            text: gateway?.text,
-                            parent: gateway?.parent,
-                            parentName: gateway?.parent?.name
+                            text: "Edit",
+                            parentName: gateway?.parent?.name,
+                            entity: {
+                                name: gateway?.name,
+                                text: gateway?.text,
+                                parent: gateway?.parent,
+                            }
                         }
                     },
                     {
@@ -90,7 +94,7 @@ export default ({ gateway = {}, children, refetch, remove, className, headerProp
                             callback: refetch
                         }
                     },
-                    { Component: AddGatewayButton, props: { parentId: gateway?.id, parentName: gateway?.name, refetchId: gateway?.id } },
+                    { Component: AddGatewayButton, props: { text: "Add Substep", parentId: gateway?.id, parentName: gateway?.name, refetchId: gateway?.id } },
 
                 ]}
             />

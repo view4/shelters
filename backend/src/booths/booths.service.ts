@@ -8,12 +8,14 @@ import { FeedParams, ID } from "src/common/types";
 import { MembershipService } from "src/auth/membership.service";
 import { BoothInput } from "./booths.resolver";
 import { BoothsFilter, aggregateBooths } from "./booths.utils";
+import { CyclesService } from "src/cycles/cycles.service";
 
 @Injectable()
 export class BoothsService {
     constructor(
         @InjectModel(Booth.name) private boothModel: Model<BoothDocument>,
-        @Inject(forwardRef(() => MembershipService)) private membershipService: MembershipService
+        @Inject(forwardRef(() => MembershipService)) private membershipService: MembershipService,
+        @Inject(forwardRef(() => CyclesService)) private cyclesService: CyclesService
     ) { }
     FREE_TIER_BOOTH_COUNT = 1;
 
@@ -23,7 +25,7 @@ export class BoothsService {
     }
 
     async activeBooths(userId: ID) {
-        return this.booths({userId}, {
+        return this.booths({ userId }, {
             match: {
                 user: new mongoose.Types.ObjectId(userId),
                 'stamps.completed': { $eq: null },
@@ -110,6 +112,7 @@ export class BoothsService {
     }
 
     async validateMembership(userId: ID, count = this.FREE_TIER_BOOTH_COUNT) {
+        return true;
         const hasValidMembership = await this.membershipService.hasValidMembership(userId);
         if (!hasValidMembership) {
             const boothCount = await this.boothModel.countDocuments({ user: new mongoose.Types.ObjectId(userId) });
@@ -123,7 +126,11 @@ export class BoothsService {
         if (!id) await this.validateMembership(userId);
         input["user"] = userId;
         if (input.parentId) input["parent"] = new mongoose.Types.ObjectId(input.parentId);
-        if (!id) return create(this.boothModel, input);
+        if (!id) {
+            const booth = await create(this.boothModel, input);
+            await this.cyclesService.upsertCycle(userId, { activateCycle: true, boothId: booth?._id });
+            return booth;
+        }
         return upsertOne(this.boothModel, input, compactObject({ _id: id, user: id && userId }));
     }
 

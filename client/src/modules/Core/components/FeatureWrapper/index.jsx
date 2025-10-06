@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import config from 'config/features';
 
-const FeatureWrapper = ({ featureKey, key, children }) => {
+const FeatureWrapper = ({ featureKey, key, children, fallback }) => {
   // Use featureKey prop first, fallback to key prop for flexibility
   const keyToCheck = featureKey || key;
   
@@ -28,7 +28,12 @@ const FeatureWrapper = ({ featureKey, key, children }) => {
     return true;
   }, [keyToCheck]);
 
-  return shouldRender ? children : null;
+  if (shouldRender) {
+    return children;
+  }
+
+  // Render fallback if provided (accepts ReactNode or function returning ReactNode)
+  return typeof fallback === 'function' ? fallback() : (fallback ?? null);
 };
 
 export default FeatureWrapper;

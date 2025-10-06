@@ -1,0 +1,47 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+    & > div {
+        background-color: #fff;
+        border: 1px solid $grey50;
+        border-radius: 0.5rem;
+        color: $grey90;
+    }
+
+}
+
+.content {
+    color: $grey90;
+    // font-size: 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: justify;
+    line-height: 1.5;
+    margin: 1rem 0;
+    padding: 0 2rem;
+    border-radius: 0.5rem;
+
+}
+.error {
+    & > div {
+        border: 2px solid $deep_purple;
+        color: $deep_purple;
+        font-weight: bold;
+        & p {
+            color: $deep_purple;
+            font-weight: bold;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: underline;
+            width: fit-content;
+        }
+    }
+}
+
+.success {
+    & > div {
+        border: 2px solid $ocean_blue;
+        color: $ocean_blue;
+        font-weight: bold;
+    }
+}

@@ -13,8 +13,8 @@ import { AuthModule } from 'src/auth/auth.module';
             { name: Cycle.name, schema: CycleSchema }
         ]),
         forwardRef(() => SabbaticalsModule),
-        BoothsModule,
-        AuthModule
+        forwardRef(() => BoothsModule),
+        forwardRef(() => AuthModule)
 
     ],
     providers: [

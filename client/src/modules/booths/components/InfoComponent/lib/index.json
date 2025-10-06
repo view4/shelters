@@ -1,0 +1,48 @@
+{
+    "entries": {
+        "index": {
+            "title": "Entries",
+            "content": "Your private journal entries are tracked here, you can return to what you've written. You can also add new entries here."
+        },
+        "view-entry": {
+            "title": "Entry",
+            "content": "You can view each entry individually and edit it easily on this screen. Double click the text to edit."
+        }
+    },
+    "booths": {
+        "feed": {
+            "title": "Booths",
+            "content": "Booths are spaces intended to support you on your journey. Here, you can revisit existing booths, or create a new booth."
+        },
+        "homescreen": {
+            "title": "Booth Home",
+            "content": "Your booth is your temporary, here you'll find the task-management, journalling, roadmapping and time-management tools."
+        }
+    },
+    "cycles": {
+        "index": {
+            "title": "Cycles",
+            "content": "Cycles are intended to help track your transient progress, whilst naturally incorporating regular breaks to help balance work and leisure.\n'n Here you can explore past and ongoing cycles."
+        },
+        "cycle": {
+            "title": "Cycle",
+            "content": "Each cycle is intended to track transient progress, use this screen to stay focused on a specific cycle."
+        }
+    },
+    "time-mapping": {
+        "index": {
+            "title": "Time Tracking",
+            "content": "These time management tools are intended to help you put time towards whatever is important to you. \n\n Create a collection of allocated time, and then add specifically allocated time to that collection and you can track the time you spend on it as you go along 🙂 "
+        }
+    },
+    "roadmaps": {
+        "index": {
+            "title": "Roadmaps",
+            "content": "Roadmaps are intended to help facilitate direction and growth. From here you can view all your roadmaps in one place."
+        },
+        "roadmap": {
+            "title": "Roadmap",
+            "content": "A singular roadmap is intended to help focus on a specific strand of your current journey. Each roadmap can consist of many segments and steps, you can break down the journey further or focus on any part of it. "
+        }
+    }
+}

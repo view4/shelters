@@ -14,7 +14,7 @@ export class SabbaticalsService {
         private readonly gatewayService: RoadmapsService,
         @Inject(forwardRef(() => CyclesService))
         private readonly cyclesService: CyclesService,
-        private readonly boothsService: BoothsService
+        @Inject(forwardRef(() => BoothsService)) private readonly boothsService: BoothsService
     ) { }
 
     async upsertSabbaticalGateway(input: any, id?: string) {
@@ -30,7 +30,7 @@ export class SabbaticalsService {
         await this.cyclesService.completeCurrentCycle(userId);
         if (shouldStartNewCycle) {
             const booth = await this.boothsService.focusedBooth(userId);
-            await this.cyclesService.upsertCycle({ activateCycle: true, boothId: booth._id });
+            await this.cyclesService.upsertCycle(userId, { activateCycle: true, boothId: booth._id });
         }
         return true
     }
