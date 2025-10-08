@@ -11,13 +11,13 @@ import component from './component';
 const schema = {
     fields: {
         parent: {
-            label: "Parent Gateway",
+            label: "Parent Roadmap",
             Component: withFocusedBoothId(GatewaySelectField)
         },
         name: {
             type: "text",
             label: "Name",
-            placeholder: "Gateway Name",
+            placeholder: "Roadmap Name",
             required: true,
         },
         text: {

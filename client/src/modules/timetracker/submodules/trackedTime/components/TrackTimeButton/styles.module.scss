@@ -1,7 +1,8 @@
 @import "src/modules/Core/styles/variables.scss";
 
 button.button {
-    height: 12rem;
+    // height: 12rem;
+    padding: unset;
     width: 18rem;
     display: flex;
     border: 1px dashed $kermit_green;
