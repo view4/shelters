@@ -35,8 +35,8 @@ export const EmptyGatewayCard = ({ cycleId, orderKey, onCreateSuccess }) => {
                     cycleId={cycleId}
                     onSuccess={onSuccess}
                     onSelectGateway={onSuccess}
-                    text="Add Roadmap Step"
-                    formTitle="Add roadmap step to cycle"
+                    text="Add"
+                    formTitle="Add to cycle"
                 />
             </Container>
         </Card>

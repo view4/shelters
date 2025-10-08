@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import cells from "../state";
@@ -6,12 +6,17 @@ import AuthModal from "../components/AuthModal";
 
 const { validateToken } = cells;
 
-export default (Component) => (props) => {
+export default (Component, { redirectUrl } = {}) => (props) => {
     const isAuthed = useSelector(validateToken.selectors.isAuthed)
     const isAuthenticating = useSelector(validateToken.selectors.isAuthenticating)
     const nav = useNavigate()
-    console.log({ isAuthed, isAuthenticating })
+    useEffect(() => {
+        if (isAuthed === false && !isAuthenticating && redirectUrl) {
+            nav(redirectUrl, { replace: true })
+        }
+    }, [isAuthed, isAuthenticating, redirectUrl, nav])
     if (isAuthed) return <Component {...props} />
+    if (isAuthed === false && !isAuthenticating && redirectUrl) return null
     return !isAuthenticating && isAuthed === false && <>
         <AuthModal
             isOpen={true}

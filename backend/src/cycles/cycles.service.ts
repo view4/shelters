@@ -96,7 +96,10 @@ export class CyclesService {
     }
 
     async cycles({ boothId = null, isForthcoming = false, isCompleted = false, feedParams = {} }) {
-        const match = { booth: boothId && new mongoose.Types.ObjectId(boothId) };
+        const match = {};
+        if (boothId) {
+            match["booth"] = new mongoose.Types.ObjectId(boothId);
+        }
         const sort = { 'stamps.commenced': -1 }
         if (isForthcoming) {
             match['stamps.completed'] = null;
@@ -117,7 +120,7 @@ export class CyclesService {
             feedParams,
             [
                 {
-                    $match: compactObject(match)
+                    $match: match
                 },
                 ...this.buildPipeline(boothId),
                 { $sort: compactObject(sort) },

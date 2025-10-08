@@ -33,7 +33,7 @@ export default new CoreModule({
   },
   routes: {
     "/create": withSecureRoute(CreateBoothScreen),
-    "/": withSecureRoute(ActiveBoothScreen),
+    "/": withSecureRoute(ActiveBoothScreen, {redirectUrl: "/homepage"}),
     "/booths": withSecureRoute(BoothsScreen),
     "/booths/:boothId": withParams(BoothScreen),
     "/roadmaps": withFocusedBoothId(BoothRoadmapsScreen),

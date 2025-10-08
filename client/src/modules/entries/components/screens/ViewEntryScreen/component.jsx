@@ -40,7 +40,6 @@ const ViewEntryScreen = ({
                 <TextAreaInput
                     className={c(styles.editorInput)}
                     defaultValue={text}
-                    // value={draftText}
                     onChange={setDraftText}
                     rows={8}
                 />
