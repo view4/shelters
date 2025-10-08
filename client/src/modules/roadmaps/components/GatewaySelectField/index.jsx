@@ -59,7 +59,7 @@ const Component = ({ value, onChange, boothId, disabled, }) => {
         <Container>
             <AsyncSelect
                 searchable
-                label="Parent Gateway"
+                label="Parent Roadmap"
                 query={query}
                 parseResult={(res) => res?.gateways.entities.map(({ name, id }) => ({
                     key: id,
@@ -71,7 +71,7 @@ const Component = ({ value, onChange, boothId, disabled, }) => {
                 value={value}
                 onChange={(val) => onChange(val)}
                 className={styles.parent}
-                placeholder="Select Parent Gateway"
+                placeholder="Select Parent Roadmap"
                 multiple={false}
                 disabled={value?.disabled}
             />

@@ -43,7 +43,7 @@ const ActiveBoothsPreview = ({ activeBooths = [], onBoothClick, isOpen, containe
                 bodyClassName={styles.popoverBody}
                 verticalOrigin="middle"
                 horizontalOrigin="left"
-                isOpen={isOpen}
+                isOpen={isOpen && activeBooths?.length > 1}
                 anchorElement={containerElement}
                 placement="bottom-start"
                 BackdropComponent={() => null}
