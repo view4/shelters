@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import { useSelector } from "react-redux";
 import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
@@ -9,29 +10,36 @@ import TrackedTimeFeed from "modules/timetracker/submodules/trackedTime/componen
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad";
 import { DedicatedTimeOptions, TrackedTimeFeatures } from "modules/timetracker/components/DedicatedTimeFeed";
-import styles from "./styles.module.scss";
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
 import BoothScreen from "modules/shelter/components/BoothScreen";
+import styles from "./styles.module.scss";
+
+const CardHeader = ({ id, onTrackTimeSuccess }) => {
+    const entity = useSelector(allocateTimeFeed.cells.fetchEntity.selector(id))
+    return (
+        <Card className={styles.card}>
+            <Container>
+                <Title>{entity?.name}</Title>
+                <Text>{entity?.text}</Text>
+            </Container>
+            <TrackedTimeFeatures trackedTime={entity?.trackedTime} totalMins={entity?.mins} />
+            <Container>
+                <DedicatedTimeOptions
+                    onTrackTimeSuccess={onTrackTimeSuccess}
+                    name={entity?.name}
+                    text={entity?.text}
+                    mins={entity?.mins}
+                    id={id}
+                />
+            </Container>
+        </Card>
+    )
+}
 
 const TrackedTimeScreen = ({ dedicatedTimeId, boothId, tabs, onTrackTimeSuccess, entity, }) => (
     <BoothScreen boothId={boothId} >
         <Container maxHeight flex col alignCenter justifyCenter>
-            <Card className={styles.card}>
-                <Container>
-                    <Title>{entity?.name}</Title>
-                    <Text>{entity?.text}</Text>
-                </Container>
-                <TrackedTimeFeatures trackedTime={entity?.trackedTime} totalMins={entity?.mins} />
-                <Container>
-                    <DedicatedTimeOptions
-                        onTrackTimeSuccess={onTrackTimeSuccess}
-                        name={entity?.name}
-                        text={entity?.text}
-                        mins={entity?.mins}
-                        id={dedicatedTimeId}
-                    />
-                </Container>
-            </Card>
+            <CardHeader onTrackTimeSuccess={onTrackTimeSuccess} id={dedicatedTimeId} />
             <Card className={styles.contentCard} tabs={tabs} />
         </Container>
     </BoothScreen>

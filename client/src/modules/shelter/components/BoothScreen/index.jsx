@@ -34,9 +34,6 @@ export default strappedConnected(
             [boothId, focusedBoothExists, isAuthed]
         )
 
-        console.log({
-            boothId, focusedBoothId, focusedBoothExists, props
-        })
         return ({
             LeftPanelComponent: Sidemenu,
             tripanel: true,
