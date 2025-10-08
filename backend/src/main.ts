@@ -6,6 +6,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'https://transient-space.dev',
+      'https://gim.transient-space.dev',
       'http://localhost:3000',
     ],
     credentials: true,
