@@ -4,9 +4,12 @@
     cursor: text;
     height: -webkit-fill-available;
     max-height: 75vh;
-    padding: 0.5rem;
+    padding: 1rem;
+    padding-top: 1.5rem;
     border: 1px solid $grey36;
-    box-shadow: 0.5rem 0.5rem 1rem $grey10;
+    box-shadow: 0.5rem 0.5rem 0.5rem $grey36;
+    border-color: $grey18;
+    margin: 0.5rem 0.5rem;
     .text {
         font-size: 1.75rem;
         line-height: 1.8rem;
@@ -19,7 +22,8 @@
 
 .editorInput {
     font-size: 1.75rem;
-    line-height: 1.75rem;
+    line-height: 1.8rem;
+    font-family: 'Courier Prime', monospace;
     padding: 0.75rem 1rem;
     width: 100%;
     min-height: 12rem;

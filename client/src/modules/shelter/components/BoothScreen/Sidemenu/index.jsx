@@ -1,9 +1,9 @@
 import cx from "classnames"
+import { useCallback, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Link from "modules/Core/sub-modules/ui-kit/components/Link";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
-import { useCallback, useMemo } from "react";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
 import Chevron from "modules/Core/sub-modules/ui-kit/components/Chevron";
 import { links, WITH_PARAMS_PREFIX } from "./const";

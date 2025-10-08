@@ -4,9 +4,9 @@ import strappedConnected from 'modules/Core/higher-order-components/strappedConn
 import { compactObject } from 'modules/Core/utils/obj';
 import useOnSuccess from 'modules/Core/sub-modules/Dialog/hooks/useOnSuccess';
 import useOnError from 'modules/Core/sub-modules/Dialog/hooks/useOnError';
-import component from './component';
 import withFocusedBoothId from 'modules/booths/higher-order-components/withFocusedBoothId';
 import GatewaySelectField from 'modules/roadmaps/components/GatewaySelectField';
+import component from './component';
 
 const schema = {
     fields: {
@@ -49,7 +49,6 @@ export default strappedConnected(
         }, [onSuccess, refetchId]);
 
         const parent = useMemo(() => initialState?.parent ? initialState.parent : parentId && { id: parentId, name: parentName }, [initialState?.parent?.id, parentId, parentName])
-        console.log({ title, r: title ?? Boolean(parent) ? "Add Roadmap Step": "Add Roadmap" })
         return {
             onSubmit: useCallback(({ name, text, parent }) => create(compactObject({
                 name,

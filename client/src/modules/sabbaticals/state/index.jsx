@@ -15,9 +15,9 @@ export default {
                     { startNewCycle: true }
                 )
 
-                const cycle = yield select(cyclesState.fetchCycle.selectors.activeCycle);
+                const cycle = yield select(cyclesState.fetchCurrentCycle.selectors.activeCycle);
 
-                yield put(cyclesState.fetchCycle.action({
+                yield put(cyclesState.fetchCurrentCycle.action({
                     boothId: cycle?.boothId
                 }));
                 

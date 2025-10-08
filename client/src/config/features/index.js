@@ -14,6 +14,4 @@ const config = {
     ...featureConfigs[environment]
 }
 
-console.log("config", config);
-
 export default config;

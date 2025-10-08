@@ -5,6 +5,7 @@ import { login, getToken, logout, register } from "../utils";
 import { deleteToken, saveToken } from "modules/Core/utils/auth";
 import { AUTH } from "../consts";
 import { onError } from "modules/Core/sub-modules/Dialog/state/cells";
+import { graphqlClient } from "modules/Core/middleware";
 
 export default {
   login: initCell(AUTH, {
@@ -77,6 +78,7 @@ export default {
           throw new Error("Invalid token");
         }
         saveToken(user?.accessToken);
+        graphqlClient.setAuthToken(user?.accessToken);
         const res = yield call(middleware.ops.validateToken);
         if (!res.user) return false;
         return res.user;
@@ -100,6 +102,8 @@ export default {
       latest: function* () {
         yield call(logout);
         deleteToken();
+        // refresh browser 
+        window.location.reload();
       },
       onCellSuccess: true,
     },
