@@ -40,7 +40,7 @@ export const BoothDedicatedTimeScreen = ({ boothId }) => {
                 infoKey={TIME_MAPPING.index}
             />
             <Card borderless >
-                <FeatureWrapper featureKey="time-mappingxx" >
+                <FeatureWrapper featureKey="time-mapping" >
                     <Container className={styles.mappedTimeContainer}>
                         <BoothScheduleTab maxHeight />
                     </Container>
