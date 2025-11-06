@@ -3,6 +3,7 @@ import BoothScreenHeader from "modules/shelter/components/BoothScreen/BoothScree
 import Cycle from "../../Cycle";
 import FocusCycleButton from "../../FocusCycleButton";
 import { CYCLES } from "modules/booths/components/InfoComponent/lib/keys";
+import CompleteCycleButton from "../../CompleteCycleButton";
 import styles from "./styles.module.scss"
 
 const ViewCycle = ({ cycle, id }) => {
@@ -13,6 +14,7 @@ const ViewCycle = ({ cycle, id }) => {
                 infoKey={CYCLES.cycle}
                 options={[
                     { Component: FocusCycleButton, props: { cycleId: id } },
+                    { Component: CompleteCycleButton, props: { cycleId: id,  } },
                 ]}
             />
             <Cycle id={id} />

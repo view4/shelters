@@ -129,7 +129,22 @@ export class CyclesService {
     }
 
     async completeCycle(id: ID) {
-        return upsert(this.cycleModel, { 'stamps.completed': new Date() }, id);
+        const payload = {};
+        let cycle = await fetchOne(this.cycleModel, id);
+        
+        if (!cycle?.stamps?.commenced) payload['stamps.commenced'] = new Date();
+        payload['stamps.completed'] = new Date();
+
+        await upsert(
+            this.cycleModel,
+            payload,
+            id,
+            { new: true }
+        );
+
+        await this.upsertCycle(cycle.user, { activateCycle: true, boothId: cycle.booth });
+
+        return cycle;
     }
 
     async getCurrentCycle(userId: ID, boothId: ID) {
