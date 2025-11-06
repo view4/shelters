@@ -12,7 +12,7 @@ const Info = withShouldRender(InfoComponent)
 const BoothsScreenHeader = ({ header, options, subheading, className, infoKey }) => (
     <Container flex col className={cx(styles.container, className)}>
         <Container className={styles.titleContainer} flex maxWidth>
-            <Title className={styles.title}>
+            <Title className={styles.title} title={header}>
                 {header}
             </Title>
             <Container className={styles.titleAppendagesContainer} col flex>

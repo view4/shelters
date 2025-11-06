@@ -54,14 +54,14 @@ export const TitleWithStamps = ({ title, stamps, className, appendage, cycle }) 
     }, [cycle, nav]);
 
     return (
-        <Container className={cx(styles.titleContainer, className)} flex spaceBetween maxWidth>
+        <Container maxHeight className={cx(styles.titleContainer, className)} flex spaceBetween maxWidth>
             <Title className={cx(styles.title)} Element="h4">{title}</Title>
-            <Container flex alignCenter>
+            <Container flex alignCenter maxHeight>
                 {appendage}
                 <Stamps stamps={[
                     stamps?.[STAMPS.COMMENCED] && { stamp: "Commenced", timestamp: stamps?.[STAMPS.COMMENCED] },
                     stamps?.[STAMPS.COMPLETED] && { stamp: "Completed", timestamp: stamps?.[STAMPS.COMPLETED] },
-                    cycle && { stamp: "Added to cycle", timestamp: null, nature: 'golden', onClick: onCycleClick }
+                    cycle && { stamp: "in cycle", timestamp: null, nature: 'green', onClick: onCycleClick }
                 ]} />
             </Container>
         </Container>
@@ -78,9 +78,9 @@ const RoadmapFeedItem = ({ text, name, stamps, cycle, TitleComponent = TitleWith
                 [styles.completed]: Boolean(stamps?.[STAMPS.COMPLETED])
             })}
         headerProps={{
-            children: headerChildren
+            children: null
         }}
-        label={<TitleComponent title={name} stamps={stamps} parent={parent} cycle={cycle} />}
+        label={<TitleComponent title={name} stamps={stamps} parent={parent} cycle={cycle} appendage={headerChildren} />}
         size={"xlg"}
     >
         <Container flex flexEnd>
@@ -120,6 +120,7 @@ const RoadmapFeedItem = ({ text, name, stamps, cycle, TitleComponent = TitleWith
 export const SelectableGatewayFeedItem = ({ onSelect, ...props }) => (
     <RoadmapFeedItem
         {...props}
+        className={styles.selectableGatewayFeedItem}
         headerChildren={
             <Container>
                 <Button onClick={() => onSelect(props)}>

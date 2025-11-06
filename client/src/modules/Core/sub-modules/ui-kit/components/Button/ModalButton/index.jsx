@@ -13,11 +13,11 @@ const ModalButton = ({ text, onConfirm, copy, modal, ...props }) => {
             <Button text={text} {...props} onClick={open} />
             <Modal isOpen={isOpen} onClose={close}>
                 <Container className={styles.contentContainer}>
-                    <Container>
+                    <Container maxWidth>
                         <Title>
                             {copy?.title ?? 'Are you sure?'}
                         </Title>
-                        <Text>
+                        <Text maxWidth>
                             {copy?.description ?? "This action cannot be undone, please confirm if you'd like to proceed."}
                         </Text>
                     </Container>

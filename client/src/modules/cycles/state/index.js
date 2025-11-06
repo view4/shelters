@@ -143,4 +143,14 @@ export default {
     },
   }),
   fetchCurrentCycle: fetchCurrentCycleCell,
+  completeCycle: initCell(CYCLES, {
+    name: "completeCycle",
+    sagas: {
+      latest: function* ({ payload: { id } }) {
+        const result = yield call(middleware.ops.completeCycle, { id });
+        if (!result.completeCycle.id) throw new Error("Failed to complete cycle");
+        return result.completeCycle.id;
+      },
+    },
+  }),
 };

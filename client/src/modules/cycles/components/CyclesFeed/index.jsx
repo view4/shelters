@@ -10,19 +10,31 @@ import SabbaticalGatewayCard from "modules/cycles/components/CycleGatewayCard/Sa
 import { onSuccess } from "modules/Core/sub-modules/Dialog/state/cells";
 import styles from "./styles.module.scss";
 import { ExpandableOptions } from "modules/Core/sub-modules/ui-kit/exports";
+import CompleteCycleButton from "../CompleteCycleButton";
+import { compact } from "lodash";
 
 const regularGatewayKeys = ["a", "b", "c", "d", "e", "f"]
 
-const ItemComponent = ({ className, onCreateSuccess, displayFocus, onFocusCallback, ...item }) => (
+const ItemComponent = ({ className, refetchFeed, displayCompleteCycleButton, displayFocus, onFocusCallback, ...item }) => (
     <Container className={cx(styles.container, className)} bg1 p1 flex col center>
         <Container>
             <Container maxWidth flex flexEnd>
                 <ExpandableOptions
                     tridot
-                    options={[
-                        { Component: FocusCycleButton, props: { cycleId: item.id, className: styles.focusButton, callback: onFocusCallback } },
-                        { text: "View Cycle", props: { to: `/cycles/${item.id}` } }
-                    ]}
+                    options={compact([
+                        { 
+                            Component: FocusCycleButton, 
+                            props: { cycleId: item.id, className: styles.focusButton, callback: onFocusCallback } 
+                        },
+                        displayCompleteCycleButton && { 
+                            Component: CompleteCycleButton, 
+                            props: { cycleId: item.id, className: styles.completeButton, callback: refetchFeed } 
+                        },
+                        { 
+                            text: "View Cycle", 
+                            props: { to: `/cycles/${item.id}` } 
+                        }
+                    ])}
                     optionsOrigin="right"
                 />
             </Container>
@@ -34,7 +46,7 @@ const ItemComponent = ({ className, onCreateSuccess, displayFocus, onFocusCallba
                     cycleId={item.id}
                     gatewayId={item[key]?.id}
                     orderKey={key}
-                    onCreateSuccess={onCreateSuccess}
+                    onCreateSuccess={refetchFeed}
                 />
             ))
         }
@@ -64,7 +76,7 @@ export default strappedConnected(
             }), [boothId, isCompleted, isForthcoming]),
             feedItemClassName: className,
             ItemComponent,
-            itemProps: useMemo(() => ({ displayFocus, onFocusCallback, onCreateSuccess: refetchFeed }), [refetchFeed, displayFocus, onFocusCallback])
+            itemProps: useMemo(() => ({ displayFocus, onFocusCallback, refetchFeed, displayCompleteCycleButton: !isCompleted }), [refetchFeed, displayFocus, onFocusCallback, isCompleted])
         })
     }
 )

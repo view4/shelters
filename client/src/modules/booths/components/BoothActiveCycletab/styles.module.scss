@@ -1,4 +1,4 @@
-
+@import "src/modules/Core/styles/variables.scss";
 .container { 
     height: 100%;
     & > div {
@@ -33,4 +33,9 @@ button.addCycleButton {
     align-items: center;
     margin: 1rem 0rem;
     padding: 1.5rem;
+}
+
+.actionsContainer {
+    width: 100%;
+    border-top: 1px solid $grey10;
 }

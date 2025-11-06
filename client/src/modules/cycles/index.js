@@ -21,6 +21,7 @@ export default new CoreModule({
     focusCycle: cells.focusCycle,
     fetchCurrentCycle: cells.fetchCurrentCycle,
     fetchEntity: feed.cells?.fetchEntity,
+    completeCycle: cells.completeCycle,
   },
   routes: {
     "/cycles/:id": withParams(ViewCycle)

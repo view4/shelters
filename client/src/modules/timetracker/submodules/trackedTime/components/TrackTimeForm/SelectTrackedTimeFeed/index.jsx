@@ -90,11 +90,13 @@ const RetrackTimeFeed = ({ onSelect, boothId }) => {
                     className={styles.searchInput}
                 />
             </Container>
+            <Container maxHeight>
             <Feed.Component
                 feed={filteredItems || []}
                 ItemComponent={SelectableFeedItem}
                 itemProps={itemProps}
             />
+            </Container>
             <Container className={styles.selectButton} flex flexEnd>
                 <Button
                     text={selectedItems.length > 0 ? `Select ${selectedItems.length} Item${selectedItems.length === 1 ? '' : 's'}` : 'Select Items'}
