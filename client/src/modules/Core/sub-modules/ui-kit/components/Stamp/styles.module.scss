@@ -60,10 +60,5 @@
 .green {
     @include bordered-text(white);
     background: linear-gradient(to right, $kermit_green72, $purple36);
-    // background: $ocean_blue72;
-    // background: $bronze80;
-    // background: $kermit_green72;
-    // background: $purple18;
-    // make a blend between kermit green and purple 
     font-weight: 900;
 }

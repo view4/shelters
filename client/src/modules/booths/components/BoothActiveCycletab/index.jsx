@@ -1,17 +1,14 @@
 import Cycle from "modules/cycles/components/Cycle";
 import { useIsOpen } from "modules/Core/hooks/useIsOpen";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
-import cFeed from "modules/cycles/state/feed";
 import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
 import styles from "./styles.module.scss";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import CompleteCycleButton from "modules/cycles/components/CompleteCycleButton";
-import { useSelector } from "react-redux";
 import cyclesState from "modules/cycles/state";
 
 const BoothActiveCycleTab = strappedConnected(({ refetch, activeCycle }) => {
     const { isOpen, open, close } = useIsOpen();
-    console.log({ activeCycle })
     return (
         <Container flex column alignCenter maxWidth className={styles.container} relative >
             <Cycle />
@@ -31,7 +28,7 @@ const BoothActiveCycleTab = strappedConnected(({ refetch, activeCycle }) => {
     { 
         fetchActiveCycle: cyclesState.fetchCurrentCycle.action
     },
-    ({ createForthcomingCycle, boothId, fetchActiveCycle }) => {
+    ({  boothId, fetchActiveCycle }) => {
         return {
             refetch: () => fetchActiveCycle({boothId})
         }
