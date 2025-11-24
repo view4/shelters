@@ -14,15 +14,11 @@ export class Invitation {
 
   @Field(() => String, { nullable: true })
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  invitee: User;
+  createdBy: User;
 
   @Field({ nullable: true })
   @Prop()
   message: string;
-
-  //change to stamps...? 
-  @Field({ nullable: true })
-  acceptedDate: Date;
 }
 
 export const InvitationSchema = SchemaFactory.createForClass(Invitation);

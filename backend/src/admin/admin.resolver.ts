@@ -6,10 +6,6 @@ import { SessionUserT } from 'src/auth/types/SessionUserType';
 import { AdminService } from './admin.service';
 import { TransactionService } from 'src/transactions/transaction.service';
 import { InvitationsService } from 'src/auth/submodules/invitations/invitations.service';
-/*
-should each route be prefaced because of being admin?
-
-*/
 
 @InputType()
 export class InvitationInput {
@@ -22,8 +18,12 @@ export class InvitationInput {
 
 @InputType()
 export class InvitationLinkInput {
-  @Field()
-  code: string;
+  @Field(() => Number)
+  redemptionLimit: number;
+  @Field(() => Date, { nullable: true })
+  expirationDate?: Date;
+  @Field(() => String, { nullable: true })
+  description?: string;
 }
 
 @InputType()
@@ -72,21 +72,41 @@ export class AdminResolver {
     return this.invitationsService.invitationLinks()
   }
 
+  @Query()
+  @UseGuards(AuthGuard)
+  async invitationApplications(
+    @SessionUser() user: SessionUserT
+  ) {
+    return this.invitationsService.invitationApplications()
+  }
+
   @Mutation()
   @UseGuards(AuthGuard)
   async upsertInvitation(
     @SessionUser() user: SessionUserT,
-    @Args('input') input: InvitationInput
+    @Args('input') input: InvitationInput,
+    @Args('id', { nullable: true }) id?: string
   ) {
-    return this.invitationsService.upsertInvitation(input)
+    return this.invitationsService.upsertInvitation(user, input, id)
   }
 
   @Mutation()
   @UseGuards(AuthGuard)
   async upsertInvitationLink(
     @SessionUser() user: SessionUserT,
-    @Args('input') input: InvitationLinkInput
+    @Args('input') input: InvitationLinkInput,
+    @Args('id', { nullable: true }) id?: string
   ) {
-    return this.invitationsService.upsertInvitationLink(input)
+    return this.invitationsService.upsertInvitationLink(user, input, id)
+  }
+
+  @Mutation()
+  @UseGuards(AuthGuard)
+  async stampInvitationApplication(
+    @SessionUser() user: SessionUserT,
+    @Args('id') id: string,
+    @Args('key') key: string
+  ) {
+    return this.invitationsService.stampInvitationApplication(id, key)
   }
 }
