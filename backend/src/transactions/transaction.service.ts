@@ -16,5 +16,9 @@ export class TransactionService {
     return this.stripeService.cancelSubscription(userId);
   }
 
+  async subscriptions(userId: string, { includeIsActive = false } = {}) {
+    return []
+  }
+
 
 }

@@ -1,0 +1,38 @@
+type Query {
+  subscriptions: SubscriptionFeed
+  invitations(feedParams: FeedParams): InvitationFeed
+  invitationLinks(feedParams: FeedParams): InvitationLinkFeed
+  users(feedParams: FeedParams): UserFeed
+}
+
+type Mutation {
+  upsertInvitation: Invitation
+  upsertInvitationLink: InvitationLink
+}
+
+type Subscription {
+  id: String
+}
+
+type Invitation {
+  id: String
+}
+
+type InvitationLink {
+  id: String
+}
+
+type SubscriptionFeed {
+  entities: [Subscription]
+  info: FeedInfo
+}
+
+type InvitationFeed {
+  entities: [Invitation]
+  info: FeedInfo
+}
+
+type InvitationLinkFeed {
+  entities: [InvitationLink]
+  info: FeedInfo
+}

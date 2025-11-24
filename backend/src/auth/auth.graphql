@@ -19,3 +19,8 @@ type Membership {
     isActive: Boolean
     createdAt: String
 }
+
+type UserFeed {
+    entities: [User]
+    info: FeedInfo
+}

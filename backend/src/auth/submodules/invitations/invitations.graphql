@@ -1,0 +1,9 @@
+type Query {
+  validateInvitation(email: String): Boolean
+  validateInvitationLink(id: String): Boolean
+}
+
+type Mutation {
+    finishSignup(): User
+}
+
