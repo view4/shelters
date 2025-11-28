@@ -58,6 +58,14 @@ export class AdminResolver {
 
   @Query()
   @UseGuards(AuthGuard)
+  async subscriptionPayments(
+    @SessionUser() user: SessionUserT
+  ) {
+    return this.transactionsService.subscriptionPayments(user.id)
+  }
+
+  @Query()
+  @UseGuards(AuthGuard)
   async invitations(
     @SessionUser() user: SessionUserT
   ) {

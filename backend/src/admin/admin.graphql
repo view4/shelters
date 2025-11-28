@@ -1,5 +1,6 @@
 type Query {
   subscriptions: SubscriptionFeed
+  subscriptionPayments: SubscriptionPaymentsFeed
   invitations(feedParams: FeedParams): InvitationFeed
   invitationLinks(feedParams: FeedParams): InvitationLinkFeed
   invitationApplications(feedParams: FeedParams): InvitationApplicationFeed
@@ -10,10 +11,6 @@ type Mutation {
   upsertInvitation(input: InvitationInput, id: String ): Invitation
   upsertInvitationLink(input: InvitationLinkInput, id: String ): InvitationLink
   stampInvitationApplication(id: String!, key: String!): InvitationApplication
-}
-
-type Subscription {
-  id: String
 }
 
 type Invitation {
@@ -29,11 +26,6 @@ type InvitationApplication {
   text: String
   email: String
   name: String
-}
-
-type SubscriptionFeed {
-  entities: [Subscription]
-  info: FeedInfo
 }
 
 type InvitationFeed {

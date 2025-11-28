@@ -21,6 +21,7 @@ export class Subscription {
       deactivatedDate: Date
     }
   })
+  
   stamps: {
     activatedDate: Date;
     deactivatedDate: Date;
