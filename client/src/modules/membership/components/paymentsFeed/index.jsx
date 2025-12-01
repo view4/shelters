@@ -1,17 +1,33 @@
 import strapped from "modules/Core/higher-order-components/strapped";
 import feed from "modules/membership/state/feed";
 
-const FeedItem = ({amount, paidAt, externalId, user}) => (
-    // I think from here, handle a new row component basicall, and I think that is good. 
-    //   maybe also like a table feed component could be good, and fine... 
+
+const FeedRowItem = ({ data }) => (
+    // like improve and extract.. 
     <Card>
-        <Text>{amount}</Text>
-        <Text>{paidAt}</Text>
-        <Text>{externalId}</Text>
-        <Text>{user.email}</Text>
+        {Object.entries(data).map(([key, value]) => (
+            <Container>
+                <Text>{value}</Text>
+            </Container>
+        ))}
     </Card>
 )
 
-export default strapped(feed.FeedComponent, ({userId}) => ({
+const FeedItem = ({ amount, paidAt, externalId, user, receiptUrl }) => (
+    <FeedRowItem data={{
+        amount, paidAt, externalId, user, link: <>
+            <a 
+            href={receiptUrl} target="_blank" rel="noreferrer"
+            style={{
+                color: "blue",
+                textDecoration: "underline",
+            }}
+            >View Receipt</a>
+        </>
+    }} />
+)
+
+export default strapped(feed.FeedComponent, ({ userId }) => ({
     filters: useMemo(() => ({ userId }), [userId]),
+    ItemComponent: FeedItem,
 }));

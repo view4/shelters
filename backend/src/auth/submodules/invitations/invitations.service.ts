@@ -177,7 +177,7 @@ export class InvitationsService {
     );
   }
 
-  async createInvitationApplication(input: InvitationApplicationInput): Promise<boolean> {
+  async upsertInviteApplication(input: InvitationApplicationInput): Promise<boolean> {
     try {
       await create(this.invitationApplicationModel, input);
       return true;

@@ -21,6 +21,7 @@ import features from "modules/mapal/submodules/features";
 import teachings from "modules/teachings";
 import releases from "modules/releases";
 import UIKit from "modules/Core/sub-modules/ui-kit";
+import invitations from "modules/auth/submodules/invitations";
 
 const { store, rootRender, routes } = init([
   booths,
@@ -41,6 +42,7 @@ const { store, rootRender, routes } = init([
   teachings,
   releases,
   UIKit,
+  invitations,
 ]);
 
 const RootWrapper = () => {

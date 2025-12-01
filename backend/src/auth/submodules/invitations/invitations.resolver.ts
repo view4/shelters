@@ -63,10 +63,10 @@ export class InvitationsResolver {
   }
 
   @Mutation(() => Boolean)
-  async inviteApplication(
+  async upsertInviteApplication(
     @Args('input') input: InvitationApplicationInput
   ): Promise<boolean> {
-    return this.invitationsService.createInvitationApplication(input);
+    return this.invitationsService.upsertInviteApplication(input);
   }
 
 }

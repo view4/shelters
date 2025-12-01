@@ -4,7 +4,7 @@ type Query {
 
 type Mutation {
   acceptInvitation(email: String, linkId: String): Boolean
-  inviteApplication(input: InvitationApplicationInput!): Boolean
+  upsertInviteApplication(input: InvitationApplicationInput!): Boolean
 }
 
 input InvitationApplicationInput {

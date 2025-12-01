@@ -1,0 +1,22 @@
+import Button from 'modules/Core/sub-modules/ui-kit/components/Button';
+import { useIsOpen } from 'modules/Core/hooks/useIsOpen';
+import CreateInvitationLinkModal from '../CreateInvitationLinkModal';
+import styles from "./styles.module.scss";
+
+const CreateInvitationLinkButton = ({ text = "Create Invite Link", initialState }) => {
+    const { open, close, isOpen } = useIsOpen();
+    return (
+        <>
+            <Button className={styles.button} onClick={open}>
+                {text}
+            </Button>
+            <CreateInvitationLinkModal
+                isOpen={isOpen}
+                close={close}
+                initialState={initialState}
+            />
+        </>
+    )
+}
+
+export default CreateInvitationLinkButton;
