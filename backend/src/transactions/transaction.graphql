@@ -1,3 +1,7 @@
+type Query {
+    subscriptionPayments(feedParams: FeedParams, userId: String ):  SubscriptionPaymentsFeed
+}
+
 type Mutation {
     initMembership: PaymentIntent
     cancelMembership: Boolean
@@ -30,6 +34,7 @@ type SubscriptionPayment {
     user: User
     status: String
     paidAt: String
+    receiptUrl: String
 
 }
 

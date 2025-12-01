@@ -13,6 +13,22 @@ export default new MiddlewareModule({
                 }
             }
         `,
+        fetchFeed: `
+            query subscriptionPayments($feedParams: FeedParams, $userId: String) {
+                feed: subscriptionPayments(feedParams: $feedParams, userId: $userId) {
+                    entities {
+                        id
+                        amount
+                        paidAt
+                        externalId
+                        user {
+                            email
+                            id
+                        }
+                    }
+                }
+            }
+        `,
     cancel: `
             mutation cancelMembership{
                 cancelMembership
