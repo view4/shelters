@@ -21,7 +21,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login", className, login, r
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [checkingInvitation, setCheckingInvitation] = useState(false);
-    
+
     const nav = useNavigate();
     const queryParams = useQueryParams({ shouldStrip: false });
     const { validateEmail, validateLinkId, isValidating } = useValidateInvitation();
@@ -53,7 +53,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login", className, login, r
         setCheckingInvitation(true);
         const isValid = await validateEmail(emailToCheck || email);
         setCheckingInvitation(false);
-        
+
         if (isValid) {
             setActiveTabIndex(1); // Move to auth stage
         } else {
@@ -65,7 +65,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login", className, login, r
         setCheckingInvitation(true);
         const isValid = await validateLinkId(linkId);
         setCheckingInvitation(false);
-        
+
         if (isValid) {
             setMode("register");
             setActiveTabIndex(1); // Move to auth stage
@@ -135,7 +135,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login", className, login, r
         if (isOpen) {
             const emailParam = queryParams.email;
             const linkIdParam = queryParams.linkId;
-            
+
             if (emailParam) {
                 setEmail(emailParam);
                 handleEmailCheck(emailParam);
@@ -167,9 +167,9 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login", className, login, r
     return (
         <Modal isOpen={isOpen} onClose={onClose} bodyClassName={c(styles.body, className)}>
             <Container className={styles.container}>
-                <Card 
-                    HeaderComponent={Container} 
-                    headerProps={{ children: cardTitle, className: styles.header }} 
+                <Card
+                    HeaderComponent={Container}
+                    headerProps={{ children: cardTitle, className: styles.header }}
                     className={styles.card}
                 >
                     {content}

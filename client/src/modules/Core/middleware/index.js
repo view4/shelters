@@ -21,6 +21,3 @@ class Client extends GraphQLClient {
 }
 
 export const graphqlClient = new Client(`${backendUrl}graphql`)
-
-// Export REST client utilities
-export { restClient, RestClient } from './utils.js'

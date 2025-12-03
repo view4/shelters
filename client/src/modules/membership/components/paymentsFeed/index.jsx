@@ -2,7 +2,7 @@ import strapped from "modules/Core/higher-order-components/strapped";
 import feed from "modules/membership/state/feed";
 
 
-const FeedRowItem = ({ data }) => (
+export const FeedRowItem = ({ data }) => (
     // like improve and extract.. 
     <Card>
         {Object.entries(data).map(([key, value]) => (
