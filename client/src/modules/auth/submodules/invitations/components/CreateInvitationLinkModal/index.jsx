@@ -31,8 +31,7 @@ const Component = ({ isOpen, close, onSubmit, initialState }) => {
             <SchemaForm schema={schema} onSubmit={onSubmit} initialState={initialState} />
         </Modal>
     )
-}
-
+};
 
 export default strappedConnected(Component, {}, {
     createInvitationLink: (input, callback) => invitationsLinkFeed.cells.createEntity.action({ input, callback })

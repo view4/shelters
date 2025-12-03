@@ -55,10 +55,8 @@ export default new MiddlewareModule({
             }
         `,
         createSelfInvitation: `
-            mutation upsertInviteApplication($input: InvitationApplicationInput) {
-                upsertInviteApplication(input: $input) {
-                    id
-                }
+            mutation inviteApplication($input: InvitationApplicationInput!) {
+                inviteApplication(input: $input)
             }
         `,
         fetchInviteApplications: `

@@ -1,32 +1,39 @@
-// have a hook which utilised the validateInvitationCell it will accept the linkId or the email.... 
-//  if it is a valid linkId then it can be stored within the local storage and be cleared from url params 
-// if email also it can be stored within the local storage... 
-
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-
+import invitationCells from "../state";
 
 export default () => {
     const dispatch = useDispatch();
-    const validateLinkId = useCallback(() => {
-        const linkId = useQueryParams().linkId;
-        if (!linkId) return false;
-        return validateInvitationCell.action({ linkId });
-    }, [validateInvitationCell]);
+    const [isValidating, setIsValidating] = useState(false);
 
-    const validateEmail = useCallback(() => {
-        const email = useQueryParams().email;
-        if (!email) return false;
-        return validateInvitationCell.action({ email });
-    }, [validateInvitationCell]);
+    const validateInvitation = useCallback(async ({ email, linkId }) => {
+        if (!email && !linkId) return false;
+        
+        setIsValidating(true);
+        try {
+            const result = await dispatch(invitationCells.validateInvitation.action({ email, linkId }));
+            console.log("does this dispatch await work...? 🤔");
+            console.log(result);
+            setIsValidating(false);
+            return result?.isValid || false;
+        } catch (error) {
+            setIsValidating(false);
+            return false;
+        }
+    }, [dispatch]);
 
-    hasValidInvitation = useCallback(() => {
-        localStorage.getItem('linkId') || localStorage.getItem('email');
-    }, [validateLinkId, validateEmail]);
+    const validateEmail = useCallback(async (email) => {
+        return validateInvitation({ email });
+    }, [validateInvitation]);
+
+    const validateLinkId = useCallback(async (linkId) => {
+        return validateInvitation({ linkId });
+    }, [validateInvitation]);
 
     return {
-        validateLinkId,
+        validateInvitation,
         validateEmail,
-        hasValidInvitation,
+        validateLinkId,
+        isValidating,
     }
 }

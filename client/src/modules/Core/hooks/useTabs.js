@@ -46,5 +46,6 @@ export default (_tabs = [], props, options = { header: true }) => {
     content,
     next,
     focusedTabIndex,
+    setFocusedTabIndex,
   };
 };
