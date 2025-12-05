@@ -1,10 +1,12 @@
 type Query {
     subscriptionPayments(feedParams: FeedParams, userId: String ):  SubscriptionPaymentsFeed
+    subscriptions(feedParams: FeedParams): SubscriptionFeed
 }
 
 type Mutation {
     initMembership: PaymentIntent
     cancelMembership: Boolean
+    syncSubscriptionPayments(userId: String): Boolean
 }
 
 type PaymentIntent {

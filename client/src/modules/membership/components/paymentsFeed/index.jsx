@@ -1,5 +1,5 @@
 import strapped from "modules/Core/higher-order-components/strapped";
-import feed from "modules/membership/state/feed";
+import paymentsFeed from "modules/payments/state/feed";
 
 
 export const FeedRowItem = ({ data }) => (
@@ -27,7 +27,7 @@ const FeedItem = ({ amount, paidAt, externalId, user, receiptUrl }) => (
     }} />
 )
 
-export default strapped(feed.FeedComponent, ({ userId }) => ({
+export default strapped(paymentsFeed.FeedComponent, ({ userId }) => ({
     filters: useMemo(() => ({ userId }), [userId]),
     ItemComponent: FeedItem,
 }));

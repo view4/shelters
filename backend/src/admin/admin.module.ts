@@ -4,7 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/auth/schemas/user.schema';
 import { AdminResolver } from './admin.resolver';
 import { AuthModule } from 'src/auth/auth.module';
-import { InvitationsModule } from 'src/invitations/invitations.module';
+import { InvitationsModule } from 'src/auth/submodules/invitations/invitations.module';
 
 @Module({
   imports: [

@@ -3,7 +3,7 @@ import { useIsOpen } from 'modules/Core/hooks/useIsOpen';
 import CreateInvitationLinkModal from '../CreateInvitationLinkModal';
 import styles from "./styles.module.scss";
 
-const CreateInvitationLinkButton = ({ text = "Create Invite Link", initialState }) => {
+const CreateInvitationLinkButton = ({ text = "Create Invitation Link" }) => {
     const { open, close, isOpen } = useIsOpen();
     return (
         <>
@@ -13,7 +13,6 @@ const CreateInvitationLinkButton = ({ text = "Create Invite Link", initialState 
             <CreateInvitationLinkModal
                 isOpen={isOpen}
                 close={close}
-                initialState={initialState}
             />
         </>
     )

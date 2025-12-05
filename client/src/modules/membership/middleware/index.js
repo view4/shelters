@@ -2,9 +2,9 @@ import MiddlewareModule from "modules/Core/core-modules/MiddlewareModule";
 import { MEMBERSHIP } from "../consts";
 
 export default new MiddlewareModule({
-  name: MEMBERSHIP,
-  operations: {
-    create: `
+    name: MEMBERSHIP,
+    operations: {
+        create: `
             mutation initMembership{
                 initMembership {
                     amount
@@ -14,25 +14,26 @@ export default new MiddlewareModule({
             }
         `,
         fetchFeed: `
-            query subscriptionPayments($feedParams: FeedParams, $userId: String) {
-                feed: subscriptionPayments(feedParams: $feedParams, userId: $userId) {
-                    entities {
-                        id
-                        amount
-                        paidAt
-                        externalId
-                        user {
-                            email
-                            id
-                        }
-                    }
+    query subscriptions($feedParams: FeedParams) {
+        feed: subscriptions(feedParams: $feedParams) {
+            entities {
+                id
+                user {
+                    email
+                    id
                 }
+                stamps {
+                    activatedDate
+                }
+                subscriptionId
             }
-        `,
-    cancel: `
+        }
+    }
+`,
+        cancel: `
             mutation cancelMembership{
                 cancelMembership
             }
         `,
-  },
+    },
 });
