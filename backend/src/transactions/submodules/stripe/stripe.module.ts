@@ -16,6 +16,12 @@ import { SubscriptionPayment, SubscriptionPaymentSchema } from './schemas/subscr
   ],
   controllers: [StripeController],
   providers: [StripeService],
-  exports: [StripeService],
+  exports: [
+    StripeService,
+    MongooseModule.forFeature([
+      { name: Subscription.name, schema: SubscriptionSchema },
+      { name: SubscriptionPayment.name, schema: SubscriptionPaymentSchema },
+    ]),
+  ],
 })
 export class StripeModule { }

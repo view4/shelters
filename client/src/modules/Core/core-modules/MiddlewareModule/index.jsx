@@ -60,6 +60,10 @@ class MiddlewareModule {
         return postParser ? postParser(result) : result;
     }
 
+    get ops() {
+        return this.operations;
+    }
+
 };
 
 export default MiddlewareModule;

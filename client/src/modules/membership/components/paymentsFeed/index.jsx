@@ -1,4 +1,8 @@
+import { useMemo } from "react";
 import strapped from "modules/Core/higher-order-components/strapped";
+import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Container from "modules/Core/sub-modules/ui-kit/components/Container";
+import Text from "modules/Core/sub-modules/ui-kit/components/Text";
 import paymentsFeed from "modules/payments/state/feed";
 
 

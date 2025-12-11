@@ -2,7 +2,9 @@ import BoothsScreen from "modules/booths/components/screens/BoothsScreen";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import BoothsScreenHeader from "modules/shelter/components/BoothScreen/BoothScreenHeader";
 import auth from "modules/auth/state";
-import PaymentsFeed from "../../paymentsFeed";
+import PaymentsFeed from "../../PaymentsFeed";
+import { CancelMembershipButton } from "../membership-settings";
+import { PAYMENTS } from "modules/payments/consts";
 
 const Component = ({ userId }) => (
     <BoothsScreen
@@ -13,7 +15,7 @@ const Component = ({ userId }) => (
             header="My Payments"
             infoKey={PAYMENTS.feed}
         >
-            <CancelSubscriptionButton />
+            <CancelMembershipButton />
             </BoothsScreenHeader>
         <PaymentsFeed userId={userId} />
     </BoothsScreen>
@@ -23,12 +25,12 @@ const Component = ({ userId }) => (
 export default strappedConnected(
     Component,
     {
-        userId: auth.selectors.userId,
+        user: auth.validateToken.selector,
     },
     {},
-    ({ userId }) => {
+    ({ user }) => {
         return {
-            userId,
+            userId: user?.id,
         }
     }
 )

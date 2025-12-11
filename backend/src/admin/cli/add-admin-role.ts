@@ -14,20 +14,13 @@
  */
 
 import * as mongoose from 'mongoose';
+import { Model } from 'mongoose';
 import { config } from 'dotenv';
-import { UserSchema } from '../../auth/schemas/user.schema';
+import { User, UserSchema } from '../../auth/schemas/user.schema';
 import { ROLES } from '../../auth/schemas/const';
 
 // Load environment variables
 config();
-
-interface User {
-  _id: any;
-  authenticatorId: string;
-  email: string;
-  roles: string[];
-  authenticatorProviderKey?: string;
-}
 
 async function addAdminRole(email: string): Promise<void> {
   const mongoUrl = process.env.MONGO_URL;
@@ -44,10 +37,12 @@ async function addAdminRole(email: string): Promise<void> {
   console.log('✅ Connected to MongoDB');
 
   try {
-    const UserModel = connection.connection.model<User>('User', UserSchema);
+    const UserModel: Model<User> =
+      (connection.connection.models.User as Model<User>) ||
+      connection.connection.model<User>('User', UserSchema);
 
     console.log(`🔍 Looking for user with email: ${email}`);
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email }).exec();
 
     if (!user) {
       console.error(`❌ User not found with email: ${email}`);

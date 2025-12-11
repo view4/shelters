@@ -1,4 +1,5 @@
 import { initCell } from "modules/Core/core-modules/CoreModuleState/utils/cells";
+import { call } from "redux-saga/effects";
 import middleware from "../middleware";
 import { INVITATIONS } from "../consts";
 

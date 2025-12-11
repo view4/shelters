@@ -11,22 +11,13 @@
  */
 
 import * as mongoose from 'mongoose';
+import { Model } from 'mongoose';
 import { config } from 'dotenv';
-import { UserSchema } from '../../auth/schemas/user.schema';
+import { User, UserSchema } from '../../auth/schemas/user.schema';
 import { ROLES } from '../../auth/schemas/const';
 
 // Load environment variables
 config();
-
-interface User {
-  _id: any;
-  authenticatorId: string;
-  email: string;
-  roles: string[];
-  authenticatorProviderKey?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
 
 async function listAdmins(): Promise<void> {
   const mongoUrl = process.env.MONGO_URL;
@@ -43,10 +34,12 @@ async function listAdmins(): Promise<void> {
   console.log('✅ Connected to MongoDB');
 
   try {
-    const UserModel = connection.connection.model<User>('User', UserSchema);
+    const UserModel: Model<User> =
+      (connection.connection.models.User as Model<User>) ||
+      connection.connection.model<User>('User', UserSchema);
 
     console.log(`🔍 Looking for users with ${ROLES.ADMIN} role...`);
-    const admins = await UserModel.find({ roles: ROLES.ADMIN });
+    const admins = await UserModel.find({ roles: ROLES.ADMIN }).exec();
 
     if (admins.length === 0) {
       console.log('📭 No admin users found');
@@ -56,11 +49,12 @@ async function listAdmins(): Promise<void> {
     console.log(`\n👥 Found ${admins.length} admin user(s):\n`);
     
     admins.forEach((admin, index) => {
+      const createdAt = (admin as any)?.createdAt as Date | undefined;
       console.log(`${index + 1}. ${admin.email}`);
       console.log(`   ID: ${admin._id}`);
       console.log(`   Roles: ${admin.roles.join(', ')}`);
-      if (admin.createdAt) {
-        console.log(`   Created: ${admin.createdAt.toISOString()}`);
+      if (createdAt) {
+        console.log(`   Created: ${createdAt.toISOString()}`);
       }
       console.log('');
     });

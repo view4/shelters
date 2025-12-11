@@ -13,6 +13,6 @@ import { AuthModule } from 'src/auth/auth.module';
   ],
   controllers: [],
   providers: [TransactionResolver, TransactionService],
-  exports: [],
+  exports: [TransactionService],
 })
 export class TransactionModule { }
