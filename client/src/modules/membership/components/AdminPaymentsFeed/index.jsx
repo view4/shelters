@@ -67,17 +67,25 @@ export default strapped(paymentsFeed.FeedComponent, ({ userId }) => ({
     table: true,
     columns: [
         {
-            key: "paidAt",
-            label: "Paid At",
-        },
-        {
-            key: "notes",
-            label: "Notes",
-            render: () => "Subscription Payment",
+            key: "id",
+            label: "ID",
         },
         {
             key: "amount",
             label: "Amount",
+        },
+        {
+            key: "paidAt",
+            label: "Paid At",
+        },
+
+        {
+            key: "externalId",
+            label: "External ID",
+        },
+        {
+            key: "user.email",
+            label: "User Email",
         },
         {
             key: "receiptUrl",
