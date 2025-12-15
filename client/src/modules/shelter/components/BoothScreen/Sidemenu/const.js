@@ -28,6 +28,12 @@ export const links = [
         Component: BoothsLink
     },
     {
+        text: "My Membership",
+        to: "/membership",
+        ignoreRouteParams: true,
+    },
+
+    {
         text: "Logout",
         to: "/logout",
         ignoreRouteParams: true,

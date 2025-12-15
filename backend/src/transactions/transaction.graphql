@@ -29,6 +29,7 @@ type SubscriptionPaymentsFeed {
 }
 
 type SubscriptionPayment {
+    id: String
     amount: String
     currrency: String
     externalId: String

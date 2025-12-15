@@ -1,6 +1,110 @@
 @import "src/modules/Core/styles/classes.scss";
+@import "src/modules/Core/styles/variables.scss";
+
+$defaultRowHeight: 3.5rem;
+$headerHeight: 3rem;
+$cellPadding: 1rem;
+$borderRadius: 0.5rem;
 
 .overlayLoader {
   @extend .width-fill-available;
   @extend .height-fill-available;
+}
+
+.feedTable {
+  border-radius: $borderRadius;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background-color: white;
+  border: 1px solid $grey10;
+}
+
+.feedTableHeader {
+  background: linear-gradient(180deg, $grey18 0%, $grey10 100%);
+  border-bottom: 2px solid $grey36;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.feedTableHeaderColumn {
+  flex: 1 1;
+  height: $headerHeight;
+  padding: 0 $cellPadding;
+  border-right: 1px solid $grey18;
+  transition: background-color 0.2s ease;
+  
+  &:last-child {
+    border-right: none;
+  }
+  
+  &:hover {
+    background-color: $grey10;
+  }
+  
+  :global(.title) {
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: $grey72;
+  }
+}
+
+.feedTableRow {
+  height: $defaultRowHeight;
+  border-bottom: 1px solid $grey10;
+  transition: all 0.2s ease;
+  background-color: white;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &:nth-child(even) {
+    background-color: $grey3;
+  }
+  
+  &.clickable {
+    cursor: pointer;
+    
+    &:hover {
+      background-color: $grey7;
+      transform: translateX(2px);
+      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.06);
+    }
+    
+    &:active {
+      transform: translateX(1px);
+      box-shadow: -1px 0 4px rgba(0, 0, 0, 0.04);
+    }
+  }
+}
+
+.feedTableCell {
+  flex: 1 1;
+  height: $defaultRowHeight;
+  padding: 0 $cellPadding;
+  border-right: 1px solid $grey10;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  &:last-child {
+    border-right: none;
+  }
+  
+  :global(.text) {
+    font-size: 0.875rem;
+    color: $grey72;
+    line-height: 1.5;
+  }
+  
+  .feedTableRow:hover & {
+    overflow: visible;
+    white-space: normal;
+    word-break: break-word;
+  }
 }

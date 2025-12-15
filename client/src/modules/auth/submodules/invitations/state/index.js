@@ -1,6 +1,7 @@
 import { initCell } from "modules/Core/core-modules/CoreModuleState/utils/cells";
 import middleware from "../middleware";
 import { INVITATIONS } from "../consts";
+import { call } from "redux-saga/effects";
 
 export default {
   validateInvitation: initCell(INVITATIONS, {

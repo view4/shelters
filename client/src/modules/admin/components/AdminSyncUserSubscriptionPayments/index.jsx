@@ -31,14 +31,21 @@ export default strappedConnected(
     {
         syncSubscriptionPayments: adminState.syncSubscriptionPayments.action,
     },
-    () => ({
-        onClick: useCallback(() => {
+    ({ userId, syncSubscriptionPayments, isLoading }) => ({
+        onConfirm: useCallback(() => {
             if (userId) {
                 syncSubscriptionPayments({ userId });
             }
         }, [userId, syncSubscriptionPayments]),
         disabled: !userId || isLoading,
         children: isLoading ? "Syncing..." : "Sync Subscription Payments",
+        modal: true,
+        copy: {
+            title: "Are you sure you want to sync subscription payments?",
+            description: "This action will sync all subscription payments for the user.",
+            onCancel: "Cancel",
+            onConfirm: "Sync",
+        },
     })
 );
 

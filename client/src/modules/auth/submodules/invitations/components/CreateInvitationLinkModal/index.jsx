@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected"
 import useOnSuccess from "modules/Core/sub-modules/Dialog/hooks/useOnSuccess"
 import Modal from "modules/Core/sub-modules/ui-kit/components/Modal"

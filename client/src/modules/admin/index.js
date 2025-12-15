@@ -6,7 +6,8 @@ import AdminSubscriptionsScreen from "./components/screens/AdminSubscriptionsScr
 import feed from "./state/feed";
 import cells from "./state/index";
 import withSecureRoute from "modules/auth/hoc/withSecureRoute";
-
+import AdminAuthenticationScreen from "./components/screens/AdminAuthenticationScreen";
+import AdminUsersScreen from "./components/screens/AdminUsersScreen";
 export default new CoreModule({
     name: ADMIN,
     initialState: {
@@ -20,9 +21,10 @@ export default new CoreModule({
         syncSubscriptionPayments: cells.syncSubscriptionPayments,
     },
     routes: {
-        [ADMIN_ROUTES.HOME]: withSecureRoute(AdminHomeScreen),
+        [ADMIN_ROUTES.AUTHENTICATION]: withSecureRoute(AdminAuthenticationScreen),
         [ADMIN_ROUTES.INVITATIONS]: withSecureRoute(AdminInvitationsScreen),
-        [ADMIN_ROUTES.USERS]: withSecureRoute(AdminHomeScreen),
+        [ADMIN_ROUTES.USERS]: withSecureRoute(AdminUsersScreen),
         [ADMIN_ROUTES.SUBSCRIPTIONS]: withSecureRoute(AdminSubscriptionsScreen),
+        [ADMIN_ROUTES.HOME]: withSecureRoute(AdminHomeScreen),
     },  
 });

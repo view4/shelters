@@ -1,8 +1,8 @@
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
 import AdminScreen from "../../AdminScreen";
+import AdminUserFeed from "../../AdminUserFeed";
 import styles from "./styles.module.scss";
-
 
 export default () => (
     <AdminScreen>

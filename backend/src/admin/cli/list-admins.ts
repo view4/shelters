@@ -12,21 +12,12 @@
 
 import * as mongoose from 'mongoose';
 import { config } from 'dotenv';
-import { UserSchema } from '../../auth/schemas/user.schema';
+import { User, UserDocument, UserSchema } from '../../auth/schemas/user.schema';
 import { ROLES } from '../../auth/schemas/const';
+import { Model } from 'mongoose';
 
 // Load environment variables
 config();
-
-interface User {
-  _id: any;
-  authenticatorId: string;
-  email: string;
-  roles: string[];
-  authenticatorProviderKey?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
 
 async function listAdmins(): Promise<void> {
   const mongoUrl = process.env.MONGO_URL;
@@ -43,10 +34,15 @@ async function listAdmins(): Promise<void> {
   console.log('✅ Connected to MongoDB');
 
   try {
-    const UserModel = connection.connection.model<User>('User', UserSchema);
+    let UserModel: Model<UserDocument>;
+    if (connection.connection.models.User) {
+      UserModel = connection.connection.models.User as Model<UserDocument>;
+    } else {
+      UserModel = connection.connection.model<UserDocument>('User', UserSchema) as Model<UserDocument>;
+    }
 
     console.log(`🔍 Looking for users with ${ROLES.ADMIN} role...`);
-    const admins = await UserModel.find({ roles: ROLES.ADMIN });
+    const admins = (await UserModel.find({ roles: ROLES.ADMIN })) as UserDocument[];
 
     if (admins.length === 0) {
       console.log('📭 No admin users found');
