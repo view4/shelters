@@ -29,6 +29,7 @@ type SubscriptionPaymentsFeed {
 }
 
 type SubscriptionPayment {
+    id: String
     amount: String
     currrency: String
     externalId: String
@@ -37,7 +38,6 @@ type SubscriptionPayment {
     status: String
     paidAt: String
     receiptUrl: String
-
 }
 
 type SubscriptionFeed {

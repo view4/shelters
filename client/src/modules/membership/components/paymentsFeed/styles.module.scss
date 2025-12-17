@@ -1,0 +1,97 @@
+.feedHeader {
+    display: grid;
+    grid-template-columns: 120px 140px 160px 1fr 140px;
+    gap: 16px;
+    padding: 16px 20px;
+    background: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid #e9ecef;
+    border-bottom: 2px solid #dee2e6;
+    margin-bottom: 8px;
+
+    .headerCell {
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #495057;
+    }
+}
+
+.feedItem {
+    display: grid;
+    grid-template-columns: 120px 140px 160px 1fr 140px;
+    gap: 16px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+    align-items: center;
+
+    &:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border-color: #dee2e6;
+        transform: translateY(-1px);
+    }
+
+    .amount {
+        font-weight: 600;
+        font-size: 18px;
+        color: #28a745;
+    }
+
+    .date {
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    .externalId {
+        font-family: 'Monaco', 'Courier New', monospace;
+        font-size: 13px;
+        color: #495057;
+        background: #f8f9fa;
+        padding: 4px 8px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+
+    .user {
+        color: #212529;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .receiptLink {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 16px;
+        background: #007bff;
+        color: white !important;
+        text-decoration: none !important;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: #0056b3;
+            transform: scale(1.02);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+}
+
+.feedContainer {
+    .emptyState {
+        padding: 40px;
+        text-align: center;
+        color: #6c757d;
+        font-size: 16px;
+    }
+}
