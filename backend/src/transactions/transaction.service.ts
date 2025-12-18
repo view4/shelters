@@ -30,7 +30,9 @@ export class TransactionService {
         sort: { createdAt: -1 },
       },
       [
-        connect('users', 'user', '_id', 'user'),
+        connect('users', 'user', '_id', 'user', [
+          { $addFields: { id: "$_id" } },
+        ]),
         {
           $addFields: {
             user: { $arrayElemAt: ['$user', 0] },
@@ -48,7 +50,9 @@ export class TransactionService {
       },
     
       [
-        connect('users', 'user', '_id', 'user'),
+        connect('users', 'user', '_id', 'user', [
+          { $addFields: { id: "$_id" } },
+        ]),
         connect('subscriptions', 'subscription', '_id', 'subscription'),
         {
           $addFields: {

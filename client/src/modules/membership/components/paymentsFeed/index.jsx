@@ -4,6 +4,7 @@ import paymentsFeed from "modules/payments/state/feed";
 import styles from "./styles.module.scss";
 
 export default strapped(paymentsFeed.FeedComponent, ({ userId }) => ({
+    // feed: MOCK_DATA,
     filters: useMemo(() => ({ userId }), [userId]),
     table: true,
     columns: [
