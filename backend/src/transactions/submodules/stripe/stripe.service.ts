@@ -6,7 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { MembershipService } from 'src/auth/membership.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Subscription } from './schemas/subscription.schema';
-import { create, filterOne, upsertOne } from 'src/common/utils/db';
+import { filterOne, upsertOne } from 'src/common/utils/db';
 import mongoose, { Model } from 'mongoose';
 import { SubscriptionPayment } from './schemas/subscription-payment.schema';
 
@@ -137,8 +137,8 @@ export class StripeService {
       currency: payment.currency,
       subscription: new mongoose.Types.ObjectId(subscription._id),
       status: "pending",
-      user: subscription.user,
-    }, { user: subscription.user, externalId: payment.id });
+      user: new mongoose.Types.ObjectId(subscription.user),
+    }, { user: new mongoose.Types.ObjectId(subscription.user), externalId: payment.id });
   }
 
   async handleSubscriptionPaymentPaid(payment: Stripe.Invoice) {
@@ -149,8 +149,9 @@ export class StripeService {
       currency: payment.currency,
       subscription: new mongoose.Types.ObjectId(subscription._id),
       status: "paid",
+      user: new mongoose.Types.ObjectId(subscription.user),
       paidAt: new Date(payment.created),
-    }, { user: subscription.user, externalId: payment.id });
+    }, { user: new mongoose.Types.ObjectId(subscription.user), externalId: payment.id });
   }
 
   async handleSubscriptionPaymentFailed(payment: Stripe.Invoice) {
@@ -161,7 +162,50 @@ export class StripeService {
       currency: payment.currency,
       subscription: new mongoose.Types.ObjectId(subscription._id),
       status: "failed",
-    }, { user: subscription.user, externalId: payment.id });
+      user: new mongoose.Types.ObjectId(subscription.user),
+    }, { user: new mongoose.Types.ObjectId(subscription.user), externalId: payment.id });
+  }
+
+  async fetchSubscriptionPayments(subscriptionId: string) {
+    const payments = await this.stripe.invoices.list({
+      subscription: subscriptionId,
+      limit: 20
+    });
+    return payments;
+  }
+
+  async upsertSubscriptionPayments(payments: Stripe.Invoice[], subscriptionId: string) {
+    for (const payment of payments) {
+      await upsertOne(this.subscriptionPaymentModel, {
+        externalId: payment.id,
+        amount: payment.amount_due,
+        currency: payment.currency,
+        status: payment.status === 'paid' ? 'paid' : 'pending',
+        subscription: new mongoose.Types.ObjectId(subscriptionId),
+        paidAt: new Date(payment.created),
+      }, {
+        user: new mongoose.Types.ObjectId(payment.metadata.userId),
+        externalId: payment.id,
+      });
+    }
+    return true;
+  }
+
+  async syncSubscriptionPayments(userId: string) {
+    const subscription = await filterOne(this.subscriptionModel, { user: new mongoose.Types.ObjectId(userId) });
+    let shouldFetch = true;
+    let data = [];
+    while (shouldFetch) {
+      const result = await this.fetchSubscriptionPayments(subscription.subscriptionId);
+      data.push(...result.data);
+      if (result.has_more) {
+        shouldFetch = true;
+      } else {
+        shouldFetch = false;
+      }
+    }
+    await this.upsertSubscriptionPayments(data, subscription.subscriptionId);
+    return true;
   }
 
 

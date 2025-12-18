@@ -1,5 +1,4 @@
 import cx from "classnames";
-import withFocusedBoothId from "modules/booths/higher-order-components/withFocusedBoothId";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import feed from "modules/timetracker/state/feed";

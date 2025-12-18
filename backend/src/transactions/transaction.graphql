@@ -1,6 +1,5 @@
 type Query {
     subscriptionPayments(feedParams: FeedParams, userId: String ):  SubscriptionPaymentsFeed
-    subscriptions(feedParams: FeedParams): SubscriptionFeed
 }
 
 type Mutation {

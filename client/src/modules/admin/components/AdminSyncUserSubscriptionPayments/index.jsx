@@ -12,9 +12,9 @@ export default strappedConnected(
         syncSubscriptionPayments: adminState.syncSubscriptionPayments.action,
     },
     ({ userId, syncSubscriptionPayments, isLoading }) => ({
-        onConfirm: useCallback(() => {
+        onConfirm: useCallback((close) => {
             if (userId) {
-                syncSubscriptionPayments({ userId });
+                syncSubscriptionPayments({ userId, callback: close });
             }
         }, [userId, syncSubscriptionPayments]),
         disabled: !userId || isLoading,

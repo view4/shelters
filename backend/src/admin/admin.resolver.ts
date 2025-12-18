@@ -1,11 +1,13 @@
 import { Args, Field, InputType, Mutation, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
+import { ForbiddenException, UseGuards } from '@nestjs/common';
 import { AdminAuthGuard } from 'src/auth/admin-auth.guard';
 import { SessionUser } from 'src/auth/decorators/session-user.decorator';
 import { SessionUserT } from 'src/auth/types/SessionUserType';
 import { AdminService } from './admin.service';
 import { TransactionService } from 'src/transactions/transaction.service';
 import { InvitationsService } from 'src/auth/submodules/invitations/invitations.service';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { ROLES } from 'src/auth/schemas/const';
 
 @InputType()
 export class InvitationInput {
@@ -57,11 +59,15 @@ export class AdminResolver {
   }
 
   @Query()
-  @UseGuards(AdminAuthGuard)
+  @UseGuards(AuthGuard)
   async subscriptionPayments(
+    @Args('userId') userId: string,
     @SessionUser() user: SessionUserT
   ) {
-    return this.transactionsService.subscriptionPayments(user.id)
+    if (!user.roles.includes(ROLES.ADMIN) && `${user.id}` !== userId) {
+      throw new ForbiddenException('You are not authorized to access this resource');
+    }
+    return this.transactionsService.subscriptionPayments(userId)
   }
 
   @Query()

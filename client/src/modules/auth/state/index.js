@@ -56,7 +56,7 @@ export default {
   }),
   validateToken: initCell(AUTH, {
     name: "validateToken",
-    selector: (state) => state.user,
+    selector: (state) => state.auth?.user,
     reducer: (state, { payload }) => {
       state.isAuthenticating = true
     },

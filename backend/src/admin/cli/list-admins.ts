@@ -15,7 +15,6 @@ import { Model } from 'mongoose';
 import { config } from 'dotenv';
 import { User, UserDocument, UserSchema } from '../../auth/schemas/user.schema';
 import { ROLES } from '../../auth/schemas/const';
-import { Model } from 'mongoose';
 
 // Load environment variables
 config();

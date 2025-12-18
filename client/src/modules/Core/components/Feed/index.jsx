@@ -45,8 +45,6 @@ const FeedTableRow = ({ data, onClick, className, ...props }) => {
     )
 }
 
-
-
 const withFeedTableDataAdapter = (Component, columns) => (props) => {
     const data = useMemo(() => {
         const data = {};
@@ -62,7 +60,7 @@ const withFeedTableDataAdapter = (Component, columns) => (props) => {
     return <Component {...props} data={data} />;
 }
 
-const FeedTable = ({ containerClassName, columns, RowComponent = FeedTableRow, ...props }) => {
+const FeedTable = ({ containerClassName, columns, RowComponent = FeedTableRow, table, ...props }) => {
     return (
         <Container className={cx(styles.feedTable, containerClassName)}>
             <FeedTableHeader columns={columns} />
@@ -71,7 +69,7 @@ const FeedTable = ({ containerClassName, columns, RowComponent = FeedTableRow, .
     )
 }
 
-const Feed = ({
+const _Feed = ({
     feedSelector,
     loadingSelector = noop,
     loadFeed,
@@ -84,6 +82,7 @@ const Feed = ({
     feedRef,
     ...props
 }) => {
+    console.log("filters", filters);
     const { feed, loading, hasMore, loadMore } = useFeed({
         fetcher: loadFeed,
         selector: feedSelector,
@@ -111,7 +110,11 @@ const Feed = ({
             {...props}
         />
     )
-}
+};
+
+const Feed = withRecursiveRender({
+    table: FeedTable,
+}, _Feed);
 
 Feed.Component = ({
     feed = [],
@@ -151,9 +154,4 @@ Feed.Component = ({
 )
 
 
-export default withRecursiveRender(
-    {
-        table: FeedTable,
-    },
-    Feed
-);
+export default Feed;

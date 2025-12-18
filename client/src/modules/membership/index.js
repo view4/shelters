@@ -12,6 +12,7 @@ export default new CoreModule({
   cells: {
     cancelMembership: cells.cancelMembership,
     fetchFeed: feed.cells?.fetchFeed,
+    setFilters: feed.cells?.setFilters,
   },
   routes: {
     "/subscribe": MembershipRegistration,

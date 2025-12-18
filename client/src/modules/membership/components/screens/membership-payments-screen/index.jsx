@@ -44,10 +44,11 @@ const Component = ({ userId }) => (
 export default strappedConnected(
     Component,
     {
-        userId: auth.validateToken.selector,
+        user: auth.validateToken.selector,
     },
     {},
     ({ user }) => {
+        console.log("user", user);
         return {
             userId: user?.id,
         }

@@ -3,7 +3,7 @@ import { StripeService } from './submodules/stripe/stripe.service';
 import { Subscription } from './submodules/stripe/schemas/subscription.schema';
 import { SubscriptionPayment } from './submodules/stripe/schemas/subscription-payment.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { aggregateFeed, connect } from 'src/common/utils/db';
 
 @Injectable()
@@ -43,10 +43,16 @@ export class TransactionService {
   }
 
   async subscriptionPayments(userId: string) {
+    const match = {};
+    console.log("userId", userId);
+    if (userId) {
+      match['user'] = new mongoose.Types.ObjectId(userId);
+    }
     return aggregateFeed(
       this.subscriptionPaymentModel,
       {
         sort: { createdAt: -1 },
+        match,
       },
     
       [
@@ -62,5 +68,11 @@ export class TransactionService {
         }
       ],
     )
+  }
+
+  async syncSubscriptionPayments(userId: string) {
+    return true;
+    await this.stripeService.syncSubscriptionPayments(userId);
+    return true;
   }
 }
