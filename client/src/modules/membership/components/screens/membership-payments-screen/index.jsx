@@ -48,7 +48,6 @@ export default strappedConnected(
     },
     {},
     ({ user }) => {
-        console.log("user", user);
         return {
             userId: user?.id,
         }

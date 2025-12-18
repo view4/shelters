@@ -44,7 +44,6 @@ export class TransactionService {
 
   async subscriptionPayments(userId: string) {
     const match = {};
-    console.log("userId", userId);
     if (userId) {
       match['user'] = new mongoose.Types.ObjectId(userId);
     }

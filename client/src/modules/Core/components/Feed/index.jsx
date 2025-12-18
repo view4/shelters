@@ -82,7 +82,6 @@ const _Feed = ({
     feedRef,
     ...props
 }) => {
-    console.log("filters", filters);
     const { feed, loading, hasMore, loadMore } = useFeed({
         fetcher: loadFeed,
         selector: feedSelector,
