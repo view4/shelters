@@ -2,9 +2,9 @@ import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import AdminScreen from "../../AdminScreen";
 import Title from "modules/Core/sub-modules/ui-kit/components/Title";
-import PaymentsFeed from "modules/membership/components/PaymentsFeed";
 import SubscriptionsFeed from "modules/membership/components/SubscriptionsFeed";
 import styles from "./styles.module.scss";
+import AdminPaymentsFeed from "modules/membership/components/AdminPaymentsFeed";
 
 const SubscriptionsTab = () => (
     <Container className={styles.tabContainer}>
@@ -14,7 +14,7 @@ const SubscriptionsTab = () => (
 
 const PaymentsTab = () => (
     <Container className={styles.tabContainer}>
-        <PaymentsFeed />
+        <AdminPaymentsFeed />
     </Container>
 );
 

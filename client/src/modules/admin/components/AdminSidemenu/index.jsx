@@ -42,7 +42,10 @@ const AdminSidemenu = ({ header = "Admin" }) => {
             </Container>
             <Container className={styles.links}>
                 <Container>
-                    {links.map(renderLink)}
+                    {links.slice(0, 3).map(renderLink)}
+                </Container>
+                <Container>
+                    {links.slice(3,).map(renderLink)}
                 </Container>
             </Container>
         </Container>

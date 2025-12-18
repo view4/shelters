@@ -10,9 +10,8 @@ export default new MiddlewareModule({
                     entities {
                         id
                         email
-                        username
-                        firstName
-                        lastName
+                        createdAt
+                        boothCount
                     }
                 }
             }

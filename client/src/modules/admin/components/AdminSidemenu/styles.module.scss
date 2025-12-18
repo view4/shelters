@@ -2,6 +2,7 @@
 
 .container {
     @extend .container;
+    height: 100vh;
 }
 
 .header {

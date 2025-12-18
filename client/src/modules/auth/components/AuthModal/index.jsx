@@ -1,18 +1,15 @@
-import React, { useCallback, useState, useEffect, useMemo } from "react";
+import React, { useCallback, useState } from "react";
+import { useEffect } from "react";
 import c from "classnames";
 import Modal from "modules/Core/sub-modules/ui-kit/components/Modal";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Card from "modules/Core/sub-modules/ui-kit/components/Card";
+import Button from "modules/Core/sub-modules/ui-kit/components/Button";
+import Input from "modules/Core/sub-modules/ui-kit/components/Input";
+import ProviderBasedAuthentication from "modules/auth/components/ProviderBasedAuthentication";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import cells from "modules/auth/state";
 import { useNavigate } from "react-router-dom";
-import { useQueryParams } from "modules/Core/hooks/useStripQueryParams";
-import useValidateInvitation from "modules/auth/submodules/invitations/hooks/useValidateInvitation";
-import useTabs from "modules/Core/hooks/useTabs";
-import EmailCheckStage from "./stages/EmailCheckStage";
-import AuthFormStage from "./stages/AuthFormStage";
-import RequestInvitationStage from "./stages/RequestInvitationStage";
-import RequestSubmittedStage from "./stages/RequestSubmittedStage";
 import styles from "./styles.module.scss";
 
 const AuthModal = ({ isOpen, onClose, initialMode = "login", className, login, register }) => {
@@ -20,159 +17,64 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login", className, login, r
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [checkingInvitation, setCheckingInvitation] = useState(false);
-
     const nav = useNavigate();
-    const queryParams = useQueryParams({ shouldStrip: false });
-    const { validateEmail, validateLinkId, isValidating } = useValidateInvitation();
 
-    const onAuthSuccess = useCallback((res) => {
+    useEffect(() => {
+        setMode(initialMode);
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+    }, [initialMode, isOpen]);
+
+    const onSuccess = useCallback((res) => {
         if (res) {
             nav("/.");
             onClose?.();
         }
     }, [nav, onClose]);
 
-    const onAuthSubmit = useCallback(() => {
+    const onSubmit = useCallback(() => {
         if (mode === "register") {
-            register({ email, password, callback: onAuthSuccess, confirmPassword });
+            register({ email, password, callback: onSuccess, confirmPassword });
         } else {
-            login({ email, password, callback: onAuthSuccess });
+            login({ email, password, callback: onSuccess });
         }
-    }, [mode, email, password, register, login, onAuthSuccess, confirmPassword]);
-
-    const handleBackToHome = useCallback(() => {
-        nav("/");
-        onClose?.();
-    }, [nav, onClose]);
-
-    // Initialize state for tab navigation
-    const [activeTabIndex, setActiveTabIndex] = useState(0);
-
-    const handleEmailCheck = useCallback(async (emailToCheck) => {
-        setCheckingInvitation(true);
-        const isValid = await validateEmail(emailToCheck || email);
-        setCheckingInvitation(false);
-
-        if (isValid) {
-            setActiveTabIndex(1); // Move to auth stage
-        } else {
-            setActiveTabIndex(2); // Go to request invitation
-        }
-    }, [email, validateEmail]);
-
-    const handleLinkCheck = useCallback(async (linkId) => {
-        setCheckingInvitation(true);
-        const isValid = await validateLinkId(linkId);
-        setCheckingInvitation(false);
-
-        if (isValid) {
-            setMode("register");
-            setActiveTabIndex(1); // Move to auth stage
-        } else {
-            setActiveTabIndex(2); // Go to request invitation
-        }
-    }, [validateLinkId]);
-
-    const onInvitationRequestSuccess = useCallback(() => {
-        setActiveTabIndex(3); // Move to request submitted stage
-    }, []);
-
-    // Tab configuration with stage components
-    const tabs = useMemo(() => [
-        {
-            title: "Email Check",
-            Component: () => (
-                <EmailCheckStage
-                    email={email}
-                    setEmail={setEmail}
-                    onContinue={() => handleEmailCheck()}
-                    isChecking={checkingInvitation || isValidating}
-                    onClose={onClose}
-                />
-            )
-        },
-        {
-            title: "Auth",
-            Component: () => (
-                <AuthFormStage
-                    mode={mode}
-                    setMode={setMode}
-                    email={email}
-                    password={password}
-                    setPassword={setPassword}
-                    confirmPassword={confirmPassword}
-                    setConfirmPassword={setConfirmPassword}
-                    onSubmit={onAuthSubmit}
-                    onSuccess={onAuthSuccess}
-                    onClose={onClose}
-                />
-            )
-        },
-        {
-            title: "Request Invitation",
-            Component: () => (
-                <RequestInvitationStage
-                    email={email}
-                    onSuccess={onInvitationRequestSuccess}
-                />
-            )
-        },
-        {
-            title: "Request Submitted",
-            Component: () => (
-                <RequestSubmittedStage
-                    onBackToHome={handleBackToHome}
-                />
-            )
-        }
-    ], [email, mode, password, confirmPassword, checkingInvitation, isValidating, onClose, onAuthSubmit, onAuthSuccess, handleBackToHome, handleEmailCheck, onInvitationRequestSuccess]);
-
-    const { content, focusedTabIndex } = useTabs(tabs, {}, { header: false, activeTabIndex });
-
-    // Check for query params on load
-    useEffect(() => {
-        if (isOpen) {
-            const emailParam = queryParams.email;
-            const linkIdParam = queryParams.linkId;
-
-            if (emailParam) {
-                setEmail(emailParam);
-                handleEmailCheck(emailParam);
-            } else if (linkIdParam) {
-                handleLinkCheck(linkIdParam);
-            }
-        }
-    }, [isOpen, queryParams.email, queryParams.linkId, handleEmailCheck, handleLinkCheck]);
-
-    // Reset state when modal opens/closes
-    useEffect(() => {
-        if (isOpen) {
-            setMode(initialMode);
-            if (!queryParams.email && !queryParams.linkId) {
-                setActiveTabIndex(0); // Start at email check
-                setEmail("");
-            }
-            setPassword("");
-            setConfirmPassword("");
-        }
-    }, [initialMode, isOpen, queryParams.email, queryParams.linkId, setActiveTabIndex]);
-
-    // Get card header title based on current tab
-    const cardTitle = useMemo(() => {
-        const titles = ["Welcome", mode === "login" ? "Login" : "Register", "Request Invitation", "Request Submitted"];
-        return titles[focusedTabIndex] || "Welcome";
-    }, [focusedTabIndex, mode]);
+    }, [mode, email, password, register, login, onSuccess]);
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} bodyClassName={c(styles.body, className)}>
             <Container className={styles.container}>
-                <Card
-                    HeaderComponent={Container}
-                    headerProps={{ children: cardTitle, className: styles.header }}
-                    className={styles.card}
-                >
-                    {content}
+                <Card HeaderComponent={Container} headerProps={{ children: mode === "login" ? "Login" : "Register", className: styles.header }} className={styles.card}>
+                    <Container className={styles.form}>
+                        <Input label="Email" value={email} onChange={setEmail} />
+                        <Input label="Password" value={password} onChange={setPassword} type="password" />
+                        {mode === "register" && (
+                            <Input label="Confirm Password" value={confirmPassword} onChange={setConfirmPassword} type="password" />
+                        )}
+                    </Container>
+                    <Container className={styles.actions}>
+                        <Button onClick={onSubmit}>{mode === "register" ? "Register" : "Login"}</Button>
+                        <Button onClick={onClose} nature="grey-blue">Close</Button>
+                    </Container>
+                    <Container className={styles.switchRow}>
+                        {mode === "login" ? (
+                            <Container className={styles.switchText}>
+                                Already created an account? <Button nature="link" onClick={() => setMode("register")}>Register here</Button>
+                            </Container>
+                        ) : (
+                            <Container className={styles.switchText}>
+                                Already have an account? <Button nature="link" onClick={() => setMode("login")}>Login here</Button>
+                            </Container>
+                        )}
+                    </Container>
+                    <Container className={styles.divider}>
+                        <span className={styles.rule} />
+                        <span className={styles.or}>or</span>
+                        <span className={styles.rule} />
+                    </Container>
+                    <Container className={styles.providersRow}>
+                        <ProviderBasedAuthentication providerKey="google" mode={mode} onSuccess={onSuccess} />
+                    </Container>
                 </Card>
             </Container>
         </Modal>

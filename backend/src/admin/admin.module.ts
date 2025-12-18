@@ -14,7 +14,7 @@ import { TransactionModule } from 'src/transactions/transaction.module';
     ]),
     forwardRef(() => AuthModule),
     forwardRef(() => InvitationsModule),
-    forwardRef(() => TransactionModule),
+    TransactionModule,
   ],
   providers: [AdminService, AdminResolver],
   exports: [AdminService],

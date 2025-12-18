@@ -45,6 +45,7 @@ const invitationsTabs = [
 ];
 
 export default () => {
+    return <AdminScreen>coming soon</AdminScreen>
     return (
         <AdminScreen>
             <Container maxHeight className={styles.container}>

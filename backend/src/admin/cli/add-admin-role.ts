@@ -16,15 +16,16 @@
 import * as mongoose from 'mongoose';
 import { Model } from 'mongoose';
 import { config } from 'dotenv';
-import { User, UserSchema } from '../../auth/schemas/user.schema';
+import { User, UserDocument, UserSchema } from '../../auth/schemas/user.schema';
 import { ROLES } from '../../auth/schemas/const';
+import { Model } from 'mongoose';
 
 // Load environment variables
 config();
 
 async function addAdminRole(email: string): Promise<void> {
   const mongoUrl = process.env.MONGO_URL;
-  
+
   if (!mongoUrl) {
     throw new Error('MONGO_URL environment variable is required');
   }
@@ -37,12 +38,15 @@ async function addAdminRole(email: string): Promise<void> {
   console.log('✅ Connected to MongoDB');
 
   try {
-    const UserModel: Model<User> =
-      (connection.connection.models.User as Model<User>) ||
-      connection.connection.model<User>('User', UserSchema);
+    let UserModel: Model<UserDocument>;
+    if (connection.connection.models.User) {
+      UserModel = connection.connection.models.User as Model<UserDocument>;
+    } else {
+      UserModel = connection.connection.model<UserDocument>('User', UserSchema) as Model<UserDocument>;
+    }
 
     console.log(`🔍 Looking for user with email: ${email}`);
-    const user = await UserModel.findOne({ email }).exec();
+    const user = (await UserModel.findOne({ email })) as UserDocument | null;
 
     if (!user) {
       console.error(`❌ User not found with email: ${email}`);
@@ -75,7 +79,7 @@ async function addAdminRole(email: string): Promise<void> {
 }
 
 async function main() {
-  const [,, email] = process.argv;
+  const [, , email] = process.argv;
 
   if (!email) {
     console.log('📚 Add Admin Role CLI');
