@@ -84,7 +84,7 @@ const columns = [
 
 export default strapped(subscriptionsFeed.FeedComponent, ({ userId }) => ({
     filters: useMemo(() => ({ userId }), [userId]),
-    feed: MOCK_DATA,
+    // feed: MOCK_DATA,
     columns,
     table: true,
 }));

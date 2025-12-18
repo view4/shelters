@@ -31,39 +31,8 @@ const FeedItem = ({ amount, paidAt, externalId, user, receiptUrl }) => (
     }} />
 )
 
-const MOCK_DATA = [
-    {
-        id: "1",
-        amount: "100",
-        paidAt: "2021-01-01",
-        externalId: "1234567890",
-        user: {
-            email: "test@test.com",
-        },
-    },
-    {
-        id: "2",
-        amount: "200",
-        paidAt: "2021-01-02",
-        externalId: "1234567891",
-        user: {
-            email: "test2@test.com",
-        },
-    },
-    {
-        id: "3",
-        amount: "300",
-        paidAt: "2021-01-03",
-        externalId: "1234567892",
-        user: {
-            email: "test3@test.com",
-        },
-    },
-]
 
 export default strapped(paymentsFeed.FeedComponent, ({ userId }) => ({
-    feed: MOCK_DATA,
-    filters: useMemo(() => ({ userId }), [userId]),
     table: true,
     columns: [
         {
@@ -90,7 +59,7 @@ export default strapped(paymentsFeed.FeedComponent, ({ userId }) => ({
         {
             key: "receiptUrl",
             label: "Receipt URL",
-            parser: (value) => <a href={value} target="_blank" rel="noreferrer">{"receipt"}</a>,
+            parser: (value) => <a href={"google.com"} target="_blank" rel="noreferrer">{"receipt"}</a>,
         },
     ],
 }));

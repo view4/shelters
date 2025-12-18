@@ -1,6 +1,6 @@
 import { Args, Field, InputType, Mutation, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AdminAuthGuard } from 'src/auth/admin-auth.guard';
 import { SessionUser } from 'src/auth/decorators/session-user.decorator';
 import { SessionUserT } from 'src/auth/types/SessionUserType';
 import { AdminService } from './admin.service';
@@ -41,7 +41,7 @@ export class AdminResolver {
   ) { }
 
   @Query()
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminAuthGuard)
   async users(
     @SessionUser() user: SessionUserT
   ) {
@@ -49,7 +49,7 @@ export class AdminResolver {
   }
 
   @Query()
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminAuthGuard)
   async subscriptions(
     @SessionUser() user: SessionUserT,
   ) {
@@ -57,7 +57,7 @@ export class AdminResolver {
   }
 
   @Query()
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminAuthGuard)
   async subscriptionPayments(
     @SessionUser() user: SessionUserT
   ) {
@@ -65,7 +65,7 @@ export class AdminResolver {
   }
 
   @Query()
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminAuthGuard)
   async invitations(
     @SessionUser() user: SessionUserT
   ) {
@@ -73,7 +73,7 @@ export class AdminResolver {
   }
 
   @Query()
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminAuthGuard)
   async invitationLinks(
     @SessionUser() user: SessionUserT
   ) {
@@ -81,7 +81,7 @@ export class AdminResolver {
   }
 
   @Query()
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminAuthGuard)
   async invitationApplications(
     @SessionUser() user: SessionUserT
   ) {
@@ -89,7 +89,7 @@ export class AdminResolver {
   }
 
   @Mutation()
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminAuthGuard)
   async upsertInvitation(
     @SessionUser() user: SessionUserT,
     @Args('input') input: InvitationInput,
@@ -99,7 +99,7 @@ export class AdminResolver {
   }
 
   @Mutation()
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminAuthGuard)
   async upsertInvitationLink(
     @SessionUser() user: SessionUserT,
     @Args('input') input: InvitationLinkInput,
@@ -109,7 +109,7 @@ export class AdminResolver {
   }
 
   @Mutation()
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminAuthGuard)
   async stampInvitationApplication(
     @SessionUser() user: SessionUserT,
     @Args('id') id: string,

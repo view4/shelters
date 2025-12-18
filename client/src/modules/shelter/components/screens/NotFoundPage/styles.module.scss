@@ -1,0 +1,51 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.screen {
+  min-height: 100vh;
+}
+
+.container {
+  min-height: calc(100vh - 4rem);
+  margin-top: 4rem;
+}
+
+.content {
+  text-align: center;
+}
+
+.title {
+  font-size: 5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: $grey90;
+
+  @media (max-width: 48rem) {
+    font-size: 3rem;
+  }
+}
+
+.text {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: $grey90;
+
+  @media (max-width: 48rem) {
+    font-size: 1.5rem;
+  }
+}
+
+.subtext {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  color: $grey72;
+
+  @media (max-width: 48rem) {
+    font-size: 1rem;
+  }
+}
+
+.button {
+  margin-top: 1rem;
+}
+

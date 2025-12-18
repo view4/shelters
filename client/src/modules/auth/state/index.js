@@ -69,7 +69,8 @@ export default {
       hasActiveMembership: (state) => state.user?.membership?.isActive || false,
       boothCount: (state) => state.user?.boothCount ?? 0,
       email: (state) => state.user?.email || "",
-      isAuthenticating: (state) => state.user?.isAuthenticating
+      isAuthenticating: (state) => state.user?.isAuthenticating,
+      hasAdminRole: (state) => state.user?.roles?.includes("admin")
     },
     sagas: {
       latest: function* ({ payload: { user } }) {

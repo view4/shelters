@@ -62,7 +62,7 @@ const MOCK_DATA = [
 ]
 
 export default strapped(paymentsFeed.FeedComponent, ({ userId }) => ({
-    feed: MOCK_DATA,
+    // feed: MOCK_DATA,
     filters: useMemo(() => ({ userId }), [userId]),
     table: true,
     columns: [

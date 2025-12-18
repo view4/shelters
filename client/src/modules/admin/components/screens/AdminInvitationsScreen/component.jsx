@@ -8,6 +8,7 @@ import SelfInvitationsFeed from "modules/auth/submodules/invitations/components/
 import CreateInvitationButton from "modules/auth/submodules/invitations/components/CreateInvitationButton";
 import CreateInvitationLinkButton from "modules/auth/submodules/invitations/components/CreateInvitationLinkButton";
 import styles from "./styles.module.scss";
+import BoothsScreenHeader from "modules/shelter/components/BoothScreen/BoothScreenHeader";
 
 const IndividualsTab = () => (
     <Container className={styles.tabContainer}>
@@ -45,7 +46,15 @@ const invitationsTabs = [
 ];
 
 export default () => {
-    return <AdminScreen>coming soon</AdminScreen>
+    return <AdminScreen>
+        <BoothsScreenHeader
+            header="Invitations"
+            // infoKey={INVITATIONS.index}
+        />
+        <Container maxHeight className={styles.container}>
+            coming soon
+        </Container>
+    </AdminScreen>
     return (
         <AdminScreen>
             <Container maxHeight className={styles.container}>

@@ -20,9 +20,10 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migrate": "ts-node -r tsconfig-paths/register migrations/index.ts",
     "cli": "ts-node -r tsconfig-paths/register src/cli.ts",
-    "admin:add": "npm run cli -- admin --email",
-    "admin:remove": "npm run cli -- admin --remove --email",
-    "admin:list": "npm run cli -- admin --list"
+    "admin:add": "ts-node -r tsconfig-paths/register src/admin/cli/add-admin-role.ts",
+    "admin:remove": "ts-node -r tsconfig-paths/register src/admin/cli/remove-admin-role.ts",
+    "admin:list": "ts-node -r tsconfig-paths/register src/admin/cli/list-admins.ts",
+    "transactions:generate-mock": "ts-node -r tsconfig-paths/register src/transactions/cli/generate-mock-subscription-data.ts"
   },
   "dependencies": {
     "@graphql-yoga/nestjs": "^3.7.0",
