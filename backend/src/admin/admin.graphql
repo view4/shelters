@@ -1,6 +1,6 @@
 type Query {
-  subscriptions: SubscriptionFeed
-  subscriptionPayments: SubscriptionPaymentsFeed
+  subscriptions(feedParams: FeedParams): SubscriptionFeed
+  subscriptionPayments(feedParams: FeedParams): SubscriptionPaymentsFeed
   invitations(feedParams: FeedParams): InvitationFeed
   invitationLinks(feedParams: FeedParams): InvitationLinkFeed
   invitationApplications(feedParams: FeedParams): InvitationApplicationFeed

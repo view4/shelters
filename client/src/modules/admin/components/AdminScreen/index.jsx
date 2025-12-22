@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import React, { useMemo } from "react"
 import cx from "classnames"
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected"
 import Screen from "modules/shelter/components/Screen"
@@ -16,6 +16,7 @@ export default strappedConnected(
     ({ isAuthed, header, className }) => {
         return ({
             LeftPanelComponent: AdminSidemenu,
+            RightPanelComponent: false,
             tripanel: true,
             header: false,
             className: cx(styles.screen, className),

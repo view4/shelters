@@ -1,6 +1,6 @@
 import { get, noop } from "lodash";
 import { useNavigate } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, isValidElement } from "react";
 import cx from "classnames";
 import useFeed from "modules/Core/hooks/useFeed";
 import { OverlayLoader } from "modules/Core/sub-modules/ui-kit/components/Loader";
@@ -38,7 +38,7 @@ const FeedTableRow = ({ data, onClick, className, ...props }) => {
         >
             {Object.entries(data).map(([key, value]) => (
                 <Container center flex className={styles.feedTableCell} key={key}>
-                    <Text text={value.value} />
+                    {isValidElement(value.value) ? value.value : <Text text={value.value} />}
                 </Container>
             ))}
         </Container>

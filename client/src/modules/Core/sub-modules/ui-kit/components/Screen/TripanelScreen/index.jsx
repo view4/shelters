@@ -16,15 +16,18 @@ const TripanelScreen = ({
     ...props
     // Consider making jsut actions in the content there fo the left and right section. 
     // There can be the main content or something as children which I think makes some sense. 
+    // maybe this requires some more thught. 
 }) => {
     const panels = useMemo(() => {
         return [
             { Component: LeftPanelComponent, width: "25%", props: leftProps, },
-            { Component: MainContentComponent, width: "50%", props: {
-                children,
-                ...mainProps
-            }, },
-            { Component: RightPanelComponent, width: "25%", props: rightProps, },
+            {
+                Component: MainContentComponent, width: Boolean(RightPanelComponent) ? "50%" : "75%", props: {
+                    children,
+                    ...mainProps
+                },
+            },
+            { Component: RightPanelComponent, width: Boolean(RightPanelComponent) ? "25%" : "0%", props: rightProps, },
         ]
     }, [LeftPanelComponent, RightPanelComponent, MainContentComponent, rightProps, leftProps, mainProps]);
 
