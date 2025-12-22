@@ -403,14 +403,7 @@
 .narrativeSection {
     position: relative;
 
-    // overflow: visible;
-    // h2 {
-    //     font-size: 1.75rem;
-    //     margin-left: 2rem;
-    //     text-align: left;
-    //     z-index: 2;
-    //     position: relative;
-    // }
+
 
     .narrativeContainer {
         position: relative;
@@ -448,7 +441,6 @@
             top: 7%;
             width: clamp(10rem, 12vw, 18rem);
             height: clamp(10rem, 12vw, 18rem);
-            // background-image: url("../../../assets/four-species.png");
             background-image: url("../../../assets/sukkah-wip.png");
 
             background-repeat: no-repeat;
@@ -468,7 +460,6 @@
         color: #2d3748;
         position: relative;
         z-index: 2;
-        // max-width: 90%;
         margin: 0 0.5rem;
         text-align: left;
         transition: all 0.25s ease;
