@@ -1,0 +1,74 @@
+{
+    "title": "New Year, New You Release",
+    "releaseDate": "28th December 2025",
+    "features": [
+        {
+            "name": "Cyclical Task Management",
+            "description": "The Etrog (fruit of the hadar tree), typically relates to the heart and fragrance, it's a symbol of wholeness and Life's fleeting transicence. This can correlate to the cycle's flowing/transeit rhythm and it's complete, cyclical, nature. \n\n\n Organise your responsibilities into recurring cycles, helping you return, reflect and grow. Each cycle naturally includes a break/sabbatical to help you balance work and play."
+        },
+        {
+            "name": "Journalling",
+            "description": "The willow (aravah), often associated with lips, may correlate with this Journalling feature where both are connected to the deep power of personal expression. \n\n\n Capture your reflections, feelings, and consciousness as part of your ongoing journey. Just as prayer is carried by the lips, journalling gives voice to the inner soul, letting what is within find shape through language."
+        },
+        {
+            "name": "Roadmapping",
+            "description": "The lulav (palm frond), is associated with the spine, the structure that holds us uprght and straight. In the same way, roadmaps provide a backbone for our journeys, giving structure and direct support to that growth remains tangible and within reach. \n\n\n Set pathways for your goals and growth, making the next steps not just viable, but achievable by breaking them down into tangible and realistic milestones."
+        },
+        {
+            "name": "Time Management",
+            "description": "The hadas (myrtle), associated with the eyes, reflects vision and clarity. In the same way, mindful timekeeping can help us to plan and move forward in alignment with one's vision, intention and unity of being. \n\n\n Structure your hours and days, creating space for what matters most. Being in command of one's time is a key way to living freely and purposefully."
+        }
+    ],
+    "subText": "Digital tools to help your transient journey through Life.",
+    "narrative": "Yes! Of course this is incomplete, and in the process of being built. That's the whole point, because... so are you! \n\n The festival of sukkot commemorates dwelling in booths, temporary shelters, whilst in the desert leaving Egypt. The instruction to dwell in booths each year is a reminder that the journey of liberation continues with the transient present. The pursuit for liberating personal growth is real, sacred and inherently ours. \n\n This release offers tools to help you build, dismantle, and rebuild digital spaces that support your growth and creativity.",
+    "intentionalText": "I am happy to share this space with you, please explore and experience it with an open mind noting that this space and the basic tools are still in a relatively early stage",
+    "links": [
+        {
+            "name": "Create an account",
+            "text": "Create an account",
+            "url": "/register"
+        },
+        {
+            "name": "See Landing Page",
+            "text": "See Landing Page",
+            "url": "/homepage"
+        },
+        {
+            "name": "Leave some feedback",
+            "text": "Leave some feedback",
+            "url": "/releases/feedback"
+        }
+    ],
+    "upcomingFeatures": [
+        {
+            "name": "Time Mapping Enhancements",
+            "description": "Addition of a calendar like feature which helps better to schedule/organise one's activities, alongside gateway related time-tracking and hopefully some UI enhancements."
+        },
+        {
+            "name": "Active Subscriptions",
+            "description": "Membership subscriptions allow for multiple booths and access to moore features, whilst subscription fees can help support sustainable growth for the project."
+        },
+        {
+            "name": "Project Management Booths",
+            "description": "Project management booths offer a less transient space dedicated towards helping you manage meaningful longer term projects."
+        },
+        {
+            "name": "Teachings Booths",
+            "description": "Teaching Booths offer a space dedicated towards providing moral grounding, or directional insight, on specific subject matters to help users live in alignment with meaning, belief, faith. "
+        }
+    ],
+    "prospectiveFeatures": [
+        {
+            "name": "Shared Booths",
+            "description": "Allowing personal booths to become shared spaces such that we can engage in shared journeys, and shared growth with people we want to grow with."
+        },
+        {
+            "name": "Mobile application",
+            "description": "Adding a mobile app, to allow users to manage their transient journey on the go."
+        },
+        {
+            "name": "AI enhancements",
+            "description": "AI Integration can help automate or streamline some of the mudane flows to help streamline some of the tedious processes."
+        }
+    ]
+}

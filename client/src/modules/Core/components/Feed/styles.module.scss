@@ -1,6 +1,178 @@
 @import "src/modules/Core/styles/classes.scss";
+@import "src/modules/Core/styles/variables.scss";
+
+$defaultRowHeight: auto;
+$minRowHeight: 3.5rem;
+$headerHeight: 3rem;
+$cellPadding: 1.25rem;
+$borderRadius: 0.75rem;
+$rowGap: 0.75rem;
 
 .overlayLoader {
   @extend .width-fill-available;
   @extend .height-fill-available;
+}
+
+.feedTable {
+  border-radius: $borderRadius;
+  overflow: visible;
+  background-color: transparent;
+  padding: 0;
+}
+
+.feedTableHeader {
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 0 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.feedTableHeaderColumn {
+  flex: 1 1;
+  height: $headerHeight;
+  padding: 0 $cellPadding;
+  border-right: none;
+  transition: all 0.2s ease;
+  
+  &:first-child {
+    padding-left: calc($cellPadding + 0.5rem);
+  }
+  
+  &:last-child {
+    padding-right: calc($cellPadding + 0.5rem);
+  }
+  
+  :global(.title) {
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: $grey36;
+    opacity: 0.8;
+  }
+}
+
+.feedTableRow {
+  min-height: $minRowHeight;
+  border-bottom: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: white;
+  margin-bottom: $rowGap;
+  border-radius: $borderRadius;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  &.clickable {
+    cursor: pointer;
+    
+    &:hover {
+      background-color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+    
+    &:active {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+  }
+  
+  &:not(.clickable):hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+}
+
+.feedTableCell {
+  flex: 1 1;
+  min-height: $minRowHeight;
+  padding: $cellPadding;
+  border-right: none;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  min-width: 0; // Important for flex children to allow text truncation
+  position: relative;
+  
+  &:first-child {
+    padding-left: calc($cellPadding + 0.5rem);
+    border-radius: $borderRadius 0 0 $borderRadius;
+  }
+  
+  &:last-child {
+    padding-right: calc($cellPadding + 0.5rem);
+    border-radius: 0 $borderRadius $borderRadius 0;
+  }
+  
+  // Ensure text content inside respects overflow
+  > * {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  
+  // On hover, show full text with overflow
+  &:hover {
+    overflow: visible;
+    z-index: 100;
+    
+    > * {
+      overflow: visible;
+      white-space: normal;
+      max-width: none;
+      position: relative;
+      z-index: 101;
+      background-color: white;
+      padding: 0.5rem 1rem;
+      margin: -0.5rem;
+      border-radius: 0.375rem;
+      box-shadow: 0 4px 12px $grey10;
+    }
+    
+    :global(.text) {
+      overflow: visible;
+      white-space: normal;
+      word-break: break-word;
+    }
+    
+    a {
+      overflow: visible;
+      white-space: normal;
+    }
+  }
+  
+  :global(.text) {
+    font-size: 0.9rem;
+    color: $grey72;
+    line-height: 1.6;
+    font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+    &:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+  }
 }

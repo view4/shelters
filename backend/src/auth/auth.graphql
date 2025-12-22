@@ -11,6 +11,7 @@ type User {
     updatedAt: String
     membership: Membership
     boothCount: Int
+    roles: [String]
 }
 
 type Membership {
@@ -18,4 +19,9 @@ type Membership {
     stamps: Stamps
     isActive: Boolean
     createdAt: String
+}
+
+type UserFeed {
+    entities: [User]
+    info: FeedInfo
 }

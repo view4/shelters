@@ -18,7 +18,12 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migrate": "ts-node -r tsconfig-paths/register migrations/index.ts"
+    "migrate": "ts-node -r tsconfig-paths/register migrations/index.ts",
+    "cli": "ts-node -r tsconfig-paths/register src/cli.ts",
+    "admin:add": "ts-node -r tsconfig-paths/register src/admin/cli/add-admin-role.ts",
+    "admin:remove": "ts-node -r tsconfig-paths/register src/admin/cli/remove-admin-role.ts",
+    "admin:list": "ts-node -r tsconfig-paths/register src/admin/cli/list-admins.ts",
+    "transactions:generate-mock": "ts-node -r tsconfig-paths/register src/transactions/cli/generate-mock-subscription-data.ts"
   },
   "dependencies": {
     "@graphql-yoga/nestjs": "^3.7.0",
@@ -38,6 +43,7 @@
     "graphql-yoga": "^5.7.0",
     "lodash": "^4.17.21",
     "mongoose": "^8.7.2",
+    "nest-commander": "^3.20.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "stripe": "^17.6.0"

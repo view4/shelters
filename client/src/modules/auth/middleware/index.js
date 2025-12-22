@@ -32,6 +32,7 @@ export default new MiddlewareModule({
             user {
                 id
                 email
+                roles
                 membership {
                     id
                     isActive

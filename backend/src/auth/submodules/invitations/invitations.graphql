@@ -1,0 +1,15 @@
+type Query {
+  validateInvitation(email: String, linkId: String): Boolean
+}
+
+type Mutation {
+  acceptInvitation(email: String, linkId: String): Boolean
+  upsertInviteApplication(input: InvitationApplicationInput!): Boolean
+}
+
+input InvitationApplicationInput {
+  email: String!
+  name: String
+  text: String
+}
+

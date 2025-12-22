@@ -9,6 +9,7 @@ import { FirebaseModule } from './submodules/firebase/firebase.module';
 import { Membership, MembershipSchema } from './schemas/membership.schema';
 import { MembershipService } from './membership.service';
 import { BoothsModule } from 'src/booths/booths.module';
+import { AdminAuthGuard } from './admin-auth.guard';
 
 @Module({
   imports: [
@@ -32,7 +33,7 @@ import { BoothsModule } from 'src/booths/booths.module';
 
   ],
   controllers: [],
-  providers: [AuthService, AuthResolver, MembershipService],
-  exports: [MembershipService, AuthService],
+  providers: [AuthService, AuthResolver, MembershipService, AdminAuthGuard],
+  exports: [MembershipService, AuthService, AdminAuthGuard],
 })
 export class AuthModule { }

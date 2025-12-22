@@ -1,0 +1,126 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.container {
+    background: linear-gradient(135deg, $grey3 0%, $grey5 100%);
+    min-height: 100vh;
+    padding: 3rem 2rem;
+}
+
+.card {
+    width: 100%;
+    max-width: 54rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-radius: 1.25rem;
+    overflow: hidden;
+
+    :global(.card-header) {
+        background: linear-gradient(135deg, $grey18 0%, $grey10 100%);
+        padding: 2.5rem 2rem;
+        // border-bottom: 2px solid $grey18;
+        box-shadow: none;
+        border-bottom: none;
+
+        :global(.title) {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: $grey72;
+            text-align: center;
+            margin: 0;
+        }
+    }
+
+    :global(.card-content) {
+        padding: 3rem 2.5rem;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.inputWrapper {
+    width: 100%;
+    margin-bottom: 0.5rem;
+
+    :global(.input-container) {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    :global(.MuiTextField-root) {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    :global(.MuiFormControl-root) {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    :global(.MuiInputBase-root) {
+        background-color: white;
+        border-radius: 0.625rem;
+        // padding: 0.75rem 1rem;
+        min-height: 3.25rem;
+        transition: all 0.2s ease;
+        font-size: 1rem;
+
+        &:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        &:focus-within {
+            box-shadow: 0 0 0 3px rgba(128, 128, 128, 0.1);
+        }
+    }
+
+    :global(.MuiInputLabel-root) {
+        font-size: 0.9375rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.buttonWrapper {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 1rem;
+
+    :global(.button) {
+        width: 100%;
+        padding: 1rem 2rem;
+        font-size: 1.0625rem;
+        font-weight: 600;
+        border-radius: 0.625rem;
+        min-height: 3.5rem;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+        &:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        &:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.loginButton {
+    background: linear-gradient(135deg, $grey72 0%, $grey50 100%);
+    color: white;
+
+    &:hover:not(:disabled) {
+        background: linear-gradient(135deg, $grey90 0%, $grey72 100%);
+    }
+}

@@ -4,6 +4,7 @@ import { getSuccessActionType } from "modules/Core/state/utils";
 import { compactObject } from "modules/Core/utils/obj";
 import { put } from "redux-saga/effects";
 
+
 export const registerCellSelector = (moduleName, selector) =>
   selector && createSelector((state) => state[moduleName], selector);
 

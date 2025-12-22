@@ -17,6 +17,8 @@ import { TransactionModule } from './transactions/transaction.module';
 import { StripeModule } from './transactions/submodules/stripe/stripe.module';
 import { MapalModule } from './mapal/mapal.module';
 import { MalchutModule } from './malchut/malchut.module';
+import { AdminModule } from './admin/admin.module';
+import { InvitationsModule } from './auth/submodules/invitations/invitations.module';
 
 @Module({
   imports: [
@@ -47,6 +49,8 @@ import { MalchutModule } from './malchut/malchut.module';
     TransactionModule,
     MapalModule,
     MalchutModule,
+    AdminModule,
+    InvitationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
