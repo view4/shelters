@@ -8,7 +8,7 @@ import { Card, Link } from "modules/Core/sub-modules/ui-kit/exports";
 import BoothScreen from "modules/shelter/components/BoothScreen";
 
 const Component = ({ hasMembership }) => {
-    if (hasMembership || true) return (
+    if (hasMembership) return (
         <MembershipPaymentsScreen />
     )
 

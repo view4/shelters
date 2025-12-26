@@ -34,8 +34,7 @@ const Component = ({ userId }) => (
             options={[
                 { Component: CancelSubscriptionButton, props: { userId, className: styles.cancelButton } },
             ]}
-        >
-        </BoothsScreenHeader>
+            />
         <PaymentsFeed userId={userId} />
     </BoothScreen>
 );
