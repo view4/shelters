@@ -1,0 +1,54 @@
+type Query {
+  subscriptions(feedParams: FeedParams): SubscriptionFeed
+  subscriptionPayments(feedParams: FeedParams): SubscriptionPaymentsFeed
+  invitations(feedParams: FeedParams): InvitationFeed
+  invitationLinks(feedParams: FeedParams): InvitationLinkFeed
+  invitationApplications(feedParams: FeedParams): InvitationApplicationFeed
+  users(feedParams: FeedParams): UserFeed
+}
+
+type Mutation {
+  upsertInvitation(input: InvitationInput, id: String ): Invitation
+  upsertInvitationLink(input: InvitationLinkInput, id: String ): InvitationLink
+  stampInvitationApplication(id: String!, key: String!): InvitationApplication
+}
+
+type Invitation {
+  id: String
+}
+
+type InvitationLink {
+  id: String
+}
+
+type InvitationApplication {
+  id: String
+  text: String
+  email: String
+  name: String
+}
+
+type InvitationFeed {
+  entities: [Invitation]
+  info: FeedInfo
+}
+
+type InvitationLinkFeed {
+  entities: [InvitationLink]
+  info: FeedInfo
+}
+
+type InvitationApplicationFeed {
+  entities: [InvitationApplication]
+  info: FeedInfo
+}
+
+input InvitationInput {
+  email: String
+}
+
+input InvitationLinkInput {
+  redemptionLimit: Int
+  expirationDate: String
+  description: String
+}

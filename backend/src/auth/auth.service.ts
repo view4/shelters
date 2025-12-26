@@ -46,4 +46,8 @@ export class AuthService {
       authenticatorProviderKey: user.authenticatorProviderKey,
     }
   }
+
+  async getUserByEmail(email: string) {
+    return filterOne(this.userModel, { email });
+  }
 }

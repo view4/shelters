@@ -86,12 +86,14 @@ const ImportDedicatedTimeFeed = ({ onSelect, boothId }) => {
     }), [selectedItem]);
 
     return (
-        <Container flex col className={styles.feedContainer}>
-            <Feed.Component
-                feed={feedItems || []}
-                ItemComponent={SelectableDedicatedTimeFeedItem}
-                itemProps={itemProps}
-            />
+        <Container flex col className={styles.container}>
+            <Container className={styles.feedContainer}>
+                <Feed.Component
+                    feed={feedItems || []}
+                    ItemComponent={SelectableDedicatedTimeFeedItem}
+                    itemProps={itemProps}
+                />
+            </Container>
             <Container className={styles.selectButton} flex flexEnd>
                 <Button
                     text={selectedItem ? `Select "${selectedItem.name}"` : 'Select Item'}

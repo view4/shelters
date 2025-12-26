@@ -1,6 +1,11 @@
+type Query {
+    subscriptionPayments(feedParams: FeedParams, userId: String ):  SubscriptionPaymentsFeed
+}
+
 type Mutation {
     initMembership: PaymentIntent
     cancelMembership: Boolean
+    syncSubscriptionPayments(userId: String): Boolean
 }
 
 type PaymentIntent {
@@ -8,4 +13,38 @@ type PaymentIntent {
     amount: Float
     currency: String
     id: String
+}
+
+type Subscription {
+  id: String
+  user: User
+  stamps: SubscriptionStamps
+  subscriptionId: String
+}
+
+type SubscriptionPaymentsFeed {
+    entities: [SubscriptionPayment]
+    info: FeedInfo
+}
+
+type SubscriptionPayment {
+    id: String
+    amount: String
+    currrency: String
+    externalId: String
+    subscription: Subscription
+    user: User
+    status: String
+    paidAt: String
+    receiptUrl: String
+}
+
+type SubscriptionFeed {
+  entities: [Subscription]
+  info: FeedInfo
+}
+
+type SubscriptionStamps {
+    activatedDate: String
+    deactivatedDate: String
 }

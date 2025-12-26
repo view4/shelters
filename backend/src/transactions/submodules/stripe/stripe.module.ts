@@ -4,16 +4,24 @@ import { AuthModule } from 'src/auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Subscription, SubscriptionSchema } from './schemas/subscription.schema';
 import { StripeController } from './stripe.controller';
+import { SubscriptionPayment, SubscriptionPaymentSchema } from './schemas/subscription-payment.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Subscription.name, schema: SubscriptionSchema },
+      { name: SubscriptionPayment.name, schema: SubscriptionPaymentSchema },
     ]),
     AuthModule
   ],
   controllers: [StripeController],
   providers: [StripeService],
-  exports: [StripeService],
+  exports: [
+    StripeService,
+    MongooseModule.forFeature([
+      { name: Subscription.name, schema: SubscriptionSchema },
+      { name: SubscriptionPayment.name, schema: SubscriptionPaymentSchema },
+    ]),
+  ],
 })
 export class StripeModule { }

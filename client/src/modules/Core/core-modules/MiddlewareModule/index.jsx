@@ -63,6 +63,7 @@ class MiddlewareModule {
     get ops() {
         return this.operations;
     }
+
 };
 
 export default MiddlewareModule;

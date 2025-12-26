@@ -28,16 +28,16 @@ export const links = [
         Component: BoothsLink
     },
     {
+        text: "Subscription",
+        to: "/membership",
+        ignoreRouteParams: true,
+    },
+
+    {
         text: "Logout",
         to: "/logout",
         ignoreRouteParams: true,
-        // Component: LogoutLink
     }
-    // {
-    //     text: "Settings",
-    //     to: "/membership/settings",
-    //     ignoreRouteParams: true
-    // },
 ];
 
 export const WITH_PARAMS_PREFIX = `/booths/:boothId`

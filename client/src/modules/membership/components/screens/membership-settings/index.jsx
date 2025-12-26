@@ -9,6 +9,12 @@ import styles from "./styles.module.scss"
 
 
 const { cancelMembership } = cells;
+
+export const CancelMembershipButton = strappedConnected(Button, {}, { cancelMembership: cancelMembership.action }, ({ cancelMembership }) => ({
+    onClick: cancelMembership,
+    text: "Cancel",
+}));
+
 const MembershipSettings = ({ cancelMembership }) => {
     return (
         <BoothScreen

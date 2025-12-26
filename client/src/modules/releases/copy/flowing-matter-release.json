@@ -1,0 +1,77 @@
+{
+    "title": "New Year Release (2026)",
+    "releaseDate": "28th December 2025",
+    "releaseTitle": "Don't neglect the journey!",
+    "releaseSubtitle": "The only journey is the one within. (Rainer Maria Rilke)",
+    "features": [
+        {
+            "name": "Cyclical Task Management",
+            "description": "Explore the feature in the app or have a chat with me to learn more about this feature."
+        },
+        {
+            "name": "Journalling",
+            "description": "Explore the feature in the app or have a chat with me to learn more about this feature."
+        },
+        {
+            "name": "Roadmapping",
+            "description": "Explore the feature in the app or have a chat with me to learn more about this feature."
+        },
+        {
+            "name": "Time Management",
+            "description": "Explore the feature in the app or have a chat with me to learn more about this feature."
+        }
+    ],
+    "featuresSubtext": "Designed to help nurture development and growth.",
+    "subText": "Digital tools to help your transient journey through Life.",
+    "narrative": "<b>where u goin shawty?</b> \n\n  if u been on that daily hustle and grind but struggle to feel in tune with the journey or the meaning within.... then dude/dudette perk up your ears, cause the answer for you may be here...! \n\n  dis space was designed to help connect with the transient, meaningful journey of personal development, to help u get ur yearning hands on BALANCE and ABUNDANCE with ease. \n\n Seeds grow and are nourished by water and stuff, and ideas are nourished too, and this seedling of an idea was inspired by sukkot, the jewish harvest festival, which explores themes of journeying, the transient human experience, and hereness... wow, woo, journeys, humans, hereness !? \n\n and that's why this app gives transient spaces for journeying with life in a balanced way which invites YOU to live meaningfully and in a way which is authentic to yourself (...who else, silly!?) \n\n Anyhoot, it's certainly incomplete - but that's cool, cause so are u! ",
+    "intentionalText": "I am happy to share this space with you, please explore and experience it with an open mind noting that this space and the basic tools are still in a relatively early stage",
+    "links": [
+        {
+            "name": "Create an account",
+            "text": "Create an account",
+            "url": "/register"
+        },
+        {
+            "name": "See Landing Page",
+            "text": "See Landing Page",
+            "url": "/homepage"
+        },
+        {
+            "name": "Leave some feedback",
+            "text": "Leave some feedback",
+            "url": "/releases/feedback"
+        }
+    ],
+    "upcomingFeatures": [
+        {
+            "name": "Time Mapping Enhancements",
+            "description": "Addition of a calendar like feature which helps better to schedule/organise one's activities, alongside gateway related time-tracking and hopefully some UI enhancements."
+        },
+        {
+            "name": "Active Subscriptions",
+            "description": "Membership subscriptions allow for multiple booths and access to moore features, whilst subscription fees can help support sustainable growth for the project."
+        },
+        {
+            "name": "Project Management Booths",
+            "description": "Project management booths offer a less transient space dedicated towards helping you manage meaningful longer term projects."
+        },
+        {
+            "name": "Teachings Booths",
+            "description": "Teaching Booths offer a space dedicated towards providing moral grounding, or directional insight, on specific subject matters to help users live in alignment with meaning, belief, faith. "
+        }
+    ],
+    "prospectiveFeatures": [
+        {
+            "name": "Shared Booths",
+            "description": "Allowing personal booths to become shared spaces such that we can engage in shared journeys, and shared growth with people we want to grow with."
+        },
+        {
+            "name": "Mobile application",
+            "description": "Adding a mobile app, to allow users to manage their transient journey on the go."
+        },
+        {
+            "name": "AI enhancements",
+            "description": "AI Integration can help automate or streamline some of the mudane flows to help streamline some of the tedious processes."
+        }
+    ]
+}

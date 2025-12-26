@@ -1,0 +1,31 @@
+@import 'modules/shelter/components/BoothScreen/Sidemenu/styles.module.scss';
+
+.container {
+    @extend .container;
+    height: 100vh;
+}
+
+.header {
+    @extend .header;
+}
+
+.active {
+    @extend .active;
+}
+
+.links {
+    @extend .links;
+}
+
+.linkContainer {
+    @extend .linkContainer;
+}
+
+.closed {
+    @extend .closed;
+}
+
+.open {
+    @extend .open;
+}
+

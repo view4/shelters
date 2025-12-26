@@ -10,6 +10,9 @@ export class Stamps {
 
     @Prop({ required: false })
     focused: Date;
+
+    @Prop({ required: false })
+    denied: Date;
 }
 
 export const StampsSchema = SchemaFactory.createForClass(Stamps);

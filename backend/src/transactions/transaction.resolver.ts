@@ -1,8 +1,9 @@
-import { Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { TransactionService } from './transaction.service';
 import { SessionUser } from 'src/auth/decorators/session-user.decorator';
+import { AdminAuthGuard } from 'src/auth/admin-auth.guard';
 
 @Resolver('User')
 export class TransactionResolver {
@@ -26,4 +27,11 @@ export class TransactionResolver {
     return this.service.cancelMembership(user.id);
   }
 
+  @Mutation()
+  @UseGuards(AdminAuthGuard)
+  async syncSubscriptionPayments(
+    @Args('userId') userId: string
+  ) {
+    return this.service.syncSubscriptionPayments(userId);
+  }
 }

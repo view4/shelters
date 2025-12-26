@@ -49,7 +49,7 @@ const MembershipRegistration = () => {
                     </Button>
                 </Card>
             </Container>
-            <Drawer origin="right" isOpen={isOpen} close={close}>
+            <Drawer className={styles.drawer} origin="right" isOpen={isOpen} close={close}>
                 <PaymentsSection clientSecret={clientSecret} options={paymentOptions} />
             </Drawer>
         </Screen>

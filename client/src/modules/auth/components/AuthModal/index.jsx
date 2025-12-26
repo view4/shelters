@@ -87,5 +87,3 @@ export default strappedConnected(
     { login: cells.login.action, register: cells.register.action },
     () => ({})
 );
-
-

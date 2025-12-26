@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'modules/Core/sub-modules/ui-kit/components/Button';
 import { useIsOpen } from 'modules/Core/hooks/useIsOpen';
-import AuthModal from 'modules/auth/components/AuthModal';
+import AuthModal from 'modules/auth/components/AuthModal/index';
 
 
 export const AUTH_MODES = {

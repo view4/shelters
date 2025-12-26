@@ -22,11 +22,17 @@
 
     .title {
         font-size: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: -webkit-box;
+        -webkit-line-clamp:1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
+        max-height: calc(1.2 * 2rem);
+        max-width: 90%;
         margin: 0.5rem;
         width: fit-content;
+        cursor: default;
     }
 
     .subheadingContainer {
