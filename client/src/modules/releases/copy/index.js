@@ -3,7 +3,7 @@ import flowingMatterRelease from "./flowing-matter-release.json";
 
 const releases = {
     sukkot: sukkotRelease,
-    "flowing-matter": flowingMatterRelease
+    "2026": flowingMatterRelease
 };
 
 export default releases;

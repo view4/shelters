@@ -13,6 +13,7 @@ import { SubscriptionPayment } from './schemas/subscription-payment.schema';
 @Injectable()
 export class StripeService {
   stripe: Stripe;
+  environment: string;
   constructor(
     private authService: AuthService,
     private configService: ConfigService,
@@ -23,6 +24,7 @@ export class StripeService {
     this.stripe = new Stripe(
       this.configService.get<string>('STRIPE_SECRET_KEY'),
     );
+    this.environment = this.configService.get<string>('ENV');
   }
 
 
@@ -49,10 +51,12 @@ export class StripeService {
       name: "User Name Here",
       metadata: {
         userId: `${userId}`,
+        environment: this.environment,
       },
     }, {
       idempotencyKey: `${userId}-customer`,
     });
+    console.log('STRIPE CUSTOMER', customer);
     return customer
   }
 
@@ -70,6 +74,7 @@ export class StripeService {
       },
       metadata: {
         userId: `${userId}`,
+        environment: this.environment,
       }
     }, {
       idempotencyKey: `${userId}-subscription`,
@@ -133,7 +138,7 @@ export class StripeService {
     const subscription = await filterOne(this.subscriptionModel, { subscriptionId: payment.subscription });
     await upsertOne(this.subscriptionPaymentModel, {
       externalId: payment.id,
-      amount: payment.amount_due,
+      amount: Number(payment.amount_due) / 100,
       currency: payment.currency,
       subscription: new mongoose.Types.ObjectId(subscription._id),
       status: "pending",
@@ -145,7 +150,7 @@ export class StripeService {
     const subscription = await filterOne(this.subscriptionModel, { subscriptionId: payment.subscription });
     await upsertOne(this.subscriptionPaymentModel, {
       externalId: payment.id,
-      amount: payment.amount_due,
+      amount: Number(payment.amount_due) / 100,
       currency: payment.currency,
       subscription: new mongoose.Types.ObjectId(subscription._id),
       status: "paid",

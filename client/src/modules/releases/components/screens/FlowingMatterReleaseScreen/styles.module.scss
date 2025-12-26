@@ -101,6 +101,7 @@
                 img {
                     width: 18rem;
                     height: 18rem;
+                    opacity: 0.54;
                 }
             }
 
@@ -402,18 +403,10 @@
 .narrativeSection {
     position: relative;
 
-    // overflow: visible;
-    // h2 {
-    //     font-size: 1.75rem;
-    //     margin-left: 2rem;
-    //     text-align: left;
-    //     z-index: 2;
-    //     position: relative;
-    // }
+
 
     .narrativeContainer {
         position: relative;
-        // padding: 0.5rem;
         height: -webkit-fill-available;
         overflow: scroll;
         display: flex;
@@ -447,7 +440,6 @@
             top: 7%;
             width: clamp(10rem, 12vw, 18rem);
             height: clamp(10rem, 12vw, 18rem);
-            // background-image: url("../../../assets/four-species.png");
             background-image: url("../../../assets/sukkah-wip.png");
 
             background-repeat: no-repeat;
@@ -461,16 +453,16 @@
     }
 
     .narrativeText {
-        font-size: 1.5rem;
+        font-size: 1.15rem;
         font-weight: 500;
-        line-height: 1.25;
+        line-height: 0.9;
         color: #2d3748;
         position: relative;
         z-index: 2;
-        // max-width: 90%;
         margin: 0 0.5rem;
         text-align: left;
         transition: all 0.25s ease;
+        white-space: break-spaces;
 
         @media (max-width: 1200px) {
             font-size: 1.2rem;
@@ -910,6 +902,7 @@
         padding: 0rem;
         margin: 0rem;
     }
+
 }
 
 .upcomingFeaturesCard {
@@ -927,6 +920,9 @@
         max-height: 54vh;
         overflow-y: scroll;
         padding: 0.75rem 0.75rem 1rem;
+    }
+    & div {
+        white-space: break-spaces;
     }
 
 

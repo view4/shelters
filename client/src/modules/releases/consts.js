@@ -1,6 +1,6 @@
 export const RELEASES = 'releases';
 
 export const RELEASE_KEYS = {
-    "flowing-matter": "flowing-matter",
+    "2026": "2026",
     "sukkot": "sukkot",
 }
