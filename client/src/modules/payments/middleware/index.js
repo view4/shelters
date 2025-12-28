@@ -16,6 +16,7 @@ export default new MiddlewareModule({
                             email
                             id
                         }
+                        receiptUrl
                     }
                     info {
                         totalCount

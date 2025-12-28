@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import strapped from "modules/Core/higher-order-components/strapped";
 import paymentsFeed from "modules/payments/state/feed";
 import styles from "./styles.module.scss";
+import { formatDate } from "modules/Core/utils/date";
 
 export default strapped(paymentsFeed.FeedComponent, ({ userId }) => ({
     // feed: MOCK_DATA,
@@ -11,6 +12,7 @@ export default strapped(paymentsFeed.FeedComponent, ({ userId }) => ({
         {
             key: "paidAt",
             label: "Paid At",
+            parser: formatDate,
         },
         {
             key: "notes",
@@ -19,7 +21,7 @@ export default strapped(paymentsFeed.FeedComponent, ({ userId }) => ({
         },
         {
             key: "amount",
-            label: "Amount",
+            label: "Amount (GBP)",
         },
         {
             key: "receiptUrl",

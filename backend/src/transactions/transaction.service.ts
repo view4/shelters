@@ -47,7 +47,7 @@ export class TransactionService {
     if (userId) {
       match['user'] = new mongoose.Types.ObjectId(userId);
     }
-    return aggregateFeed(
+    const res = await aggregateFeed(
       this.subscriptionPaymentModel,
       {
         sort: { createdAt: -1 },
@@ -67,10 +67,10 @@ export class TransactionService {
         }
       ],
     )
+    return res;
   }
 
   async syncSubscriptionPayments(userId: string) {
-    return true;
     await this.stripeService.syncSubscriptionPayments(userId);
     return true;
   }
