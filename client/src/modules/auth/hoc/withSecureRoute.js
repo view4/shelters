@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import cells from "../state";
-import AuthModal from "../components/AuthModal/__index";
+import AuthModal from "../components/AuthModal";
 
 const { validateToken } = cells;
 
