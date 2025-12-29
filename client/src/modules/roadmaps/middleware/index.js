@@ -1,6 +1,7 @@
 import MiddlewareModule from "modules/Core/core-modules/MiddlewareModule";
 import { ROADMAPS } from "../consts";
 import { STAMPS_FRAGMENT } from "modules/Core/consts/graphql";
+import { FEED_INFO_FRAGMENT } from "modules/Core/middleware/const";
 
 export const GATEWAY_FIELDS_FRAGMENT = `
                 id
@@ -55,6 +56,7 @@ export default new MiddlewareModule({
             query gateways($feedParams: FeedParams, $boothId: String, $parentId: String, $isCycleless: Boolean ) {
                 feed: gateways(feedParams: $feedParams, boothId: $boothId, parentId: $parentId, isCycleless: $isCycleless) {
                     entities ${GATEWAY_FRAGMENT}
+                    ${FEED_INFO_FRAGMENT}
                 }    
             }
         `,

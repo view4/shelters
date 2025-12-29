@@ -12,8 +12,6 @@ export default () => {
         setIsValidating(true);
         try {
             const result = await dispatch(invitationCells.validateInvitation.action({ email, linkId }));
-            console.log("does this dispatch await work...? 🤔");
-            console.log(result);
             setIsValidating(false);
             return result?.isValid || false;
         } catch (error) {

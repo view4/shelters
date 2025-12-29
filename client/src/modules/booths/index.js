@@ -16,6 +16,8 @@ import {
   BoothInfoScreen,
   BoothRoadmapsScreen,
 } from "./components/screens";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default new CoreModule({
   name: BOOTHS,
@@ -32,7 +34,14 @@ export default new CoreModule({
     fetchActiveBooths: cells?.fetchActiveBooths,
   },
   routes: {
-    "/create": withSecureRoute(CreateBoothScreen),
+    "/create": withSecureRoute(() => {
+      const navigate = useNavigate();
+      useEffect(() => {
+          navigate("/booths/create");
+      }, [ navigate]);
+      return null;
+    }),
+    "/booths/create": withSecureRoute(CreateBoothScreen),
     "/": withSecureRoute(ActiveBoothScreen, {redirectUrl: "/homepage"}),
     "/booths": withSecureRoute(BoothsScreen),
     "/booths/:boothId": withParams(BoothScreen),

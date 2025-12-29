@@ -143,7 +143,7 @@ export class StripeService {
       subscription: new mongoose.Types.ObjectId(subscription._id),
       status: "pending",
       user: new mongoose.Types.ObjectId(subscription.user),
-    }, { user: new mongoose.Types.ObjectId(subscription.user), externalId: payment.id });
+    }, { externalId: payment.id });
   }
 
   async handleSubscriptionPaymentPaid(payment: Stripe.Invoice) {
@@ -155,20 +155,22 @@ export class StripeService {
       subscription: new mongoose.Types.ObjectId(subscription._id),
       status: "paid",
       user: new mongoose.Types.ObjectId(subscription.user),
-      paidAt: new Date(payment.created),
-    }, { user: new mongoose.Types.ObjectId(subscription.user), externalId: payment.id });
+      paidAt: new Date(payment.status_transitions.paid_at * 1000),
+      receiptUrl: payment.hosted_invoice_url,
+    }, { externalId: payment.id });
   }
 
   async handleSubscriptionPaymentFailed(payment: Stripe.Invoice) {
     const subscription = await filterOne(this.subscriptionModel, { subscriptionId: payment.subscription });
     await upsertOne(this.subscriptionPaymentModel, {
       externalId: payment.id,
-      amount: payment.amount_due,
+      amount: payment.amount_due / 100,
       currency: payment.currency,
       subscription: new mongoose.Types.ObjectId(subscription._id),
       status: "failed",
       user: new mongoose.Types.ObjectId(subscription.user),
-    }, { user: new mongoose.Types.ObjectId(subscription.user), externalId: payment.id });
+      receiptUrl: payment.hosted_invoice_url,
+    }, { externalId: payment.id });
   }
 
   async fetchSubscriptionPayments(subscriptionId: string) {
@@ -183,13 +185,14 @@ export class StripeService {
     for (const payment of payments) {
       await upsertOne(this.subscriptionPaymentModel, {
         externalId: payment.id,
-        amount: payment.amount_due,
+        amount: payment.amount_due / 100,
         currency: payment.currency,
         status: payment.status === 'paid' ? 'paid' : 'pending',
         subscription: new mongoose.Types.ObjectId(subscriptionId),
-        paidAt: new Date(payment.created),
+        paidAt: new Date(payment.status_transitions.paid_at * 1000),
+        user: new mongoose.Types.ObjectId(payment.subscription_details.metadata.userId),
+        receiptUrl: payment.hosted_invoice_url,
       }, {
-        user: new mongoose.Types.ObjectId(payment.metadata.userId),
         externalId: payment.id,
       });
     }
@@ -209,7 +212,7 @@ export class StripeService {
         shouldFetch = false;
       }
     }
-    await this.upsertSubscriptionPayments(data, subscription.subscriptionId);
+    await this.upsertSubscriptionPayments(data, subscription._id);
     return true;
   }
 

@@ -5,6 +5,7 @@ import { STAMPS } from "modules/Core/consts";
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected";
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender";
 import { onError, onSuccess } from "modules/Core/sub-modules/Dialog/state/cells";
+import boothCells from "modules/booths/state/index";
 
 export default withFocusedBoothId(strappedConnected(
     withShouldRender(Button),
@@ -13,13 +14,15 @@ export default withFocusedBoothId(strappedConnected(
         stamp: (id, callback) => feed.cells.stampEntity.action({ key: STAMPS.COMMENCED, id, callback }),
         refetch: (id) => feed.cells.fetchEntity.action({ id }),
         onSuccess: onSuccess,
-        onError
+        onError,
+        fetchActiveBooths: boothCells.fetchActiveBooths.action
     },
-    ({ boothId: id, stamp, stamps, refetch, onError, onSuccess }) => ({
+    ({ boothId: id, stamp, stamps, refetch, onError, onSuccess, fetchActiveBooths }) => ({
         onConfirm: (close) => stamp(id, ({ id }) => {
             if (!Boolean(id)) return onError("Failed to activate this booth")
             onSuccess("Booth activated!")
             refetch(id)
+            fetchActiveBooths()
             close()
         }),
         panel: true,

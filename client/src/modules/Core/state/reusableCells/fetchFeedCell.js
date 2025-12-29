@@ -16,6 +16,7 @@ export default (moduleName, { requestHandler, parseRes = defaultParseRes, batchS
         getFeed: state => state?.stream?.map(id => state.entities[id]),
         getFeedHasMore: state => state?.feedCount > (state?.feedBookmark + batchSize),
         getFeedCount: state => state?.feedCount,
+        getEntityCount: state => state?.stream?.length ?? 0,
     },
     reducer: (state, { payload }) => {
         state.feedIsLoading = true;

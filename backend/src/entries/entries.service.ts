@@ -22,6 +22,7 @@ export class EntriesService {
             ] : null
         })
         match['booth'] = boothId ? new mongoose.Types.ObjectId(boothId) : null;
+        if(!boothId) return { entities: [], info: { total: 0, limit: feedParams?.limit, } };
         return this.aggregateFeed(
             {
                 match: match,
@@ -70,11 +71,12 @@ export class EntriesService {
     }
 
 
-    async upsertEntry(input: EntryInput, id?: ID) {
+    async upsertEntry(userId: ID, input: EntryInput, id?: ID) {
         return upsert(this.entryModel, {
             booth: input.boothId,
             text: input.text,
             name: input.name,
+            user: userId,
             // parent: input.parentId,
         }, id);
     }

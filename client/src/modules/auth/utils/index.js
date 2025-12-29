@@ -8,7 +8,7 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect
+  signInWithRedirect,
 } from "firebase/auth";
 
 
@@ -30,6 +30,8 @@ export const onAuthStateChange = (callback) => onAuthStateChanged(auth, callback
 export const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
 export const register = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const logout = () => signOut(auth);
+
+export const getUser = () => auth.currentUser;
 
 export const providerBasedAuthentication = async (provider) => {
   switch (provider) {

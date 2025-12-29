@@ -1,3 +1,44 @@
+@import "src/modules/Core/styles/variables.scss";
+
+.headerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    position: relative;
+    height: 10rem;
+    margin-bottom: 1rem;
+    .header {
+        width: 80%;
+        margin-top: unset;
+        height: unset;
+    }
+}
+
 .cancelButton {
     padding: 0.5rem 2rem !important;
+}
+
+.cancelledStamp {
+    position: absolute;
+    height: 2rem;
+    top: calc(50%);
+    transform: translateY(-50%);
+    right: 0;
+    color: #dc2626 !important;
+    border-color: #dc2626 !important;
+    border-width: 3px;
+    border-style: dotted;
+    border-radius: 10%;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    opacity: 0.9;
+    
+    p {
+        color: #dc2626 !important;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
 }

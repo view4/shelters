@@ -38,7 +38,7 @@ export default {
         BOOTHS,
         {
             name: "fetchActiveBooths",
-            selector: (state) => state.activeBooths,
+            selector: (state) => state.booths?.activeBooths,
             selectors: {
                 isLoading: (state) => state.isLoading
             },
@@ -54,7 +54,7 @@ export default {
             },
             successCell: {
                 reducer: (state, { payload }) => {
-                    state.activeBooths = payload.entities
+                    state.activeBooths = payload.entities ?? []
                     state.isLoading = false
                 }
             }

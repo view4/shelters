@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from "react"
-import cx from "classnames"
+import { useMemo } from "react"
+import c from "classnames"
 import strappedConnected from "modules/Core/higher-order-components/strappedConnected"
 import Screen from "../Screen"
 import Sidemenu from "./Sidemenu"
@@ -9,6 +9,8 @@ import boothCells from "modules/booths/state/index";
 import { useOnLoad } from "modules/Core/hooks/useOnLoad"
 import withShouldRender from "modules/Core/higher-order-components/withShouldRender"
 import styles from "./styles.module.scss";
+import UserGuideComponent from "../UserGuide"
+
 
 export default strappedConnected(
     withShouldRender(Screen),
@@ -22,7 +24,7 @@ export default strappedConnected(
         fetchFocusedBooth: boothCells.fetchFocusedBooth.action,
         fetchBooth: (id) => feed.cells?.fetchEntity.action({ id })
     },
-    ({ isAuthed, header, className, fetchFocusedBooth, focusedBoothId, fetchBooth, boothId, focusedBoothExists, ...props }) => {
+    ({ isAuthed, header, children, className, fetchFocusedBooth, focusedBoothId, fetchBooth, boothId, focusedBoothExists, ...props }) => {
         useOnLoad(
             () => fetchFocusedBooth(),
             !focusedBoothId && !focusedBoothExists && isAuthed,
@@ -36,14 +38,19 @@ export default strappedConnected(
 
         return ({
             LeftPanelComponent: Sidemenu,
+            RightPanelComponent: UserGuideComponent,
             tripanel: true,
             header: false,
-            className: cx(styles.screen, className),
+            className: c(styles.screen, className),
             shouldRender: Boolean(isAuthed),
             leftProps: useMemo(() => ({
                 isAuthed,
                 header
             }), [isAuthed, header]),
+            rightProps: useMemo(() => ({
+                boothId,
+                focusedBoothId
+            }), [boothId, focusedBoothId])
         })
     }
 

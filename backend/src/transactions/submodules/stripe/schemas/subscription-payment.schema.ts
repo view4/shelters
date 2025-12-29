@@ -16,11 +16,11 @@ export class SubscriptionPayment {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   user: User
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   externalId: string;
 
   @Prop({ required: true })
-  amount: string;
+  amount: number;
 
   @Prop({ required: true })
   currency: string;
@@ -33,6 +33,9 @@ export class SubscriptionPayment {
 
   @Prop({ required: true, enum: ["pending", "paid", "failed"] })
   status: "pending" | "paid" | "failed";
+
+  @Prop({ required: false })
+  receiptUrl: string;
 }
 
 export const SubscriptionPaymentSchema = SchemaFactory.createForClass(SubscriptionPayment);

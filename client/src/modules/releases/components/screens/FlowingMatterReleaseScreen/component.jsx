@@ -195,7 +195,7 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                         Seeds grow and are nourished by water and stuff, and ideas are nourished too, and this seedling of an idea was inspired by sukkot, the jewish harvest festival, which explores themes of journeying, the transient human experience, and hereness... wow, woo, journeys, humans, hereness !? 
                         <br/>
                         <br/>
-                        and that's why this app gives transient spaces for journeying with life in a balanced way which invites YOU to live meaningfully and in a way which is authentic to yourself (...who else, silly!?) 
+                        and that's why this app offers transient digital spaces equipped with tools to enrich your journey with life in a balanced way which invites YOU to live meaningfully and in a way which is authentic to yourself (...who else, silly!?) 
                         <br/>
                         <br/>
                         Anyhoot, it's certainly incomplete - but that's cool, cause so are u!
@@ -245,11 +245,7 @@ const ReleaseScreen = ({ title, releaseDate, features, links, narrative, hasErro
                                     text="Share feedback"
                                     to="/releases/feedback"
                                 />
-                                <Button
-                                    onClick={() => setIsSubscribitionModalOpen(true)}
-                                    className={cx(styles.funkyButton, styles.funkyButton3)}
-                                    text="Subscribe now!"
-                                />
+            
                             </Container>
                         </Container>
                     </Container>

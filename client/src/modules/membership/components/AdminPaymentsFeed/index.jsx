@@ -4,6 +4,7 @@ import paymentsFeed from "modules/payments/state/feed";
 import Card from "modules/Core/sub-modules/ui-kit/components/Card";
 import Container from "modules/Core/sub-modules/ui-kit/components/Container";
 import Text from "modules/Core/sub-modules/ui-kit/components/Text";
+import { formatDate } from "modules/Core/utils/date";
 
 
 export const FeedRowItem = ({ data }) => (
@@ -46,6 +47,7 @@ export default strapped(paymentsFeed.FeedComponent, ({ userId }) => ({
         {
             key: "paidAt",
             label: "Paid At",
+            parser: formatDate,
         },
 
         {
@@ -59,7 +61,7 @@ export default strapped(paymentsFeed.FeedComponent, ({ userId }) => ({
         {
             key: "receiptUrl",
             label: "Receipt URL",
-            parser: (value) => <a href={"google.com"} target="_blank" rel="noreferrer">{"receipt"}</a>,
+            parser: (value) => <a href={value} target="_blank" rel="noreferrer">{"receipt"}</a>,
         },
     ],
 }));

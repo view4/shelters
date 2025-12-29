@@ -1,35 +1,261 @@
+@import "src/modules/Core/styles/variables.scss";
+
 .container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+}
+
+.backButton {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  // z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: white;
+  // border: 1px solid $grey18;
+  border: none;
+  border-radius: 0.5rem;
+  color: $grey72;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  font-weight: 500;
+  // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background: $grey7;
+    border-color: $grey36;
+    transform: translateX(-2px);
+  }
+
+  &:active {
+    transform: translateX(-1px);
+  }
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  height: 100%;
+  padding: 2rem;
+  padding-top: 5rem;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+}
+
+.leftColumn {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
 
   .card {
-    max-width: 54rem;
-    height: 18rem;
+    max-width: 90%;
+    width: 100%;
+    border: 1px solid $grey18;
+    padding: unset !important;
+
+    
     & > div:last-child {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      & p {
-        margin-top: 2rem;
-        max-width: 75%;
-        text-align: center;
-      }
+      padding: 1rem;
+      // padding: 2.5rem 3rem;
+      
       & button {
-        margin-top: 1rem;
+        margin-top: 2rem;
+        padding: 1rem 3rem;
+        font-size: 1.1rem;
+        width: 100%;
+        max-width: 300px;
       }
     }
   }
 }
 
+.subscribeContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.mainText {
+  // text-align: center;
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: $grey72;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.benefitsSection {
+  display: flex;
+  flex-direction: column;
+  // gap: 2rem;
+  padding: 0.5rem 0;
+}
+
+.benefitItem {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  text-align: left;
+}
+
+.benefitIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.benefitTitle {
+  font-size: 1.1rem;
+  color: $grey90;
+  // margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.benefitDesc {
+  font-size: 0.95rem;
+  color: $grey54;
+  line-height: 1.6;
+}
+
+.footerText {
+  text-align: center;
+  font-size: 0.95rem;
+  color: $grey54;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+
+.rightColumn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 1rem 0;
+}
+
+.summaryCard {
+  width: 100%;
+  max-width: 35rem;
+  height: fit-content;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: $grey54;
+  h2 {
+    text-decoration: underline;
+  }
+
+  :global(.card-header) {
+    font-size: 1.5rem;
+    padding: 1.5rem;
+  }
+}
+
+.summaryContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.summaryItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  p:first-child {
+    font-size: 0.9rem;
+    color: $grey90;
+    font-weight: 700;
+  }
+
+  p:last-child {
+    font-size: 1rem;
+    color: $grey72;
+  }
+}
+
+.summaryDivider {
+  height: 1px;
+  background: $grey18;
+  margin: 0.5rem 0;
+}
+
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  li {
+    padding-left: 1.5rem;
+    position: relative;
+    color: $grey72;
+    font-size: 0.95rem;
+    line-height: 1.5;
+
+    &:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: bold;
+    }
+  }
+}
+
+.totalSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: $grey7;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.totalLabel {
+  font-size: 1.1rem;
+  color: black;
+}
+
+.totalAmount {
+  font-size: 1.5rem;
+  color: black;
+}
+
 .drawer {
   overflow-y: auto;
 }
+
 .paymentsContainer {
   max-width: 75%;
   margin: 3rem auto;
   overflow-y: auto;
+  
   .paymentsCard {
     padding: 5%;
   }
