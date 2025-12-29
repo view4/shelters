@@ -75,7 +75,7 @@ const columns = [
     {
         key:'sync', 
         label: "Sync payments",
-        render: (props) => <AdminSyncUserSubscriptionPayments userId={props.user.id} />
+        render: (props) => <AdminSyncUserSubscriptionPayments userId={props?.user?.id} />
     }
 ]
 
