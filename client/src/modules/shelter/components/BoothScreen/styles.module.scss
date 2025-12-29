@@ -1,0 +1,8 @@
+@import "src/modules/Core/styles/variables.scss";
+
+
+.screen {
+  & > div {
+    height: 100vh;;
+  }
+}
