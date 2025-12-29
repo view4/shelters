@@ -24,7 +24,7 @@ export default strappedConnected(
         fetchFocusedBooth: boothCells.fetchFocusedBooth.action,
         fetchBooth: (id) => feed.cells?.fetchEntity.action({ id })
     },
-    ({ isAuthed, header, children, className, fetchFocusedBooth, focusedBoothId, fetchBooth, boothId, focusedBoothExists, ...props }) => {
+    ({ isAuthed, header, children, className, RightPanelComponent, fetchFocusedBooth, focusedBoothId, fetchBooth, boothId, focusedBoothExists, ...props }) => {
         useOnLoad(
             () => fetchFocusedBooth(),
             !focusedBoothId && !focusedBoothExists && isAuthed,
@@ -38,7 +38,7 @@ export default strappedConnected(
 
         return ({
             LeftPanelComponent: Sidemenu,
-            RightPanelComponent: UserGuideComponent,
+            RightPanelComponent: RightPanelComponent || UserGuideComponent,
             tripanel: true,
             header: false,
             className: c(styles.screen, className),
