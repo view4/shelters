@@ -68,7 +68,6 @@ export default strappedConnected(
     ({ user, refetch }) => {
         const success = useOnSuccess();
         const onCancelSuccess = useCallback((result) => {
-            console.log(result);
             if (Boolean(result)) {
                 success("Subscription cancelled successfully");
                 refetch();

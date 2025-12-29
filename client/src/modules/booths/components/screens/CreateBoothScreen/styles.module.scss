@@ -1,0 +1,8 @@
+.form {
+    // border: 1px solid red;
+    & > div:last-child {
+        position: relative;
+        box-shadow: none;
+        border: none;
+    }
+}

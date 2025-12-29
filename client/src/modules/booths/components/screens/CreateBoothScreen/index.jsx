@@ -4,15 +4,13 @@ import strappedConnected from "modules/Core/higher-order-components/strappedConn
 import component from "./component";
 import useOnSuccess from "modules/Core/sub-modules/Dialog/hooks/useOnSuccess";
 import { useNavigate } from "react-router-dom";
-import { useOnLoad } from "modules/Core/hooks/useOnLoad";
 import authCells from "modules/auth/state";
-import useOnError from "modules/Core/sub-modules/Dialog/hooks/useOnError";
 import withQueryParams from "modules/Core/higher-order-components/withQueryParams";
 
 import BoothParentField from "../../BoothParentField";
 
 export const BOOTH_SCHEMA = {
-    title: "Create Booth",      
+    title: "Create Booth",
     fields: {
         parentId: {
             Component: withQueryParams(BoothParentField),
@@ -38,18 +36,18 @@ export default strappedConnected(
         boothCount: authCells.validateToken.selectors.boothCount,
     },
     {
-        create: feed.cells?.createEntity.action
-
+        create: feed.cells?.createEntity.action,
+        refetchUser: authCells.validateToken.action
     },
-    ({ create, hasActiveMembership, boothCount }) => {
+    ({ create, refetchUser }) => {
         const onSuccess = useOnSuccess();
-        const onError = useOnError();
         const nav = useNavigate();
         const callback = useCallback((res) => {
             if (!res?.id) return null
+            refetchUser()
             onSuccess(`Booth created`)
             nav(`/booths/${res?.id}`)
-        }, [nav, onSuccess]);
+        }, [nav, onSuccess, refetchUser]);
 
         // DISABLED FOR NOW:
         // useOnLoad(() => {

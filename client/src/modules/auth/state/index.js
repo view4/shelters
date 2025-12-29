@@ -1,7 +1,7 @@
 import { initCell } from "modules/Core/core-modules/CoreModuleState/utils/cells";
 import { call, put } from "redux-saga/effects";
 import middleware from "../middleware";
-import { login, getToken, logout, register } from "../utils";
+import { login, logout, register, getUser } from "../utils";
 import { deleteToken, saveToken } from "modules/Core/utils/auth";
 import { AUTH } from "../consts";
 import { onError } from "modules/Core/sub-modules/Dialog/state/cells";
@@ -73,9 +73,13 @@ export default {
       hasAdminRole: (state) => state.user?.roles?.includes("admin")
     },
     sagas: {
-      latest: function* ({ payload: { user } }) {
+      latest: function* ({ payload: { user: _user } = {} }) {
+        let user = _user;
+        if (!_user) {
+          user = yield call(getUser);
+        }
         // maybe get token
-        if (!user?.accessToken) {
+        if (!user?.accessToken ) {
           throw new Error("Invalid token");
         }
         saveToken(user?.accessToken);

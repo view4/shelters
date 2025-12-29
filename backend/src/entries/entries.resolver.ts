@@ -1,6 +1,10 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { EntriesService } from "./entries.service";
 import { FeedParams } from "src/common/types";
+import { UseGuards } from "@nestjs/common";
+import { AuthGuard } from "src/auth/auth.guard";
+import { SessionUserT } from "src/auth/types/SessionUserType";
+import { SessionUser } from "src/auth/decorators/session-user.decorator";
 
 export type EntryInput = {
     boothId?: string;
@@ -38,12 +42,14 @@ export class EntriesResolver {
     }
 
 
+    @UseGuards(AuthGuard)
     @Mutation()
     async upsertEntry(
+        @SessionUser() user: SessionUserT,
         @Args('input') input: EntryInput,
         @Args('id', { type: () => String }) id?: string
     ) {
-        return this.entrysService.upsertEntry(input, id);
+        return this.entrysService.upsertEntry(user?.id, input, id);
     }
 
     @Mutation()
